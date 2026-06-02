@@ -1,0 +1,64 @@
+aid: incentivio
+name: Incentivio
+description: >-
+  Incentivio is a Boston-based digital guest engagement platform for multi-unit
+  restaurant brands, unifying online ordering, loyalty, marketing automation,
+  and guest analytics into a single system. Its Incentivio Connect product is an
+  AI-powered, API-first restaurant data platform that ingests data from POS,
+  loyalty, mobile apps, and marketplaces, then scores guests for lifetime value,
+  churn risk, and journey stage. Incentivio is built on modern APIs and offers
+  deep partner integrations with POS, payments, delivery, and marketing systems
+  such as Toast, Oracle Simphony, Square, SpotOn, and PAR Brink. Public,
+  self-service developer API documentation does not appear to be available;
+  integration and API access are handled through partnerships and enterprise
+  onboarding.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Restaurant
+  - Guest Engagement
+  - Online Ordering
+  - Loyalty
+  - Customer Data Platform
+  - Marketing Automation
+  - Analytics
+url: https://raw.githubusercontent.com/api-evangelist/incentivio/refs/heads/main/apis.yml
+created: '2026-06-02'
+modified: '2026-06-02'
+specificationVersion: '0.19'
+apis:
+  - aid: incentivio:rest-api
+    name: Incentivio Connect Platform API
+    description: >-
+      Incentivio describes an API-first, composable data platform that unifies
+      guest data across POS, loyalty, app, and marketplace channels, with
+      reverse ETL to sync to existing CRM and ad platforms. Real-time loyalty
+      and digital events plus structured POS data are processed for guest
+      scoring and segmentation. Public API reference, base URL, and
+      authentication details are not published; access is provided through
+      partner and enterprise integration programs.
+    humanURL: https://incentivio.com/feature/incentivio-connect/
+    tags:
+      - Guest Data
+      - Integrations
+    properties:
+      - type: Documentation
+        url: https://incentivio.com/feature/incentivio-connect/
+common:
+  - type: Website
+    url: https://incentivio.com/
+  - type: Documentation
+    url: https://www.incentivio.com/integrations
+  - type: Pricing
+    url: https://incentivio.com/demo/
+  - type: Support
+    url: https://incentivio.com/contact/
+  - type: Blog
+    url: https://incentivio.com/blog/
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/incentivio
+  - type: X
+    url: https://x.com/incentivio
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
