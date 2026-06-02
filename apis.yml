@@ -5,13 +5,18 @@ description: >-
   restaurant brands, unifying online ordering, loyalty, marketing automation,
   and guest analytics into a single system. Its Incentivio Connect product is an
   AI-powered, API-first restaurant data platform that ingests data from POS,
-  loyalty, mobile apps, and marketplaces, then scores guests for lifetime value,
-  churn risk, and journey stage. Incentivio is built on modern APIs and offers
-  deep partner integrations with POS, payments, delivery, and marketing systems
-  such as Toast, Oracle Simphony, Square, SpotOn, and PAR Brink. Public,
-  self-service developer API documentation does not appear to be available;
-  integration and API access are handled through partnerships and enterprise
-  onboarding.
+  loyalty, mobile apps, web, and marketplaces, resolves it into a single
+  persistent Guest ID, and scores guests for lifetime value, churn risk, visit
+  frequency, journey stage, propensity-to-purchase, and offer sensitivity. The
+  platform is BigQuery-native with a Star Schema data model, SOC 2 aligned with
+  encryption at rest and in transit and RBAC, and pairs an API-first surface
+  with reverse ETL to sync unified guest records back to existing CRM and ad
+  platforms. Incentivio is built on modern APIs and offers deep partner
+  integrations with POS, payments, delivery, and marketing systems such as
+  Toast, Oracle Simphony, Square, SpotOn, and PAR Brink. Public, self-service
+  developer API documentation does not appear to be available; integration and
+  API access are handled through partnerships and enterprise onboarding (the
+  Connect Enterprise tier markets dedicated API SLAs).
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
@@ -22,6 +27,7 @@ tags:
   - Customer Data Platform
   - Marketing Automation
   - Analytics
+  - Reverse ETL
 url: https://raw.githubusercontent.com/api-evangelist/incentivio/refs/heads/main/apis.yml
 created: '2026-06-02'
 modified: '2026-06-02'
@@ -31,16 +37,20 @@ apis:
     name: Incentivio Connect Platform API
     description: >-
       Incentivio describes an API-first, composable data platform that unifies
-      guest data across POS, loyalty, app, and marketplace channels, with
-      reverse ETL to sync to existing CRM and ad platforms. Real-time loyalty
-      and digital events plus structured POS data are processed for guest
-      scoring and segmentation. Public API reference, base URL, and
-      authentication details are not published; access is provided through
-      partner and enterprise integration programs.
+      guest data across POS, loyalty, app, web, and marketplace channels into a
+      single persistent Guest ID, with reverse ETL to sync to existing CRM and
+      ad platforms. Real-time streaming and structured batch ETL process
+      loyalty and digital events alongside structured POS data for guest
+      scoring and segmentation. The platform is BigQuery-native with a Star
+      Schema data model. Public API reference, base URL, and authentication
+      details are not published; access is provided through partner and
+      enterprise integration programs, with API SLAs offered on the Connect
+      Enterprise tier.
     humanURL: https://incentivio.com/feature/incentivio-connect/
     tags:
       - Guest Data
       - Integrations
+      - Reverse ETL
     properties:
       - type: Documentation
         url: https://incentivio.com/feature/incentivio-connect/
@@ -55,10 +65,124 @@ common:
     url: https://incentivio.com/contact/
   - type: Blog
     url: https://incentivio.com/blog/
+  - type: SignUp
+    url: https://admin.incentivio.com/
   - type: LinkedIn
     url: https://www.linkedin.com/company/incentivio
   - type: X
     url: https://x.com/incentivio
+features:
+  - name: Online Ordering
+    description: >-
+      Branded web and native iOS/Android mobile ordering with menu, modifier,
+      upsell recommendations, and gift card support.
+  - name: Loyalty
+    description: >-
+      Configurable points, punch, or tier loyalty programs unified with
+      ordering, marketing, and guest analytics.
+  - name: Marketing Automation
+    description: >-
+      Email and SMS marketing automation driven by unified guest data and
+      AI-derived segments.
+  - name: AI Guest Scoring
+    description: >-
+      Continuous per-guest scoring for lifetime value, churn risk, visit
+      frequency, journey stage, propensity-to-purchase, and offer sensitivity.
+  - name: Unified Guest Identity
+    description: >-
+      One persistent Guest ID resolved across POS, app, web, and loyalty
+      channels for a single guest record.
+  - name: Reverse ETL
+    description: >-
+      Syncs unified guest records and scores back to existing CRM and ad
+      platforms to fit the brand's existing stack.
+  - name: BigQuery-Native Data Warehouse
+    description: >-
+      BigQuery-native platform with a Star Schema data model and direct
+      warehouse access, optimized for enterprise-scale performance.
+  - name: Closed-Loop ROI Measurement
+    description: >-
+      Executive and operator dashboards that tie AI capability to same-store
+      sales growth with closed-loop measurement.
+useCases:
+  - name: Multi-Unit Restaurant Brands
+    description: >-
+      Multi-unit and franchise restaurant brands consolidating ordering,
+      loyalty, marketing, and analytics on a single platform.
+  - name: Guest Lifetime Value Growth
+    description: >-
+      Identifying high-LTV and at-risk guests to target retention, frequency,
+      and average-order-value campaigns.
+  - name: POS and Channel Data Unification
+    description: >-
+      Unifying POS, loyalty, app, web, and marketplace data into a single guest
+      record for analytics and personalization.
+solutions:
+  - name: Connect Core
+    description: >-
+      Unified data warehouse with executive dashboards and direct warehouse
+      access.
+  - name: Connect Intelligence
+    description: >-
+      Adds the full AI scoring suite (LTV, churn, propensity, offer
+      sensitivity) and closed-loop measurement on top of Core.
+  - name: Connect Enterprise
+    description: >-
+      Dedicated instance with custom data models, API SLAs, and white-glove
+      implementation.
+integrations:
+  - name: Toast
+    description: POS integration with direct API access auto-syncing menus, modifiers, and rules.
+  - name: Square
+    description: POS integration for menu, order, and payment management.
+  - name: Clover
+    description: POS integration.
+  - name: Lightspeed
+    description: POS integration.
+  - name: Oracle MICROS Simphony
+    description: Enterprise POS integration.
+  - name: PAR Brink POS
+    description: POS integration.
+  - name: Qu POS
+    description: POS integration.
+  - name: Revel
+    description: POS integration automating menu imports.
+  - name: Silverware POS
+    description: POS integration.
+  - name: SpotOn
+    description: POS and engagement platform integration with automatic menu syncing.
+  - name: NCC
+    description: POS integration.
+  - name: Stripe
+    description: Payment processing integration.
+  - name: Braintree
+    description: Payment processing integration.
+  - name: Authorize.net
+    description: Payment processing integration.
+  - name: Heartland Payment Systems
+    description: Payment processing integration.
+  - name: Moneris
+    description: Payment processing integration.
+  - name: Spreedly
+    description: Payments orchestration integration.
+  - name: WorldPay
+    description: Payment processing integration.
+  - name: DoorDash Drive
+    description: Delivery dispatch integration.
+  - name: Uber
+    description: Delivery integration.
+  - name: dlivrd
+    description: Delivery dispatch integration.
+  - name: Shipday
+    description: Delivery dispatch integration.
+  - name: Otter
+    description: Delivery/marketplace aggregator integration.
+  - name: EatOkra
+    description: Discovery/marketplace aggregator integration.
+  - name: Ovation
+    description: Guest feedback integration.
+  - name: Tattle
+    description: Guest feedback and experience improvement integration.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
