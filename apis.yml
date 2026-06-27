@@ -65,7 +65,7 @@ common:
     url: https://incentivio.com/contact/
   - type: Blog
     url: https://incentivio.com/blog/
-  - type: SignUp
+  - type: Signup
     url: https://admin.incentivio.com/
   - type: LinkedIn
     url: https://www.linkedin.com/company/incentivio
