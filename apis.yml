@@ -13,10 +13,15 @@ description: >-
   with reverse ETL to sync unified guest records back to existing CRM and ad
   platforms. Incentivio is built on modern APIs and offers deep partner
   integrations with POS, payments, delivery, and marketing systems such as
-  Toast, Oracle Simphony, Square, SpotOn, and PAR Brink. Public, self-service
-  developer API documentation does not appear to be available; integration and
-  API access are handled through partnerships and enterprise onboarding (the
-  Connect Enterprise tier markets dedicated API SLAs).
+  Toast, Oracle Simphony, Square, SpotOn, and PAR Brink. Incentivio runs a
+  Theneo-hosted developer portal at apidocs.incentivio.com that publishes no
+  public projects, but two production Spring Boot services expose live,
+  unauthenticated springdoc OpenAPI definitions on Incentivio's own hosts: the
+  guest-facing Mobile & Ordering API (125 operations) and the operator-facing
+  Admin API (421 operations), both fronted by an OAuth 2.0 authorization server
+  advertised via RFC 8414 metadata. Narrative documentation, pricing, and
+  self-service onboarding remain gated behind partnership and enterprise
+  onboarding (the Connect Enterprise tier markets dedicated API SLAs).
 type: Index
 accessModel:
   pricing: unknown
@@ -39,9 +44,13 @@ tags:
   - Marketing Automation
   - Analytics
   - Reverse ETL
+  - Restaurant Technology
+  - Point of Sale
+  - Gift Cards
+  - Mobile Ordering
 url: https://raw.githubusercontent.com/api-evangelist/incentivio/refs/heads/main/apis.yml
 created: '2026-06-02'
-modified: '2026-06-02'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
   - aid: incentivio:rest-api
@@ -65,6 +74,83 @@ apis:
     properties:
       - type: Documentation
         url: https://incentivio.com/feature/incentivio-connect/
+  - aid: incentivio:mobile-api
+    name: Incentivio Mobile & Ordering API
+    description: >-
+      The guest-facing REST API behind Incentivio's branded web and native
+      mobile ordering apps (order.incentivio.com). A Spring Boot service that
+      publishes a live, unauthenticated springdoc OpenAPI 3.0.1 definition at
+      /v3/api-docs covering 112 paths and 125 operations across catalogs and
+      menus, locations and stores, orders and order items, order payments and
+      payment instruments, gift cards and wallets, loyalty accounts and points,
+      offers and discounts, surveys, segments, messaging, and user accounts with
+      passwordless and OAuth 2.0 sign-in. Requests carry a Bearer access token
+      plus a CLIENTID header that selects the restaurant brand tenant. The
+      definition is machine-generated: it declares no operation summaries or
+      descriptions, no securitySchemes, and only 200 responses, so runtime
+      auth, error and tenancy semantics were captured by live probe instead.
+    humanURL: https://apidocs.incentivio.com/
+    baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+    tags:
+      - Online Ordering
+      - Loyalty
+      - Gift Cards
+      - Payments
+      - Guest Accounts
+    properties:
+      - type: OpenAPI
+        url: openapi/incentivio-mobile-api-openapi.yml
+      - type: Authentication
+        url: authentication/incentivio-authentication.yml
+      - type: Conventions
+        url: conventions/incentivio-conventions.yml
+      - type: ErrorCatalog
+        url: errors/incentivio-error-codes.yml
+      - type: DataModel
+        url: data-model/incentivio-data-model.yml
+      - type: Overlay
+        url: overlays/incentivio-mobile-api-overlay.yaml
+      - type: WellKnown
+        url: well-known/incentivio-well-known.yml
+  - aid: incentivio:admin-api
+    name: Incentivio Admin API
+    description: >-
+      The operator-facing REST API behind Incentivio's brand administration
+      console (admin.incentivio.com). A Spring Boot service that publishes a
+      live, unauthenticated springdoc OpenAPI 3.1.0 definition at /v3/api-docs
+      covering 327 paths and 421 operations across client and merchant
+      configuration, store and location management, menu import and menu
+      intelligence, items and sub-items, campaigns and offer distribution,
+      guest journeys and personas, customer segments and tags, loyalty
+      administration, gift card issuance and ACH funding, payments, refunds and
+      fund transfers, Spreedly payment gateway connectors, role and module
+      permissions, and a large reporting surface (sales, loyalty, offers, gift
+      card balance, deliveries by location, SMS, guest journey, recommendation
+      and customer reports) with CSV export. Tenancy is carried by an
+      Inc-Client-Id header and clientid path parameters.
+    humanURL: https://apidocs.incentivio.com/
+    baseURL: https://adminapi.incentivio.com/incentivio-admin-api
+    tags:
+      - Administration
+      - Reporting
+      - Menu Management
+      - Campaigns
+      - Payments
+    properties:
+      - type: OpenAPI
+        url: openapi/incentivio-admin-api-openapi.yml
+      - type: Authentication
+        url: authentication/incentivio-authentication.yml
+      - type: Conventions
+        url: conventions/incentivio-conventions.yml
+      - type: ErrorCatalog
+        url: errors/incentivio-error-codes.yml
+      - type: DataModel
+        url: data-model/incentivio-data-model.yml
+      - type: Overlay
+        url: overlays/incentivio-admin-api-overlay.yaml
+      - type: WellKnown
+        url: well-known/incentivio-well-known.yml
 common:
   - type: DomainSecurity
     url: security/incentivio-domain-security.yml
@@ -84,6 +170,42 @@ common:
     url: https://www.linkedin.com/company/incentivio
   - type: X
     url: https://x.com/incentivio
+  - type: DeveloperPortal
+    url: https://apidocs.incentivio.com/
+  - type: TermsOfService
+    url: https://incentivio.com/terms-of-use/
+  - type: PrivacyPolicy
+    url: https://incentivio.com/privacy/
+  - type: Login
+    url: https://admin.incentivio.com/
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/incentivio-lifecycle.yml
+  - type: Conformance
+    url: conformance/incentivio-conformance.yml
+  - type: Compliance
+    url: conformance/incentivio-conformance.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+  - type: RateLimits
+    url: rate-limits/incentivio-rate-limits.yml
+  - type: Plans
+    url: plans/incentivio-plans-pricing.yml
+  - type: Packages
+    url: packages/incentivio-packages.yml
+  - type: MCPServer
+    url: mcp/incentivio-mcp.yml
+  - type: LLMsTxt
+    url: llms/incentivio-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
 features:
   - name: Online Ordering
     description: >-
@@ -199,3 +321,8 @@ integrations:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1
