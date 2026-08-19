@@ -1,0 +1,257 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/incentivio-mobile-api-openapi.yml (285 schemas) and
+  openapi/incentivio-admin-api-openapi.yml (621 schemas)
+name: Incentivio data model
+description: >-
+  Entity graph derived from the id-reference fields and $ref links in Incentivio's
+  two OpenAPI definitions. The model is strictly hierarchical and tenant-rooted:
+  a Client (a restaurant brand) owns Merchants, which own Locations/Stores, which
+  carry Catalogs; a User places Orders at a Location, and Loyalty, Offers, Gift
+  Cards and Wallets hang off the User-Client pair. clientId is the most common
+  field in both definitions (37 schemas on the mobile side, 79 on the admin side),
+  which is the model saying out loud that nothing exists outside a brand.
+id_style:
+  format: opaque string
+  prefixes: none
+  note: >-
+    No typed or prefixed identifiers (no cus_/ord_ style). Ids are bare strings,
+    and the same logical entity is referred to as both `id` and `<entity>Id`
+    depending on the schema. `externalId` appears on 13 mobile and 29 admin
+    schemas — the hook by which POS, loyalty and payment systems map their own
+    keys onto Incentivio records.
+entities:
+  - name: Client
+    key: clientId
+    description: >-
+      The restaurant brand tenant. Root of the entire model and required on
+      practically every call, as a CLIENTID / Inc-Client-Id header or a clientid
+      path parameter.
+    schemas: [ClientConfig, ClientDomain, ClientAlias]
+  - name: Merchant
+    key: merchantId
+    description: A billing/operating entity under a Client.
+  - name: Location
+    key: locationId
+    description: A physical restaurant. Carries WorkingHours, Address and OrderValueLimits.
+    schemas: [WorkingHours, Address, OrderValueLimits]
+  - name: Store
+    key: storeId
+    description: >-
+      The ordering/reporting projection of a Location. The admin reporting surface
+      filters almost entirely by storeIds.
+    schemas: [StoreInfo]
+  - name: Catalog
+    key: catalogId
+    description: A menu. Cached and compressed variants are served to clients.
+  - name: Category
+    key: categoryId
+    description: A menu section within a Catalog.
+  - name: Item
+    key: itemId
+    description: A menu item, with sub-items and modifiers.
+  - name: User
+    key: userId
+    description: >-
+      A guest account. Created by email, SMS, external/social identity or
+      passwordless flow.
+  - name: Customer
+    key: customerId
+    description: >-
+      The marketing-side view of a guest, used by segments, tags and journeys —
+      the admin counterpart of User.
+  - name: Order
+    key: orderId
+    description: A guest order. Carries OrderItems, charges, taxes and payments.
+    schemas: [ViewOrderResponseDTO, OrderUpdateSummaryDTO, TaxSummary, ChargeSummary]
+  - name: OrderItem
+    key: orderItemId
+    description: A line on an Order.
+    schemas: [OrderItem, AddOrderItemReqDTO]
+  - name: PaymentInstrument
+    key: paymentInstrumentId
+    description: A stored payment method for a User.
+    schemas: [PaymentRequestDTO]
+  - name: LoyaltyAccount
+    key: null
+    description: >-
+      A guest's loyalty balance and history for a Client. Keyed by the user/client
+      pair rather than its own id; supports an external loyalty id and a loyalty
+      card id.
+  - name: Offer
+    key: offerId
+    description: A promotion. Distributed instances carry distributedOfferId.
+  - name: DistributedOffer
+    key: distributedOfferId
+    description: An Offer issued to a specific guest.
+  - name: GiftCard
+    key: null
+    description: >-
+      Stored-value card. Purchased (purchaseECard), viewed (mygiftcard) and, on
+      the admin side, issued, ACH-funded and reported on.
+  - name: Wallet
+    key: null
+    description: Guest wallet balance.
+  - name: Segment
+    key: null
+    description: A guest segment. Admin side adds segment tags and rules.
+  - name: Persona
+    key: null
+    description: Admin-side guest persona used to drive guest journeys.
+  - name: GuestJourney
+    key: null
+    description: A multi-step marketing journey with its own report surface.
+  - name: Campaign
+    key: null
+    description: An email/SMS marketing campaign.
+  - name: Message
+    key: messageId
+    description: >-
+      An in-app or push message. Distributed instances carry distributedMessageId;
+      multilingual variants are first class.
+  - name: Survey
+    key: surveyId
+    description: A guest survey with submitted answers.
+  - name: Transaction
+    key: null
+    description: Financial/loyalty transaction history for a guest.
+  - name: Group
+    key: groupId
+    description: Grouping construct used for stores and offers.
+  - name: Admin
+    key: adminId
+    description: >-
+      An operator account in the admin console, bound to role/module permissions.
+relationships:
+  - from: Client
+    to: Merchant
+    type: has_many
+    via: merchantId
+  - from: Merchant
+    to: Location
+    type: has_many
+    via: locationId
+  - from: Location
+    to: Store
+    type: has_one
+    via: storeId
+  - from: Client
+    to: Catalog
+    type: has_many
+    via: catalogId
+  - from: Catalog
+    to: Category
+    type: has_many
+    via: categoryId
+  - from: Category
+    to: Item
+    type: has_many
+    via: itemId
+  - from: Item
+    to: Item
+    type: has_many
+    via: sub-item-controller
+    note: sub-items / modifiers are the same entity nested.
+  - from: User
+    to: Order
+    type: has_many
+    via: userId
+  - from: Order
+    to: OrderItem
+    type: has_many
+    via: orderItemId
+  - from: Order
+    to: Location
+    type: belongs_to
+    via: locationId
+  - from: Order
+    to: Client
+    type: belongs_to
+    via: clientId
+  - from: User
+    to: PaymentInstrument
+    type: has_many
+    via: paymentInstrumentId
+  - from: Order
+    to: PaymentInstrument
+    type: belongs_to
+    via: paymentInstrumentId
+  - from: User
+    to: LoyaltyAccount
+    type: has_one
+    via: userId + clientId
+  - from: User
+    to: DistributedOffer
+    type: has_many
+    via: distributedOfferId
+  - from: Offer
+    to: DistributedOffer
+    type: has_many
+    via: offerId
+  - from: Order
+    to: DistributedOffer
+    type: has_many
+    via: distributedOfferId
+    note: order-offers-controller applies and removes discounts on an order.
+  - from: User
+    to: GiftCard
+    type: has_many
+    via: mygiftcard
+  - from: User
+    to: Wallet
+    type: has_one
+  - from: User
+    to: Transaction
+    type: has_many
+  - from: Customer
+    to: Segment
+    type: has_many
+    via: segments-by-customer
+  - from: Segment
+    to: Persona
+    type: has_many
+  - from: GuestJourney
+    to: Persona
+    type: belongs_to
+  - from: Campaign
+    to: Segment
+    type: belongs_to
+  - from: User
+    to: Survey
+    type: has_many
+    via: surveyId
+  - from: Client
+    to: Admin
+    type: has_many
+    via: adminId
+  - from: Admin
+    to: RoleModulePermission
+    type: has_many
+shared_value_objects:
+  - name: DisplayInfo
+    references: 55 (mobile), 17 (admin)
+    note: >-
+      The single most-referenced schema in the mobile definition. Presentation
+      metadata is modelled into the domain objects themselves rather than kept in
+      the client — a notable design choice for a white-label ordering platform.
+  - name: Color
+    references: 49 (mobile)
+  - name: FontVariation
+    references: 15 (mobile)
+  - name: Image
+    references: 10 (mobile)
+  - name: Address
+    references: 9 (mobile)
+  - name: WorkingHours
+    references: 4 (mobile), 10 (admin)
+  - name: PagingDto / PagingDTO / ResultsPagingDTO
+    references: 4 (mobile), 19 + 12 (admin)
+    note: three separate paging shapes across the two services.
+external_system_mapping:
+  field: externalId
+  note: >-
+    The seam where POS (Toast, Simphony, Square, SpotOn, PAR Brink), payment
+    (Spreedly) and loyalty systems attach their own identifiers to Incentivio
+    entities. Present on 13 mobile and 29 admin schemas.
+render: null

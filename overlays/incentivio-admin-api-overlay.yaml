@@ -1,0 +1,160 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Incentivio Admin API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source: >-
+    openapi/incentivio-admin-api-openapi.yml, plus live probes of
+    https://adminapi.incentivio.com/incentivio-admin-api recorded in
+    authentication/, conventions/ and errors/
+  note: >-
+    As with the mobile definition, this is a springdoc auto-generation with no
+    title, no descriptions, no securitySchemes and success-only responses. Every
+    action below adds information established by probe or from the published
+    OAuth 2.0 metadata. The original definition is never modified.
+extends: ../openapi/incentivio-admin-api-openapi.yml
+actions:
+  - target: $.info
+    description: Name and describe the API.
+    update:
+      title: Incentivio Admin API
+      version: v0
+      description: >-
+        The operator-facing REST API behind Incentivio's brand administration
+        console. Covers client and merchant configuration, stores and locations,
+        menu import and menu intelligence, items and sub-items, campaigns and
+        offer distribution, guest journeys and personas, customer segments and
+        tags, loyalty administration, gift card issuance and ACH funding,
+        payments, refunds and fund transfers, Spreedly payment gateway
+        connectors, role and module permissions, and a large reporting surface
+        with CSV export. Tenancy is carried by the Inc-Client-Id header and
+        clientid path parameters.
+      x-api-evangelist-note: >-
+        This API moves money (refunds, fund transfers, gift card ACH funding) and
+        distributes marketing at brand scale. It is served publicly and
+        anonymously at /v3/api-docs with no documentation of any kind.
+  - target: $.servers[0]
+    description: Replace the springdoc default description.
+    update:
+      description: Production — brand administration and reporting
+  - target: $.components
+    description: Declare the security schemes the service enforces.
+    update:
+      securitySchemes:
+        bearerAuth:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+          description: >-
+            OAuth 2.0 access token. Unauthenticated requests return 401 with
+            incentivio-code "Unknown" and, unlike the mobile service, no
+            WWW-Authenticate header.
+        incentivioAdminOAuth2:
+          type: oauth2
+          description: >-
+            Authorization server metadata is published at
+            /.well-known/oauth-authorization-server (issuer
+            https://admin.incentivio.com/issuer). No scopes_supported array is
+            published.
+          flows:
+            authorizationCode:
+              authorizationUrl: https://admin.incentivio.com/issuer/oauth2/authorize
+              tokenUrl: https://admin.incentivio.com/issuer/oauth/token
+              refreshUrl: https://admin.incentivio.com/issuer/oauth/token
+              scopes: {}
+            clientCredentials:
+              tokenUrl: https://admin.incentivio.com/issuer/oauth/token
+              scopes: {}
+  - target: $
+    description: Apply bearer security to the whole surface.
+    update:
+      security:
+        - bearerAuth: []
+  - target: $.components.parameters
+    description: Make the tenant headers reusable named parameters.
+    update:
+      IncClientIdHeader:
+        name: Inc-Client-Id
+        in: header
+        required: true
+        description: >-
+          Identifier of the restaurant brand tenant. Declared on 52 of 421
+          operations but required in practice across the surface; 121 operations
+          instead carry it as a clientid path parameter.
+        schema:
+          type: string
+      IncMerchantIdHeader:
+        name: Inc-Merchant-Id
+        in: header
+        required: false
+        description: Merchant scope within the client tenant.
+        schema:
+          type: string
+  - target: $.components.responses
+    description: Add the error responses the definition omits.
+    update:
+      BadRequest:
+        description: A required parameter is missing or malformed. Body is empty.
+        headers:
+          incentivio-code:
+            schema:
+              type: string
+          incentivio-message:
+            schema:
+              type: string
+          trace-id:
+            schema:
+              type: string
+      Unauthorized:
+        description: >-
+          No bearer token was presented, or it was rejected. Body is empty and
+          incentivio-code / incentivio-message are both literally "Unknown".
+        headers:
+          incentivio-code:
+            schema:
+              type: string
+          incentivio-message:
+            schema:
+              type: string
+      Forbidden:
+        description: >-
+          The operator's role or module permission does not allow the operation.
+          Inferred from role-module-permission-controller; not directly observed,
+          since an authenticated session was not available.
+        x-confidence: low
+      ServerError:
+        description: Unhandled server-side failure. Body is empty.
+        headers:
+          incentivio-code:
+            schema:
+              type: string
+          trace-id:
+            schema:
+              type: string
+  - target: $.paths.*.*.responses
+    description: Attach the error responses to every operation.
+    update:
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '500':
+        $ref: '#/components/responses/ServerError'
+  - target: $.paths.*.*.responses.200
+    description: Record the success envelope headers carried on every response.
+    update:
+      headers:
+        incentivio-code:
+          schema:
+            type: string
+        incentivio-message:
+          schema:
+            type: string
+        trace-id:
+          schema:
+            type: string
+        span-id:
+          schema:
+            type: string

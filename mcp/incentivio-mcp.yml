@@ -1,0 +1,168 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/incentivio-mobile-api-openapi.yml — derived candidate. No Incentivio MCP
+  server exists.
+name: Incentivio MCP server (candidate)
+status: candidate
+description: >-
+  Incentivio ships no MCP server. Nothing was found on the company's site, its
+  empty developer portal, its (empty) GitHub organization, npm, or PyPI, and no
+  MCP endpoint responded on any Incentivio host. What follows is a CANDIDATE tool
+  surface derived from real operationIds in the guest ordering API, recorded so
+  the gap is legible and so a future server has a grounded starting point. None
+  of these tools exists today.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: derived
+search_evidence:
+  - url: https://apidocs.incentivio.com/
+    status: 200
+    note: Theneo developer portal with zero published projects; no MCP reference.
+  - url: https://incentivio.com/page-sitemap.xml
+    status: 200
+    note: 22 pages, none developer- or MCP-related.
+  - url: https://registry.npmjs.org/-/v1/search?text=incentivio
+    status: 200
+    note: 0 results.
+  - url: https://github.com/incentivio
+    status: 200
+    note: 0 public repositories.
+candidate_auth:
+  scheme: OAuth 2.0 bearer token
+  note: >-
+    A server would have to carry both the bearer token AND the CLIENTID tenant
+    header on every call; the tenant is not derivable from the token in anything
+    Incentivio publishes.
+  reference: authentication/incentivio-authentication.yml
+candidate_tools:
+  - name: list_locations
+    description: List a brand's restaurant locations.
+    rest: [findLocations]
+    method: GET
+    path: /locations
+  - name: get_location
+    description: Get detail for one location, including hours and address.
+    rest: [getLocation]
+    method: GET
+    path: /locationsdetail/{locationid}
+  - name: list_catalogs
+    description: List the menus available for a brand.
+    rest: [listCatalogs]
+    method: GET
+    path: /catalogs
+  - name: get_item
+    description: Get a menu item with its modifiers and pricing.
+    rest: [viewItemById]
+    method: GET
+    path: /items/{itemid}
+  - name: get_out_of_stock_items
+    description: List item ids currently out of stock at a location.
+    rest: [getOutOfStockItemIdsByLocation]
+    method: GET
+    path: /items/outofstock/{locationId}
+  - name: check_order_availability
+    description: Check whether a location can accept an order for a given fulfilment type and time.
+    rest: [newGetOrderAvailability, calculateAsapDuration]
+    method: POST
+    path: /locations/{locationid}/orderavailability
+  - name: check_delivery_radius
+    description: Test whether an address falls inside a location's delivery radius.
+    rest: [isWithinDeliveryRadius]
+    method: GET
+    path: /locations/{locationid}/withindeliveryradius
+  - name: create_or_update_order
+    description: Create or update a guest order.
+    rest: [addOrUpdateOrder]
+    method: PUT
+    path: /orders
+    consequence: write
+  - name: add_order_items
+    description: Add one or more items to an order.
+    rest: [addOrderItem, addOrderItemList]
+    method: PUT
+    path: /orders/{orderid}/orderitems
+    consequence: write
+  - name: remove_order_item
+    description: Remove a line from an order.
+    rest: [deleteOrderItem]
+    method: DELETE
+    path: /orders/{orderid}/orderitems/{orderitemid}
+    consequence: write
+  - name: calculate_order_total
+    description: Price an order, or price a set of items before an order exists.
+    rest: [calculatePrice, calculateOrderTotalForItems]
+    method: GET
+    path: /orders/{orderid}/calculatetotal
+  - name: get_order
+    description: Retrieve one order.
+    rest: [viewOrderById]
+    method: GET
+    path: /orders/{orderid}
+  - name: list_orders
+    description: List current and historical orders for the authenticated guest.
+    rest: [listOrders, listOrdersHistory]
+    method: GET
+    path: /orders
+  - name: pay_order
+    description: Take payment for an order.
+    rest: [prepareOrderPayment, makeOrderPayment, checkOrderPaymentStatus]
+    method: POST
+    path: /orders/{orderid}/makepayment
+    consequence: money-movement
+    note: >-
+      This is the tool that would need an idempotency key, and Incentivio has no
+      idempotency support. A retried payment tool call has no replay protection.
+  - name: apply_offer
+    description: Apply or remove a discount on an order.
+    rest: [applyDiscount, removeDiscount, redeemById]
+    method: POST
+    path: /orders/{orderid}/applydiscount
+    consequence: write
+  - name: list_offers
+    description: List the offers distributed to the authenticated guest.
+    rest: [findDistributedOffers, getOffersBasedOnUserActivity, getDistributedOffer]
+    method: GET
+    path: /appoffers
+  - name: get_loyalty_account
+    description: Read the guest's loyalty balance, history and expiring points.
+    rest: [viewLoyaltyAccount, findLoyaltyPointsSummary, viewLoyalAccountHistory, getExpiringLoyaltyPoints, getNextExpiringLoyaltyPoints]
+    method: GET
+    path: /loyaltyaccounts
+  - name: list_gift_cards
+    description: List the guest's gift cards and look one up by number or token.
+    rest: [myGiftCard, cardLookupByNumber, cardLookupByToken]
+    method: GET
+    path: /mygiftcard
+  - name: purchase_gift_card
+    description: Buy and email an e-gift card.
+    rest: [purchaseECard, purchaseAndEmailGiftCard, addValuetoGiftCard]
+    method: POST
+    path: /giftcard/purchase
+    consequence: money-movement
+  - name: list_payment_instruments
+    description: List the guest's stored payment methods.
+    rest: [listPaymentInstruments]
+    method: GET
+    path: /paymentinstruments
+  - name: list_transactions
+    description: List the guest's transaction history.
+    rest: [findTransactions]
+    method: GET
+    path: /transactions
+excluded_from_candidate_surface:
+  - reason: administrative / operator-only
+    note: >-
+      The 421-operation admin API (campaigns, offer distribution, gift card
+      issuance, ACH funding, refunds, fund transfers, role permissions) is
+      deliberately not modelled as agent tools. Money movement and marketing
+      distribution at brand scale are not surfaces to hand an agent without a
+      consequence model, and Incentivio publishes none.
+  - reason: no error semantics
+    note: >-
+      Errors return an empty body and a proprietary header pair, so a tool built
+      on this API cannot report a structured failure back to the model.

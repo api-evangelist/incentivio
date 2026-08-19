@@ -1,0 +1,115 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live unauthenticated GET probes of 40 collection endpoints on
+  https://mobile.incentivio.com/incentivio-mobile-api and of
+  https://adminapi.incentivio.com/incentivio-admin-api
+name: Incentivio error catalog
+description: >-
+  Incentivio publishes no error reference. Both OpenAPI definitions declare ONLY
+  success responses — 125 of 125 mobile operations declare a bare 200, and the
+  admin definition declares 418 x 200, 2 x 204 and 1 x 201 with no 4xx or 5xx
+  anywhere — so nothing could be derived from the specs. This catalog is
+  therefore built from what the live services actually returned.
+format: proprietary-headers
+format_note: >-
+  Not RFC 9457. Not a JSON error object. Outcome is reported in two custom
+  response headers, incentivio-code and incentivio-message, and the response body
+  on every error observed was empty (content-length: 0). A client that inspects
+  only the body sees nothing at all.
+envelope:
+  code_header: incentivio-code
+  message_header: incentivio-message
+  body: empty
+  trace_headers:
+    - trace-id
+    - span-id
+error_codes:
+  - code: SUCCESS
+    http_status: 200
+    message: Success
+    meaning: Request succeeded.
+    action: none
+    evidence: GET /dynamicEnvs -> 200
+  - code: BAD_REQUEST
+    http_status: 400
+    message: >-
+      Not a valid request. Please ensure all required parameters are present and
+      in valid format.
+    meaning: >-
+      A required parameter is missing or malformed. In practice this is what an
+      endpoint returns when the tenant header (CLIENTID / Inc-Client-Id) or a
+      required query parameter is absent.
+    action: >-
+      Supply the tenant identifier and every required parameter. The response does
+      not name WHICH parameter failed.
+    evidence:
+      - GET /orders -> 400
+      - GET /catalogs -> 400
+      - GET /appcompatibility -> 400
+      - GET /clientdomain/byalias -> 400
+      - GET /oauth2/authorizationCode/google -> 400
+  - code: Full authentication is required to access this resource
+    http_status: 401
+    message: Full authentication is required to access this resource
+    meaning: >-
+      No bearer token was presented, or the token was rejected. Accompanied by
+      WWW-Authenticate: Bearer realm="restservice".
+    action: Obtain an access token from the OAuth 2.0 authorization server for this audience.
+    note: >-
+      The Spring Security message string is used verbatim as the machine-readable
+      code — the code and the message fields are identical, so incentivio-code is
+      not a stable enumerated value on this path.
+    evidence:
+      - GET /useraccounts -> 401
+      - GET /loyaltyaccounts -> 401
+      - GET /transactions -> 401
+      - GET /paymentinstruments -> 401
+      - GET /orders-history -> 401
+  - code: Unknown
+    http_status: 401
+    message: Unknown
+    meaning: >-
+      The admin service's variant of an authentication failure. It returns literal
+      "Unknown" for both code and message and, unlike the mobile service, sends no
+      WWW-Authenticate header.
+    action: Authenticate against the admin authorization server (https://admin.incentivio.com/issuer).
+    evidence: GET https://adminapi.incentivio.com/incentivio-admin-api/... -> 401
+  - code: ERROR
+    http_status: 500
+    message: ERROR
+    meaning: >-
+      Unhandled server-side failure. Returned by public read endpoints when the
+      tenant context cannot be resolved, so an anonymous caller reaches a 500 on
+      paths that are logically 400s.
+    action: >-
+      Retry with a valid CLIENTID; capture trace-id and span-id from the response
+      for support.
+    evidence:
+      - GET /stores -> 500
+      - GET /locations -> 500
+      - GET /appconfiguration -> 500
+      - GET /app-home-config -> 500
+      - GET /externallinks -> 500
+  - code: null
+    http_status: 404
+    message: null
+    meaning: Route not mapped. Returns no incentivio-code header.
+    evidence: 'GET /ml/mobile/** -> 404 (a literal wildcard path present in the definition)'
+  - code: null
+    http_status: 503
+    message: 'Service unavailable. No rule matched.'
+    meaning: >-
+      Returned by the load balancer at the host root, outside the service context
+      path. Not an application error — the API only exists under
+      /incentivio-mobile-api and /incentivio-admin-api.
+    evidence:
+      - GET https://mobile.incentivio.com/ -> 503
+      - GET https://adminapi.incentivio.com/ -> 503
+gaps:
+  - No 4xx or 5xx response is declared anywhere in either OpenAPI definition.
+  - No error body means no field-level validation detail is available to a client.
+  - >-
+    incentivio-code is not a stable enumeration: three of the six observed values
+    are generic (SUCCESS / ERROR / Unknown) and one is a full English sentence.
+  - No documented retry guidance, no Retry-After, no rate-limit exhaustion code.

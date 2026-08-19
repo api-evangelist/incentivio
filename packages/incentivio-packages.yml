@@ -1,0 +1,65 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry.npmjs.org search, pypi.org, rubygems.org, crates.io, packagist.org,
+  api.nuget.org, https://github.com/incentivio,
+  https://apidocs.incentivio.com/
+name: Incentivio client packages
+description: >-
+  Incentivio publishes no client libraries. Every public package registry was
+  queried by name and every one returned zero results, and the company's GitHub
+  organization has no public repositories. Consumers of the mobile and admin APIs
+  are calling raw HTTP.
+package_count: 0
+official_sdk_count: 0
+packages: []
+registries_checked:
+  - registry: npm
+    endpoint: https://registry.npmjs.org/-/v1/search?text=incentivio
+    status: 200
+    results: 0
+    version: null
+    note: checked, nothing published.
+  - registry: pypi
+    endpoint: https://pypi.org/pypi/incentivio/json
+    status: 404
+    results: 0
+    version: null
+    note: checked, no project of that name.
+  - registry: rubygems
+    endpoint: https://rubygems.org/api/v1/search.json?query=incentivio
+    status: 200
+    results: 0
+    version: null
+  - registry: crates.io
+    endpoint: https://crates.io/api/v1/crates?q=incentivio
+    status: 200
+    results: 0
+    version: null
+  - registry: nuget
+    endpoint: https://azuresearch-usnc.nuget.org/query?q=incentivio
+    status: 200
+    results: 0
+    version: null
+  - registry: packagist
+    endpoint: https://packagist.org/search.json?q=incentivio
+    status: 200
+    results: 0
+    version: null
+    note: >-
+      matches returned were unrelated packages whose descriptions contain the word
+      "incentivize".
+  - registry: github
+    endpoint: https://github.com/incentivio
+    status: 200
+    results: 0
+    version: null
+    note: >-
+      The organization name is claimed but has zero public repositories and no
+      profile metadata linking it to incentivio.com, so it is not treated as a
+      verified first-party source and no GitHubOrganization pointer is emitted.
+distribution_note: >-
+  No SDKs, no CDN-distributed client build, no versioned embeddable script. The
+  ordering web app at order.incentivio.com is a first-party React application
+  served from CloudFront, not a redistributable package. No SDKs pointer is
+  emitted in apis.yml because there is no SDK to point at.

@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://incentivio.com/page-sitemap.xml, https://status.incentivio.com (DNS +
+  TCP probe), openapi/incentivio-mobile-api-openapi.yml,
+  openapi/incentivio-admin-api-openapi.yml
+name: Incentivio API lifecycle
+description: >-
+  Incentivio publishes no versioning policy, no deprecation policy, no changelog
+  and no SLA. This artifact records what was actually found, including one
+  near-miss worth naming: status.incentivio.com is a delegated DNS record that
+  does not answer, so the company has provisioned a status hostname without
+  serving a status page from it.
+versioning:
+  scheme: none
+  detail: >-
+    No version segment appears in any of the 439 paths across the two services.
+    info.version is "v0" in both definitions, which is the springdoc default, not
+    a declared API version. The only versioned path component is /v3/api-docs,
+    which is the springdoc endpoint version, not Incentivio's.
+  policy_url: null
+  compatibility_mechanism:
+    - operationId: checkCompatibility
+      path: GET /appcompatibility
+      api: incentivio:mobile-api
+      note: >-
+        The mobile clients ask the server whether their build is still supported.
+        Compatibility is negotiated at runtime per app version rather than pinned
+        by an API version.
+    - controller: tablet-app-compatibility-controller
+      api: incentivio:admin-api
+      note: The same mechanism for the in-store tablet app.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: 0
+  note: >-
+    Zero operations across both definitions carry `deprecated: true`, and no
+    Deprecation or Sunset response header was observed. Absence of a marked
+    deprecation is not evidence of a policy — there is no policy document to find.
+status_page:
+  url: null
+  hostname_provisioned: https://status.incentivio.com
+  evidence:
+    - 'dig status.incentivio.com -> 18.205.130.104 (A record present)'
+    - 'GET https://status.incentivio.com/ -> connection timed out after 15s (no TCP 443)'
+    - 'GET http://status.incentivio.com/ -> no response'
+  published: false
+  note: >-
+    The hostname resolves but nothing listens. No StatusPage pointer is emitted,
+    because there is no reachable status page for a consumer to watch.
+  health_endpoints:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api/actuator/health
+      status: 200
+      note: >-
+        Spring Boot Actuator health is publicly readable on both services and
+        returns component-level detail including disk totals and free space. It is
+        an operational signal, not a status page, and its exposure is itself a
+        finding.
+    - url: https://adminapi.incentivio.com/incentivio-admin-api/actuator/health
+      status: 200
+      note: 'reports groups: auto-healing, liveness, readiness.'
+changelog:
+  url: null
+  published: false
+  note: >-
+    https://incentivio.com/changelog/ returns 404 and no changelog page appears in
+    the site sitemap. The Theneo developer portal publishes no projects, so it has
+    no release notes either.
+sla:
+  published: false
+  note: >-
+    The Connect Enterprise tier is marketed as including "API SLAs" on
+    https://incentivio.com/feature/incentivio-connect/, but no SLA document,
+    uptime target or credit schedule is published.
+support:
+  url: https://incentivio.com/contact/
+  note: >-
+    Contact form only. Zendesk (static.zdassets.com) is loaded in the admin
+    console, so there is a customer-only help centre behind the login.

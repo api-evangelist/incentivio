@@ -1,0 +1,183 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live request/response probes against
+  https://mobile.incentivio.com/incentivio-mobile-api and
+  https://adminapi.incentivio.com/incentivio-admin-api, plus
+  openapi/incentivio-mobile-api-openapi.yml and
+  openapi/incentivio-admin-api-openapi.yml
+name: Incentivio API conventions
+description: >-
+  Cross-cutting runtime semantics for the two Incentivio REST services. Incentivio
+  publishes no API style guide, and both OpenAPI definitions are springdoc
+  auto-generations that carry no summaries, no descriptions, no securitySchemes
+  and only 200 responses — so the conventions below were established by probing
+  the live services and reading parameter shapes out of the specs. The single
+  most consequential convention here is that Incentivio does not use the response
+  BODY to report outcome: status, code and message all travel in custom response
+  HEADERS, and error bodies are empty.
+authentication:
+  style: OAuth 2.0 bearer token in the Authorization header
+  challenge: 'WWW-Authenticate: Bearer realm="restservice"'
+  detail: authentication/incentivio-authentication.yml
+tenancy:
+  required: true
+  mobile_header: CLIENTID
+  admin_headers:
+    - Inc-Client-Id
+    - Inc-Merchant-Id
+  path_parameters:
+    - clientid
+    - merchantid
+    - locationid
+    - storeId
+  note: >-
+    Every meaningful call is scoped to a restaurant brand. The two services spell
+    the same concept differently (CLIENTID vs Inc-Client-Id), and casing of the
+    path parameters is inconsistent within a single service (clientid and
+    clientId, storeIds and storeids, startdate and startDate, sortby and
+    sortDirection all appear).
+response_envelope:
+  style: custom response headers, empty or bare body
+  headers:
+    - name: incentivio-code
+      meaning: machine-readable outcome code
+      observed_values:
+        - SUCCESS
+        - BAD_REQUEST
+        - ERROR
+        - Unknown
+        - Full authentication is required to access this resource
+    - name: incentivio-message
+      meaning: human-readable outcome message
+  body_on_error: >-
+    empty (content-length: 0) on 400, 401 and 500 across every endpoint probed —
+    there is no JSON error object, no RFC 9457 problem+json, and no error code in
+    the payload.
+  implication: >-
+    A client that only reads the response body cannot tell why a call failed. Any
+    integration has to read incentivio-code / incentivio-message off the headers.
+  detail: errors/incentivio-error-codes.yml
+tracing:
+  present: true
+  headers:
+    - name: trace-id
+      note: 32-hex trace identifier, present on 200/400/500 (absent on 401).
+    - name: span-id
+      note: 16-hex span identifier. B3/Micrometer-tracing shape.
+  request_id_header: null
+  note: >-
+    Trace identifiers are server-generated and returned; there is no documented
+    client-supplied correlation header.
+  leakage:
+    header: controller_method_name
+    example: DynamicEnvController.getDynamicEnvList
+    note: >-
+      Successful responses return the internal Spring controller class and method
+      name in a custom header. This is real observed behaviour and is recorded
+      because it is an information-disclosure convention, not a feature.
+idempotency:
+  supported: false
+  evidence: >-
+    Neither definition contains any idempotency key parameter or header (zero
+    matches for "idempoten" across 546 operations), and no Idempotency-Key was
+    accepted or echoed on probe. Note that the mobile API performs order
+    mutations with PUT (addOrUpdateOrder, addOrderItem, updateOrderItem), which
+    is idempotent by HTTP semantics, but the payment operations that most need a
+    key — makeOrderPayment, makeGuestOrderPayment, prepareOrderPayment,
+    purchaseECard — are POST with no replay protection described.
+  note: >-
+    No Idempotency pointer is emitted in apis.yml for this provider, because
+    there is no idempotency support to point at.
+pagination:
+  style: page-number
+  parameters:
+    - name: page
+      in: query
+      operations: 44
+    - name: count
+      in: query
+      operations: 45
+      note: page size
+    - name: sortby
+      in: query
+    - name: sortdirection
+      in: query
+      note: 'admin API also spells this sortDirection on 10 operations'
+  request_schema: PaginationRequest {page, count} in the admin API
+  response_fields: >-
+    not standardized — there is no shared envelope carrying total/next/prev, and
+    no cursor parameter appears in either definition.
+filtering_and_reporting:
+  date_range_parameters:
+    - startdate
+    - enddate
+    - startDate
+    - endDate
+    - dateRange
+    - localDate
+  scoping_parameters:
+    - storeIds
+    - storeids
+    - merchantid
+    - status
+  note: >-
+    The admin reporting surface is date-range plus store-list filtered, and
+    several report endpoints return text/csv rather than JSON.
+localization:
+  parameters:
+    - langCode
+    - languagecode
+    - languageCode
+    - language
+  header: inc-user-language
+  note: >-
+    Multilingual content is first class (multilingual-message-controller), but the
+    language parameter is spelled four different ways across the mobile API.
+client_hint_headers:
+  headers:
+    - inc-device
+    - inc-is-test
+    - inc-user-language
+  note: >-
+    Observed in the ordering web app bundle at order.incentivio.com. inc-is-test
+    is the closest thing to a test-mode switch this platform exposes, and it is
+    undocumented.
+versioning:
+  scheme: none
+  detail: >-
+    No version segment appears in any of the 439 paths across both services. The
+    only version marker is the springdoc context path (/v3/api-docs) and
+    info.version "v0", which is the springdoc default rather than a declared API
+    version. Compatibility is instead negotiated client-side by the
+    checkCompatibility operation (GET /appcompatibility) and the
+    tablet-app-compatibility-controller on the admin side.
+  detail_artifact: lifecycle/incentivio-lifecycle.yml
+rate_limiting:
+  signaled: false
+  detail: rate-limits/incentivio-rate-limits.yml
+content_types:
+  request: application/json
+  response:
+    - application/json
+    - application/json;charset=utf-8
+    - text/csv
+    - text/plain
+    - '*/*'
+  note: >-
+    304 of the 421 admin operations declare a `*/*` response media type, which is
+    the springdoc default when the controller returns a bare object — the
+    definition does not commit to JSON for most of its surface.
+transport_security:
+  hsts: 'max-age=31536000 ; includeSubDomains'
+  x_frame_options: DENY
+  x_content_type_options: nosniff
+  x_xss_protection: '0'
+  cache_control: 'no-cache, no-store, max-age=0, must-revalidate'
+  note: Security headers are applied consistently on both services.
+cross_links:
+  authentication: authentication/incentivio-authentication.yml
+  errors: errors/incentivio-error-codes.yml
+  lifecycle: lifecycle/incentivio-lifecycle.yml
+  rate_limits: rate-limits/incentivio-rate-limits.yml
+  data_model: data-model/incentivio-data-model.yml

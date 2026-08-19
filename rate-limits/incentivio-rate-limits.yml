@@ -1,0 +1,49 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  response headers observed on 40 unauthenticated endpoint probes against
+  https://mobile.incentivio.com/incentivio-mobile-api and
+  https://adminapi.incentivio.com/incentivio-admin-api
+name: Incentivio rate limits
+description: >-
+  Incentivio documents no rate limits, and neither live service emits a
+  rate-limit signal of any kind. This is an honest zero: not "we did not check",
+  but "we read every response header off 40 endpoints across both services and
+  there was nothing there".
+limit_count: 0
+limits: []
+headers:
+  ratelimit_standard: false
+  x_ratelimit: false
+  retry_after: false
+  observed_headers:
+    - incentivio-code
+    - incentivio-message
+    - trace-id
+    - span-id
+    - controller_method_name
+    - vary
+    - cache-control
+    - strict-transport-security
+    - x-content-type-options
+    - x-frame-options
+    - x-xss-protection
+exhaustion_status: null
+exhaustion_note: >-
+  No 429 was observed and no throttling behaviour is documented, so the status
+  code an exhausted client would see is unknown.
+docs: null
+mitigations_observed:
+  - control: reCAPTCHA
+    evidence: recaptcha-controller (GET /recaptcha/cache/{clientId}) in the mobile OpenAPI
+    note: >-
+      Guest-facing account and order flows are protected by reCAPTCHA rather than
+      by a published request quota.
+  - control: bearer authentication
+    note: >-
+      All but a handful of endpoints require a token, so the practical limit on an
+      anonymous caller is authentication, not throttling.
+note: >-
+  For an agent, the absence of a rate-limit signal is a real cost: there is no
+  runtime feedback to back off against, so any automated client has to guess a
+  safe request rate.

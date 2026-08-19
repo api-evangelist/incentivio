@@ -1,0 +1,60 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://incentivio.com/page-sitemap.xml, https://incentivio.com/pricing/ (302 ->
+  https://incentivio.com/demo/), https://incentivio.com/feature/incentivio-connect/
+name: Incentivio plans and pricing
+description: >-
+  Incentivio publishes no prices. There is no pricing page in the site's own
+  sitemap, and /pricing/ redirects to the demo request form. Three product tiers
+  are NAMED on the Incentivio Connect page, but none of them carries a price, a
+  quota, or a limit — so this file records the tier structure and a plan_count of
+  zero priced plans.
+plan_count: 0
+pricing_model: quote-only (contact sales)
+currency: null
+free_tier: false
+trial: false
+self_service_signup: false
+signup_note: >-
+  https://admin.incentivio.com/ is an operator login, not a self-service signup.
+  Every path to the platform runs through https://incentivio.com/demo/ or
+  https://incentivio.com/become-a-partner/.
+plans: []
+named_tiers:
+  - name: Connect Core
+    price: null
+    description: >-
+      Unified data warehouse with executive dashboards and direct warehouse
+      access.
+    source: https://incentivio.com/feature/incentivio-connect/
+  - name: Connect Intelligence
+    price: null
+    description: >-
+      Adds the full AI scoring suite (lifetime value, churn, propensity, offer
+      sensitivity) and closed-loop measurement on top of Core.
+    source: https://incentivio.com/feature/incentivio-connect/
+  - name: Connect Enterprise
+    price: null
+    description: >-
+      Dedicated instance with custom data models, API SLAs, and white-glove
+      implementation.
+    source: https://incentivio.com/feature/incentivio-connect/
+    note: >-
+      This is the only place API access is priced at all, and it is priced only as
+      "call us". API SLAs are named as a tier feature with no published terms.
+api_metering:
+  documented: false
+  note: >-
+    No per-call pricing, no included request quota, no overage schedule, and no
+    metering endpoint. API access is a contract term, not a product with a price.
+evidence:
+  - url: https://incentivio.com/pricing/
+    status: 302
+    note: redirects to https://incentivio.com/demo/
+  - url: https://incentivio.com/demo/
+    status: 200
+    note: demo request form
+  - url: https://incentivio.com/page-sitemap.xml
+    status: 200
+    note: 22 pages, none of them a pricing page

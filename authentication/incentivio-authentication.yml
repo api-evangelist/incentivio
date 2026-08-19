@@ -1,0 +1,157 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://mobile.incentivio.com/incentivio-mobile-api/.well-known/oauth-authorization-server,
+  https://adminapi.incentivio.com/incentivio-admin-api/.well-known/oauth-authorization-server,
+  live WWW-Authenticate challenges on both API hosts, and the auth operations in
+  openapi/incentivio-mobile-api-openapi.yml
+name: Incentivio authentication profile
+description: >-
+  Incentivio publishes no narrative authentication documentation, and neither
+  OpenAPI definition declares a securityScheme — the springdoc generator emitted
+  none. The auth model was therefore established by probe: both production
+  services answer unauthenticated requests with
+  `WWW-Authenticate: Bearer realm="restservice"`, and both serve RFC 8414
+  OAuth 2.0 Authorization Server Metadata anonymously at
+  /.well-known/oauth-authorization-server. The metadata is a Spring
+  Authorization Server document describing authorization_code (with PKCE S256),
+  client_credentials, refresh_token, device_code and token-exchange grants.
+  There are two separate issuers, one per audience.
+caveat: >-
+  The advertised issuer endpoints (order.incentivio.com/issuer/*,
+  admin.incentivio.com/issuer/*) do not resolve to the authorization server from
+  the public edge — both hosts return the single-page-app HTML shell for those
+  paths. The metadata is real and published; the endpoints it names appear to be
+  reachable only from the applications themselves. A third-party developer
+  cannot complete an OAuth flow from this metadata alone.
+schemes:
+  - id: bearer-token
+    type: http
+    scheme: bearer
+    bearer_format: JWT (unverified — token format not published)
+    in: header
+    header: Authorization
+    applies_to:
+      - incentivio:mobile-api
+      - incentivio:admin-api
+    evidence:
+      - 'GET https://mobile.incentivio.com/incentivio-mobile-api/useraccounts -> 401, WWW-Authenticate: Bearer realm="restservice"'
+      - 'GET https://mobile.incentivio.com/incentivio-mobile-api/loyaltyaccounts -> 401, WWW-Authenticate: Bearer realm="restservice"'
+    note: >-
+      The 401 body is empty; the reason is carried in the custom response headers
+      incentivio-code and incentivio-message (see conventions/).
+  - id: oauth2
+    type: oauth2
+    applies_to:
+      - incentivio:mobile-api
+      - incentivio:admin-api
+    metadata_source: RFC 8414 (/.well-known/oauth-authorization-server)
+    issuers:
+      - audience: guest / ordering apps
+        issuer: https://order.incentivio.com/issuer
+        authorization_endpoint: https://order.incentivio.com/issuer/oauth2/authorize
+        token_endpoint: https://order.incentivio.com/issuer/oauth/token
+        device_authorization_endpoint: https://order.incentivio.com/issuer/oauth2/device_authorization
+        introspection_endpoint: https://order.incentivio.com/issuer/oauth2/introspect
+        revocation_endpoint: https://order.incentivio.com/issuer/oauth2/revoke
+        jwks_uri: https://order.incentivio.com/issuer/oauth2/jwks
+        file: well-known/incentivio-mobile-api-oauth-authorization-server.json
+      - audience: brand operators / admin console
+        issuer: https://admin.incentivio.com/issuer
+        authorization_endpoint: https://admin.incentivio.com/issuer/oauth2/authorize
+        token_endpoint: https://admin.incentivio.com/issuer/oauth/token
+        device_authorization_endpoint: https://admin.incentivio.com/issuer/oauth2/device_authorization
+        introspection_endpoint: https://admin.incentivio.com/issuer/oauth2/introspect
+        revocation_endpoint: https://admin.incentivio.com/issuer/oauth2/revoke
+        jwks_uri: https://admin.incentivio.com/issuer/oauth2/jwks
+        file: well-known/incentivio-admin-api-oauth-authorization-server.json
+    grant_types_supported:
+      - authorization_code
+      - client_credentials
+      - refresh_token
+      - urn:ietf:params:oauth:grant-type:device_code
+      - urn:ietf:params:oauth:grant-type:token-exchange
+    response_types_supported:
+      - code
+    code_challenge_methods_supported:
+      - S256
+    token_endpoint_auth_methods_supported:
+      - client_secret_basic
+      - client_secret_post
+      - client_secret_jwt
+      - private_key_jwt
+      - tls_client_auth
+      - self_signed_tls_client_auth
+    mutual_tls: >-
+      tls_client_certificate_bound_access_tokens is true (RFC 8705), and both
+      tls_client_auth and self_signed_tls_client_auth are offered as client
+      authentication methods — an unusually strong posture for a platform with no
+      public developer program.
+    scopes_supported: null
+    scopes_note: >-
+      Neither metadata document publishes a scopes_supported array and neither
+      OpenAPI declares oauth2 flows, so there is no scope registry to harvest.
+      This is why no scopes/ artifact exists for this provider.
+first_party_login_operations:
+  - operationId: userLogin
+    method: POST
+    path: /users/login
+    api: incentivio:mobile-api
+  - operationId: userLogin2
+    method: POST
+    path: /users/login2
+    api: incentivio:mobile-api
+  - operationId: authInit
+    method: POST
+    path: /auth/init
+    api: incentivio:mobile-api
+    note: passwordless-auth-controller — initiates a passwordless (phone/email code) sign-in.
+  - operationId: authorizationCode
+    method: GET
+    path: /oauth2/authorizationCode/google
+    api: incentivio:mobile-api
+    note: >-
+      Social sign-in exchange for Google. The ordering web app also loads Apple's
+      appleid.auth.js, so Sign in with Apple is in play on the client side.
+  - operationId: verifyUserAccountEmail
+    method: POST
+    path: /verifyemail
+    api: incentivio:mobile-api
+  - operationId: verifyUserAccountWithCode
+    method: GET
+    path: /verifyUserAccountWithCode
+    api: incentivio:mobile-api
+tenancy:
+  model: >-
+    Authentication alone is not sufficient — every call also has to name the
+    restaurant brand it acts for. The two services use different header names for
+    the same idea.
+  headers:
+    - name: CLIENTID
+      api: incentivio:mobile-api
+      operations_declaring_it: 20
+    - name: Inc-Client-Id
+      api: incentivio:admin-api
+      operations_declaring_it: 52
+    - name: Inc-Merchant-Id
+      api: incentivio:admin-api
+      operations_declaring_it: 10
+  path_parameters:
+    - name: clientid
+      note: 121 admin operations and 4 mobile operations carry the tenant in the path.
+    - name: merchantid
+  resolution_operations:
+    - operationId: getClientIdByAlias
+      path: /clientalias/{clientAlias}
+      note: Resolves a brand alias to the CLIENTID value the rest of the API expects.
+    - operationId: getClientDomainByClientAlias
+      path: /clientdomain/byalias
+bot_protection:
+  present: true
+  evidence: recaptcha-controller in the mobile OpenAPI (GET /recaptcha/cache/{clientId})
+  note: reCAPTCHA gating is applied to guest-facing account and order flows.
+docs: null
+docs_note: >-
+  There is no published authentication guide. apidocs.incentivio.com is an empty
+  Theneo developer portal (zero published projects), and incentivio.com has no
+  developer section.

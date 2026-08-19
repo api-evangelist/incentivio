@@ -1,0 +1,54 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/incentivio-mobile-api-openapi.yml,
+  openapi/incentivio-admin-api-openapi.yml,
+  conventions/incentivio-conventions.yml, errors/incentivio-error-codes.yml
+name: Incentivio agent skills
+description: >-
+  Packaged operating instructions for the marquee flows in Incentivio's two REST
+  APIs. Every operationId referenced in these skills was verified against the
+  live OpenAPI definitions — none is invented. Incentivio publishes no skills,
+  no AGENTS.md and no narrative documentation, so these are generated from the
+  contracts plus the runtime semantics established by probe.
+provider_published_skills: false
+skills:
+  - name: incentivio-place-guest-order
+    file: skills/incentivio-place-guest-order.md
+    api: incentivio:mobile-api
+    summary: >-
+      End-to-end guest ordering: resolve the brand tenant, find a location,
+      confirm availability and delivery radius, load the menu, build and price
+      the basket, and take payment safely without idempotency support.
+    operation_count: 25
+  - name: incentivio-loyalty-and-offers
+    file: skills/incentivio-loyalty-and-offers.md
+    api: incentivio:mobile-api
+    summary: >-
+      Read loyalty balances, history and expiring points; find the offers
+      distributed to a guest; apply, redeem or reverse them against an order.
+    operation_count: 19
+  - name: incentivio-gift-cards
+    file: skills/incentivio-gift-cards.md
+    api: incentivio:mobile-api
+    summary: >-
+      Buy, gift, reload and look up stored-value gift cards using the
+      prepare-then-execute payment pattern, and recover safely from an ambiguous
+      charge via the transaction status endpoint.
+    operation_count: 14
+  - name: incentivio-brand-reporting
+    file: skills/incentivio-brand-reporting.md
+    api: incentivio:admin-api
+    summary: >-
+      Navigate roughly 60 admin report endpoints across three inconsistent
+      families, pull sales, order, guest, offer and loyalty reporting, and handle
+      CSV and signed-S3 exports without leaking guest PII.
+    operation_count: 40
+cross_cutting_rules:
+  - Every call is brand-scoped — CLIENTID (mobile) or Inc-Client-Id (admin).
+  - Errors return an EMPTY body; read incentivio-code and incentivio-message headers.
+  - >-
+    There is no idempotency key anywhere. Any POST that moves money must be
+    recovered by a status read, never by a retry.
+  - No rate-limit headers exist, so an agent has no backoff signal to follow.
+  - The mobile and admin APIs use two different OAuth issuers; tokens are not interchangeable.

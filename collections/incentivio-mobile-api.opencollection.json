@@ -1,0 +1,3101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenAPI definition",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "passwordless-auth-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "completeProfile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/useraccounts/:userId/complete-profile",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "authInit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/auth/init",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "user-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "findUserAccountByToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/useraccounts/phoneonly/token/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "updateIncompleteUserAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/useraccounts/phoneonly/token/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "verifyUserAccountEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/verifyemail",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "userLogin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/users/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "userLogin2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/users/login2",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "findUserAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/useraccounts"
+          }
+        },
+        {
+          "info": {
+            "name": "createUserAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/useraccounts",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "findUserAccountSMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/smsuseraccounts",
+            "params": [
+              {
+                "name": "accountaliasid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "phonenumber",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "createUserAccountSMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/smsuseraccounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "externalAccountFindUserAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/externaluseraccounts",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "externalid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "externalAccountCreateUserAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/externaluseraccounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "verifyUserAccountWithCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/verifyUserAccountWithCode",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userEmail",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "resendVerificationEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/useraccounts/:email/resendverificationmail",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "userLookup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/useraccounts/phone-and-email-lookup",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "phoneOrEmail",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "isUserAccessCodeExist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/useraccounts/accesscode",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "updateEmailPreference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/updateemailpref",
+            "params": [
+              {
+                "name": "pref",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getUserDevices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/devices"
+          }
+        },
+        {
+          "info": {
+            "name": "checkCompatibility",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/appcompatibility",
+            "params": [
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sdkversion",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "survey-answer-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "submitAnswers",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/surveys/:surveyid/submitanswers",
+            "params": [
+              {
+                "name": "surveyid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "submitAnswer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/surveys/:surveyid/submitanswer",
+            "params": [
+              {
+                "name": "surveyid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "delivery-address-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "addOrUpdateSingleDeliveryAddress",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/save/singledeliveryaddress",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "addOrUpdateMultipleDeliveryAddress",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/save/multipledeliveryaddresses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "getDeliveryAddressListByClientIdAndUserId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/deliveryaddresses",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "deleteDeliveryAddressByIds",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/deliveryaddresses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "order-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listOrders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "phone",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "extCustomerId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "addOrUpdateOrder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "validateOrderRecreation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/copyorder",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "viewOrderById",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "listOrdersHistory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders-history",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "imhereeligible",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderFulfillTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "langCode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "order-item-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "updateOrderItem",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/updateorderitems",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "addOrderItem",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/orderitems",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languageCode",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "addOrderItemList",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/addorderitems",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languageCode",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "getOrderItemPrice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/orderitemprice",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languageCode",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "deleteOrderItem",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/orderitems/:orderitemid",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "orderitemid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "guest-order-verification-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "validateGuestOrderVerificationCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderId/validateguestverificationcode/:code",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "sendGuestOrderVerificationCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/sendguestverificationcode",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "loyalty-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "viewLoyaltyAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/loyaltyaccounts",
+            "params": [
+              {
+                "name": "includeloyaltytier",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "upsertLoyaltyAccountExternalId",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/loyaltyaccounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "upsertLoyaltyCardId",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/loyaltyaccounts/loyaltycard",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "findLoyaltyPointsSummary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/loyaltypointssummary"
+          }
+        },
+        {
+          "info": {
+            "name": "getNextExpiringLoyaltyPoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/loyaltyaccounts/next-expiring-points",
+            "params": [
+              {
+                "name": "noofdays",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getExpiringLoyaltyPoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/loyaltyaccounts/expiring-points",
+            "params": [
+              {
+                "name": "noofdays",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortby",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortdirection",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "viewLoyalAccountHistory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/loyaltyaccounts/accounthistory",
+            "params": [
+              {
+                "name": "merchantid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startdate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "enddate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortby",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortdirection",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "im-here-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "markAnOrderImHere",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/users/:userId/orders/markimhere",
+            "headers": [
+              {
+                "name": "languagecode",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "markAnOrderImHere_1",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderId/markimhere",
+            "headers": [
+              {
+                "name": "languagecode",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "offers-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "redeemById",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/redeemofferbyid",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "processQRCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/processqrcode",
+            "params": [
+              {
+                "name": "merchantid",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "getOffersBasedOnUserActivity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/getactivitybasedoffers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "getActivityBasedContent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/getactivitybasedcontent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "updateDistributedOfferStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/changedistributedofferstatus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "getOffer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/offers/:offerid",
+            "params": [
+              {
+                "name": "offerid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languagecode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getDistributedOffer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/distributedoffers/:distributedofferid",
+            "params": [
+              {
+                "name": "distributedofferid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languagecode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "findDistributedOffers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/appoffers",
+            "params": [
+              {
+                "name": "merchantid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "languagecode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "loyalty",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getAppContent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/appcontent",
+            "params": [
+              {
+                "name": "merchantid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "languagecode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "loyalty",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "gift-card-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "purchaseECard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/purchase/ecard",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "purchaseAndEmailGiftCard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/giftcard/purchase",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "addExistingGiftCard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/giftcard/paymentinstruments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "cardLookupByNumber",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/giftcard/lookup",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "addValuetoGiftCard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/giftcard/add-value",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "myGiftCard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/mygiftcard",
+            "params": [
+              {
+                "name": "sourceType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cardIdentifier",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "cardLookupByToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/giftcard/tokenlookup/:token",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "secureCardLookupByToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/giftcard/securetokenlookup/:token",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "wallet-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listPaymentInstruments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/paymentinstruments"
+          }
+        },
+        {
+          "info": {
+            "name": "addPaymentInstrument",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/paymentinstruments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "order-offers-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "removeDiscount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/removediscount",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "applyDiscount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/applydiscount",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "getOrderOfferList",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orderoffers",
+            "params": [
+              {
+                "name": "mock",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "applyOfferOnNextVisit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orderoffers/applyofferonnextvisit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "disableNextVisitOffers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orderoffers/disablenextvisitoffers"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "order-payment-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "prepareOrderPayment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/preparepayment",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "prepareGuestOrderPayment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/prepareguestpayment",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "makeOrderPayment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/makepayment",
+            "headers": [
+              {
+                "name": "inc-user-language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "makeGuestOrderPayment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/makeguestpayment",
+            "headers": [
+              {
+                "name": "inc-user-language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "initOrder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/payment/initorder",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "checkOrderPaymentStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/paymentstatus",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "order-availability-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "oldGetOrderAvailability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/locations/:locationid/orderavailability",
+            "headers": [
+              {
+                "name": "inc-user-language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "locationid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "presetorderconfigid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "newGetOrderAvailability",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/locations/:locationid/orderavailability",
+            "headers": [
+              {
+                "name": "inc-user-language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "locationid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "calculateAsapDuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/locations/:locationid/orderavailability/asap",
+            "params": [
+              {
+                "name": "locationid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "isWithinDeliveryRadius",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/locations/:locationid/withindeliveryradius",
+            "params": [
+              {
+                "name": "locationid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "total-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "calculateOrderTotalForItems",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/locations/:locationid/calculatetotal",
+            "params": [
+              {
+                "name": "locationid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "calculatePrice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/orders/:orderid/calculatetotal",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "gift-card-payment-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "purchaseAndEmailGiftCardPreparePayment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/giftcard/purchase/payment/prepare",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "addValueToGiftCardPreparePayment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/giftcard/add-value/payment/prepare",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "purchaseECardPreparePayment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/ecard/purchase/payment/prepare",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "checkTxPaymentStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/giftcard/transaction/:incentiviotxid/payment/status",
+            "params": [
+              {
+                "name": "incentiviotxid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "message-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "distributeActivityMessages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/getactivitybasedmessages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "updateDistributedMessageStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/changedistributedmessagestatus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "findMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/messages/:messageid",
+            "params": [
+              {
+                "name": "messageid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languagecode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getDistributedMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/distributedmessages/:distributedmessageid",
+            "params": [
+              {
+                "name": "distributedmessageid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languagecode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "findAppMessages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/appmessages",
+            "params": [
+              {
+                "name": "merchantid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "languagecode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "file-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "uploadFile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/clients/:clientid/media",
+            "params": [
+              {
+                "name": "clientid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "transactions-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "findTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/transactions",
+            "params": [
+              {
+                "name": "merchantid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startdate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "enddate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortby",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortdirection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "survey-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getSurvey",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/surveys/:surveyid",
+            "params": [
+              {
+                "name": "surveyid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "client-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "findStoresByClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/stores",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortby",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortdirection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "latitude",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "longitude",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "langCode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getAliasByClientId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/clients/:clientid/clientalias",
+            "params": [
+              {
+                "name": "clientid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getClientIdByAlias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/clientalias/:clientAlias",
+            "params": [
+              {
+                "name": "clientAlias",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "segment-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "findSegmentsByCustomer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/segments/segments-by-customer",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "recaptcha-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getCache",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/recaptcha/cache/:clientId",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "preset-order-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getPresetOrder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/presetorder/:code",
+            "headers": [
+              {
+                "name": "inc-user-language",
+                "value": ""
+              },
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languagecode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "oauth-2-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "authorizationCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/oauth2/authorizationCode/google",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "authorizationCode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "location-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getLocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/locationsdetail/:locationid",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "locationid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "langCode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "findLocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/locations",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              },
+              {
+                "name": "inc-is-test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortby",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortdirection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "latitude",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "longitude",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "langCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "iscatering",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ismenubrowsing",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "markdeliverablelocations",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getOverrideKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/locations/:locationid/overridekey",
+            "params": [
+              {
+                "name": "locationid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fulfillmentDateTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fulfillmentType",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "catalog-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "viewItemById",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/items/:itemid",
+            "params": [
+              {
+                "name": "itemid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getOutOfStockItemIdsByLocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/items/outofstock/:locationId",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "viewGroupById",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/groups/:groupid",
+            "params": [
+              {
+                "name": "groupid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "localDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includeChildElements",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "listCatalogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/catalogs",
+            "headers": [
+              {
+                "name": "CLIENT-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "langCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "localDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "storeIds",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "readCachedItem",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/cacheditems/item",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "storeId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "catalogId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "langCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "retrieveCachedCatalogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/cachedcatalogs",
+            "params": [
+              {
+                "name": "langCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "localDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "checksum",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "storeId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "getCompressedCachedCatalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/cachedcatalogs/compressed",
+            "params": [
+              {
+                "name": "langCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "localDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "checksum",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "storeId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "external-link-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getExternalLinksList",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/externallinks",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "externalLinkType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "dynamic-env-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getDynamicEnvList",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/dynamicEnvs"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "web-app-config-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getWebAppConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/clients/:clientid/webappconfig",
+            "params": [
+              {
+                "name": "clientid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "merchantid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locationid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "client-domain-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getClientDomainByClientAlias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/clientdomain/byalias",
+            "params": [
+              {
+                "name": "alias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "multilingual-message-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getAppDisplayMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/appdisplaymessage/:clientid",
+            "params": [
+              {
+                "name": "clientid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "checksum",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "app-configuration-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getAppConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/appconfiguration",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "app-home-config-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getAppHomeConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/app-home-config",
+            "headers": [
+              {
+                "name": "CLIENTID",
+                "value": ""
+              },
+              {
+                "name": "USERID",
+                "value": ""
+              },
+              {
+                "name": "Inc-Timezone",
+                "value": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "home-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "home",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ml-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "routeMLRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/ml/mobile/**",
+            "params": [
+              {
+                "name": "body",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "routeMLRequest_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/ml/mobile/**",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "routeMLRequest_3",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/ml/mobile/**",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "routeMLRequest_4",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/ml/mobile/**",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "routeMLRequest_5",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/ml/mobile/**",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "routeMLRequest_1",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/ml/mobile/**",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "routeMLRequest_6",
+            "type": "http"
+          },
+          "http": {
+            "method": "OPTIONS",
+            "url": "https://mobile.incentivio.com/incentivio-mobile-api/ml/mobile/**",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

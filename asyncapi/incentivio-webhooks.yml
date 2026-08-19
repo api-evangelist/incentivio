@@ -1,0 +1,67 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/incentivio-mobile-api-openapi.yml (Webhook and WebhookInfo schemas),
+  openapi/incentivio-admin-api-openapi.yml
+name: Incentivio event surface
+description: >-
+  Incentivio publishes no AsyncAPI document, no event catalog, and no webhook
+  documentation. This file records what the contracts themselves reveal about an
+  event surface, which is very little — and deliberately stops short of claiming
+  Incentivio advertises webhooks.
+asyncapi_published: false
+webhooks_documented: false
+pointer_note: >-
+  No `AsyncAPI` and no `Webhooks` pointer is emitted in apis.yml. What exists is a
+  single boolean toggle inside a client configuration object, with no event
+  payload schema, no subscription endpoint, no delivery or retry semantics and no
+  signature scheme. A consumer cannot subscribe to anything from what is
+  published, so asserting a webhook surface would overstate it.
+findings:
+  - id: menu-updated-toggle
+    kind: first-party
+    evidence: >-
+      components.schemas.Webhook = { menuUpdated: boolean }, referenced by the
+      `webhook` property of ClientConfig in
+      openapi/incentivio-mobile-api-openapi.yml.
+    interpretation: >-
+      Incentivio can notify a brand's own system when a menu changes, and the
+      feature is switched on per client in configuration. The destination URL,
+      payload, headers and retry policy are not in any published contract.
+    payload_schema: null
+    delivery_url: null
+    signature: null
+  - id: sendgrid-event-webhooks
+    kind: third-party
+    evidence: >-
+      components.schemas.WebhookInfo (enabled, url, delivered, bounce, deferred,
+      unsubscribe, processed, open, click, dropped, group_resubscribe,
+      group_unsubscribe, spam_report, oauth_client_id, oauth_token_url),
+      referenced by SendGridSubUserInfo.
+    interpretation: >-
+      This is SendGrid's Event Webhook configuration, which Incentivio manages on
+      a brand's behalf for email marketing. The events belong to SendGrid, not to
+      Incentivio, so this is not an Incentivio event surface.
+  - id: order-audit-events
+    kind: read-only-log
+    evidence: >-
+      GET /incentivio-ordering-service/orders/{orderid}/auditevents/{eventid} and
+      /incentivio-giftcard-service/card/events/view in the admin API.
+    interpretation: >-
+      Order and gift-card events are recorded and readable by polling. There is no
+      push delivery of them.
+streaming_claim:
+  claim: >-
+    "Streaming and batch ingestion for real-time loyalty and digital events plus
+    structured POS processing."
+  source: https://incentivio.com/feature/incentivio-connect/
+  note: >-
+    This describes INBOUND ingestion into the Incentivio Connect warehouse, and
+    reverse ETL back out to a brand's CRM and ad platforms. It is not a publisher
+    interface a third party can subscribe to, and no channel, protocol or schema
+    is named.
+gap: >-
+  A platform that ingests real-time POS, loyalty and digital events, and that
+  already has a menuUpdated webhook wired into client configuration, is one
+  documented event catalog away from a real publisher surface. Today none of it is
+  described anywhere a consumer can read.

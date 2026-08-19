@@ -1,0 +1,175 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Incentivio Mobile & Ordering API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source: >-
+    openapi/incentivio-mobile-api-openapi.yml, plus live probes of
+    https://mobile.incentivio.com/incentivio-mobile-api recorded in
+    authentication/, conventions/ and errors/
+  note: >-
+    Incentivio's definition is a springdoc auto-generation: no title, no
+    description, no securitySchemes, and 200-only responses. Every action below
+    adds information that was established by probing the live service or reading
+    the published OAuth metadata — nothing here invents behaviour. The original
+    definition is never modified.
+extends: ../openapi/incentivio-mobile-api-openapi.yml
+actions:
+  - target: $.info
+    description: Name the API and describe it. The generator left the springdoc defaults in place.
+    update:
+      title: Incentivio Mobile & Ordering API
+      description: >-
+        The guest-facing REST API behind Incentivio's branded web and native
+        mobile ordering applications. Covers catalogs and menus, locations and
+        stores, order construction and pricing, order payment, stored payment
+        instruments, gift cards, wallets, loyalty accounts and points, offers and
+        discounts, surveys, segments, messaging and guest accounts. Every request
+        must carry a bearer access token and a CLIENTID header naming the
+        restaurant brand tenant.
+      x-api-evangelist-note: >-
+        Incentivio publishes no narrative documentation for this API. It is served
+        publicly and anonymously at /v3/api-docs.
+  - target: $.servers[0]
+    description: Replace the springdoc "Generated server url" description with the real role of the host.
+    update:
+      description: Production — guest ordering and loyalty
+  - target: $.components
+    description: >-
+      Declare the security schemes the service actually enforces. Established from
+      the WWW-Authenticate challenge and the published RFC 8414 metadata.
+    update:
+      securitySchemes:
+        bearerAuth:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+          description: >-
+            OAuth 2.0 access token. Unauthenticated requests return 401 with
+            WWW-Authenticate: Bearer realm="restservice".
+        incentivioOAuth2:
+          type: oauth2
+          description: >-
+            Authorization server metadata is published at
+            /.well-known/oauth-authorization-server (issuer
+            https://order.incentivio.com/issuer). No scopes_supported array is
+            published, so no scopes are enumerated here.
+          flows:
+            authorizationCode:
+              authorizationUrl: https://order.incentivio.com/issuer/oauth2/authorize
+              tokenUrl: https://order.incentivio.com/issuer/oauth/token
+              refreshUrl: https://order.incentivio.com/issuer/oauth/token
+              scopes: {}
+            clientCredentials:
+              tokenUrl: https://order.incentivio.com/issuer/oauth/token
+              scopes: {}
+  - target: $
+    description: Apply bearer security by default; the small set of anonymous endpoints is the exception, not the rule.
+    update:
+      security:
+        - bearerAuth: []
+  - target: $.components.parameters
+    description: >-
+      Make the tenant header a reusable, named parameter. It is required in
+      practice on effectively every call but is declared on only 20 operations.
+    update:
+      ClientIdHeader:
+        name: CLIENTID
+        in: header
+        required: true
+        description: >-
+          Identifier of the restaurant brand tenant the request acts for. Resolve
+          it from a brand alias with GET /clientalias/{clientAlias}. Omitting it
+          produces HTTP 400 (incentivio-code BAD_REQUEST) or, on several read
+          endpoints, HTTP 500 (incentivio-code ERROR).
+        schema:
+          type: string
+      UserLanguageHeader:
+        name: inc-user-language
+        in: header
+        required: false
+        description: Preferred language for multilingual content.
+        schema:
+          type: string
+  - target: $.components.responses
+    description: >-
+      Add the error responses the definition omits entirely. Shapes are taken from
+      live responses, including the empty body, which is the important part.
+    update:
+      BadRequest:
+        description: >-
+          A required parameter is missing or malformed. Body is empty; the reason
+          is in the response headers.
+        headers:
+          incentivio-code:
+            description: Outcome code. Observed value BAD_REQUEST.
+            schema:
+              type: string
+          incentivio-message:
+            description: >-
+              Human-readable message. Observed "Not a valid request. Please ensure
+              all required parameters are present and in valid format."
+            schema:
+              type: string
+          trace-id:
+            description: Server-generated trace identifier for support.
+            schema:
+              type: string
+      Unauthorized:
+        description: No bearer token was presented, or it was rejected. Body is empty.
+        headers:
+          WWW-Authenticate:
+            description: 'Bearer realm="restservice"'
+            schema:
+              type: string
+          incentivio-code:
+            description: >-
+              Observed value "Full authentication is required to access this
+              resource" — the code and message are identical on this path.
+            schema:
+              type: string
+      ServerError:
+        description: >-
+          Unhandled server-side failure. Body is empty. Frequently returned when
+          the tenant context cannot be resolved.
+        headers:
+          incentivio-code:
+            description: Outcome code. Observed value ERROR.
+            schema:
+              type: string
+          trace-id:
+            schema:
+              type: string
+  - target: $.paths.*.*.responses
+    description: Attach the error responses to every operation.
+    update:
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '500':
+        $ref: '#/components/responses/ServerError'
+  - target: $.paths.*.*.responses.200
+    description: >-
+      Record the success envelope headers that every response carries and that the
+      definition does not mention.
+    update:
+      headers:
+        incentivio-code:
+          description: Outcome code. SUCCESS on a successful call.
+          schema:
+            type: string
+        incentivio-message:
+          description: Outcome message. "Success" on a successful call.
+          schema:
+            type: string
+        trace-id:
+          description: Server-generated trace identifier.
+          schema:
+            type: string
+        span-id:
+          description: Server-generated span identifier.
+          schema:
+            type: string

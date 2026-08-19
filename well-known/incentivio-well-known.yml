@@ -1,0 +1,143 @@
+generated: '2026-08-13'
+method: probed
+source: live GET of /.well-known/* against every Incentivio host in apis.yml
+name: Incentivio well-known probe
+description: >-
+  RFC 8615 well-known probe across Incentivio's website, developer portal and
+  the two production API hosts. Two paths returned a real document: both API
+  services publish RFC 8414 OAuth 2.0 Authorization Server Metadata anonymously,
+  which is the only machine-readable authentication description Incentivio
+  publishes anywhere. Everything else is a miss. Note that both the Theneo
+  developer portal (apidocs.incentivio.com) and the ordering web app
+  (order.incentivio.com) answer HTTP 200 with a single-page-app HTML shell for
+  EVERY /.well-known/* path — those are recorded as misses, not hits, because the
+  body is an HTML document and not the requested resource.
+checked: '2026-08-13'
+hosts:
+  - host: https://incentivio.com
+    role: website
+  - host: https://apidocs.incentivio.com
+    role: developer portal (Theneo)
+  - host: https://mobile.incentivio.com/incentivio-mobile-api
+    role: guest ordering API
+  - host: https://adminapi.incentivio.com/incentivio-admin-api
+    role: admin API
+probes:
+  - host: https://mobile.incentivio.com/incentivio-mobile-api
+    path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    document: true
+    file: well-known/incentivio-mobile-api-oauth-authorization-server.json
+    note: >-
+      RFC 8414 metadata for the guest-facing authorization server. issuer
+      https://order.incentivio.com/issuer. Spring Authorization Server shape.
+  - host: https://adminapi.incentivio.com/incentivio-admin-api
+    path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    document: true
+    file: well-known/incentivio-admin-api-oauth-authorization-server.json
+    note: >-
+      RFC 8414 metadata for the operator-facing authorization server. issuer
+      https://admin.incentivio.com/issuer.
+  - host: https://mobile.incentivio.com/incentivio-mobile-api
+    path: /.well-known/security.txt
+    status: 401
+    document: false
+  - host: https://mobile.incentivio.com/incentivio-mobile-api
+    path: /.well-known/openid-configuration
+    status: 401
+    document: false
+    note: >-
+      The service exposes OAuth 2.0 AS metadata but NOT OpenID Connect discovery;
+      the OIDC path is swallowed by the same authentication filter as every other
+      unmapped route.
+  - host: https://mobile.incentivio.com/incentivio-mobile-api
+    path: /.well-known/oauth-protected-resource
+    status: 401
+    document: false
+  - host: https://mobile.incentivio.com/incentivio-mobile-api
+    path: /.well-known/api-catalog
+    status: 401
+    document: false
+  - host: https://mobile.incentivio.com/incentivio-mobile-api
+    path: /.well-known/ai-plugin.json
+    status: 401
+    document: false
+  - host: https://mobile.incentivio.com/incentivio-mobile-api
+    path: /.well-known/agent-card.json
+    status: 401
+    document: false
+  - host: https://mobile.incentivio.com/incentivio-mobile-api
+    path: /.well-known/agent.json
+    status: 401
+    document: false
+  - host: https://adminapi.incentivio.com/incentivio-admin-api
+    path: /.well-known/security.txt
+    status: 401
+    document: false
+  - host: https://adminapi.incentivio.com/incentivio-admin-api
+    path: /.well-known/agent-card.json
+    status: 401
+    document: false
+  - host: https://incentivio.com
+    path: /.well-known/security.txt
+    status: 404
+    document: false
+  - host: https://incentivio.com
+    path: /.well-known/openid-configuration
+    status: 404
+    document: false
+  - host: https://incentivio.com
+    path: /.well-known/oauth-authorization-server
+    status: 404
+    document: false
+  - host: https://incentivio.com
+    path: /.well-known/api-catalog
+    status: 404
+    document: false
+  - host: https://incentivio.com
+    path: /.well-known/ai-plugin.json
+    status: 404
+    document: false
+  - host: https://incentivio.com
+    path: /.well-known/agent-card.json
+    status: 404
+    document: false
+  - host: https://incentivio.com
+    path: /.well-known/agent.json
+    status: 404
+    document: false
+  - host: https://incentivio.com
+    path: /llms.txt
+    status: 404
+    document: false
+  - host: https://apidocs.incentivio.com
+    path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    document: false
+    note: SPA catch-all returned the Theneo portal HTML shell, not a security.txt.
+  - host: https://apidocs.incentivio.com
+    path: /.well-known/agent.json
+    status: 200
+    content_type: text/html
+    document: false
+    note: SPA catch-all returned the Theneo portal HTML shell, not an agent card.
+  - host: https://apidocs.incentivio.com
+    path: /llms.txt
+    status: 404
+    document: false
+    note: >-
+      Theneo answers "llms.txt is not available for this resource". The portal's
+      published feature flags show enablellmsfulltxt=false.
+summary:
+  paths_probed: 22
+  documents_found: 2
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: true
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false
