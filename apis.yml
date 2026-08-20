@@ -45,6 +45,19 @@ tags:
   - Analytics
   - Reverse ETL
   - Restaurant Technology
+  - Point-of-Sale
+  - Gift Cards
+  - Mobile Ordering
+tags_raw:
+  - Restaurant
+  - Guest Engagement
+  - Online Ordering
+  - Loyalty
+  - Customer Data Platform
+  - Marketing Automation
+  - Analytics
+  - Reverse ETL
+  - Restaurant Technology
   - Point of Sale
   - Gift Cards
   - Mobile Ordering
@@ -68,6 +81,10 @@ apis:
       Enterprise tier.
     humanURL: https://incentivio.com/feature/incentivio-connect/
     tags:
+      - Guest Data
+      - Integration
+      - Reverse ETL
+    tags_raw:
       - Guest Data
       - Integrations
       - Reverse ETL
