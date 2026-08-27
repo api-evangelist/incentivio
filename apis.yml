@@ -66,109 +66,1808 @@ created: '2026-06-02'
 modified: '2026-08-13'
 specificationVersion: '0.23'
 apis:
-  - aid: incentivio:rest-api
-    name: Incentivio Connect Platform API
-    description: >-
-      Incentivio describes an API-first, composable data platform that unifies
-      guest data across POS, loyalty, app, web, and marketplace channels into a
-      single persistent Guest ID, with reverse ETL to sync to existing CRM and
-      ad platforms. Real-time streaming and structured batch ETL process
-      loyalty and digital events alongside structured POS data for guest
-      scoring and segmentation. The platform is BigQuery-native with a Star
-      Schema data model. Public API reference, base URL, and authentication
-      details are not published; access is provided through partner and
-      enterprise integration programs, with API SLAs offered on the Connect
-      Enterprise tier.
-    humanURL: https://incentivio.com/feature/incentivio-connect/
-    tags:
-      - Guest Data
-      - Integration
-      - Reverse ETL
-    tags_raw:
-      - Guest Data
-      - Integrations
-      - Reverse ETL
-    properties:
-      - type: Documentation
-        url: https://incentivio.com/feature/incentivio-connect/
-  - aid: incentivio:mobile-api
-    name: Incentivio Mobile & Ordering API
-    description: >-
-      The guest-facing REST API behind Incentivio's branded web and native
-      mobile ordering apps (order.incentivio.com). A Spring Boot service that
-      publishes a live, unauthenticated springdoc OpenAPI 3.0.1 definition at
-      /v3/api-docs covering 112 paths and 125 operations across catalogs and
-      menus, locations and stores, orders and order items, order payments and
-      payment instruments, gift cards and wallets, loyalty accounts and points,
-      offers and discounts, surveys, segments, messaging, and user accounts with
-      passwordless and OAuth 2.0 sign-in. Requests carry a Bearer access token
-      plus a CLIENTID header that selects the restaurant brand tenant. The
-      definition is machine-generated: it declares no operation summaries or
-      descriptions, no securitySchemes, and only 200 responses, so runtime
-      auth, error and tenancy semantics were captured by live probe instead.
-    humanURL: https://apidocs.incentivio.com/
-    baseURL: https://mobile.incentivio.com/incentivio-mobile-api
-    tags:
-      - Online Ordering
-      - Loyalty
-      - Gift Cards
-      - Payments
-      - Guest Accounts
-    properties:
-      - type: OpenAPI
-        url: openapi/incentivio-mobile-api-openapi.yml
-      - type: Authentication
-        url: authentication/incentivio-authentication.yml
-      - type: Conventions
-        url: conventions/incentivio-conventions.yml
-      - type: ErrorCatalog
-        url: errors/incentivio-error-codes.yml
-      - type: DataModel
-        url: data-model/incentivio-data-model.yml
-      - type: Overlay
-        url: overlays/incentivio-mobile-api-overlay.yaml
-      - type: WellKnown
-        url: well-known/incentivio-well-known.yml
-  - aid: incentivio:admin-api
-    name: Incentivio Admin API
-    description: >-
-      The operator-facing REST API behind Incentivio's brand administration
-      console (admin.incentivio.com). A Spring Boot service that publishes a
-      live, unauthenticated springdoc OpenAPI 3.1.0 definition at /v3/api-docs
-      covering 327 paths and 421 operations across client and merchant
-      configuration, store and location management, menu import and menu
-      intelligence, items and sub-items, campaigns and offer distribution,
-      guest journeys and personas, customer segments and tags, loyalty
-      administration, gift card issuance and ACH funding, payments, refunds and
-      fund transfers, Spreedly payment gateway connectors, role and module
-      permissions, and a large reporting surface (sales, loyalty, offers, gift
-      card balance, deliveries by location, SMS, guest journey, recommendation
-      and customer reports) with CSV export. Tenancy is carried by an
-      Inc-Client-Id header and clientid path parameters.
-    humanURL: https://apidocs.incentivio.com/
-    baseURL: https://adminapi.incentivio.com/incentivio-admin-api
-    tags:
-      - Administration
-      - Reporting
-      - Menu Management
-      - Campaigns
-      - Payments
-    properties:
-      - type: OpenAPI
-        url: openapi/incentivio-admin-api-openapi.yml
-      - type: Authentication
-        url: authentication/incentivio-authentication.yml
-      - type: Conventions
-        url: conventions/incentivio-conventions.yml
-      - type: ErrorCatalog
-        url: errors/incentivio-error-codes.yml
-      - type: DataModel
-        url: data-model/incentivio-data-model.yml
-      - type: Overlay
-        url: overlays/incentivio-admin-api-overlay.yaml
-      - type: WellKnown
-        url: well-known/incentivio-well-known.yml
+- aid: incentivio:rest-api
+  name: Incentivio Connect Platform API
+  description: >-
+    Incentivio describes an API-first, composable data platform that unifies guest data across POS, loyalty,
+    app, web, and marketplace channels into a single persistent Guest ID, with reverse ETL to sync to
+    existing CRM and ad platforms. Real-time streaming and structured batch ETL process loyalty and digital
+    events alongside structured POS data for guest scoring and segmentation. The platform is BigQuery-native
+    with a Star Schema data model. Public API reference, base URL, and authentication details are not
+    published; access is provided through partner and enterprise integration programs, with API SLAs offered
+    on the Connect Enterprise tier.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  tags:
+  - Guest Data
+  - Integration
+  - Reverse ETL
+  tags_raw:
+  - Guest Data
+  - Integrations
+  - Reverse ETL
+  properties:
+  - type: Documentation
+    url: https://incentivio.com/feature/incentivio-connect/
+- aid: incentivio:incentivio-admin-controller-api
+  name: Incentivio Admin Controller API
+  description: The admin-controller API from Incentivio — 10 operation(s) for admin-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - admin-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-admin-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-app-configuration-controller-api
+  name: Incentivio App Configuration Controller API
+  description: >-
+    The app-configuration-controller API from Incentivio — 1 operation(s) for app-configuration-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - app-configuration-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-app-configuration-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-app-content-controller-api
+  name: Incentivio App Content Controller API
+  description: >-
+    The app-content-controller API from Incentivio — 1 operation(s) for app-content-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - app-content-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-app-content-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-app-home-config-controller-api
+  name: Incentivio App Home Config Controller API
+  description: >-
+    The app-home-config-controller API from Incentivio — 11 operation(s) for app-home-config-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - app-home-config-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-app-home-config-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-bulk-image-upload-controller-api
+  name: Incentivio Bulk Image Upload Controller API
+  description: >-
+    The bulk-image-upload-controller API from Incentivio — 3 operation(s) for bulk-image-upload-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - bulk-image-upload-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-bulk-image-upload-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-campaign-controller-api
+  name: Incentivio Campaign Controller API
+  description: The campaign-controller API from Incentivio — 1 operation(s) for campaign-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - campaign-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-campaign-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-catalog-controller-api
+  name: Incentivio Catalog Controller API
+  description: The catalog-controller API from Incentivio — 7 operation(s) for catalog-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - catalog-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-catalog-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-client-admin-controller-api
+  name: Incentivio Client Admin Controller API
+  description: >-
+    The client-admin-controller API from Incentivio — 13 operation(s) for client-admin-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - client-admin-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-client-admin-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-client-config-controller-api
+  name: Incentivio Client Config Controller API
+  description: >-
+    The client-config-controller API from Incentivio — 1 operation(s) for client-config-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - client-config-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-client-config-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-client-configuration-controller-api
+  name: Incentivio Client Configuration Controller API
+  description: >-
+    The client-configuration-controller API from Incentivio — 3 operation(s) for client-configuration-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - client-configuration-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-client-configuration-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-client-controller-api
+  name: Incentivio Client Controller API
+  description: The client-controller API from Incentivio — 3 operation(s) for client-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - client-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-client-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-client-domain-controller-api
+  name: Incentivio Client Domain Controller API
+  description: >-
+    The client-domain-controller API from Incentivio — 1 operation(s) for client-domain-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - client-domain-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-client-domain-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-client-email-template-controller-api
+  name: Incentivio Client Email Template Controller API
+  description: >-
+    The client-email-template-controller API from Incentivio — 6 operation(s) for client-email-template-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - client-email-template-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-client-email-template-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-client-merchant-controller-api
+  name: Incentivio Client Merchant Controller API
+  description: >-
+    The client-merchant-controller API from Incentivio — 6 operation(s) for client-merchant-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - client-merchant-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-client-merchant-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-customer-report-controller-api
+  name: Incentivio Customer Report Controller API
+  description: >-
+    The customer-report-controller API from Incentivio — 5 operation(s) for customer-report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - customer-report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-customer-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-customer-segment-tag-controller-api
+  name: Incentivio Customer Segment Tag Controller API
+  description: >-
+    The customer-segment-tag-controller API from Incentivio — 1 operation(s) for customer-segment-tag-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - customer-segment-tag-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-customer-segment-tag-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-customer-tag-and-rule-controller-api
+  name: Incentivio Customer Tag And Rule Controller API
+  description: >-
+    The customer-tag-and-rule-controller API from Incentivio — 4 operation(s) for customer-tag-and-rule-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - customer-tag-and-rule-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-customer-tag-and-rule-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-deliveries-by-location-report-controller-api
+  name: Incentivio Deliveries By Location Report Controller API
+  description: >-
+    The deliveries-by-location-report-controller API from Incentivio — 1 operation(s) for deliveries-by-location-report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - deliveries-by-location-report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-deliveries-by-location-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-delivery-address-controller-api
+  name: Incentivio Delivery Address Controller API
+  description: >-
+    The delivery-address-controller API from Incentivio — 3 operation(s) for delivery-address-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - delivery-address-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-delivery-address-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-dynamic-env-controller-api
+  name: Incentivio Dynamic Env Controller API
+  description: >-
+    The dynamic-env-controller API from Incentivio — 1 operation(s) for dynamic-env-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - dynamic-env-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-dynamic-env-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-email-pulse-controller-api
+  name: Incentivio Email Pulse Controller API
+  description: >-
+    The email-pulse-controller API from Incentivio — 8 operation(s) for email-pulse-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - email-pulse-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-email-pulse-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-external-link-controller-api
+  name: Incentivio External Link Controller API
+  description: >-
+    The external-link-controller API from Incentivio — 1 operation(s) for external-link-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - external-link-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-external-link-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-file-controller-api
+  name: Incentivio File Controller API
+  description: The file-controller API from Incentivio — 4 operation(s) for file-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - file-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-file-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-fund-transfer-config-controller-api
+  name: Incentivio Fund Transfer Config Controller API
+  description: >-
+    The fund-transfer-config-controller API from Incentivio — 3 operation(s) for fund-transfer-config-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - fund-transfer-config-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-fund-transfer-config-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-fund-transfer-controller-api
+  name: Incentivio Fund Transfer Controller API
+  description: >-
+    The fund-transfer-controller API from Incentivio — 3 operation(s) for fund-transfer-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - fund-transfer-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-fund-transfer-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-gift-card-ach-controller-api
+  name: Incentivio Gift Card Ach Controller API
+  description: >-
+    The gift-card-ach-controller API from Incentivio — 13 operation(s) for gift-card-ach-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - gift-card-ach-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-gift-card-ach-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-gift-card-balance-report-controller-api
+  name: Incentivio Gift Card Balance Report Controller API
+  description: >-
+    The gift-card-balance-report-controller API from Incentivio — 2 operation(s) for gift-card-balance-report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - gift-card-balance-report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-gift-card-balance-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-gift-card-client-onboard-controller-api
+  name: Incentivio Gift Card Client Onboard Controller API
+  description: >-
+    The gift-card-client-onboard-controller API from Incentivio — 6 operation(s) for gift-card-client-onboard-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - gift-card-client-onboard-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-gift-card-client-onboard-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-gift-card-controller-api
+  name: Incentivio Gift Card Controller API
+  description: The gift-card-controller API from Incentivio — 25 operation(s) for gift-card-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - gift-card-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-gift-card-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-gift-card-payment-controller-api
+  name: Incentivio Gift Card Payment Controller API
+  description: >-
+    The gift-card-payment-controller API from Incentivio — 4 operation(s) for gift-card-payment-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - gift-card-payment-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-gift-card-payment-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-gift-card-report-controller-api
+  name: Incentivio Gift Card Report Controller API
+  description: >-
+    The gift-card-report-controller API from Incentivio — 3 operation(s) for gift-card-report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - gift-card-report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-gift-card-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-group-controller-api
+  name: Incentivio Group Controller API
+  description: The group-controller API from Incentivio — 7 operation(s) for group-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - group-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-group-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-guest-journey-controller-api
+  name: Incentivio Guest Journey Controller API
+  description: >-
+    The guest-journey-controller API from Incentivio — 6 operation(s) for guest-journey-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - guest-journey-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-guest-journey-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-guest-journey-report-controller-api
+  name: Incentivio Guest Journey Report Controller API
+  description: >-
+    The guest-journey-report-controller API from Incentivio — 1 operation(s) for guest-journey-report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - guest-journey-report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-guest-journey-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-guest-order-verification-controller-api
+  name: Incentivio Guest Order Verification Controller API
+  description: >-
+    The guest-order-verification-controller API from Incentivio — 2 operation(s) for guest-order-verification-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - guest-order-verification-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-guest-order-verification-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-home-controller-api
+  name: Incentivio Home Controller API
+  description: The home-controller API from Incentivio — 2 operation(s) for home-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - home-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-home-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-im-here-controller-api
+  name: Incentivio Im Here Controller API
+  description: The im-here-controller API from Incentivio — 2 operation(s) for im-here-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - im-here-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-im-here-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-item-controller-api
+  name: Incentivio Item Controller API
+  description: The item-controller API from Incentivio — 9 operation(s) for item-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - item-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-item-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-job-status-controller-api
+  name: Incentivio Job Status Controller API
+  description: >-
+    The job-status-controller API from Incentivio — 1 operation(s) for job-status-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - job-status-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-job-status-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-location-controller-api
+  name: Incentivio Location Controller API
+  description: The location-controller API from Incentivio — 8 operation(s) for location-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - location-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-location-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-loyalty-controller-api
+  name: Incentivio Loyalty Controller API
+  description: The loyalty-controller API from Incentivio — 7 operation(s) for loyalty-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - loyalty-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-loyalty-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-loyalty-report-controller-api
+  name: Incentivio Loyalty Report Controller API
+  description: >-
+    The loyalty-report-controller API from Incentivio — 18 operation(s) for loyalty-report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - loyalty-report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-loyalty-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-media-file-controller-api
+  name: Incentivio Media File Controller API
+  description: >-
+    The media-file-controller API from Incentivio — 1 operation(s) for media-file-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - media-file-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-media-file-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-menu-import-controller-api
+  name: Incentivio Menu Import Controller API
+  description: >-
+    The menu-import-controller API from Incentivio — 8 operation(s) for menu-import-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - menu-import-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-menu-import-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-menu-intelligence-controller-api
+  name: Incentivio Menu Intelligence Controller API
+  description: >-
+    The menu-intelligence-controller API from Incentivio — 4 operation(s) for menu-intelligence-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - menu-intelligence-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-menu-intelligence-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-menu-search-pass-through-controller-api
+  name: Incentivio Menu Search Pass Through Controller API
+  description: >-
+    The menu-search-pass-through-controller API from Incentivio — 2 operation(s) for menu-search-pass-through-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - menu-search-pass-through-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-menu-search-pass-through-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-merchant-controller-api
+  name: Incentivio Merchant Controller API
+  description: The merchant-controller API from Incentivio — 2 operation(s) for merchant-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - merchant-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-merchant-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-message-controller-api
+  name: Incentivio Message Controller API
+  description: The message-controller API from Incentivio — 5 operation(s) for message-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - message-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-message-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-ml-controller-api
+  name: Incentivio Ml Controller API
+  description: The ml-controller API from Incentivio — 7 operation(s) for ml-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - ml-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-ml-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-multilingual-message-controller-api
+  name: Incentivio Multilingual Message Controller API
+  description: >-
+    The multilingual-message-controller API from Incentivio — 1 operation(s) for multilingual-message-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - multilingual-message-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-multilingual-message-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-oauth-2-controller-api
+  name: Incentivio OAUTH 2 Controller API
+  description: The oauth-2-controller API from Incentivio — 1 operation(s) for oauth-2-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - oauth-2-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-oauth-2-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-offer-distribution-controller-api
+  name: Incentivio Offer Distribution Controller API
+  description: >-
+    The offer-distribution-controller API from Incentivio — 2 operation(s) for offer-distribution-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - offer-distribution-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-offer-distribution-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-offers-controller-api
+  name: Incentivio Offers Controller API
+  description: The offers-controller API from Incentivio — 11 operation(s) for offers-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - offers-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-offers-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-offers-report-controller-api
+  name: Incentivio Offers Report Controller API
+  description: >-
+    The offers-report-controller API from Incentivio — 2 operation(s) for offers-report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - offers-report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-offers-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-order-availability-controller-api
+  name: Incentivio Order Availability Controller API
+  description: >-
+    The order-availability-controller API from Incentivio — 3 operation(s) for order-availability-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - order-availability-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-order-availability-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-order-controller-api
+  name: Incentivio Order Controller API
+  description: The order-controller API from Incentivio — 26 operation(s) for order-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - order-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-order-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-order-item-controller-api
+  name: Incentivio Order Item Controller API
+  description: >-
+    The order-item-controller API from Incentivio — 5 operation(s) for order-item-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - order-item-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-order-item-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-order-offers-controller-api
+  name: Incentivio Order Offers Controller API
+  description: >-
+    The order-offers-controller API from Incentivio — 5 operation(s) for order-offers-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - order-offers-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-order-offers-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-order-payment-controller-api
+  name: Incentivio Order Payment Controller API
+  description: >-
+    The order-payment-controller API from Incentivio — 6 operation(s) for order-payment-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - order-payment-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-order-payment-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-package-controller-api
+  name: Incentivio Package Controller API
+  description: The package-controller API from Incentivio — 2 operation(s) for package-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - package-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-package-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-passwordless-auth-controller-api
+  name: Incentivio Passwordless Auth Controller API
+  description: >-
+    The passwordless-auth-controller API from Incentivio — 2 operation(s) for passwordless-auth-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - passwordless-auth-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-passwordless-auth-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-payments-controller-api
+  name: Incentivio Payments Controller API
+  description: The payments-controller API from Incentivio — 2 operation(s) for payments-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - payments-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-payments-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-persona-controller-api
+  name: Incentivio Persona Controller API
+  description: The persona-controller API from Incentivio — 1 operation(s) for persona-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - persona-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-persona-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-preset-order-controller-api
+  name: Incentivio Preset Order Controller API
+  description: >-
+    The preset-order-controller API from Incentivio — 3 operation(s) for preset-order-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - preset-order-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-preset-order-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-recaptcha-controller-api
+  name: Incentivio Recaptcha Controller API
+  description: The recaptcha-controller API from Incentivio — 1 operation(s) for recaptcha-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - recaptcha-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-recaptcha-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-recommendation-report-controller-api
+  name: Incentivio Recommendation Report Controller API
+  description: >-
+    The recommendation-report-controller API from Incentivio — 4 operation(s) for recommendation-report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - recommendation-report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-recommendation-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-refunds-controller-api
+  name: Incentivio Refunds Controller API
+  description: The refunds-controller API from Incentivio — 2 operation(s) for refunds-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - refunds-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-refunds-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-report-controller-api
+  name: Incentivio Report Controller API
+  description: The report-controller API from Incentivio — 36 operation(s) for report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-role-module-permission-controller-api
+  name: Incentivio Role Module Permission Controller API
+  description: >-
+    The role-module-permission-controller API from Incentivio — 6 operation(s) for role-module-permission-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - role-module-permission-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-role-module-permission-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-sales-report-controller-api
+  name: Incentivio Sales Report Controller API
+  description: >-
+    The sales-report-controller API from Incentivio — 4 operation(s) for sales-report-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - sales-report-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-sales-report-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-secure-signature-controller-api
+  name: Incentivio Secure Signature Controller API
+  description: >-
+    The secure-signature-controller API from Incentivio — 1 operation(s) for secure-signature-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - secure-signature-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-secure-signature-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-segment-controller-api
+  name: Incentivio Segment Controller API
+  description: The segment-controller API from Incentivio — 5 operation(s) for segment-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - segment-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-segment-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-sms-reports-controller-api
+  name: Incentivio Sms Reports Controller API
+  description: >-
+    The sms-reports-controller API from Incentivio — 4 operation(s) for sms-reports-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - sms-reports-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-sms-reports-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-spreedly-connector-controller-api
+  name: Incentivio Spreedly Connector Controller API
+  description: >-
+    The spreedly-connector-controller API from Incentivio — 2 operation(s) for spreedly-connector-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - spreedly-connector-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-spreedly-connector-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-spreedly-payment-gateway-controller-api
+  name: Incentivio Spreedly Payment Gateway Controller API
+  description: >-
+    The spreedly-payment-gateway-controller API from Incentivio — 2 operation(s) for spreedly-payment-gateway-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - spreedly-payment-gateway-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-spreedly-payment-gateway-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-store-controller-api
+  name: Incentivio Store Controller API
+  description: The store-controller API from Incentivio — 13 operation(s) for store-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - store-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-store-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-sub-item-controller-api
+  name: Incentivio Sub Item Controller API
+  description: The sub-item-controller API from Incentivio — 4 operation(s) for sub-item-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - sub-item-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-sub-item-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-survey-answer-controller-api
+  name: Incentivio Survey Answer Controller API
+  description: >-
+    The survey-answer-controller API from Incentivio — 2 operation(s) for survey-answer-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - survey-answer-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-survey-answer-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-survey-controller-api
+  name: Incentivio Survey Controller API
+  description: The survey-controller API from Incentivio — 1 operation(s) for survey-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - survey-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-survey-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-tablet-app-compatibility-controller-api
+  name: Incentivio Tablet App Compatibility Controller API
+  description: >-
+    The tablet-app-compatibility-controller API from Incentivio — 1 operation(s) for tablet-app-compatibility-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - tablet-app-compatibility-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-tablet-app-compatibility-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-total-controller-api
+  name: Incentivio Total Controller API
+  description: The total-controller API from Incentivio — 2 operation(s) for total-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - total-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-total-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-transaction-controller-api
+  name: Incentivio Transaction Controller API
+  description: >-
+    The transaction-controller API from Incentivio — 2 operation(s) for transaction-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - transaction-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-transaction-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-transactions-controller-api
+  name: Incentivio Transactions Controller API
+  description: >-
+    The transactions-controller API from Incentivio — 1 operation(s) for transactions-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - transactions-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-transactions-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-user-controller-api
+  name: Incentivio User Controller API
+  description: The user-controller API from Incentivio — 22 operation(s) for user-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - user-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-user-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-wallet-controller-api
+  name: Incentivio Wallet Controller API
+  description: The wallet-controller API from Incentivio — 3 operation(s) for wallet-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - wallet-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-wallet-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-web-app-config-controller-api
+  name: Incentivio Web App Config Controller API
+  description: >-
+    The web-app-config-controller API from Incentivio — 1 operation(s) for web-app-config-controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - web-app-config-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-web-app-config-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
 common:
+  - type: Overlay
+    url: overlays/incentivio-mobile-api-overlay.yaml
+  - type: Overlay
+    url: overlays/incentivio-admin-api-overlay.yaml
   - type: DomainSecurity
     url: security/incentivio-domain-security.yml
   - type: Website
