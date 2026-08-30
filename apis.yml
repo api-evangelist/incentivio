@@ -915,6 +915,8 @@ apis:
   humanURL: https://incentivio.com/feature/incentivio-connect/
   baseURL: https://mobile.incentivio.com/incentivio-mobile-api
   tags:
+  - LocationController
+  tags_raw:
   - location-controller
   properties:
   - type: OpenAPI
@@ -1141,6 +1143,8 @@ apis:
   humanURL: https://incentivio.com/feature/incentivio-connect/
   baseURL: https://mobile.incentivio.com/incentivio-mobile-api
   tags:
+  - o-auth-2-controller
+  tags_raw:
   - oauth-2-controller
   properties:
   - type: OpenAPI
@@ -1779,6 +1783,8 @@ apis:
   humanURL: https://incentivio.com/feature/incentivio-connect/
   baseURL: https://mobile.incentivio.com/incentivio-mobile-api
   tags:
+  - Transaction-Controller
+  tags_raw:
   - transaction-controller
   properties:
   - type: OpenAPI
