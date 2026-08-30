@@ -1,0 +1,212 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Customer Segment Tag Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: customer-segment-tag-controller
+paths:
+  /incentivio-auto-tagger-service/customer-segments/{customerId}:
+    get:
+      tags:
+      - customer-segment-tag-controller
+      operationId: findSegmentsByCustomer
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: activeOnly
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindCustomerSegmentsResponseDTO'
+components:
+  schemas:
+    SegmentLightResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentIcon:
+          type: string
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor'
+        deletedStatus:
+          type: boolean
+    SubCategoryEnum:
+      type: string
+      enum:
+      - LIFETIME
+      - LAST_NO_OF_DAYS
+      - NO_OF_ORDERS
+    RelationalOperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    FindCustomerSegmentsResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        customerId:
+          type: string
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentLightResponseDTO'
+    ProductDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        externalId:
+          type: string
+        displayInfoTitlesList:
+          type: array
+          items:
+            type: string
+    OperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    RuleTypeEnum:
+      type: string
+      enum:
+      - EXPRESSION
+      - LOGIC
+    DaysOfWeekEnum:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    RuleDescriptor:
+      type: object
+      properties:
+        ruleType:
+          $ref: '#/components/schemas/RuleTypeEnum'
+        operator:
+          $ref: '#/components/schemas/OperatorEnum'
+        expressionValue:
+          type: string
+        expressionValueNew:
+          $ref: '#/components/schemas/ExpressionValueNew'
+        expressionName:
+          type: string
+        expressoinFormat:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        logicType:
+          $ref: '#/components/schemas/LogicTypeEnum'
+        childNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleDescriptor'
+    ExpressionValueNew:
+      type: object
+      properties:
+        attributeName:
+          type: string
+        attributeTitle:
+          type: string
+        attributeValues: {}
+        dataType:
+          type: string
+        productList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTO'
+          uniqueItems: true
+        subCategory:
+          $ref: '#/components/schemas/SubCategoryEnum'
+        relationalOperator:
+          $ref: '#/components/schemas/RelationalOperatorEnum'
+        quantity:
+          type: string
+        noOfDays:
+          type: integer
+          format: int32
+        noOfOrders:
+          type: integer
+          format: int32
+        startTime:
+          type: string
+        endTime:
+          type: string
+        daysOfWeek:
+          type: array
+          items:
+            $ref: '#/components/schemas/DaysOfWeekEnum'
+    LogicTypeEnum:
+      type: string
+      enum:
+      - AND
+      - OR
+      - NOT

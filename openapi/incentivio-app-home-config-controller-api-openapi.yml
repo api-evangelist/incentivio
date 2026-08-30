@@ -1,0 +1,576 @@
+openapi: 3.2.0
+info:
+  title: Incentivio App Home Config Controller API
+  version: v0
+  description: 'Operations tagged app-home-config-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: app-home-config-controller
+paths:
+  /incentivio-client-domain/clients/{clientid}/app-home-config/preview:
+    put:
+      tags:
+      - app-home-config-controller
+      operationId: updatePreview
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-client-domain/clients/{clientid}/app-home-config/background/schedules/{scheduleId}:
+    put:
+      tags:
+      - app-home-config-controller
+      operationId: updateSchedule
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackgroundScheduleRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    delete:
+      tags:
+      - app-home-config-controller
+      operationId: deleteSchedule
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-client-domain/clients/{clientid}/app-home-config/background/default:
+    put:
+      tags:
+      - app-home-config-controller
+      operationId: stageDefaultBackground
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DefaultBackgroundRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    delete:
+      tags:
+      - app-home-config-controller
+      operationId: removeDefaultBackground
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-client-domain/clients/{clientid}/app-home-config/background/schedules:
+    post:
+      tags:
+      - app-home-config-controller
+      operationId: addSchedule
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackgroundScheduleRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-client-domain/clients/{clientid}/app-home-config/background/default/publish:
+    post:
+      tags:
+      - app-home-config-controller
+      operationId: publishDefaultBackground
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-client-domain/clients/{clientid}/app-home-config:
+    get:
+      tags:
+      - app-home-config-controller
+      operationId: getAppHomeConfig
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-client-domain/clients/{clientid}/app-home-config/audit:
+    get:
+      tags:
+      - app-home-config-controller
+      operationId: getAuditHistory
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppHomeConfigAuditDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-client-domain/clients/{clientid}/app-home-config/admin:
+    get:
+      tags:
+      - app-home-config-controller
+      operationId: getAppHomeConfigAdmin
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-client-domain/clients/{clientid}/app-home-config/preview/{userId}:
+    delete:
+      tags:
+      - app-home-config-controller
+      operationId: removePreview
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-client-domain/clients/{clientid}/app-home-config/background/default/staged:
+    delete:
+      tags:
+      - app-home-config-controller
+      operationId: discardStagedDefault
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /app-home-config:
+    get:
+      tags:
+      - app-home-config-controller
+      operationId: getAppHomeConfig
+      parameters:
+      - name: CLIENTID
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: USERID
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: Inc-Timezone
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppHomeConfigDTO_2'
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+components:
+  schemas:
+    HomeBackgroundDTO:
+      type: object
+      properties:
+        defaultImageUrlAndroid:
+          type: string
+        defaultImageUrlIos:
+          type: string
+        defaultVideoUrlAndroid:
+          type: string
+        defaultVideoUrlIos:
+          type: string
+        defaultVideoImageUrl:
+          type: string
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/BackgroundScheduleDTO'
+        stagedDefaultImageUrlAndroid:
+          type: string
+        stagedDefaultImageUrlIos:
+          type: string
+        stagedDefaultVideoUrlAndroid:
+          type: string
+        stagedDefaultVideoUrlIos:
+          type: string
+        stagedDefaultVideoImageUrl:
+          type: string
+        previewUsers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BackgroundPreviewDTO'
+    BackgroundScheduleDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        imageUrlAndroid:
+          type: string
+        imageUrlIos:
+          type: string
+        videoUrlAndroid:
+          type: string
+        videoUrlIos:
+          type: string
+        videoImageUrl:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+        daysOfWeek:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+    AppHomeConfigDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        version:
+          type: integer
+          format: int32
+        background:
+          $ref: '#/components/schemas/HomeBackgroundDTO'
+        blocks:
+          type: array
+          items: {}
+        previewScheduleId:
+          type: string
+        previewType:
+          type: string
+        hasStagedDefault:
+          type: boolean
+    DefaultBackgroundRequestDTO:
+      type: object
+      properties:
+        imageUrlAndroid:
+          type: string
+        imageUrlIos:
+          type: string
+        videoUrlAndroid:
+          type: string
+        videoUrlIos:
+          type: string
+        videoImageUrl:
+          type: string
+    PreviewRequestDTO:
+      type: object
+      properties:
+        userId:
+          type: string
+        type:
+          type: string
+        scheduleId:
+          type: string
+      required:
+      - type
+      - userId
+    AppHomeConfigAuditDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        adminId:
+          type: string
+        action:
+          type: string
+        detail:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    BackgroundScheduleRequestDTO:
+      type: object
+      properties:
+        label:
+          type: string
+        imageUrlAndroid:
+          type: string
+        imageUrlIos:
+          type: string
+        videoUrlAndroid:
+          type: string
+        videoUrlIos:
+          type: string
+        videoImageUrl:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+        daysOfWeek:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      - endDate
+      - endTime
+      - startDate
+      - startTime
+    BackgroundPreviewDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        scheduleId:
+          type: string
+    AppHomeConfigDTO_2:
+      type: object
+      properties:
+        clientId:
+          type: string
+        version:
+          type: integer
+          format: int32
+        background:
+          $ref: '#/components/schemas/HomeBackgroundDTO'
+        blocks:
+          type: array
+          items:
+            type: object
+        previewScheduleId:
+          type: string
+        previewType:
+          type: string
+        hasStagedDefault:
+          type: boolean
+x-refined-from:
+- incentivio-admin-api-openapi.yml
+- incentivio-mobile-api-openapi.yml

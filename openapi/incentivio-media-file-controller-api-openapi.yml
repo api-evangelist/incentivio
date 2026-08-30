@@ -1,0 +1,53 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Media File Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: media-file-controller
+paths:
+  /incentivio-media/presignedurls/client:
+    post:
+      tags:
+      - media-file-controller
+      operationId: presignedUrlsClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PresignedUrlsClientRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignedUrlsClientResponse'
+components:
+  schemas:
+    PresignedUrlClient:
+      type: object
+      properties:
+        key:
+          type: string
+        presignedUrl:
+          type: string
+    PresignedUrlsClientResponse:
+      type: object
+      properties:
+        presignedUrls:
+          type: array
+          items:
+            $ref: '#/components/schemas/PresignedUrlClient'
+    PresignedUrlsClientRequest:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            type: string
+      required:
+      - keys

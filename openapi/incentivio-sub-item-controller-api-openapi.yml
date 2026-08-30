@@ -1,0 +1,283 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Sub Item Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: sub-item-controller
+paths:
+  /incentivio-ordering-service/subitems:
+    put:
+      tags:
+      - sub-item-controller
+      operationId: addOrUpdatePackage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubItemRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateSubItemResponseDTO'
+  /incentivio-ordering-service/adminsubitems:
+    get:
+      tags:
+      - sub-item-controller
+      operationId: listSubItemsByClientIdAndItemIdForAdmin
+      parameters:
+      - name: itemid
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListSubItemResponseAdminDTO'
+  /incentivio-ordering-service/adminsubitems/{subitemid}:
+    get:
+      tags:
+      - sub-item-controller
+      operationId: viewSubItemByIdForAdmin
+      parameters:
+      - name: subitemid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ViewSubItemResponseAdminDTO'
+  /incentivio-ordering-service/subitems/{subitemid}:
+    delete:
+      tags:
+      - sub-item-controller
+      operationId: deleteSubItems
+      parameters:
+      - name: subitemid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    ListSubItemResponseAdminDTO:
+      type: object
+      properties:
+        subItemId:
+          type: string
+        extSubItemId:
+          type: string
+        merchantId:
+          type: string
+        clientId:
+          type: string
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        uom:
+          type: string
+        sku:
+          type: string
+        upc:
+          type: string
+        brandId:
+          type: string
+        categoryId:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+          uniqueItems: true
+        status:
+          type: string
+        title:
+          type: string
+        label:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+    CreateSubItemResponseDTO:
+      type: object
+      properties:
+        subItemId:
+          type: string
+        label:
+          type: string
+    CreateSubItemRequestDTO:
+      type: object
+      properties:
+        subItemId:
+          type: string
+        extSubItemId:
+          type: string
+        merchantId:
+          type: string
+          minLength: 1
+        clientId:
+          type: string
+          minLength: 1
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        uom:
+          type: string
+        sku:
+          type: string
+        upc:
+          type: string
+        brandId:
+          type: string
+        categoryId:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+          uniqueItems: true
+        status:
+          type: string
+        title:
+          type: string
+        label:
+          type: string
+      required:
+      - clientId
+      - merchantId
+    ViewSubItemResponseAdminDTO:
+      type: object
+      properties:
+        subItemId:
+          type: string
+        extSubItemId:
+          type: string
+        merchantId:
+          type: string
+        clientId:
+          type: string
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        uom:
+          type: string
+        sku:
+          type: string
+        upc:
+          type: string
+        brandId:
+          type: string
+        categoryId:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+          uniqueItems: true
+        status:
+          type: string
+        title:
+          type: string
+        label:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string

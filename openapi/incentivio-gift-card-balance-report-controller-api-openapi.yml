@@ -1,0 +1,147 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Gift Card Balance Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: gift-card-balance-report-controller
+paths:
+  /incentivio-giftcard-service/clients/{clientid}/balance-report/generate:
+    get:
+      tags:
+      - gift-card-balance-report-controller
+      operationId: generateBalanceReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: liableasofdate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GiftCardBalanceReportDTO'
+  /incentivio-giftcard-service/clients/{clientid}/balance-report/export:
+    get:
+      tags:
+      - gift-card-balance-report-controller
+      operationId: exportGiftCardBalanceReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: liableasofdate
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GiftCardBalanceExportReportResponse'
+components:
+  schemas:
+    GiftCardBalanceRecord:
+      type: object
+      properties:
+        cardIdentifier:
+          type: string
+        cardStatus:
+          type: string
+        totalBalance:
+          type: string
+        liableBalance:
+          type: string
+        compBalance:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        activatedDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+        createdDateString:
+          type: string
+        activatedDateString:
+          type: string
+        updatedDateString:
+          type: string
+        initialPurchaseAmount:
+          type: string
+        initialPurchaseLocation:
+          type: string
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    GiftCardBalanceExportReportResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        message:
+          type: string
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    GiftCardBalanceReportDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCardBalanceRecord'
+        releaseDate:
+          type: string

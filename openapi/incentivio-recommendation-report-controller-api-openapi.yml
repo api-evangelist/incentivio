@@ -1,0 +1,213 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Recommendation Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: recommendation-report-controller
+paths:
+  /incentivio-reports/clients/{clientId}/recommendation-dashboard/top-items:
+    get:
+      tags:
+      - recommendation-report-controller
+      operationId: getTopRecommendedItemsReport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TopRecommendedItemsDTO'
+  /incentivio-reports/clients/{clientId}/recommendation-dashboard/summary:
+    get:
+      tags:
+      - recommendation-report-controller
+      operationId: getRecommendationSummary
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecommendationSummaryDTO'
+  /incentivio-reports/clients/{clientId}/recommendation-dashboard/average-basket-value:
+    get:
+      tags:
+      - recommendation-report-controller
+      operationId: getAverageBasketValueReport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecommendedAverageBasketValueDTO'
+  /incentivio-ordering-service/adminitem/image:
+    get:
+      tags:
+      - recommendation-report-controller
+      operationId: getItemImagesByDisplayTitles
+      parameters:
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: itemDisplayTitles
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TopRecommendedItemsDTO'
+components:
+  schemas:
+    RecommendedAverageBasketValueDTO:
+      type: object
+      properties:
+        date:
+          type: integer
+          format: int64
+        txWithNoRecommendationsPresented:
+          type: number
+          format: float
+        txWithRecommendationsPurchased:
+          type: number
+          format: float
+        txWithRecommendationsPresentedButNotPurchased:
+          type: number
+          format: float
+    RecommendationSummaryDTO:
+      type: object
+      properties:
+        percentageOfTxWithDisplayedRecommendation:
+          type: number
+          format: float
+        txWithPurchasedRecommendation:
+          $ref: '#/components/schemas/MonthlyTileData'
+        percentageOfTxWherePurchasedRecommendation:
+          type: number
+          format: float
+        percentageOfRevenueLiftForTxWithPurchasedRecommendation:
+          type: number
+          format: float
+        revenueAddedThroughRecommendations:
+          $ref: '#/components/schemas/MonthlyTileData'
+        revenueAddedAfterShowingRecommendations:
+          $ref: '#/components/schemas/MonthlyTileData'
+    MonthlyTileData:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        comparedToPreviousMonthPercentage:
+          type: number
+          format: float
+    TopRecommendedItemsDTO:
+      type: object
+      properties:
+        itemName:
+          type: string
+        qty:
+          type: integer
+          format: int32
+        orders:
+          type: integer
+          format: int32
+        revenue:
+          type: number
+          format: float
+        takeRate:
+          type: number
+          format: float
+        imageUrl:
+          type: string

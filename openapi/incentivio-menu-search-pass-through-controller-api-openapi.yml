@@ -1,0 +1,151 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Menu Search Pass Through Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: menu-search-pass-through-controller
+paths:
+  /incentivio-menu-service/search:
+    post:
+      tags:
+      - menu-search-pass-through-controller
+      operationId: search
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchTargetingParams'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductSearchResponse'
+  /incentivio-menu-service/search/locations:
+    get:
+      tags:
+      - menu-search-pass-through-controller
+      operationId: searchLocations
+      parameters:
+      - name: extTargetingId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: productType
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/ProductType'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDetailResponse'
+components:
+  schemas:
+    LocationDetailResponse:
+      type: object
+      properties:
+        extTargetingId:
+          type: string
+        productType:
+          $ref: '#/components/schemas/ProductType'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetingLocationVariant'
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    ProductSearchResult:
+      type: object
+      properties:
+        extTargetingId:
+          type: string
+        incentivioId:
+          type: string
+        externalId:
+          type: string
+        title:
+          type: string
+        productType:
+          $ref: '#/components/schemas/ProductType'
+        locationVariationCount:
+          type: integer
+          format: int32
+        priceVariationCount:
+          type: integer
+          format: int32
+    TargetingLocationVariant:
+      type: object
+      properties:
+        productTitle:
+          type: string
+        incentivioId:
+          type: string
+        externalId:
+          type: string
+        locationId:
+          type: string
+        locationName:
+          type: string
+        price:
+          type: string
+        status:
+          type: string
+        itemType:
+          type: string
+        productId:
+          type: string
+    ItemType:
+      type: string
+      enum:
+      - MAIN
+      - MODIFIER
+    SearchTargetingParams:
+      type: object
+      properties:
+        query:
+          type: string
+        productType:
+          $ref: '#/components/schemas/ProductType'
+        status:
+          $ref: '#/components/schemas/Status'
+        itemType:
+          $ref: '#/components/schemas/ItemType'
+        locationIds:
+          type: array
+          items:
+            type: string
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    ProductSearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSearchResult'
+        nextCursor:
+          type: string
+        hasMoreResults:
+          type: boolean
+    ProductType:
+      type: string
+      enum:
+      - ITEM
+      - GROUP
+      - MENU

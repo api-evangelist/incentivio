@@ -1,0 +1,606 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Email Pulse Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: email-pulse-controller
+paths:
+  /incentivio-reports/pulse/email/{reportType}/data/csv:
+    post:
+      tags:
+      - email-pulse-controller
+      operationId: getDataGridCsv
+      parameters:
+      - name: reportType
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPulseDataCSVRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PulseCSVResponseDTO'
+  /incentivio-reports/pulse/email/{reportType}/opened:
+    get:
+      tags:
+      - email-pulse-controller
+      operationId: getOpened
+      parameters:
+      - name: reportType
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/PulseDateRange'
+      - name: offerIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: campaignIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: messageIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: emailType
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PulsePieGraph'
+  /incentivio-reports/pulse/email/{reportType}/data:
+    get:
+      tags:
+      - email-pulse-controller
+      operationId: getDataGrid
+      parameters:
+      - name: reportType
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/PulseDateRange'
+      - name: offerIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: campaignIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: messageIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: emailType
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: pagination
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/PaginationRequest'
+      - name: sorting
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/SortingRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PulseDataGridWithTotalEmailDataDTO'
+  /incentivio-reports/pulse/email/{reportType}/cards:
+    get:
+      tags:
+      - email-pulse-controller
+      operationId: getEmailPulseCards
+      parameters:
+      - name: reportType
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/PulseDateRange'
+      - name: offerIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: campaignIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: messageIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: emailType
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EmailCardsDTO'
+  /incentivio-reports/pulse/email/{reportType}/bounced:
+    get:
+      tags:
+      - email-pulse-controller
+      operationId: getBounced
+      parameters:
+      - name: reportType
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/PulseDateRange'
+      - name: offerIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: campaignIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: messageIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: emailType
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PulsePieGraph'
+  /incentivio-reports/pulse/email/overview/trends:
+    get:
+      tags:
+      - email-pulse-controller
+      operationId: getOverviewTrends
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/PulseDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PulseTimeSeries'
+  /incentivio-reports/pulse/email/offers:
+    get:
+      tags:
+      - email-pulse-controller
+      operationId: getOffers
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailPulseOfferDTO'
+  /incentivio-reports/pulse/email/messages:
+    get:
+      tags:
+      - email-pulse-controller
+      operationId: getMessages
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailPulseMessageDTO'
+components:
+  schemas:
+    EmailPulseOfferDTO:
+      type: object
+      properties:
+        offerId:
+          type: string
+        title:
+          type: string
+    SortingRequest:
+      type: object
+      properties:
+        sortBy:
+          type: string
+        sortDirection:
+          type: string
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    PulseDateRange:
+      type: object
+      properties:
+        startdate:
+          type: string
+          format: date
+        enddate:
+          type: string
+          format: date
+        comparisonstartdate:
+          type: string
+          format: date
+        comparisonenddate:
+          type: string
+          format: date
+    PulseTimeSeriesEntry:
+      type: object
+      properties:
+        label:
+          type: string
+        data:
+          type: array
+          items:
+            type: number
+    PulseTimeSeries:
+      type: object
+      properties:
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/PulseTimeSeriesEntry'
+        xlabels:
+          type: array
+          items:
+            type: string
+    RequestStatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    PulseCSVResponseDTO:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        responseMessage:
+          type: string
+        data:
+          type: object
+          additionalProperties: {}
+    EmailDataDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        offerId:
+          type: string
+        messageId:
+          type: string
+        offerTitle:
+          type: string
+        messageTitle:
+          type: string
+        campaignId:
+          type: string
+        dateSent:
+          type: string
+        emailType:
+          type: string
+        emailTypeDisplay:
+          type: string
+        sent:
+          type: string
+        delivered:
+          type: string
+        deliveryRate:
+          type: string
+        openRate:
+          type: string
+        clickRate:
+          type: string
+        bounceRate:
+          type: string
+        unsubscribeRate:
+          type: string
+        spamReportRate:
+          type: string
+        emailsBounced:
+          type: string
+        emailsDropped:
+          type: string
+        emailsDeferred:
+          type: string
+        uniqueEmailsDeferred:
+          type: string
+        emailsOpened:
+          type: string
+        uniqueOpens:
+          type: string
+        clicks:
+          type: string
+        uniqueClicks:
+          type: string
+        clickThroughRate:
+          type: string
+        unsubscribes:
+          type: string
+        spamReports:
+          type: string
+    PulsePieGraph:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PulsePieGraphEntry'
+    PaginationRequest:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+    PulseDataGridWithTotalEmailDataDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailDataDTO'
+        total:
+          $ref: '#/components/schemas/EmailDataDTO'
+    CardTypeEnum:
+      type: string
+      enum:
+      - number
+      - percent
+      - currency
+    EmailCardsDTO:
+      type: object
+      properties:
+        emailsSent:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        emailsDelivered:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        openRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        clickRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        unsubscribeRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        spamReportRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+    PulseSummaryCard:
+      type: object
+      properties:
+        value:
+          type: number
+        comparisonNumber:
+          type: number
+        sparkLineData:
+          type: array
+          items:
+            type: number
+        cardType:
+          $ref: '#/components/schemas/CardTypeEnum'
+    EmailPulseMessageDTO:
+      type: object
+      properties:
+        messageId:
+          type: string
+        title:
+          type: string
+    EmailPulseDataCSVRequestDTO:
+      type: object
+      properties:
+        clientname:
+          type: string
+        requestStatus:
+          $ref: '#/components/schemas/RequestStatusEnum'
+        startdate:
+          type: string
+          format: date
+        enddate:
+          type: string
+          format: date
+        storeids:
+          type: array
+          items:
+            type: string
+        columns:
+          type: array
+          items:
+            type: string
+        reportType:
+          type: string
+        emailType:
+          type: string
+        status:
+          type: string
+        campaignIds:
+          type: array
+          items:
+            type: string
+        offerIds:
+          type: array
+          items:
+            type: string
+        messageIds:
+          type: array
+          items:
+            type: string
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    PulsePieGraphEntry:
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: number

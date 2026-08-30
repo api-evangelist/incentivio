@@ -1,0 +1,28 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Recaptcha Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: recaptcha-controller
+paths:
+  /recaptcha/cache/{clientId}:
+    get:
+      tags:
+      - recaptcha-controller
+      operationId: getCache
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean

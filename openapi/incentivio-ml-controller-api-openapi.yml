@@ -1,0 +1,594 @@
+openapi: 3.2.0
+info:
+  title: Incentivio Ml Controller API
+  version: v0
+  description: 'Operations tagged ml-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: ml-controller
+paths:
+  /ml/portal/client/rules:
+    put:
+      tags:
+      - ml-controller
+      operationId: deleteRecommendationRule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteRuleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DeleteRuleResponse'
+    post:
+      tags:
+      - ml-controller
+      operationId: createRecommendationRules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRuleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateRuleResponse'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /ml/portal/client/location/{clientid}:
+    put:
+      tags:
+      - ml-controller
+      operationId: updateLocations
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UpdateLocationResponse'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /ml/portal/client/item/category/change:
+    put:
+      tags:
+      - ml-controller
+      operationId: changeItemCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCategoryChaingingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CategoryChangedItemResponse'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /ml/portal/client/configuration:
+    put:
+      tags:
+      - ml-controller
+      operationId: updateConfiguration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConfigurationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UpdatedConfigurationResponse'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /ml/portal/client/model/train:
+    post:
+      tags:
+      - ml-controller
+      operationId: startTrainingProcess
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelTrainingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StartTrainingProcessResponse'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /ml/**:
+    get:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    put:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    delete:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    options:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    head:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    patch:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /ml/mobile/**:
+    get:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest
+      parameters:
+      - name: body
+        in: query
+        required: true
+        schema:
+          type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    put:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    delete:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    options:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    head:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    patch:
+      tags:
+      - ml-controller
+      operationId: routeMLRequest_4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+components:
+  schemas:
+    CreateRuleRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleRequest'
+    CreateRuleResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        ruleCount:
+          type: integer
+          format: int32
+    CategoryChangedItemResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+        itemName:
+          type: string
+        category:
+          type: string
+        subCategory:
+          type: string
+        previousCategory:
+          type: string
+        previousSubCategory:
+          type: string
+    RuleRequest:
+      type: object
+      properties:
+        ruleId:
+          type: string
+        ruleType:
+          type: string
+        triggerMenus:
+          type: array
+          items:
+            type: string
+        triggerGroups:
+          type: array
+          items:
+            type: string
+        triggerItems:
+          type: array
+          items:
+            type: string
+        recommendationItems:
+          type: array
+          items:
+            type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    DeleteRuleRequest:
+      type: object
+      properties:
+        ruleId:
+          type: string
+        clientId:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    AdminPortalMetaDataRequest:
+      type: object
+      properties:
+        deviceDetail:
+          $ref: '#/components/schemas/DeviceDetailRequest'
+        userDetail:
+          $ref: '#/components/schemas/UserDetailRequest'
+    UpdateConfigurationRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        mainCount:
+          type: integer
+          format: int32
+        sideCount:
+          type: integer
+          format: int32
+        beverageCount:
+          type: integer
+          format: int32
+        dessertCount:
+          type: integer
+          format: int32
+        maxRuleRecommendations:
+          type: integer
+          format: int32
+        maxRecommendations:
+          type: integer
+          format: int32
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    UpdatedConfigurationResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        newSideCount:
+          type: integer
+          format: int32
+        newBeverageCount:
+          type: integer
+          format: int32
+        newDessertCount:
+          type: integer
+          format: int32
+        newMaxRuleRecommendations:
+          type: integer
+          format: int32
+        newMaxRecommendations:
+          type: integer
+          format: int32
+    ItemCategoryChaingingRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        itemName:
+          type: string
+        category:
+          type: string
+        subCategory:
+          type: string
+        previousCategory:
+          type: string
+        previousSubCategory:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    DeviceDetailRequest:
+      type: object
+      properties:
+        deviceIpAddress:
+          type: string
+        deviceType:
+          type: string
+        browserType:
+          type: string
+    DeleteRuleResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    StartTrainingProcessResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    UserDetailRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
+    ModelTrainingRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientName:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    LocationDetailRequest:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+        locationEnabled:
+          type: boolean
+    UpdateLocationResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        updatedLocationsCount:
+          type: integer
+          format: int32
+    UpdateLocationRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailRequest'
+x-refined-from:
+- incentivio-admin-api-openapi.yml
+- incentivio-mobile-api-openapi.yml

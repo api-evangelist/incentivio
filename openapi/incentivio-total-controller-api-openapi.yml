@@ -1,0 +1,174 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Total Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: total-controller
+paths:
+  /locations/{locationid}/calculatetotal:
+    post:
+      tags:
+      - total-controller
+      operationId: calculateOrderTotalForItems
+      parameters:
+      - name: locationid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AddOrderItemReqDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderTotalDTO'
+  /orders/{orderid}/calculatetotal:
+    get:
+      tags:
+      - total-controller
+      operationId: calculatePrice
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderTotalDTO'
+components:
+  schemas:
+    OrderTax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        taxDescription:
+          type: string
+        taxAmountApplied:
+          type: integer
+          format: int32
+        displayTaxAmountApplied:
+          type: string
+    ChargeSummary:
+      type: object
+      properties:
+        taxableCharges:
+          type: integer
+          format: int32
+        nonTaxableCharges:
+          type: integer
+          format: int32
+        totalCharges:
+          type: integer
+          format: int32
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderCharge'
+        displayTaxableCharges:
+          type: string
+        displayNonTaxableCharges:
+          type: string
+        displayTotalCharges:
+          type: string
+    OrderCharge:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        chargeName:
+          type: string
+        chargeDescription:
+          type: string
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        chargeApplied:
+          type: integer
+          format: int32
+        displayChargeApplied:
+          type: string
+    AddOrderItemReqDTO:
+      required:
+      - itemId
+      - quantity
+      type: object
+      properties:
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        catalogId:
+          type: string
+        discountIds:
+          type: array
+          items:
+            type: string
+        externalId:
+          type: string
+        groupId:
+          type: string
+        itemId:
+          type: string
+        itemInstructions:
+          type: string
+        note:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    TaxSummary:
+      type: object
+      properties:
+        totalTaxes:
+          type: integer
+          format: int32
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTax'
+        displayTotalTaxes:
+          type: string
+    OrderTotalDTO:
+      type: object
+      properties:
+        preDiscountSubtotal:
+          type: integer
+          format: int32
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary'
+        subtotal:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string

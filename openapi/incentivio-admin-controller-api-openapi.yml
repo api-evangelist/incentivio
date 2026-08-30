@@ -1,0 +1,786 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Admin Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: admin-controller
+paths:
+  /:
+    put:
+      tags:
+      - admin-controller
+      operationId: home_3
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+      - admin-controller
+      operationId: home_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+      - admin-controller
+      operationId: home_4
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    options:
+      tags:
+      - admin-controller
+      operationId: home_7
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    head:
+      tags:
+      - admin-controller
+      operationId: home_6
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    patch:
+      tags:
+      - admin-controller
+      operationId: home_5
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-user-domain/**:
+    get:
+      tags:
+      - admin-controller
+      operationId: userDomain
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    put:
+      tags:
+      - admin-controller
+      operationId: userDomain_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+      - admin-controller
+      operationId: userDomain_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+      - admin-controller
+      operationId: userDomain_3
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    options:
+      tags:
+      - admin-controller
+      operationId: userDomain_6
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    head:
+      tags:
+      - admin-controller
+      operationId: userDomain_5
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    patch:
+      tags:
+      - admin-controller
+      operationId: userDomain_4
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-surveys/**:
+    get:
+      tags:
+      - admin-controller
+      operationId: surveyDomain
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    put:
+      tags:
+      - admin-controller
+      operationId: surveyDomain_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+      - admin-controller
+      operationId: surveyDomain_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+      - admin-controller
+      operationId: surveyDomain_3
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    options:
+      tags:
+      - admin-controller
+      operationId: surveyDomain_6
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    head:
+      tags:
+      - admin-controller
+      operationId: surveyDomain_5
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    patch:
+      tags:
+      - admin-controller
+      operationId: surveyDomain_4
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-offers-domain/**:
+    get:
+      tags:
+      - admin-controller
+      operationId: offersDomain
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    put:
+      tags:
+      - admin-controller
+      operationId: offersDomain_2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    post:
+      tags:
+      - admin-controller
+      operationId: offersDomain_1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    delete:
+      tags:
+      - admin-controller
+      operationId: offersDomain_3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    options:
+      tags:
+      - admin-controller
+      operationId: offersDomain_6
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    head:
+      tags:
+      - admin-controller
+      operationId: offersDomain_5
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    patch:
+      tags:
+      - admin-controller
+      operationId: offersDomain_4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+  /incentivio-loyalty-domain/**:
+    get:
+      tags:
+      - admin-controller
+      operationId: loyaltyDomain
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    put:
+      tags:
+      - admin-controller
+      operationId: loyaltyDomain_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+      - admin-controller
+      operationId: loyaltyDomain_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+      - admin-controller
+      operationId: loyaltyDomain_3
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    options:
+      tags:
+      - admin-controller
+      operationId: loyaltyDomain_6
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    head:
+      tags:
+      - admin-controller
+      operationId: loyaltyDomain_5
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    patch:
+      tags:
+      - admin-controller
+      operationId: loyaltyDomain_4
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-connector-sms/**:
+    get:
+      tags:
+      - admin-controller
+      operationId: smsConnector
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    put:
+      tags:
+      - admin-controller
+      operationId: smsConnector_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+      - admin-controller
+      operationId: smsConnector_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+      - admin-controller
+      operationId: smsConnector_3
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    options:
+      tags:
+      - admin-controller
+      operationId: smsConnector_6
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    head:
+      tags:
+      - admin-controller
+      operationId: smsConnector_5
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    patch:
+      tags:
+      - admin-controller
+      operationId: smsConnector_4
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-connect-domain/**:
+    get:
+      tags:
+      - admin-controller
+      operationId: connectDomain
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    put:
+      tags:
+      - admin-controller
+      operationId: connectDomain_2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    post:
+      tags:
+      - admin-controller
+      operationId: connectDomain_1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    delete:
+      tags:
+      - admin-controller
+      operationId: connectDomain_3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    options:
+      tags:
+      - admin-controller
+      operationId: connectDomain_6
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    head:
+      tags:
+      - admin-controller
+      operationId: connectDomain_5
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    patch:
+      tags:
+      - admin-controller
+      operationId: connectDomain_4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+  /incentivio-client-domain/clients/*/checkinqrimage:
+    get:
+      tags:
+      - admin-controller
+      operationId: clientDomainQRCodes
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+    put:
+      tags:
+      - admin-controller
+      operationId: clientDomainQRCodes_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+    post:
+      tags:
+      - admin-controller
+      operationId: clientDomainQRCodes_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+    delete:
+      tags:
+      - admin-controller
+      operationId: clientDomainQRCodes_3
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+    options:
+      tags:
+      - admin-controller
+      operationId: clientDomainQRCodes_6
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+    head:
+      tags:
+      - admin-controller
+      operationId: clientDomainQRCodes_5
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+    patch:
+      tags:
+      - admin-controller
+      operationId: clientDomainQRCodes_4
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+  /incentivio-client-domain/**:
+    get:
+      tags:
+      - admin-controller
+      operationId: clientDomain
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    put:
+      tags:
+      - admin-controller
+      operationId: clientDomain_2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    post:
+      tags:
+      - admin-controller
+      operationId: clientDomain_1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    delete:
+      tags:
+      - admin-controller
+      operationId: clientDomain_3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    options:
+      tags:
+      - admin-controller
+      operationId: clientDomain_6
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    head:
+      tags:
+      - admin-controller
+      operationId: clientDomain_5
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+    patch:
+      tags:
+      - admin-controller
+      operationId: clientDomain_4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+  /incentivio-analytics-service/**:
+    get:
+      tags:
+      - admin-controller
+      operationId: analyticsService
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    put:
+      tags:
+      - admin-controller
+      operationId: analyticsService_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+      - admin-controller
+      operationId: analyticsService_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+      - admin-controller
+      operationId: analyticsService_3
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    options:
+      tags:
+      - admin-controller
+      operationId: analyticsService_6
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    head:
+      tags:
+      - admin-controller
+      operationId: analyticsService_5
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    patch:
+      tags:
+      - admin-controller
+      operationId: analyticsService_4
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string

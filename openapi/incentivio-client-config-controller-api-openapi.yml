@@ -1,0 +1,28 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Client Config Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: client-config-controller
+paths:
+  /incentivio-user-domain/clients/{clientid}/clientconfig/reach:
+    get:
+      tags:
+      - client-config-controller
+      operationId: findClientConfigReachStatus
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean

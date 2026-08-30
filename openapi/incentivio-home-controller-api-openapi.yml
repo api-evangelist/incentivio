@@ -1,0 +1,46 @@
+openapi: 3.2.0
+info:
+  title: Incentivio Home Controller API
+  version: v0
+  description: 'Operations tagged home-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: home-controller
+paths:
+  /home:
+    get:
+      tags:
+      - home-controller
+      operationId: home
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /:
+    get:
+      tags:
+      - home-controller
+      operationId: home_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+x-refined-from:
+- incentivio-admin-api-openapi.yml
+- incentivio-mobile-api-openapi.yml

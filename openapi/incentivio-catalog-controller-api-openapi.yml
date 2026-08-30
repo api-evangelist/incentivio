@@ -1,0 +1,533 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Catalog Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: catalog-controller
+paths:
+  /items/{itemid}:
+    get:
+      tags:
+      - catalog-controller
+      operationId: viewItemById
+      parameters:
+      - name: itemid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ViewItemMobileDTO'
+  /items/outofstock/{locationId}:
+    get:
+      tags:
+      - catalog-controller
+      operationId: getOutOfStockItemIdsByLocation
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+  /groups/{groupid}:
+    get:
+      tags:
+      - catalog-controller
+      operationId: viewGroupById
+      parameters:
+      - name: groupid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: localDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: includeChildElements
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ViewGroupMobileDTO'
+  /catalogs:
+    get:
+      tags:
+      - catalog-controller
+      operationId: listCatalogs
+      parameters:
+      - name: langCode
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: localDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: CLIENT-ID
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: storeIds
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListCatalogMobileDTO'
+  /cacheditems/item:
+    get:
+      tags:
+      - catalog-controller
+      operationId: readCachedItem
+      parameters:
+      - name: clientId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: storeId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: catalogId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: langCode
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: groupId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: itemId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /cachedcatalogs:
+    get:
+      tags:
+      - catalog-controller
+      operationId: retrieveCachedCatalogs
+      parameters:
+      - name: langCode
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: localDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: clientId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: checksum
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: storeId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /cachedcatalogs/compressed:
+    get:
+      tags:
+      - catalog-controller
+      operationId: getCompressedCachedCatalog
+      parameters:
+      - name: langCode
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: localDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: clientId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: checksum
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: storeId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte
+components:
+  schemas:
+    Discount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          type: string
+          enum:
+          - ITEM
+          - ORDER
+        discountValueType:
+          type: string
+          enum:
+          - AMOUNT
+          - PERCENTAGE
+        amount:
+          type: number
+          format: float
+        percentage:
+          type: number
+          format: float
+    OptionGroupSettingDTO:
+      type: object
+      properties:
+        optionGroupId:
+          type: string
+        inheritGroupSettings:
+          type: boolean
+        defaultSelectedItemIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        mandatoryItemIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          type: string
+          enum:
+          - MULTI_SELECT
+          - SINGLE_SELECT
+        maxItemSelections:
+          type: integer
+          format: int32
+        minItemSelections:
+          type: integer
+          format: int32
+        applicableOrderTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - DELIVERY
+            - PICKUP
+            - DINEIN
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    ListCatalogMobileDTO:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+        externalId:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        status:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - DELIVERY
+            - PICKUP
+            - DINEIN
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        catalogId:
+          type: string
+        storeIds:
+          type: array
+          items:
+            type: string
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupMobileDTO'
+        groupIds:
+          type: array
+          items:
+            type: string
+    ViewGroupMobileDTO:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+        externalId:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        status:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - DELIVERY
+            - PICKUP
+            - DINEIN
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        groupId:
+          type: string
+        groupType:
+          type: string
+          enum:
+          - CATALOG_GROUP
+          - OPTION_GROUP
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewItemMobileDTO'
+        itemIds:
+          type: array
+          items:
+            type: string
+        defaultSelectedItems:
+          type: array
+          items:
+            type: string
+        mandatoryItems:
+          type: array
+          items:
+            type: string
+        optionGroupIds:
+          type: array
+          items:
+            type: string
+        optionGroupSetting:
+          $ref: '#/components/schemas/OptionGroupSettingDTO'
+        subGroupIds:
+          type: array
+          items:
+            type: string
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          type: string
+          enum:
+          - MULTI_SELECT
+          - SINGLE_SELECT
+        inheritParentOptions:
+          type: boolean
+        maxItemSelections:
+          type: integer
+          format: int32
+        minItemSelections:
+          type: integer
+          format: int32
+    ViewItemMobileDTO:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+        externalId:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        status:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - DELIVERY
+            - PICKUP
+            - DINEIN
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        itemId:
+          type: string
+        price:
+          type: integer
+          format: int32
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+        optionGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupMobileDTO'
+        optionGroupIds:
+          type: array
+          items:
+            type: string
+        uom:
+          type: string
+        sku:
+          type: string
+        upc:
+          type: string
+        brandId:
+          type: string
+        categoryId:
+          type: string
+        maxItemSelections:
+          type: integer
+          format: int32
+        inheritParentOptions:
+          type: boolean
+        orderingChannels:
+          type: array
+          items:
+            type: string
+            enum:
+            - MOBILE
+            - FACEBOOK
+            - NONE

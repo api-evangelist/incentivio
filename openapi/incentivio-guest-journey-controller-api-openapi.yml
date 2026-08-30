@@ -1,0 +1,406 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Guest Journey Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: guest-journey-controller
+paths:
+  /incentivio-guest-journey-service/user/{userId}/journey:
+    get:
+      tags:
+      - guest-journey-controller
+      operationId: viewGuestJourney
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ViewGuestJourneyResponse'
+  /incentivio-guest-journey-service/guestsummary:
+    get:
+      tags:
+      - guest-journey-controller
+      operationId: viewGuestSummary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GuestSummaryResponse'
+  /incentivio-guest-journey-service/guestrevenuesummary:
+    get:
+      tags:
+      - guest-journey-controller
+      operationId: viewGuestRevenueSummary
+      parameters:
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GuestRevenueSummaryResponse'
+  /incentivio-guest-journey-service/guestcountsummary:
+    get:
+      tags:
+      - guest-journey-controller
+      operationId: viewGuestCountSummary
+      parameters:
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GuestCountSummaryResponse'
+  /incentivio-guest-journey-service/clients/{clientid}/merchants/{merchantid}/guestrevenuesummarybystore:
+    get:
+      tags:
+      - guest-journey-controller
+      operationId: viewGuestRevenueSummaryByStore
+      parameters:
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: guesttype
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/GuestSegmentType'
+      - name: stores
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GuestRevenueSummaryByStoreResponse'
+  /incentivio-guest-journey-service/clients/{clientid}/merchants/{merchantid}/guestcountsummarybystore:
+    get:
+      tags:
+      - guest-journey-controller
+      operationId: viewGuestCountSummaryByStore
+      parameters:
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: guesttype
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/GuestSegmentType'
+      - name: stores
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GuestCountSummaryByStoreResponse'
+components:
+  schemas:
+    GuestSummaryResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GuestSegmentInfo'
+    GuestSegmentType:
+      type: string
+      enum:
+      - STRANGER
+      - ROOKIE
+      - REGULAR
+      - LOYALIST
+      - CHAMPION
+      - WHALE
+      - SLIDER
+      - CHURNED
+    GuestSegmentRecoveryInfo:
+      type: object
+      properties:
+        recoveredCount:
+          type: integer
+          format: int64
+        recoveredAnnualSpend:
+          type: number
+          format: double
+    GuestCountSummary:
+      type: object
+      properties:
+        clientId:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        guestCount:
+          type: integer
+          format: int64
+    GuestRevenueSummaryByStoreResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestRevenueSummaryByStore'
+    GuestRevenueSummaryByStore:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        storeId:
+          type: string
+        storeName:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        revenuePercentage:
+          type: number
+          format: double
+    GuestJourneyStatus:
+      type: object
+      properties:
+        jobId:
+          type: integer
+          format: int32
+        status:
+          type: string
+        modifiedDate:
+          type: string
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    GuestSegmentOfferInfo:
+      type: object
+      properties:
+        offerTypeCount:
+          type: integer
+          format: int32
+        distributionCount:
+          type: integer
+          format: int32
+        redemptionPercentage:
+          type: number
+          format: double
+    GuestSegmentTrend:
+      type: string
+      enum:
+      - UPTREND
+      - DOWNTREND
+      - STAGNANT
+    GuestCountSummaryByStoreResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestCountSummaryByStore'
+    GuestCountSummaryResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestCountSummary'
+    GuestRevenueSummaryResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestRevenueSummary'
+    ViewGuestJourneyResponse:
+      type: object
+      properties:
+        journey:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuestJourneyStatus'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    GuestSegmentInfo:
+      type: object
+      properties:
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        guestCount:
+          type: integer
+          format: int64
+        annualSpend:
+          type: number
+          format: double
+        annualSpendPerUser:
+          type: number
+          format: double
+        annualSpendPerUserTrend:
+          $ref: '#/components/schemas/GuestSegmentTrend'
+        averageCheckSize:
+          type: number
+          format: double
+        averageCheckSizeTrend:
+          $ref: '#/components/schemas/GuestSegmentTrend'
+        revenuePercentage:
+          type: number
+          format: double
+        revenuePercentageTrend:
+          $ref: '#/components/schemas/GuestSegmentTrend'
+        guestPercentage:
+          type: number
+          format: double
+        guestPercentageTrend:
+          $ref: '#/components/schemas/GuestSegmentTrend'
+        visitsPerMonth:
+          type: number
+          format: double
+        visitsPerMonthTrend:
+          $ref: '#/components/schemas/GuestSegmentTrend'
+        recoveryInfo:
+          $ref: '#/components/schemas/GuestSegmentRecoveryInfo'
+        offerInfo:
+          $ref: '#/components/schemas/GuestSegmentOfferInfo'
+        updatedDate:
+          type: string
+          format: date-time
+    GuestRevenueSummary:
+      type: object
+      properties:
+        clientId:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        revenuePercentage:
+          type: number
+          format: double
+        date:
+          type: string
+    GuestCountSummaryByStore:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        storeId:
+          type: string
+        storeName:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        guestCount:
+          type: integer
+          format: int64

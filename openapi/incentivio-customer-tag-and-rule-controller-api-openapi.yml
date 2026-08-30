@@ -1,0 +1,251 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Customer Tag And Rule Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: customer-tag-and-rule-controller
+paths:
+  /incentivio-user-domain/customer-tags/{id}:
+    get:
+      tags:
+      - customer-tag-and-rule-controller
+      operationId: findCustomerTagById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TagAndRuleDTO'
+    put:
+      tags:
+      - customer-tag-and-rule-controller
+      operationId: updateCustomerTag
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerTagRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+      - customer-tag-and-rule-controller
+      operationId: deleteCustomerTag
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /incentivio-user-domain/customer-tags:
+    get:
+      tags:
+      - customer-tag-and-rule-controller
+      operationId: findPaginatedTagsAndRulesByClientId
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 300
+      - name: title
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomerTagAndRulesWithPagingForAdminDTO'
+    post:
+      tags:
+      - customer-tag-and-rule-controller
+      operationId: createCustomerTag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerTagRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TagAndRuleDTO'
+  /incentivio-user-domain/tags-and-rules:
+    get:
+      tags:
+      - customer-tag-and-rule-controller
+      operationId: findTagsAndRulesByClientId
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TagsAndRulesResponseDTO'
+  /incentivio-user-domain/customer-tags-types:
+    get:
+      tags:
+      - customer-tag-and-rule-controller
+      operationId: findCustomerTagTypesByClientId
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerTagDataType'
+components:
+  schemas:
+    TagAndRuleDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        key:
+          type: string
+        tagType:
+          $ref: '#/components/schemas/TagType'
+        category:
+          type: string
+        categoryDisplayTitle:
+          type: string
+        categoryDisplayRank:
+          type: integer
+          format: int32
+        title:
+          type: string
+        description:
+          type: string
+        attributeType:
+          $ref: '#/components/schemas/CustomerTagDataType'
+        collectionValues:
+          type: array
+          items:
+            type: string
+        source:
+          $ref: '#/components/schemas/Source'
+        sourceDisplayTitle:
+          type: string
+        tagRank:
+          type: integer
+          format: int32
+        visibility:
+          type: array
+          items:
+            type: string
+    CustomerTagDataType:
+      type: string
+      enum:
+      - NUMBER
+      - TEXT
+      - DATE
+      - COLLECTION
+      - GEO
+    CustomerTagRequestDTO:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        key:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        attributeType:
+          type: string
+          minLength: 1
+        collectionValues:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+      required:
+      - attributeType
+      - key
+      - title
+    Source:
+      type: string
+      enum:
+      - SYSTEM
+      - GUEST_INPUT
+      - GENERATED
+      - IMPORTED_MANUAL
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    CustomerTagAndRulesWithPagingForAdminDTO:
+      type: object
+      properties:
+        tagAndRuleDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAndRuleDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    TagsAndRulesResponseDTO:
+      type: object
+      properties:
+        tagAndRuleDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAndRuleDTO'
+    TagType:
+      type: string
+      enum:
+      - CUSTOM
+      - SYSTEM

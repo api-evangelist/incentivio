@@ -1,0 +1,266 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Client Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: client-controller
+paths:
+  /stores:
+    get:
+      tags:
+      - client-controller
+      operationId: findStoresByClient
+      parameters:
+      - name: CLIENTID
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: title
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+      - name: latitude
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: longitude
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: radius
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: langCode
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindStoresResponseDTO'
+  /clients/{clientid}/clientalias:
+    get:
+      tags:
+      - client-controller
+      operationId: getAliasByClientId
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindClientResponseDTO'
+  /clientalias/{clientAlias}:
+    get:
+      tags:
+      - client-controller
+      operationId: getClientIdByAlias
+      parameters:
+      - name: clientAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindClientResponseDTO'
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string
+    AddressDTO:
+      required:
+      - city
+      - country
+      - postalCode
+      - state
+      - street1
+      type: object
+      properties:
+        addressId:
+          type: string
+        addressAlias:
+          type: string
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    FindClientResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        alias:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        logoImage:
+          type: string
+          format: byte
+        medLogo:
+          type: string
+          format: byte
+    StoreDTO:
+      type: object
+      properties:
+        storeId:
+          type: string
+        title:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        phoneNumber:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        regionId:
+          type: string
+        storeCode:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        storeType:
+          type: string
+        beaconId:
+          type: string
+        beaconName:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        displayInfo:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDisplayInfo'
+    StoreDisplayInfo:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+    FindStoresResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDTO'
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64

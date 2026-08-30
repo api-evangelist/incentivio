@@ -1,0 +1,140 @@
+openapi: 3.2.0
+info:
+  title: Incentivio File Controller API
+  version: v0
+  description: 'Operations tagged file-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: file-controller
+paths:
+  /incentivio-media/clients/*/media:
+    post:
+      tags:
+      - file-controller
+      operationId: uploadFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-media/clients/{clientid}/media/{fileid}/content:
+    get:
+      tags:
+      - file-controller
+      operationId: retrieveFile
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fileid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-media/clients/{clientid}/media:
+    delete:
+      tags:
+      - file-controller
+      operationId: deleteFile
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /clients/{clientid}/media:
+    post:
+      tags:
+      - file-controller
+      operationId: uploadFile
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: source
+        in: query
+        required: false
+        schema:
+          type: string
+          default: mongo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MobileFileUploadResponseDTO'
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+components:
+  schemas:
+    MobileFileUploadResponseDTO:
+      type: object
+      properties:
+        fileId:
+          type: string
+        metaDataUrl:
+          type: string
+        downloadUrl:
+          type: string
+x-refined-from:
+- incentivio-admin-api-openapi.yml
+- incentivio-mobile-api-openapi.yml

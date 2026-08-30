@@ -1,0 +1,794 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Client Admin Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: client-admin-controller
+paths:
+  /incentivio-client-domain/clients/{clientid}/admins/{adminid}:
+    get:
+      tags:
+      - client-admin-controller
+      operationId: findAdminUser
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: adminid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindAdminUserResponseDTO'
+    put:
+      tags:
+      - client-admin-controller
+      operationId: updateAdminUser
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: adminid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveAdminUserRequestDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+      - client-admin-controller
+      operationId: deleteAdminUser
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: adminid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /incentivio-client-domain/incadminpasswordreset:
+    post:
+      tags:
+      - client-admin-controller
+      operationId: incentivioAdminPasswordReset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlobalResetPasswordRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /incentivio-client-domain/clients/{clientid}/admins:
+    get:
+      tags:
+      - client-admin-controller
+      operationId: searchAdminUser
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: email
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: firstName
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Direction'
+          default: ASC
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindAdminResponseDTO'
+    post:
+      tags:
+      - client-admin-controller
+      operationId: createAdminUser
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveAdminUserRequestDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateAdminUserResponseDTO'
+  /incentivio-client-domain/clients/{clientid}/admins/{adminid}/verify:
+    post:
+      tags:
+      - client-admin-controller
+      operationId: verifyAdminUserAccount
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: adminid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /incentivio-client-domain/clients/{clientid}/admins/{adminid}/updatepassword:
+    post:
+      tags:
+      - client-admin-controller
+      operationId: updatePassword
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: adminid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /incentivio-client-domain/clients/{clientid}/admins/{adminid}/resetpassword:
+    post:
+      tags:
+      - client-admin-controller
+      operationId: resetPassword1
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: adminid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetAdminPasswordRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /incentivio-client-domain/clients/{clientid}/admins/requestpasswordreset:
+    post:
+      tags:
+      - client-admin-controller
+      operationId: requestPasswordReset
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RequestPasswordResetRequestDTO'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestPasswordResetRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /incentivio-client-domain/clients/{clientid}/admins/login:
+    post:
+      tags:
+      - client-admin-controller
+      operationId: adminUserLogin
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminLoginRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AdminLoginResponseDTO'
+  /incentivio-client-domain/verifyemail:
+    get:
+      tags:
+      - client-admin-controller
+      operationId: verifyEmailVerificationCode
+      parameters:
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /incentivio-client-domain/clients/{clientid}/secure-admins/{adminid}:
+    get:
+      tags:
+      - client-admin-controller
+      operationId: findSecureAdminUserById
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: adminid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecureAdminResponseDTO'
+  /incentivio-client-domain/clients/{clientid}/secure-admins/email:
+    get:
+      tags:
+      - client-admin-controller
+      operationId: findSecureAdminUserByClientIdAndEmail
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: email
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecureAdminResponseDTO'
+  /incentivio-client-domain/clients/{clientid}/admins/{adminid}/reach:
+    get:
+      tags:
+      - client-admin-controller
+      operationId: findReach
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: adminid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-client-domain/admins/adminsbyids:
+    get:
+      tags:
+      - client-admin-controller
+      operationId: listAdminUserByAdminId
+      parameters:
+      - name: adminids
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AdminsByIdsResponseDTO'
+components:
+  schemas:
+    AdminsByIdsResponseDTO:
+      type: object
+      properties:
+        adminsMap:
+          type: object
+          additionalProperties:
+            type: string
+    LocationAuthorization:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
+    MerchantAuthorization:
+      type: object
+      properties:
+        all:
+          type: boolean
+        id:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAuthorization'
+          uniqueItems: true
+      required:
+      - all
+      - id
+      - locations
+    CreateAdminUserResponseDTO:
+      type: object
+      properties:
+        adminId:
+          type: string
+        email:
+          type: string
+        clientID:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    FindAdminUserResponseDTO:
+      type: object
+      properties:
+        adminAccountAuthorization:
+          $ref: '#/components/schemas/AdminAccountAuthorization'
+        adminId:
+          type: string
+        email:
+          type: string
+        clientID:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        merchantId:
+          type: string
+        role:
+          $ref: '#/components/schemas/RoleDTO'
+        status:
+          type: string
+        deleted:
+          type: boolean
+        storeIds:
+          type: array
+          items:
+            type: string
+        reach:
+          type: string
+        hasEntireClientReach:
+          type: boolean
+    AdminUserType:
+      type: string
+      enum:
+      - MARKETING
+      - OPERATIONS
+    GlobalResetPasswordRequestDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    UpdatePasswordRequestDTO:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+      required:
+      - newPassword
+      - oldPassword
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    RoleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        role:
+          type: string
+        description:
+          type: string
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDTO'
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+    ModuleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        order:
+          type: integer
+          format: int32
+        roleModulePermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionDTO'
+        allPermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionDTO'
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+    PermissionDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        permission:
+          type: string
+        description:
+          type: string
+        moduleID:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    FindAdminResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        admins:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminDTO'
+    ClientAuthorization:
+      type: object
+      properties:
+        all:
+          type: boolean
+        id:
+          type: string
+        merchants:
+          type: array
+          items:
+            $ref: '#/components/schemas/MerchantAuthorization'
+          uniqueItems: true
+      required:
+      - all
+      - id
+      - merchants
+    AdminLoginResponseDTO:
+      type: object
+      properties:
+        accountId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        createdDate:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        role:
+          $ref: '#/components/schemas/RoleDTO'
+    RequestPasswordResetRequestDTO:
+      type: object
+      properties:
+        email:
+          type: string
+    AdminLoginRequestDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        rememberme:
+          type: boolean
+      required:
+      - password
+      - username
+    ResetAdminPasswordRequestDTO:
+      type: object
+      properties:
+        password:
+          type: string
+    SaveAdminUserRequestDto:
+      type: object
+      properties:
+        adminAccountAuthorization:
+          $ref: '#/components/schemas/AdminAccountAuthorization'
+        email:
+          type: string
+        firstName:
+          type: string
+        id:
+          type: string
+        lastName:
+          type: string
+        merchantId:
+          type: string
+        password:
+          type: string
+        reach:
+          type: string
+        storeIds:
+          type: array
+          items:
+            type: string
+        type:
+          $ref: '#/components/schemas/AdminUserType'
+        userRoleId:
+          type: string
+      required:
+      - email
+    SecureAdminResponseDTO:
+      type: object
+      properties:
+        adminAccountAuthorization:
+          $ref: '#/components/schemas/AdminAccountAuthorization'
+        adminId:
+          type: string
+        clientId:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        reach:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status'
+        storeIds:
+          type: array
+          items:
+            type: string
+        deleted:
+          type: boolean
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    AdminAccountAuthorization:
+      type: object
+      properties:
+        dateCreated:
+          type: string
+          format: date-time
+        dateUpdated:
+          type: string
+          format: date-time
+        all:
+          type: boolean
+        clientIdRoleIds:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientAuthorization'
+          uniqueItems: true
+        email:
+          type: string
+        locationIdClientIds:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - all
+      - clientIdRoleIds
+      - clients
+      - dateCreated
+      - dateUpdated
+      - email
+      - locationIdClientIds
+    AdminDTO:
+      type: object
+      properties:
+        adminId:
+          type: string
+        clientID:
+          type: string
+        deleted:
+          type: boolean
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        merchantId:
+          type: string
+        reach:
+          type: string
+        role:
+          $ref: '#/components/schemas/RoleDTO'
+        status:
+          type: string
+        storeIds:
+          type: array
+          items:
+            type: string

@@ -1,0 +1,47 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Tablet App Compatibility Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: tablet-app-compatibility-controller
+paths:
+  /incentivio-client-domain/tabletappcompatibility:
+    get:
+      tags:
+      - tablet-app-compatibility-controller
+      operationId: checkTabletAppCompatibility
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: version
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TabletAppCompatibilityDTO'
+components:
+  schemas:
+    TabletAppCompatibilityDTO:
+      type: object
+      properties:
+        compatibility:
+          $ref: '#/components/schemas/TabletAppCompatibility'
+    TabletAppCompatibility:
+      type: string
+      enum:
+      - COMPATIBLE
+      - UPGRADE_RECOMMENDED
+      - UPGRADE_REQUIRED
+      - NOT_COMPATIBLE

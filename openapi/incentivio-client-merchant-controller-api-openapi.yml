@@ -1,0 +1,562 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Client Merchant Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: client-merchant-controller
+paths:
+  /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}:
+    put:
+      tags:
+      - client-merchant-controller
+      operationId: updateMerchant_1
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+      - client-merchant-controller
+      operationId: deleteMerchant_1
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /incentivio-client-domain/clients/{clientid}/merchants:
+    get:
+      tags:
+      - client-merchant-controller
+      operationId: searchMerchant
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: title
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Direction'
+          default: ASC
+      - name: title
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindMerchantsResponseDTO'
+    post:
+      tags:
+      - client-merchant-controller
+      operationId: createMerchant
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMerchantRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateMerchantResponseDTO'
+  /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}/iseditable:
+    get:
+      tags:
+      - client-merchant-controller
+      operationId: isMerchantEditable
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+  /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}/exist:
+    get:
+      tags:
+      - client-merchant-controller
+      operationId: existsMerchant
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+  /incentivio-client-domain/clients/{clientid}/merchants-by-ids:
+    get:
+      tags:
+      - client-merchant-controller
+      operationId: listMerchantByMerchantIds
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: merchantids
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindMerchantsByIdsResponseDTO'
+  /incentivio-client-domain/clients/{clientId}/merchants/{merchantId}:
+    get:
+      tags:
+      - client-merchant-controller
+      operationId: readMerchant
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: merchantId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MerchantDTO'
+components:
+  schemas:
+    UpdateMerchantRequestDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxDTO'
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeDTO'
+        orderProcessingConfig:
+          $ref: '#/components/schemas/OrderProcessingConfigDTO'
+        paymentGatewayConfig:
+          $ref: '#/components/schemas/PaymentGatewayConfig'
+        pickupOrderProcessingTime:
+          type: integer
+          format: int64
+        deliveryOrderProcessingTime:
+          type: integer
+          format: int64
+        timeZone:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    AddressDTO:
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    ChargeType:
+      type: string
+      enum:
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    FindMerchantsByIdsResponseDTO:
+      type: object
+      properties:
+        merchantsMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MerchantDTO'
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    CreateMerchantRequestDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+        clientId:
+          type: string
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxDTO'
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeDTO'
+        orderProcessingConfig:
+          $ref: '#/components/schemas/OrderProcessingConfigDTO'
+        paymentGatewayConfig:
+          $ref: '#/components/schemas/PaymentGatewayConfig'
+        pickupOrderProcessingTime:
+          type: integer
+          format: int64
+        deliveryOrderProcessingTime:
+          type: integer
+          format: int64
+        timeZone:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    RoundingMode:
+      type: string
+      enum:
+      - HALF_EVEN
+      - HALF_UP
+      - TRUNCATE
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    CreateMerchantResponseDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+    ExternalDeliverySettings:
+      type: object
+      properties:
+        deliveryStrategy:
+          type: string
+        externalDeliveryFeeStrategy:
+          $ref: '#/components/schemas/ExternalDeliveryFeeStrategy'
+        externalDeliveryChargeId:
+          type: string
+        pickupBusinessName:
+          type: string
+        pickupAddress:
+          $ref: '#/components/schemas/Address'
+        pickupInstructions:
+          type: string
+        contactPhone:
+          type: string
+    OrderProcessingStrategy:
+      type: string
+      enum:
+      - ONE_STEP
+      - TWO_STEP
+      - INCENTIVIO_ORDER
+      - INC_PAYMENTS
+    TotalCalculationStrategy:
+      type: string
+      enum:
+      - TOAST
+      - SILVERWARE
+      - NCC
+      - LIGHTSPEED
+      - EXTERNAL
+    ChargeDTO:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        extChargeId:
+          type: string
+        chargeDescription:
+          type: string
+        chargeType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        orderApplied:
+          type: integer
+          format: int32
+    FindMerchantsResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        merchants:
+          type: array
+          items:
+            $ref: '#/components/schemas/MerchantDTO'
+    ExternalDeliveryFeeStrategy:
+      type: string
+      enum:
+      - ADD
+      - IGNORE
+    TaxDTO:
+      type: object
+      properties:
+        taxId:
+          type: string
+        extTaxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+    PaymentGatewayConfig:
+      type: object
+      properties:
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    IDGenerationStrategy:
+      type: string
+      enum:
+      - UUID
+      - AUTO_INCREMENT
+    MerchantDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        title:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        clientId:
+          type: string
+        messageFromEmail:
+          type: string
+        timezone:
+          type: string
+    OrderProcessingConfigDTO:
+      type: object
+      properties:
+        orderProcessingStrategy:
+          $ref: '#/components/schemas/OrderProcessingStrategy'
+        paymentIDGenerationStrategy:
+          $ref: '#/components/schemas/IDGenerationStrategy'
+        paymentGatewayName:
+          type: string
+        orderGatewayName:
+          type: string
+        externalDeliverySettings:
+          $ref: '#/components/schemas/ExternalDeliverySettings'
+        roundingMode:
+          $ref: '#/components/schemas/RoundingMode'
+        calculationStrategy:
+          $ref: '#/components/schemas/TotalCalculationStrategy'
+        consolidateMultipleDiscounts:
+          type: boolean
+        realTimeLoyaltyProcessing:
+          type: boolean

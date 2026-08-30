@@ -1,0 +1,143 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Delivery Address Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: delivery-address-controller
+paths:
+  /save/singledeliveryaddress:
+    put:
+      tags:
+      - delivery-address-controller
+      operationId: addOrUpdateSingleDeliveryAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeliveryAddressRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDeliveryAddressResponseDTO'
+  /save/multipledeliveryaddresses:
+    put:
+      tags:
+      - delivery-address-controller
+      operationId: addOrUpdateMultipleDeliveryAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeliveryAddressRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDeliveryAddressResponseDTO'
+  /deliveryaddresses:
+    get:
+      tags:
+      - delivery-address-controller
+      operationId: getDeliveryAddressListByClientIdAndUserId
+      parameters:
+      - name: clientId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDeliveryAddressResponseDTO'
+    delete:
+      tags:
+      - delivery-address-controller
+      operationId: deleteDeliveryAddressByIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    ListDeliveryAddressResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        deliveryAddressList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressDTO'
+    CreateDeliveryAddressResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+    CreateDeliveryAddressRequestDTO:
+      required:
+      - clientId
+      type: object
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        userId:
+          type: string
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressDTO'
+    AddressDTO:
+      required:
+      - city
+      - country
+      - postalCode
+      - state
+      - street1
+      type: object
+      properties:
+        addressId:
+          type: string
+        addressAlias:
+          type: string
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string

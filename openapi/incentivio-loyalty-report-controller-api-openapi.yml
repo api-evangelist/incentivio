@@ -1,0 +1,1070 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Loyalty Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: loyalty-report-controller
+paths:
+  /incentivio-reports/loyaltyreport/offers/trends/csv:
+    post:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportOfferTrendsCSV
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoyaltyReportOfferTrendsCSVRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportCSVResponseDTO'
+  /incentivio-reports/loyaltyreport/offers/performance/csv:
+    post:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportOfferPerformanceCSV
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoyaltyReportOfferPerformanceCSVRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportCSVResponseDTO'
+  /incentivio-reports/loyaltyreport/locations/trends/csv:
+    post:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportLocationTrendsCSV
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoyaltyReportLocationTrendsCSVRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportCSVResponseDTO'
+  /incentivio-reports/loyaltyreport/locations/performance/csv:
+    post:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportLocationPerformanceCSV
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoyaltyReportLocationPerformanceCSVRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportCSVResponseDTO'
+  /incentivio-reports/loyaltyreport/offers/trends:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportOffersTrendsPage
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      - name: paginationRequest
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportPaginationRequest'
+      - name: datatype
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: granularity
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: offerIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: offertype
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportOfferTrendsResponse'
+  /incentivio-reports/loyaltyreport/offers/performance/summary:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportOfferPerformanceSummary
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      - name: offerIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: offertype
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportPerformanceDTO'
+  /incentivio-reports/loyaltyreport/offers/performance/data:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportOfferPerformanceData
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      - name: paginationRequest
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportPaginationRequest'
+      - name: sortingDto
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/SortingDto'
+      - name: offerIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: offertype
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportDataGridOffersPageDTO'
+  /incentivio-reports/loyaltyreport/locations/trends:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportLocationsTrendsPage
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      - name: paginationRequest
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportPaginationRequest'
+      - name: datatype
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: granularity
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportLocationTrendsResponse'
+  /incentivio-reports/loyaltyreport/locations/performance/summary:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportLocationPerformanceSummary
+      parameters:
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportPerformanceDTO'
+  /incentivio-reports/loyaltyreport/locations/performance/data:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportLocationPerformancePage
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      - name: paginationRequest
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportPaginationRequest'
+      - name: sortingDto
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/SortingDto'
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportDataGridLocationsPageDTO'
+  /incentivio-reports/loyaltyreport/franchise/summary:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportFranchiseSummary
+      parameters:
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportFranchiseSummaryDTO'
+  /incentivio-reports/loyaltyreport/franchise/loyaltysales:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportLoyaltySalesForFranchise
+      parameters:
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportTimeSeriesDTO'
+  /incentivio-reports/loyaltyreport/franchise/activemembers:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportSignUpTimeseriesForFranchise
+      parameters:
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportTimeSeriesDTO'
+  /incentivio-reports/loyaltyreport/brand/summary:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportSummaryForBrand
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportBrandOverallSummaryDTO'
+  /incentivio-reports/loyaltyreport/brand/signup/timeseries:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportSignUpTimeseriesForBrand
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportTimeSeriesDTO'
+  /incentivio-reports/loyaltyreport/brand/signup/aggregate:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportSignUpsForBrand
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportPieGraphDTO'
+  /incentivio-reports/loyaltyreport/brand/pointssummary:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportPointsSummaryForBrand
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportBrandPointsSummaryDTO'
+  /incentivio-reports/loyaltyreport/brand/orders:
+    get:
+      tags:
+      - loyalty-report-controller
+      operationId: getLoyaltyReportOrdersForBrand
+      parameters:
+      - name: dateRange
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/LoyaltyReportDateRange'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoyaltyReportPieGraphDTO'
+components:
+  schemas:
+    LoyaltyReportCSVResponseDTO:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        responseMessage:
+          type: string
+        data:
+          type: object
+          additionalProperties: {}
+    LoyaltyReportOfferTrendsCSVRequestDTO:
+      type: object
+      properties:
+        clientName:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        storeIds:
+          type: array
+          items:
+            type: string
+        offerIds:
+          type: array
+          items:
+            type: string
+        dataType:
+          type: string
+        granularity:
+          type: string
+        offerType:
+          $ref: '#/components/schemas/OfferTypeEnum'
+    LoyaltyReportDataGridTrendOfferDisplay:
+      type: object
+      properties:
+        offerId:
+          type: string
+        displayInfoTitle:
+          type: string
+        data:
+          type: array
+          items:
+            type: string
+    LoyaltyReportPieGraphEntry:
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: number
+    LoyaltyReportDataGridTrendLocationDisplay:
+      type: object
+      properties:
+        storeId:
+          type: string
+        displayInfoTitle:
+          type: string
+        data:
+          type: array
+          items:
+            type: string
+    LoyaltyReportPieGraphDTO:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyReportPieGraphEntry'
+    LoyaltyReportDateRange:
+      type: object
+      properties:
+        startdate:
+          type: string
+          format: date
+        enddate:
+          type: string
+          format: date
+        comparisonstartdate:
+          type: string
+          format: date
+        comparisonenddate:
+          type: string
+          format: date
+    LoyaltyReportBrandOverallSummaryDTO:
+      type: object
+      properties:
+        totalMembers:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        activeMembers:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        activeMembersPercent:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        deletedAccounts:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        loyaltySales:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        loyaltyContributionPercentOfSales:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        loyaltyContributionPercentOfOrders:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        loyaltyAverageOrder:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        membersWhoOrdered:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        activityRateMembersWhoOrdered:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+    LoyaltyReportTimeSeriesDTO:
+      type: object
+      properties:
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyReportLineGraphEntry'
+        xlabels:
+          type: array
+          items:
+            type: string
+    LoyaltyReportDataGridOffersPageDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyReportDataGridOfferPerformanceDisplay'
+        total:
+          $ref: '#/components/schemas/LoyaltyReportDataGridOfferPerformanceDisplay'
+    LoyaltyReportOfferPerformanceCSVRequestDTO:
+      type: object
+      properties:
+        clientName:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        storeIds:
+          type: array
+          items:
+            type: string
+        offerIds:
+          type: array
+          items:
+            type: string
+        columns:
+          type: array
+          items:
+            type: string
+        offerType:
+          $ref: '#/components/schemas/OfferTypeEnum'
+    LoyaltyReportOfferTrendsResponse:
+      type: object
+      properties:
+        dataGrid:
+          $ref: '#/components/schemas/LoyaltyReportDataGridOfferTrendsPageDisplayDTO'
+        lineChart:
+          $ref: '#/components/schemas/LoyaltyReportTimeSeriesDTO'
+    LoyaltyReportDataGridOfferPerformanceDisplay:
+      type: object
+      properties:
+        offerId:
+          type: string
+        displayInfoTitle:
+          type: string
+        newMembers:
+          type: string
+        totalMembers:
+          type: string
+        deletedAccounts:
+          type: string
+        activeMembers:
+          type: string
+        activeMemberPercent:
+          type: string
+        totalOrders:
+          type: string
+        loyaltyEarnOrders:
+          type: string
+        loyaltyBurnOrders:
+          type: string
+        loyaltyNetZeroOrders:
+          type: string
+        totalLoyaltyOrders:
+          type: string
+        loyaltyContribution:
+          type: string
+        allOrdersNetSales:
+          type: string
+        loyaltyOrdersNetSales:
+          type: string
+        loyaltySales:
+          type: string
+        discountAmount:
+          type: string
+        loyaltyContributionSalesPercent:
+          type: string
+        loyaltyContributionOrdersPercent:
+          type: string
+        loyaltyAverageCheck:
+          type: string
+        mobileLoyaltyOrders:
+          type: string
+        mobileLoyaltyOrdersPercent:
+          type: string
+        webLoyaltyOrders:
+          type: string
+        webLoyaltyOrdersPercent:
+          type: string
+        scan2PayOrders:
+          type: string
+        scan2PayOrdersPercent:
+          type: string
+        inStoreLoyaltyOrders:
+          type: string
+        inStoreLoyaltyOrdersPercent:
+          type: string
+        otherLoyaltyOrders:
+          type: string
+        otherLoyaltyOrdersPercent:
+          type: string
+        bonusEarnEvents:
+          type: string
+        uniqueUserScan2Pay:
+          type: string
+        uniqueUserWeb:
+          type: string
+        uniqueUserApp:
+          type: string
+        uniqueUserInStore:
+          type: string
+        uniqueUserOther:
+          type: string
+        currentStatus:
+          type: string
+        offerType:
+          type: string
+        distributionMethod:
+          type: string
+        distributionEndDateType:
+          type: string
+        redemptionEndDateType:
+          type: string
+        redemptionEndTime:
+          type: string
+        redemptionDateRangeStart:
+          type: string
+          format: date-time
+        redemptionDateRangeEnd:
+          type: string
+          format: date-time
+        distributionDateRangeStart:
+          type: string
+          format: date-time
+        distributionDateRangeEnd:
+          type: string
+          format: date-time
+        redemptionDateRange:
+          type: string
+        distributionDateRange:
+          type: string
+        averageDaysToRedeem:
+          type: string
+        distributionsAllTime:
+          type: string
+        distributionsSelectedTimePeriod:
+          type: string
+        redemptionsCurrent:
+          type: string
+        redemptionsAllTimeDistributions:
+          type: string
+        redemptionsSelectedTimePeriodDistributions:
+          type: string
+        redemptionRateAllTime:
+          type: string
+        redemptionRateDistributedAndRedeemedInPeriod:
+          type: string
+        redemptionRateDistributedAllTimeRedeemedInPeriod:
+          type: string
+        uniqueUserDistributionsSelectedTimePeriod:
+          type: string
+        uniqueUserOpened:
+          type: string
+        totalOpened:
+          type: string
+        uniqueUserDeleted:
+          type: string
+        totalDeleted:
+          type: string
+        uniqueUserSaved:
+          type: string
+        totalSaved:
+          type: string
+        averageDiscount:
+          type: string
+    LoyaltyReportDataGridLocationPerformanceDisplay:
+      type: object
+      properties:
+        locationId:
+          type: string
+        displayInfoTitle:
+          type: string
+        newMembers:
+          type: string
+        totalMembers:
+          type: string
+        deletedAccounts:
+          type: string
+        activeMembers:
+          type: string
+        activeMemberPercent:
+          type: string
+        totalOrders:
+          type: string
+        loyaltyEarnOrders:
+          type: string
+        loyaltyBurnOrders:
+          type: string
+        loyaltyNetZeroOrders:
+          type: string
+        totalLoyaltyOrders:
+          type: string
+        loyaltyContribution:
+          type: string
+        allOrdersNetSales:
+          type: string
+        loyaltyOrdersNetSales:
+          type: string
+        loyaltySales:
+          type: string
+        discountAmount:
+          type: string
+        loyaltyContributionSalesPercent:
+          type: string
+        loyaltyContributionOrdersPercent:
+          type: string
+        loyaltyAverageCheck:
+          type: string
+        mobileLoyaltyOrders:
+          type: string
+        mobileLoyaltyOrdersPercent:
+          type: string
+        webLoyaltyOrders:
+          type: string
+        webLoyaltyOrdersPercent:
+          type: string
+        scan2PayOrders:
+          type: string
+        scan2PayOrdersPercent:
+          type: string
+        inStoreLoyaltyOrders:
+          type: string
+        inStoreLoyaltyOrdersPercent:
+          type: string
+        otherLoyaltyOrders:
+          type: string
+        otherLoyaltyOrdersPercent:
+          type: string
+        bonusEarnEvents:
+          type: string
+        uniqueUserScan2Pay:
+          type: string
+        uniqueUserWeb:
+          type: string
+        uniqueUserApp:
+          type: string
+        uniqueUserInStore:
+          type: string
+        uniqueUserOther:
+          type: string
+    LoyaltyReportLocationTrendsResponse:
+      type: object
+      properties:
+        dataGrid:
+          $ref: '#/components/schemas/LoyaltyReportDataGridLocationTrendsPageDisplayDTO'
+        lineChart:
+          $ref: '#/components/schemas/LoyaltyReportTimeSeriesDTO'
+    LoyaltyReportLocationTrendsCSVRequestDTO:
+      type: object
+      properties:
+        clientName:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        storeIds:
+          type: array
+          items:
+            type: string
+        dataType:
+          type: string
+        granularity:
+          type: string
+    LoyaltyReportSummaryCard:
+      type: object
+      properties:
+        value:
+          type: number
+        comparisonNumber:
+          type: number
+        sparkLineData:
+          type: array
+          items:
+            type: number
+        cardType:
+          $ref: '#/components/schemas/CardTypeEnum'
+    LoyaltyReportDataGridLocationTrendsPageDisplayDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyReportDataGridTrendLocationDisplay'
+        total:
+          type: array
+          items:
+            type: string
+    LoyaltyReportLineGraphEntry:
+      type: object
+      properties:
+        label:
+          type: string
+        data:
+          type: array
+          items:
+            type: number
+    OfferTypeEnum:
+      type: string
+      enum:
+      - ALL
+      - loyaltyPointOffer
+      - nonPointOffer
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    CardTypeEnum:
+      type: string
+      enum:
+      - number
+      - percent
+      - currency
+    LoyaltyReportPaginationRequest:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+    SortingDto:
+      type: object
+      properties:
+        sortBy:
+          type: string
+        sortDirection:
+          type: string
+    LoyaltyReportBrandPointsSummaryDTO:
+      type: object
+      properties:
+        startingBalance:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        pointsEarned:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        pointsRedeemed:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        pointsExpired:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        endingBalance:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+    LoyaltyReportDataGridOfferTrendsPageDisplayDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyReportDataGridTrendOfferDisplay'
+        total:
+          type: array
+          items:
+            type: string
+    LoyaltyReportLocationPerformanceCSVRequestDTO:
+      type: object
+      properties:
+        clientName:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        storeIds:
+          type: array
+          items:
+            type: string
+        columns:
+          type: array
+          items:
+            type: string
+    LoyaltyReportDataGridLocationsPageDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyReportDataGridLocationPerformanceDisplay'
+        total:
+          $ref: '#/components/schemas/LoyaltyReportDataGridLocationPerformanceDisplay'
+    LoyaltyReportFranchiseSummaryDTO:
+      type: object
+      properties:
+        activeMembers:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        activeMembersPercent:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        systemActiveMembersPercent:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        contributionRate:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        systemContributionRate:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    LoyaltyReportPerformanceDTO:
+      type: object
+      properties:
+        loyaltyEarnOrders:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        loyaltyBurnOrders:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        loyaltyOrdersNetSales:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        discountAmount:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'
+        activeMembers:
+          $ref: '#/components/schemas/LoyaltyReportSummaryCard'

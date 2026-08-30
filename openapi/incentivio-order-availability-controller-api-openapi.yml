@@ -1,0 +1,263 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Order Availability Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: order-availability-controller
+paths:
+  /locations/{locationid}/orderavailability:
+    get:
+      tags:
+      - order-availability-controller
+      operationId: oldGetOrderAvailability
+      parameters:
+      - name: locationid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: lat
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: lon
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: orderid
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: inc-user-language
+        in: header
+        required: false
+        schema:
+          type: string
+          default: EN
+      - name: presetorderconfigid
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderAvailabilityResponseDTO'
+      deprecated: true
+    post:
+      tags:
+      - order-availability-controller
+      operationId: newGetOrderAvailability
+      parameters:
+      - name: locationid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: inc-user-language
+        in: header
+        required: false
+        schema:
+          type: string
+          default: EN
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderAvailabilityRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderAvailabilityResponseDTO'
+  /locations/{locationid}/orderavailability/asap:
+    post:
+      tags:
+      - order-availability-controller
+      operationId: calculateAsapDuration
+      parameters:
+      - name: locationid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalculateAsapDurationRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CalculateAsapDurationResponseDTO'
+  /locations/{locationid}/withindeliveryradius:
+    get:
+      tags:
+      - order-availability-controller
+      operationId: isWithinDeliveryRadius
+      parameters:
+      - name: locationid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: lat
+        in: query
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: lon
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string
+    OrderAvailabilityRequestDTO:
+      type: object
+      properties:
+        presetOrderId:
+          type: string
+        orderId:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        selectedDay:
+          type: string
+          format: date
+    CalculateAsapDurationResponseDTO:
+      type: object
+      properties:
+        orderType:
+          type: string
+          enum:
+          - DELIVERY
+          - PICKUP
+          - DINEIN
+        asapAvailable:
+          type: boolean
+        asapDuration:
+          type: integer
+          format: int32
+    ValidatedTimeSlot:
+      type: object
+      properties:
+        time:
+          type: string
+        valid:
+          type: boolean
+    OrderAvailabilityResponseDTO:
+      type: object
+      properties:
+        pickupAvailable:
+          type: boolean
+        deliveryAvailable:
+          type: boolean
+        firstAvailablePickupTime:
+          type: string
+        firstAvailableDeliveryTime:
+          type: string
+        deliveryOffDays:
+          type: array
+          items:
+            type: string
+        pickupOffDays:
+          type: array
+          items:
+            type: string
+        pickupAvailableTimes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        deliveryAvailableTimes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        pickupTimeSlots:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/ValidatedTimeSlot'
+        deliveryTimeSlots:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/ValidatedTimeSlot'
+        withinDeliveryDistance:
+          type: boolean
+        timeZone:
+          type: string
+        pickupAsapAvailable:
+          type: boolean
+        deliveryAsapAvailable:
+          type: boolean
+        pickupDelayedMessage:
+          type: string
+        deliveryDelayedMessage:
+          type: string
+        maxOrderingDate:
+          type: string
+          format: date
+    CalculateAsapDurationRequestDTO:
+      type: object
+      properties:
+        orderId:
+          type: string
+        orderType:
+          type: string
+          enum:
+          - DELIVERY
+          - PICKUP
+          - DINEIN
+        address:
+          $ref: '#/components/schemas/Address'

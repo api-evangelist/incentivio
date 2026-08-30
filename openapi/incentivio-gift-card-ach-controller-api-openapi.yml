@@ -1,0 +1,697 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Gift Card Ach Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: gift-card-ach-controller
+paths:
+  /incentivio-giftcard-ach-service/achlocations:
+    get:
+      tags:
+      - gift-card-ach-controller
+      operationId: retrieveACHLocationsForAdmin
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ACHLocationDTO'
+    put:
+      tags:
+      - gift-card-ach-controller
+      operationId: updateLocation_1
+      parameters:
+      - name: merchantId
+        in: header
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+      - gift-card-ach-controller
+      operationId: retrieveLocationsByACHLocationIDs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RetrieveAchLocationListResponse'
+  /incentivio-giftcard-ach-service/achlocations/{locationId}/fundingaccount:
+    put:
+      tags:
+      - gift-card-ach-controller
+      operationId: updateFundingAccount
+      parameters:
+      - name: merchantId
+        in: header
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 1
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 49
+          minLength: 36
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFundingAccountRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-giftcard-ach-service/{locationId}/retry-verification:
+    post:
+      tags:
+      - gift-card-ach-controller
+      operationId: retryVerification
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 49
+          minLength: 36
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetryCustomerVerificationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-giftcard-ach-service/client-token:
+    post:
+      tags:
+      - gift-card-ach-controller
+      operationId: retrieveClientToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RetrieveClientTokenResponse'
+  /incentivio-giftcard-ach-service/achlocations/{locationId}/status:
+    post:
+      tags:
+      - gift-card-ach-controller
+      operationId: updateLocationStatus
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 49
+          minLength: 36
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationStatusRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-giftcard-ach-service/achlocations/{locationId}/fundingaccount/{fundingAccountId}/verifymicrodeposits:
+    post:
+      tags:
+      - gift-card-ach-controller
+      operationId: verifyMicroDeposits
+      parameters:
+      - name: merchantId
+        in: header
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 1
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 49
+          minLength: 36
+      - name: fundingAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 36
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyMicroDepositsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-giftcard-ach-service/achlocations/copy-customer-and-account:
+    post:
+      tags:
+      - gift-card-ach-controller
+      operationId: copyCustomerAndAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CopyCustomerAndAccountRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /incentivio-giftcard-ach-service/iav-token/{customerId}:
+    get:
+      tags:
+      - gift-card-ach-controller
+      operationId: retrieveIAVToken
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RetrieveIAVTokenResponse'
+  /incentivio-giftcard-ach-service/achlocations/{locationId}:
+    get:
+      tags:
+      - gift-card-ach-controller
+      operationId: retrieveLocation
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 49
+          minLength: 36
+      - name: sync-status
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ACHLocationDTO'
+  /incentivio-giftcard-ach-service/achlocations/{locationId}/fundingaccount/{fundingAccountId}/balance:
+    get:
+      tags:
+      - gift-card-ach-controller
+      operationId: retrieveFundingAccountBalance
+      parameters:
+      - name: merchantId
+        in: header
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 1
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 49
+          minLength: 36
+      - name: fundingAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 36
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-giftcard-ach-service/achlocations/{locationId}/beneficialowners:
+    get:
+      tags:
+      - gift-card-ach-controller
+      operationId: retrieveBeneficialOwners
+      parameters:
+      - name: merchantId
+        in: header
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 1
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 49
+          minLength: 36
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RetrieveBeneficalOwnersResponse'
+  /incentivio-giftcard-ach-service/achlocations/{locationId}/funding-source:
+    delete:
+      tags:
+      - gift-card-ach-controller
+      operationId: removeFundingSource
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 49
+          minLength: 36
+      - name: removeFromAllLocation
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /incentivio-giftcard-ach-service/achlocations/{locationId}/customer:
+    delete:
+      tags:
+      - gift-card-ach-controller
+      operationId: removeCustomer
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 49
+          minLength: 36
+      - name: removeFromAllLocation
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    UpdateFundingAccountRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        externalUrl:
+          type: string
+    AdminPortalMetaDataRequest:
+      type: object
+      properties:
+        deviceDetail:
+          $ref: '#/components/schemas/DeviceDetailRequest'
+        userDetail:
+          $ref: '#/components/schemas/UserDetailRequest'
+    UserDetailRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
+    VerificationStatusEnum:
+      type: string
+      enum:
+      - UNVERIFIED
+      - DOCUMENT
+      - VERIFIED
+      - INCOMPLETE
+    VerifyMicroDepositsRequest:
+      type: object
+      properties:
+        amount1:
+          type: string
+        amount2:
+          type: string
+    BusinessController:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        dateOfBirth:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    RetrieveClientTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    LocationDetailRequest:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+        locationEnabled:
+          type: boolean
+    ACHBeneficialOwner:
+      type: object
+      properties:
+        externalId:
+          type: string
+        locationId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        createdDate:
+          type: string
+          format: date-time
+        verificationStatus:
+          $ref: '#/components/schemas/VerificationStatusEnum'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHDocument'
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    UpdateLocationStatusRequest:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+    RetrieveAchLocationListResponse:
+      type: object
+      properties:
+        locationList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHLocationDTO'
+    TypeEnum:
+      type: string
+      enum:
+      - PASSPORT
+      - LICENSE
+      - ID_CARD
+      - OTHER
+    RetrieveBeneficalOwnersResponse:
+      type: object
+      properties:
+        beneficialOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHBeneficialOwner'
+    RetryCustomerVerificationRequest:
+      type: object
+      properties:
+        dateOfBirth:
+          type: string
+        fullSSN:
+          type: string
+        ein:
+          type: string
+    UpdateLocationRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailRequest'
+    BankAccountTypeEnum:
+      type: string
+      enum:
+      - CHECKING
+      - SAVINGS
+    RetrieveIAVTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    ACHDocument:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        created:
+          type: string
+          format: date-time
+        failureReason:
+          type: string
+        allFailureReasons:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+    CopyCustomerAndAccountRequest:
+      type: object
+      properties:
+        fromLocationId:
+          type: string
+        toLocationIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    DeviceDetailRequest:
+      type: object
+      properties:
+        deviceIpAddress:
+          type: string
+        deviceType:
+          type: string
+        browserType:
+          type: string
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    ACHFundingAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        externalURL:
+          type: string
+        bankAccountType:
+          $ref: '#/components/schemas/BankAccountTypeEnum'
+        accountNickName:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        deleted:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        fingerprint:
+          type: string
+    ACHLocationDTO:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        externalId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        ipAddress:
+          type: string
+        businessName:
+          type: string
+        businessType:
+          type: string
+        businessClassification:
+          type: string
+        fundingAccount:
+          $ref: '#/components/schemas/ACHFundingAccount'
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        acceptedTOSAndPP:
+          type: boolean
+        achLocationDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHDocument'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        controller:
+          $ref: '#/components/schemas/BusinessController'
+        copiedFromLocationId:
+          type: string
+        sharedCustomer:
+          type: boolean
+        sharedFundingSource:
+          type: boolean
+        fundTransferEnabled:
+          type: boolean
+        overallStatus:
+          type: string

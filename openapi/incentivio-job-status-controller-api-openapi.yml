@@ -1,0 +1,46 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Job Status Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: job-status-controller
+paths:
+  /incentivio-reports/jobs/status:
+    get:
+      tags:
+      - job-status-controller
+      operationId: getCurrentJobStatuses
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatusResponse'
+components:
+  schemas:
+    JobStatusDTO:
+      type: object
+      properties:
+        jobName:
+          type: string
+        dataAvailableDate:
+          type: string
+          format: date
+        updatedDate:
+          type: string
+          format: date-time
+      required:
+      - dataAvailableDate
+      - jobName
+      - updatedDate
+    JobStatusResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobStatusDTO'

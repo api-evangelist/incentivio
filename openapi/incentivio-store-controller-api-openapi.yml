@@ -1,0 +1,826 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Store Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: store-controller
+paths:
+  /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}/stores/{storeid}:
+    put:
+      tags:
+      - store-controller
+      operationId: updateStore
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Location-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: storeid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStoreRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+      - store-controller
+      operationId: deleteStore
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Location-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: storeid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /incentivio-client-domain/reach/display:
+    post:
+      tags:
+      - store-controller
+      operationId: readReachDisplayInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReachStringDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}/stores:
+    get:
+      tags:
+      - store-controller
+      operationId: searchStoreByMerchant
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: title
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Direction'
+          default: ASC
+      - name: title
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindStoresResponseDTO'
+    post:
+      tags:
+      - store-controller
+      operationId: createStore
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStoreRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateStoreResponseDTO'
+  /incentivio-client-domain/clients/{clientid}/storetypes:
+    get:
+      tags:
+      - store-controller
+      operationId: listStoreTypeByClientId
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindStoreTypesResponseDTO'
+  /incentivio-client-domain/clients/{clientid}/stores:
+    get:
+      tags:
+      - store-controller
+      operationId: searchStoreByClient
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: title
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Direction'
+          default: ASC
+      - name: latitude
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: longitude
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: radius
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: langCode
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: iscatering
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: ismenubrowsing
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: istest
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindStoresResponseDTO'
+  /incentivio-client-domain/clients/{clientid}/stores/{identifier}:
+    get:
+      tags:
+      - store-controller
+      operationId: readStoreByClientAndIdentifier
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: idtype
+        in: query
+        required: false
+        schema:
+          type: string
+          default: id
+      - name: langCode
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StoreDTO'
+  /incentivio-client-domain/clients/{clientid}/reach:
+    get:
+      tags:
+      - store-controller
+      operationId: readClientReachString
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}/stores/{identifier}:
+    get:
+      tags:
+      - store-controller
+      operationId: readStoreByMerchantAndIdentifier
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: idtype
+        in: query
+        required: false
+        schema:
+          type: string
+          default: id
+      - name: langCode
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StoreDTO'
+  /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}/admins/{adminid}/stores:
+    get:
+      tags:
+      - store-controller
+      operationId: searchStoreByAdmin
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Inc-Merchant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: adminid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: title
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Direction'
+          default: ASC
+      - name: title
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindStoresResponseDTO'
+  /incentivio-client-domain/clients/{clientid}/all/stores:
+    get:
+      tags:
+      - store-controller
+      operationId: listStoreByClientId
+      parameters:
+      - name: Inc-Client-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindAllStoresResponseDTO'
+  /incentivio-client-domain/clients/all/stores:
+    get:
+      tags:
+      - store-controller
+      operationId: listStore
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindAllStoresResponseDTO'
+  /incentivio-client-domain/admin/stores:
+    get:
+      tags:
+      - store-controller
+      operationId: listStoresForAdmin
+      parameters:
+      - name: excludenames
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindAdminStoresResponseDTO'
+  /incentivio-client-domain/admin/stores/overall:
+    get:
+      tags:
+      - store-controller
+      operationId: listStoresForAdminOverall
+      parameters:
+      - name: excludenames
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindAdminStoresResponseDTO'
+components:
+  schemas:
+    CreateStoreResponseDTO:
+      type: object
+      properties:
+        storeId:
+          type: string
+    CreateStoreRequestDTO:
+      type: object
+      properties:
+        title:
+          type: string
+        regionId:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        phoneNumber:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        storeType:
+          type: string
+        beaconId:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDisplayInfo'
+          uniqueItems: true
+        isCatering:
+          type: boolean
+        isMenuBrowsing:
+          type: boolean
+        viewOnlyLocationEnabled:
+          type: boolean
+        isTest:
+          type: boolean
+      required:
+      - title
+    FindAdminStoresResponseDTO:
+      type: object
+      properties:
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminStoreDTO'
+    UpdateStoreRequestDTO:
+      type: object
+      properties:
+        title:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        phoneNumber:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        regionId:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        storeType:
+          type: string
+        beaconId:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDisplayInfo'
+          uniqueItems: true
+        isCatering:
+          type: boolean
+        isMenuBrowsing:
+          type: boolean
+        viewOnlyLocationEnabled:
+          type: boolean
+        isTest:
+          type: boolean
+        regionEmpty:
+          type: boolean
+    StoreTypeDTO:
+      type: object
+      properties:
+        storeTypeId:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+    FindAllStoresResponseDTO:
+      type: object
+      properties:
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDTO'
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    FindStoreTypesResponseDTO:
+      type: object
+      properties:
+        storeTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreTypeDTO'
+    StoreDTO:
+      type: object
+      properties:
+        storeId:
+          type: string
+        title:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        phoneNumber:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        regionId:
+          type: string
+        storeCode:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        storeType:
+          type: string
+        beaconId:
+          type: string
+        beaconName:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDisplayInfo'
+          uniqueItems: true
+        isCatering:
+          type: boolean
+        isMenuBrowsing:
+          type: boolean
+        viewOnlyLocationEnabled:
+          type: boolean
+        isTest:
+          type: boolean
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    StoreDisplayInfo:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+    AdminStoreDTO:
+      type: object
+      properties:
+        storeId:
+          type: string
+        merchantId:
+          type: string
+        title:
+          type: string
+    FindStoresResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDTO'
+    AddressDTO:
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+    ReachStringDTO:
+      type: object
+      properties:
+        reach:
+          type: string

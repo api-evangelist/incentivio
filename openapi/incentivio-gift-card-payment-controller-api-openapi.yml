@@ -1,0 +1,348 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Gift Card Payment Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: gift-card-payment-controller
+paths:
+  /giftcard/purchase/payment/prepare:
+    post:
+      tags:
+      - gift-card-payment-controller
+      operationId: purchaseAndEmailGiftCardPreparePayment
+      parameters:
+      - name: CLIENTID
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseAndEmailGiftCardRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreparePaymentResponseDTO'
+  /giftcard/add-value/payment/prepare:
+    post:
+      tags:
+      - gift-card-payment-controller
+      operationId: addValueToGiftCardPreparePayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddValueRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreparePaymentResponseDTO'
+  /ecard/purchase/payment/prepare:
+    post:
+      tags:
+      - gift-card-payment-controller
+      operationId: purchaseECardPreparePayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseECardRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreparePaymentResponseDTO'
+  /giftcard/transaction/{incentiviotxid}/payment/status:
+    get:
+      tags:
+      - gift-card-payment-controller
+      operationId: checkTxPaymentStatus
+      parameters:
+      - name: incentiviotxid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GiftCardTransactionResponseDTO'
+components:
+  schemas:
+    PreparePaymentResponseDTO:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+    PurchaseAndEmailGiftCardRequestDTO:
+      required:
+      - amount
+      - paymentType
+      - sourceType
+      type: object
+      properties:
+        clientId:
+          type: string
+        userId:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        locationId:
+          type: string
+        sourceType:
+          type: string
+        paymentType:
+          type: string
+          enum:
+          - CARD_NOT_PRESENT
+          - CARD_PRESENT
+          - CASH
+          - THIRD_PARTY
+          - APPLE_PAY
+          - ANDROID_PAY
+          - SAMSUNG_PAY
+          - NO_PAYMENT
+          - GOOGLE_PAY
+          - ONE_TIME_TOKEN
+          - PERMANENT_TOKEN
+          - GIFT_CARD
+          - PAYMENT_SKIPPED
+        paymentMode:
+          type: string
+          enum:
+          - PAYMENT_MANDATORY
+          - PAYMENT_OPTIONAL
+          - NO_PAYMENT
+        paymentToken:
+          type: string
+        cardType:
+          type: string
+        paymentMethodType:
+          type: string
+        zipCode:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        isOneTimeTransaction:
+          type: boolean
+        expirationYear:
+          type: integer
+          format: int32
+        expirationMonth:
+          type: integer
+          format: int32
+        recipient:
+          $ref: '#/components/schemas/GiftCardRecipient'
+        sender:
+          $ref: '#/components/schemas/GiftCardSender'
+        from:
+          type: string
+        oneTimeTransaction:
+          type: boolean
+    GiftCardTransactionResponseDTO:
+      type: object
+      properties:
+        transactionType:
+          type: string
+        cardIdentifier:
+          type: string
+        securityCode:
+          type: string
+        cardAccountBalance:
+          type: number
+          format: double
+        transactionValue:
+          type: number
+          format: double
+        cardStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+        paymentStatus:
+          type: string
+        transactionStatus:
+          type: string
+        rootErrors:
+          type: object
+          additionalProperties:
+            type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    GiftCardSender:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        customerId:
+          type: string
+        adminId:
+          type: string
+    GiftCardRecipient:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        message:
+          type: string
+    AddValueRequestDTO:
+      required:
+      - amount
+      - cardIdentifier
+      - paymentType
+      - sourceType
+      type: object
+      properties:
+        clientId:
+          type: string
+        userId:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        cardIdentifier:
+          type: string
+        locationId:
+          type: string
+        sourceType:
+          type: string
+        paymentType:
+          type: string
+          enum:
+          - CARD_NOT_PRESENT
+          - CARD_PRESENT
+          - CASH
+          - THIRD_PARTY
+          - APPLE_PAY
+          - ANDROID_PAY
+          - SAMSUNG_PAY
+          - NO_PAYMENT
+          - GOOGLE_PAY
+          - ONE_TIME_TOKEN
+          - PERMANENT_TOKEN
+          - GIFT_CARD
+          - PAYMENT_SKIPPED
+        paymentMode:
+          type: string
+          enum:
+          - PAYMENT_MANDATORY
+          - PAYMENT_OPTIONAL
+          - NO_PAYMENT
+        paymentToken:
+          type: string
+        cardType:
+          type: string
+        paymentMethodType:
+          type: string
+        zipCode:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        isOneTimeTransaction:
+          type: boolean
+        expirationYear:
+          type: integer
+          format: int32
+        expirationMonth:
+          type: integer
+          format: int32
+        oneTimeTransaction:
+          type: boolean
+    PurchaseECardRequestDTO:
+      required:
+      - amount
+      - paymentType
+      - sourceType
+      type: object
+      properties:
+        clientId:
+          type: string
+        userId:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        locationId:
+          type: string
+        sourceType:
+          type: string
+        paymentType:
+          type: string
+          enum:
+          - CARD_NOT_PRESENT
+          - CARD_PRESENT
+          - CASH
+          - THIRD_PARTY
+          - APPLE_PAY
+          - ANDROID_PAY
+          - SAMSUNG_PAY
+          - NO_PAYMENT
+          - GOOGLE_PAY
+          - ONE_TIME_TOKEN
+          - PERMANENT_TOKEN
+          - GIFT_CARD
+          - PAYMENT_SKIPPED
+        paymentMode:
+          type: string
+          enum:
+          - PAYMENT_MANDATORY
+          - PAYMENT_OPTIONAL
+          - NO_PAYMENT
+        paymentToken:
+          type: string
+        cardType:
+          type: string
+        paymentMethodType:
+          type: string
+        zipCode:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        isOneTimeTransaction:
+          type: boolean
+        expirationYear:
+          type: integer
+          format: int32
+        expirationMonth:
+          type: integer
+          format: int32
+        oneTimeTransaction:
+          type: boolean

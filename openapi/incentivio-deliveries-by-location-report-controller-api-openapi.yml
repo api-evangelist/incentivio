@@ -1,0 +1,84 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Deliveries By Location Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: deliveries-by-location-report-controller
+paths:
+  /incentivio-reports/clients/{clientId}/deliveries-by-location:
+    get:
+      tags:
+      - deliveries-by-location-report-controller
+      operationId: retrieveDeliveriesByLocationReport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeliveriesByLocationReportDTO'
+components:
+  schemas:
+    DeliveriesByDateDTO:
+      type: object
+      properties:
+        deliveriesDate:
+          type: string
+          format: date-time
+        totalOrders:
+          type: number
+        totalTaxes:
+          type: number
+        totalCharges:
+          type: number
+        totalTips:
+          type: number
+        totalSales:
+          type: number
+    DeliveriesByLocationReportDTO:
+      type: object
+      properties:
+        locationName:
+          type: string
+        deliveriesByDateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveriesByDateDTO'

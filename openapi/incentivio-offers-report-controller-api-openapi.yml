@@ -1,0 +1,165 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Offers Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: offers-report-controller
+paths:
+  /incentivio-reports/clients/offer-performance/export:
+    post:
+      tags:
+      - offers-report-controller
+      operationId: exportOfferPerformanceReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferPerformanceReportExportRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OfferPerformanceReportExportResponseDTO'
+  /incentivio-reports/clients/{clientId}/offer-performance:
+    get:
+      tags:
+      - offers-report-controller
+      operationId: retrieveOfferPerformanceReport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: sortDirection
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Direction'
+          default: DESC
+      - name: sortBy
+        in: query
+        required: false
+        schema:
+          type: string
+          default: totalSales
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OfferPerformanceReportDTO'
+components:
+  schemas:
+    OfferPerformanceReportExportResponseDTO:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        message:
+          type: string
+        generatedCSV:
+          type: string
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    OfferPerformanceReportExportRequestDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientName:
+          type: string
+        merchantId:
+          type: string
+        adminId:
+          type: string
+        adminName:
+          type: string
+        emailIds:
+          type: array
+          items:
+            type: string
+        startDateStr:
+          type: string
+        endDateStr:
+          type: string
+        storeIds:
+          type: array
+          items:
+            type: string
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    OfferPerformanceReportDTO:
+      type: object
+      properties:
+        offerPerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferPerformanceDTO'
+    OfferPerformanceDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        value:
+          type: integer
+          format: int32

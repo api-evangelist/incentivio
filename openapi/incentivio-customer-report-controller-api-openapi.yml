@@ -1,0 +1,186 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Customer Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: customer-report-controller
+paths:
+  /incentivio-reports/clients/customers/download-active:
+    post:
+      tags:
+      - customer-report-controller
+      operationId: downloadActiveCustomers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerReportDownloadRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerReportDownloadResponseDTO'
+  /incentivio-reports/clients/{clientId}/total-signups:
+    get:
+      tags:
+      - customer-report-controller
+      operationId: retrieveTotalSignUps
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TotalSignUpsReportDTO'
+  /incentivio-reports/clients/{clientId}/previous-month/new-signups:
+    get:
+      tags:
+      - customer-report-controller
+      operationId: retrieveNewSignUpsForPreviousMonth
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/NewSignUpsForPreviousMonthReportDTO'
+  /incentivio-reports/clients/{clientId}/new-signups:
+    get:
+      tags:
+      - customer-report-controller
+      operationId: retrieveNewSignUps
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewSignUpsReportDTO'
+  /incentivio-reports/clients/{clientId}/customers/download:
+    get:
+      tags:
+      - customer-report-controller
+      operationId: customersDownload
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: clientName
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/csv:
+              schema:
+                type: string
+components:
+  schemas:
+    CustomerReportDownloadRequestStatus:
+      type: string
+      enum:
+      - INPROGRESS
+      - FAILED
+      - DOWNLOADED
+      - EMAILED
+    TotalSignUpsReportDTO:
+      type: object
+      properties:
+        totalSignedUp:
+          type: integer
+          format: int32
+    CustomerReportDownloadRequestDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        clientId:
+          type: string
+        clientName:
+          type: string
+        status:
+          $ref: '#/components/schemas/CustomerReportDownloadRequestStatus'
+        createdDate:
+          type: string
+          format: date-time
+        lastUpdated:
+          type: string
+          format: date-time
+        emailIds:
+          type: array
+          items:
+            type: string
+    NewSignUpsReportDTO:
+      type: object
+      properties:
+        signedUpDate:
+          type: string
+          format: date-time
+        totalSignedUp:
+          type: number
+    NewSignUpsForPreviousMonthReportDTO:
+      type: object
+      properties:
+        totalSignedUp:
+          type: number
+        comparedToPreviousMonthPercentage:
+          type: string
+    CustomerReportDownloadResponseDTO:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/CustomerReportDownloadRequestStatus'
+        responseMessage:
+          type: string
+        data:
+          type: object
+          additionalProperties: {}

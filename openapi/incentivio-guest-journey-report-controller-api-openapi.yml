@@ -1,0 +1,54 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Guest Journey Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: guest-journey-report-controller
+paths:
+  /incentivio-reports/guest-journey-analysis/export:
+    get:
+      tags:
+      - guest-journey-report-controller
+      operationId: exportGuestJourneyAnalysis
+      parameters:
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GuestJourneyReportResponseDTO'
+components:
+  schemas:
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    GuestJourneyReportResponseDTO:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        message:
+          type: string
+        filePath:
+          type: string

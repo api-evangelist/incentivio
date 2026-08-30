@@ -1,0 +1,186 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Gift Card Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: gift-card-report-controller
+paths:
+  /incentivio-reports/clients/{clientid}/giftcardpoolsummary:
+    get:
+      tags:
+      - gift-card-report-controller
+      operationId: getGiftCardPoolSummaryReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GiftCardPoolSummaryReportDTO'
+  /incentivio-reports/clients/{clientid}/giftcardpoolsummary/download-csv:
+    get:
+      tags:
+      - gift-card-report-controller
+      operationId: downloadGiftCardPoolSummaryAsCSV2
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: ispoolaccount
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: storeid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ''
+      - name: storename
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            text/csv:
+              schema:
+                type: string
+  /incentivio-reports/clients/{clientid}/giftcardpoolsummary/download-csv-s3url:
+    get:
+      tags:
+      - gift-card-report-controller
+      operationId: downloadGiftCardPoolSummaryAsCSVS3Url
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: ispoolaccount
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: storeid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    AmountByBonusAccountDTO:
+      type: object
+      properties:
+        amount:
+          type: number
+        noOfRecords:
+          type: integer
+          format: int32
+    AmountByLocationDTO:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        amount:
+          type: number
+        noOfRecords:
+          type: integer
+          format: int32
+    AmountByPoolAccountDTO:
+      type: object
+      properties:
+        amount:
+          type: number
+        noOfRecords:
+          type: integer
+          format: int32
+    GiftCardPoolSummaryReportDTO:
+      type: object
+      properties:
+        amountByPoolAccount:
+          $ref: '#/components/schemas/AmountByPoolAccountDTO'
+        amountByBonusAccount:
+          $ref: '#/components/schemas/AmountByBonusAccountDTO'
+        amountByLocationList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AmountByLocationDTO'

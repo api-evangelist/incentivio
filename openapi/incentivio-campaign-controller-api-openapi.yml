@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Campaign Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: campaign-controller
+paths:
+  /incentivio-offers-domain/clients/merchants/campaigns:
+    get:
+      tags:
+      - campaign-controller
+      operationId: findCampaignsByClientAndMerchantId
+      parameters:
+      - name: title
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: isexpired
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindCampaignResponseDTO'
+components:
+  schemas:
+    CampaignDTO:
+      type: object
+      properties:
+        campaignId:
+          type: string
+        programId:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        merchantId:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    FindCampaignResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/CampaignDTO'

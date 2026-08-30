@@ -1,0 +1,497 @@
+openapi: 3.2.0
+info:
+  title: Incentivio Loyalty Controller API
+  version: v0
+  description: 'Operations tagged loyalty-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: loyalty-controller
+paths:
+  /incentivio-loyalty-domain/clients/{clientid}/loyaltyaccounts/{loyaltyaccountid}/accounthistory:
+    get:
+      tags:
+      - loyalty-controller
+      operationId: viewLoyalAccountHistory
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: loyaltyaccountid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: transactionDate
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Direction'
+          default: DESC
+      - name: status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/LoyaltyTransactionStatus'
+      - name: atgOrderId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindLoyaltyHistoryResponseDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /loyaltyaccounts:
+    get:
+      tags:
+      - loyalty-controller
+      operationId: viewLoyaltyAccount
+      parameters:
+      - name: includeloyaltytier
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewLoyaltyAccountResponseDTO'
+    put:
+      tags:
+      - loyalty-controller
+      operationId: upsertLoyaltyAccountExternalId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertLoyaltyAccountExternalIdDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+  /loyaltyaccounts/loyaltycard:
+    put:
+      tags:
+      - loyalty-controller
+      operationId: upsertLoyaltyCardId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertLoyaltyCardRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+  /loyaltypointssummary:
+    get:
+      tags:
+      - loyalty-controller
+      operationId: findLoyaltyPointsSummary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoyaltyPointsSummaryDTO'
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+  /loyaltyaccounts/next-expiring-points:
+    get:
+      tags:
+      - loyalty-controller
+      operationId: getNextExpiringLoyaltyPoints
+      parameters:
+      - name: noofdays
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 30
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NextExpiringLoyaltyPointsResponseDTO'
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+  /loyaltyaccounts/expiring-points:
+    get:
+      tags:
+      - loyalty-controller
+      operationId: getExpiringLoyaltyPoints
+      parameters:
+      - name: noofdays
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 30
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: expiryDate
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpiringLoyaltyPointsResponseDTO'
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+  /loyaltyaccounts/accounthistory:
+    get:
+      tags:
+      - loyalty-controller
+      operationId: viewLoyalAccountHistory
+      parameters:
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: transactionDate
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          type: string
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindLoyaltyHistoryResponseDTO'
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+components:
+  schemas:
+    LoyaltyTransactionDTO:
+      type: object
+      properties:
+        loyaltyTransactionStatus:
+          $ref: '#/components/schemas/LoyaltyTransactionStatus'
+        description:
+          type: string
+        originalPoints:
+          type: integer
+          format: int32
+        currentPoints:
+          type: integer
+          format: int32
+        transactionDate:
+          type: string
+        offerId:
+          type: string
+        offerTitle:
+          type: string
+        loyaltyAccountId:
+          type: string
+        loyaltyTransactionId:
+          type: string
+        externalTransactionId:
+          type: string
+        status:
+          $ref: '#/components/schemas/LoyaltyTransactionStatus'
+        confirmationDate:
+          type: string
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    LoyaltyTransactionStatus:
+      type: string
+      enum:
+      - PENDING
+      - CONFIRMED
+      - EXPIRED
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    FindLoyaltyHistoryResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        loyaltyHistories:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyTransactionDTO'
+    NextExpiringLoyaltyPointsResponseDTO:
+      type: object
+      properties:
+        nextExpiringPoints:
+          type: integer
+          format: int32
+        expiryDate:
+          type: string
+    LoyaltyPointsSummaryDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        totalOriginalpoints:
+          type: integer
+          format: int32
+        totalRemainingpoints:
+          type: integer
+          format: int32
+        timeSummarized:
+          type: string
+    LoyaltyTransactionDTO_2:
+      type: object
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        loyaltyTransactionStatus:
+          type: string
+          enum:
+          - PENDING
+          - CONFIRMED
+          - EXPIRED
+        transactionType:
+          type: string
+          enum:
+          - AWARD
+          - SPEND
+          - RETURN_SPEND
+          - RETURN_AWARD
+          - PARTIAL_RETURN
+        description:
+          type: string
+        originalPoints:
+          type: integer
+          format: int32
+        currentPoints:
+          type: integer
+          format: int32
+        transactionDate:
+          type: string
+        offerId:
+          type: string
+        offerTitle:
+          type: string
+        loyaltyAccountId:
+          type: string
+        loyaltyTransactionId:
+          type: string
+        externalTransactionId:
+          type: string
+        status:
+          type: string
+          enum:
+          - PENDING
+          - CONFIRMED
+          - EXPIRED
+        confirmationDate:
+          type: string
+        expiryDate:
+          type: string
+    ViewLoyaltyAccountResponseDTO:
+      type: object
+      properties:
+        loyaltyAccountId:
+          type: string
+        loyaltyTierId:
+          type: string
+        externalId:
+          type: string
+        loyaltyCardId:
+          type: string
+        confirmedPoints:
+          type: integer
+          format: int32
+        pendingPoints:
+          type: integer
+          format: int32
+        confirmedBalance:
+          type: number
+          format: float
+        pendingBalance:
+          type: number
+          format: float
+        createdDate:
+          type: string
+        currentLoyaltyTier:
+          $ref: '#/components/schemas/TierDetailsDTO'
+        nextLoyaltyTier:
+          $ref: '#/components/schemas/TierDetailsDTO'
+        numOfTypeRequiredForNextTier:
+          type: number
+          format: double
+        tierBasedOnType:
+          type: string
+        currentLoyaltyTierBasedValue:
+          type: number
+          format: double
+        createdDateString:
+          type: string
+          format: date-time
+    UpsertLoyaltyAccountExternalIdDTO:
+      type: object
+      properties:
+        externalId:
+          type: string
+    UpsertLoyaltyCardRequestDTO:
+      type: object
+      properties:
+        loyaltyCardId:
+          type: string
+    TierDetailsDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        lowerBoundary:
+          type: number
+          format: double
+        upperBoundary:
+          type: number
+          format: double
+    ExpiringLoyaltyPointsResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        expiringLoyaltyPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyTransactionDTO_2'
+x-refined-from:
+- incentivio-admin-api-openapi.yml
+- incentivio-mobile-api-openapi.yml

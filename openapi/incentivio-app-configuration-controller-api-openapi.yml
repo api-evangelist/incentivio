@@ -1,0 +1,893 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition App Configuration Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: app-configuration-controller
+paths:
+  /appconfiguration:
+    get:
+      tags:
+      - app-configuration-controller
+      operationId: getAppConfiguration
+      parameters:
+      - name: CLIENTID
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindAppConfigurationResponseDTO'
+components:
+  schemas:
+    LoyaltyConfiguration:
+      type: object
+      properties:
+        loyaltyScreenConfiguration:
+          $ref: '#/components/schemas/LoyaltyScreenConfiguration'
+        loyaltyCardScreenConfiguration:
+          $ref: '#/components/schemas/LoyaltyCardScreenConfiguration'
+    Color:
+      type: object
+      properties:
+        red:
+          type: number
+          format: float
+        green:
+          type: number
+          format: float
+        blue:
+          type: number
+          format: float
+        alpha:
+          type: number
+          format: float
+    LocationScreenConfiguration:
+      type: object
+      properties:
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        headerTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        instructionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        orderingEnabledButtonText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        orderingDisabledButtonText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        hideCallButton:
+          type: boolean
+        hideMapButton:
+          type: boolean
+        hideShortDescription:
+          type: boolean
+    WebAppConfirmationScreenConfiguration:
+      type: object
+      properties:
+        customizedConfirmation:
+          type: boolean
+        deliveryConfirmationText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        deliveryConfirmationTextWithoutOrderId:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        pickupConfirmationText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        pickupConfirmationTextWithoutOrderId:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+    WebAppLoyaltyConfiguration:
+      type: object
+      properties:
+        isLoyaltyOnlyCustomer:
+          type: boolean
+        loyaltyOnlyCustomerLandingPageTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        editLoyaltyOn:
+          type: boolean
+        editLoyaltyLabel:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+    WebAppPaymentConfiguration:
+      type: object
+      properties:
+        paymentGatewayName:
+          type: string
+        isAVSVerificationEnabled:
+          type: boolean
+    OrderConfiguration:
+      type: object
+      properties:
+        easyOrderingHeader:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        isGuestCheckoutEnabled:
+          type: boolean
+        isMenuBrowsingEnabled:
+          type: boolean
+        defaultLocationConfiguration:
+          $ref: '#/components/schemas/DefaultLocationConfiguration'
+        locationScreenConfiguration:
+          $ref: '#/components/schemas/LocationScreenConfiguration'
+        orderMethodScreenConfiguration:
+          $ref: '#/components/schemas/OrderMethodScreenConfiguration'
+        itemCustomizationScreenConfiguration:
+          $ref: '#/components/schemas/ItemCustomizationScreenConfiguration'
+        orderCheckoutScreenConfiguration:
+          $ref: '#/components/schemas/OrderCheckoutScreenConfiguration'
+        orderMenuScreenConfiguration:
+          $ref: '#/components/schemas/OrderMenuScreenConfiguration'
+        orderConfirmationScreenConfiguration:
+          $ref: '#/components/schemas/OrderConfirmationScreenConfiguration'
+    ItemCustomizationScreenConfiguration:
+      type: object
+      properties:
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        headerTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        instructionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        hideNoCustomizationButton:
+          type: boolean
+        hideSpecialInstructionField:
+          type: boolean
+        specialInstructionFieldMaxLenth:
+          type: integer
+          format: int32
+        specialInstructionLabelText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        specialInstructionPlaceHolderText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        specialInstructionFooterText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        noCustomizationButtonTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        moreCustomizationButtonTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        moreCustomizationModalViewTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+    FontVariation:
+      type: object
+      properties:
+        fontIdentifier:
+          type: string
+        style:
+          type: string
+          enum:
+          - NONE
+          - BOLD
+          - ITALIC
+          - UNDERLINE
+        fontSize:
+          type: array
+          items:
+            $ref: '#/components/schemas/FontSize'
+    OfferConfiguration:
+      type: object
+      properties:
+        enterCodeScreenConfiguration:
+          $ref: '#/components/schemas/EnterCodeScreenConfiguration'
+    OrderCheckoutScreenConfiguration:
+      type: object
+      properties:
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        headerTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        instructionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        isDeliveryInstructionsEnabled:
+          type: boolean
+        isPickupInstructionsEnabled:
+          type: boolean
+        isOrderInstructionsEnabled:
+          type: boolean
+        isTipingForDeliveryEnabled:
+          type: boolean
+        isTipingForPickUpEnabled:
+          type: boolean
+        tipPresetPercentages:
+          type: array
+          items:
+            type: number
+            format: float
+    AppThemeConfiguration:
+      type: object
+      properties:
+        colorConfiguration:
+          $ref: '#/components/schemas/AppThemeColorConfiguration'
+        fontConfiguration:
+          $ref: '#/components/schemas/AppThemeFontConfiguration'
+        imageConfiguration:
+          $ref: '#/components/schemas/AppThemeImageConfiguration'
+    WebAppUrlList:
+      type: object
+      properties:
+        mainUrl:
+          $ref: '#/components/schemas/Link'
+        facebookUrl:
+          $ref: '#/components/schemas/Link'
+        twitterUrl:
+          $ref: '#/components/schemas/Link'
+        instagramUrl:
+          $ref: '#/components/schemas/Link'
+    EnterCodeScreenConfiguration:
+      type: object
+      properties:
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        headerTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        instructionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+    Font:
+      type: object
+      properties:
+        identifier:
+          type: string
+        fontName:
+          type: string
+        fontSubName:
+          type: string
+        resourceLocation:
+          type: string
+          format: url
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    FontSize:
+      type: object
+      properties:
+        fontSize:
+          type: number
+          format: float
+        fontSizeType:
+          type: string
+          enum:
+          - NONE
+          - PX
+          - EM
+          - PERCENT
+        supportedDevice:
+          type: string
+          enum:
+          - IPHONE
+          - ANDROID
+          - WEB
+    OrderMethodScreenConfiguration:
+      type: object
+      properties:
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        headerTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        instructionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        isDeliverySuiteManadatory:
+          type: boolean
+        isDeliveryExternalLinksEnabled:
+          type: boolean
+        isLocationSpecifcDeliveryExternalLinksEnabled:
+          type: boolean
+        displayTodaysTimeSlotsOnly:
+          type: boolean
+    DefaultLocationConfiguration:
+      type: object
+      properties:
+        isMenuBrowsingEnabled:
+          type: boolean
+        defaultLocationId:
+          type: string
+        defaultMerchantId:
+          type: string
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        buttonTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+    LoyaltyCardScreenConfiguration:
+      type: object
+      properties:
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        headerTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        instructionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        barCodeType:
+          type: string
+          enum:
+          - QR
+          - CODE_39
+          - CODE_128
+          - UPC
+          - EAN
+    WebAppConfiguration:
+      type: object
+      properties:
+        facebookAppId:
+          type: string
+        googleAPIKey:
+          type: string
+        sideBarItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItem'
+        webAppUrlList:
+          $ref: '#/components/schemas/WebAppUrlList'
+        webAppPaymentConfiguration:
+          $ref: '#/components/schemas/WebAppPaymentConfiguration'
+        webAppLoyaltyConfiguration:
+          $ref: '#/components/schemas/WebAppLoyaltyConfiguration'
+        webAppConfirmationScreenConfiguration:
+          $ref: '#/components/schemas/WebAppConfirmationScreenConfiguration'
+    Link:
+      type: object
+      properties:
+        title:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        url:
+          type: string
+          format: url
+        image:
+          $ref: '#/components/schemas/Image'
+        supportedDevices:
+          type: array
+          items:
+            type: string
+            enum:
+            - IPHONE
+            - ANDROID
+            - WEB
+    AppThemeImageConfiguration:
+      type: object
+      properties:
+        logo:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        backgroundImages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        appImage:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        mapImages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+    OrderMenuScreenConfiguration:
+      type: object
+      properties:
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        headerTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        instructionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        hideShortDescriptions:
+          type: boolean
+    FindAppConfigurationResponseDTO:
+      type: object
+      properties:
+        isConfigurationExists:
+          type: boolean
+        appConfiguration:
+          $ref: '#/components/schemas/AppConfiguration'
+        externalLinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLinkDTO'
+    GiftCardConfiguration:
+      type: object
+      properties:
+        hideBarCode:
+          type: boolean
+        hideLandingScreenButton:
+          type: boolean
+        landingScreenButtonStyle:
+          $ref: '#/components/schemas/Button'
+        giftCardTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        giftCardIntroductionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        giftCardLocationId:
+          type: string
+        giftCardMerchantId:
+          type: string
+        giftCardMinAmount:
+          type: number
+          format: double
+        giftCardMaxAmount:
+          type: number
+          format: double
+        giftCardPresetAmounts:
+          type: array
+          items:
+            type: number
+            format: double
+    AppThemeColorConfiguration:
+      type: object
+      properties:
+        navigationBarColor:
+          $ref: '#/components/schemas/Color'
+        navigationBarTextColor:
+          $ref: '#/components/schemas/Color'
+        navigationBarButtonColor:
+          $ref: '#/components/schemas/Color'
+        segmentedBarColor:
+          $ref: '#/components/schemas/Color'
+        segmentedBarSelectedColor:
+          $ref: '#/components/schemas/Color'
+        segmentedBarTextColor:
+          $ref: '#/components/schemas/Color'
+        segmentedBarSelectedTextColor:
+          $ref: '#/components/schemas/Color'
+        tabBarColor:
+          $ref: '#/components/schemas/Color'
+        tabBarTextColor:
+          $ref: '#/components/schemas/Color'
+        sectionBarColor:
+          $ref: '#/components/schemas/Color'
+        sectionBarTextColor:
+          $ref: '#/components/schemas/Color'
+        primaryButtonColor:
+          $ref: '#/components/schemas/Color'
+        primaryButtonTextColor:
+          $ref: '#/components/schemas/Color'
+        primaryButtonBorderColor:
+          $ref: '#/components/schemas/Color'
+        secondaryButtonColor:
+          $ref: '#/components/schemas/Color'
+        secondaryButtonTextColor:
+          $ref: '#/components/schemas/Color'
+        secondaryButtonBorderColor:
+          $ref: '#/components/schemas/Color'
+        doneButtonColor:
+          $ref: '#/components/schemas/Color'
+        doneButtonTextColor:
+          $ref: '#/components/schemas/Color'
+        doneButtonBorderColor:
+          $ref: '#/components/schemas/Color'
+        inactiveButtonColor:
+          $ref: '#/components/schemas/Color'
+        landingPageButtonColor:
+          $ref: '#/components/schemas/Color'
+        landingPageButtonTextColor:
+          $ref: '#/components/schemas/Color'
+        landingPageButtonBorderColor:
+          $ref: '#/components/schemas/Color'
+        pageTitleTextColor:
+          $ref: '#/components/schemas/Color'
+        pageBodyTextColor:
+          $ref: '#/components/schemas/Color'
+        pageBackgroundColor:
+          $ref: '#/components/schemas/Color'
+        pageCardBackgroundColor:
+          $ref: '#/components/schemas/Color'
+        pageIconColor:
+          $ref: '#/components/schemas/Color'
+        headerTitleColor:
+          $ref: '#/components/schemas/Color'
+        instrucutionTextColor:
+          $ref: '#/components/schemas/Color'
+        cellTitleTextColor:
+          $ref: '#/components/schemas/Color'
+        cellDescriptionTextColor:
+          $ref: '#/components/schemas/Color'
+        hoverColor:
+          $ref: '#/components/schemas/Color'
+        activeBreadcrumbColor:
+          $ref: '#/components/schemas/Color'
+        inactiveBreadcrumbColor:
+          $ref: '#/components/schemas/Color'
+        messageBubbleColor:
+          $ref: '#/components/schemas/Color'
+        messageBubbleTextColor:
+          $ref: '#/components/schemas/Color'
+        unreadMessageColor:
+          $ref: '#/components/schemas/Color'
+    OrderConfirmationScreenConfiguration:
+      type: object
+      properties:
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        headerTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        instructionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        confirmationScreenTextExtractsColor:
+          $ref: '#/components/schemas/Color'
+        confirmationScreenTextExtractsFont:
+          $ref: '#/components/schemas/FontVariation'
+    AppThemeFontConfiguration:
+      type: object
+      properties:
+        fonts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Font'
+        navigationBarFont:
+          $ref: '#/components/schemas/FontVariation'
+        segmentedBarFont:
+          $ref: '#/components/schemas/FontVariation'
+        buttonFont:
+          $ref: '#/components/schemas/FontVariation'
+        pageTitleFont:
+          $ref: '#/components/schemas/FontVariation'
+        pageBodyTextFont:
+          $ref: '#/components/schemas/FontVariation'
+        cellTitleFont:
+          $ref: '#/components/schemas/FontVariation'
+        cellDetailFont:
+          $ref: '#/components/schemas/FontVariation'
+        headerTitleFont:
+          $ref: '#/components/schemas/FontVariation'
+        instructionTitleFont:
+          $ref: '#/components/schemas/FontVariation'
+        sideMenuFont:
+          $ref: '#/components/schemas/FontVariation'
+        sideMenuProfileFieldFont:
+          $ref: '#/components/schemas/FontVariation'
+        textFieldFont:
+          $ref: '#/components/schemas/FontVariation'
+        itemPriceFont:
+          $ref: '#/components/schemas/FontVariation'
+    ExternalLinkDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        clientId:
+          type: string
+        locationId:
+          type: string
+        type:
+          type: string
+        displayInfo:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLinkDisplayInfoDTO'
+    Button:
+      type: object
+      properties:
+        backgroundColor:
+          $ref: '#/components/schemas/Color'
+        selectedColor:
+          $ref: '#/components/schemas/Color'
+        borderColor:
+          $ref: '#/components/schemas/Color'
+        fontColor:
+          $ref: '#/components/schemas/Color'
+        font:
+          $ref: '#/components/schemas/FontVariation'
+        title:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+    MenuItem:
+      type: object
+      properties:
+        title:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        type:
+          type: string
+          enum:
+          - CATERING
+          - DEFAULT_ORDER_LOCATION
+          - EASY_ORDER
+          - ENTER_CODE
+          - GIFT_CARD
+          - HOME
+          - INBOX
+          - LOG_IN
+          - LOYALTY
+          - LOYALTY_CARD
+          - ORDER
+          - PAST_ORDERS
+          - PROFILE
+          - SETTINGS
+        displayRank:
+          type: integer
+          format: int32
+        supportedDevices:
+          type: array
+          items:
+            type: string
+            enum:
+            - IPHONE
+            - ANDROID
+            - WEB
+        disabledImage:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        selectedImage:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        image:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        link:
+          $ref: '#/components/schemas/Link'
+    AppConfiguration:
+      type: object
+      properties:
+        clientId:
+          type: string
+        themeConfiguration:
+          $ref: '#/components/schemas/AppThemeConfiguration'
+        loyaltyConfiguration:
+          $ref: '#/components/schemas/LoyaltyConfiguration'
+        offerConfiguration:
+          $ref: '#/components/schemas/OfferConfiguration'
+        orderConfiguration:
+          $ref: '#/components/schemas/OrderConfiguration'
+        giftCardConfiguration:
+          $ref: '#/components/schemas/GiftCardConfiguration'
+        webAppConfiguration:
+          $ref: '#/components/schemas/WebAppConfiguration'
+        resourceBundleLocation:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        sideBarItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItem'
+        bottomBarItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItem'
+    LoyaltyScreenConfiguration:
+      type: object
+      properties:
+        navigationTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        headerTitle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        instructionText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        loyaltyType:
+          type: string
+          enum:
+          - DEFAULT
+          - PUNCH
+        loyaltyPointTerminologySingular:
+          type: string
+        loyaltyPointTerminologyPlural:
+          type: string
+        loyaltyPointDivisor:
+          type: number
+          format: double
+        loyaltyPointImages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        logo:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        loyaltyRedeemButtonHidden:
+          type: boolean
+        loyaltyCardButtonHidden:
+          type: boolean
+        loyaltyRedeemButtonStyle:
+          $ref: '#/components/schemas/Button'
+        loyaltyCardButtonStyle:
+          $ref: '#/components/schemas/Button'
+        headerColor:
+          $ref: '#/components/schemas/Color'
+        headerTextColor:
+          $ref: '#/components/schemas/Color'
+        headerRectangleTopBackgroundColor:
+          $ref: '#/components/schemas/Color'
+        headerRectangleBottomBackgroundColor:
+          $ref: '#/components/schemas/Color'
+        textColor:
+          $ref: '#/components/schemas/Color'
+    Image:
+      type: object
+      properties:
+        imageName:
+          type: string
+        accessibilityText:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        resourceLocation:
+          type: string
+          format: url
+        supportedDevices:
+          type: array
+          items:
+            type: string
+            enum:
+            - IPHONE
+            - ANDROID
+            - WEB
+    ExternalLinkDisplayInfoDTO:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        title:
+          type: string
+        image:
+          type: string
+        url:
+          type: string
+          format: url

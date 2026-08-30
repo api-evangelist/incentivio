@@ -1,0 +1,75 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Survey Answer Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: survey-answer-controller
+paths:
+  /surveys/{surveyid}/submitanswers:
+    put:
+      tags:
+      - survey-answer-controller
+      operationId: submitAnswers
+      parameters:
+      - name: surveyid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitAnswersRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /surveys/{surveyid}/submitanswer:
+    put:
+      tags:
+      - survey-answer-controller
+      operationId: submitAnswer
+      parameters:
+      - name: surveyid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitAnswerRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    SubmitAnswersRequestDTO:
+      type: object
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubmitAnswerRequestDTO'
+    SubmitAnswerRequestDTO:
+      required:
+      - questionId
+      type: object
+      properties:
+        questionId:
+          type: string
+        userId:
+          type: string
+        choiceIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        textAnswer:
+          type: string

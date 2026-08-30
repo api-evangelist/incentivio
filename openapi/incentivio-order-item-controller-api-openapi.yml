@@ -1,0 +1,540 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Order Item Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: order-item-controller
+paths:
+  /orders/{orderid}/updateorderitems:
+    put:
+      tags:
+      - order-item-controller
+      operationId: updateOrderItem
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderItemReqDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderUpdateSummaryDTO'
+  /orders/{orderid}/orderitems:
+    put:
+      tags:
+      - order-item-controller
+      operationId: addOrderItem
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: languageCode
+        in: query
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOrderItemReqDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderUpdateSummaryDTO'
+  /orders/{orderid}/addorderitems:
+    put:
+      tags:
+      - order-item-controller
+      operationId: addOrderItemList
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: languageCode
+        in: query
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOrderItemListReqDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderUpdateSummaryDTO'
+  /orders/{orderid}/orderitemprice:
+    post:
+      tags:
+      - order-item-controller
+      operationId: getOrderItemPrice
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: languageCode
+        in: query
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOrderItemReqDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ItemTotalDTO'
+  /orders/{orderid}/orderitems/{orderitemid}:
+    delete:
+      tags:
+      - order-item-controller
+      operationId: deleteOrderItem
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: orderitemid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderUpdateSummaryDTO'
+components:
+  schemas:
+    OrderTax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        taxDescription:
+          type: string
+        taxAmountApplied:
+          type: integer
+          format: int32
+        displayTaxAmountApplied:
+          type: string
+    OrderItemGroup:
+      type: object
+      properties:
+        groupId:
+          type: string
+        groupExtId:
+          type: string
+        groupType:
+          type: string
+          enum:
+          - CATALOG_GROUP
+          - OPTION_GROUP
+        groupName:
+          type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    ChargeSummary:
+      type: object
+      properties:
+        taxableCharges:
+          type: integer
+          format: int32
+        nonTaxableCharges:
+          type: integer
+          format: int32
+        totalCharges:
+          type: integer
+          format: int32
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderCharge'
+        displayTaxableCharges:
+          type: string
+        displayNonTaxableCharges:
+          type: string
+        displayTotalCharges:
+          type: string
+    OrderUpdateSummaryDTO:
+      type: object
+      properties:
+        itemsCountDetails:
+          $ref: '#/components/schemas/ItemsCountDTO'
+        orderItems:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        orderTotal:
+          $ref: '#/components/schemas/OrderTotal'
+    AddOrderItemListReqDTO:
+      type: object
+      properties:
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOrderItemReqDTO'
+    OrderCharge:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        chargeName:
+          type: string
+        chargeDescription:
+          type: string
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        chargeApplied:
+          type: integer
+          format: int32
+        displayChargeApplied:
+          type: string
+    ItemTotal:
+      type: object
+      properties:
+        preDiscountSubtotal:
+          type: integer
+          format: int32
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary'
+        appliedDiscount:
+          type: integer
+          format: int32
+        subtotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        displayPreDiscountSubtotal:
+          type: string
+        displayAppliedDiscount:
+          type: string
+        displaySubtotal:
+          type: string
+        displayTotal:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    ItemTotalDTO:
+      type: object
+      properties:
+        preDiscountSubtotal:
+          type: integer
+          format: int32
+        subtotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary'
+        optionsTotal:
+          type: integer
+          format: int32
+        optionsDiscountedTotal:
+          type: integer
+          format: int32
+        itemPrice:
+          type: integer
+          format: int32
+        itemDisountedPrice:
+          type: integer
+          format: int32
+    OrderTotal:
+      type: object
+      properties:
+        preDiscountSubtotal:
+          type: integer
+          format: int32
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary'
+        totalDiscountApplied:
+          type: integer
+          format: int32
+        subtotal:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        displayTotal:
+          type: string
+        displaySubtotal:
+          type: string
+        displayTotalDiscountApplied:
+          type: string
+        displayGratuity:
+          type: string
+        displayPreDiscountSubtotal:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    ItemsCountDTO:
+      type: object
+      properties:
+        totalItemsCount:
+          type: integer
+          format: int32
+        itemsCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    UpdateOrderItemReqDTO:
+      type: object
+      properties:
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemDTO'
+    AddOrderItemReqDTO:
+      required:
+      - itemId
+      - quantity
+      type: object
+      properties:
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        catalogId:
+          type: string
+        discountIds:
+          type: array
+          items:
+            type: string
+        externalId:
+          type: string
+        groupId:
+          type: string
+        itemId:
+          type: string
+        itemInstructions:
+          type: string
+        note:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    OrderItem:
+      type: object
+      properties:
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        basePrice:
+          type: integer
+          format: int32
+        brandId:
+          type: string
+        catalogId:
+          type: string
+        categoryId:
+          type: string
+        displayInfo:
+          $ref: '#/components/schemas/DisplayInfo'
+        displayInfoTitle:
+          type: string
+        extCatalogId:
+          type: string
+        externalId:
+          type: string
+        group:
+          $ref: '#/components/schemas/OrderItemGroup'
+        itemDiscounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDiscount'
+        itemId:
+          type: string
+        itemInstructions:
+          type: string
+        itemName:
+          type: string
+        itemTotal:
+          $ref: '#/components/schemas/ItemTotal'
+        notes:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        orderItemId:
+          type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        quantity:
+          type: integer
+          format: int32
+        sku:
+          type: string
+        unitPrice:
+          type: integer
+          format: int32
+        uom:
+          type: string
+        upc:
+          type: string
+        taxable:
+          type: boolean
+    TaxSummary:
+      type: object
+      properties:
+        totalTaxes:
+          type: integer
+          format: int32
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTax'
+        displayTotalTaxes:
+          type: string
+    OrderItemDTO:
+      required:
+      - itemId
+      - orderItemId
+      - quantity
+      type: object
+      properties:
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        catalogId:
+          type: string
+        discountIds:
+          type: array
+          items:
+            type: string
+        externalId:
+          type: string
+        groupId:
+          type: string
+        itemId:
+          type: string
+        itemInstructions:
+          type: string
+        note:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOrderItemReqDTO'
+        quantity:
+          type: integer
+          format: int32
+        orderItemId:
+          type: string
+    OrderDiscount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        amountOfDiscount:
+          type: integer
+          format: int32
+        distributedOfferId:
+          type: string
+        discountType:
+          type: string
+        pointsCost:
+          type: integer
+          format: int32
+        discountAmount:
+          type: integer
+          format: int32
+        discountPercentage:
+          type: number
+          format: float
+        appliedDiscount:
+          type: integer
+          format: int32
+        displayAppliedDiscount:
+          type: string

@@ -1,0 +1,264 @@
+openapi: 3.2.0
+info:
+  title: Incentivio Wallet Controller API
+  version: v0
+  description: 'Operations tagged wallet-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: wallet-controller
+paths:
+  /incentivio-wallet/clients/{clientid}/walletconfig:
+    get:
+      tags:
+      - wallet-controller
+      operationId: getWalletConfig
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WalletConfigDTO'
+    put:
+      tags:
+      - wallet-controller
+      operationId: setWalletConfig
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutWalletConfigRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WalletConfigDTO'
+    delete:
+      tags:
+      - wallet-controller
+      operationId: deleteWalletConfig
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-wallet/scan-to-pay/sales-summary:
+    get:
+      tags:
+      - wallet-controller
+      operationId: getScanToPaySalesSummary
+      parameters:
+      - name: location
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ScanToPaySalesSummaryResponse'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /paymentinstruments:
+    get:
+      tags:
+      - wallet-controller
+      operationId: listPaymentInstruments
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListPaymentInstrumentsResponseDTO'
+    post:
+      tags:
+      - wallet-controller
+      operationId: addPaymentInstrument
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPaymentInstrumentRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AddPaymentInstrumentResponseDTO'
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+components:
+  schemas:
+    WalletConfigDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        tokenizeGatewayName:
+          type: string
+        walletGatewayName:
+          type: string
+    PutWalletConfigRequestDTO:
+      type: object
+      properties:
+        tokenizeGatewayName:
+          type: string
+        walletGatewayName:
+          type: string
+    ScanToPaySalesSummaryResponse:
+      type: object
+      properties:
+        salesSummary:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ScanToPaySalesSummary'
+    ScanToPaySalesSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        transactionCount:
+          type: integer
+          format: int32
+        orderTotal:
+          type: integer
+          format: int64
+        tipTotal:
+          type: integer
+          format: int64
+        finalTotal:
+          type: integer
+          format: int64
+    AddPaymentInstrumentResponseDTO:
+      type: object
+      properties:
+        paymentInstrumentId:
+          type: string
+    AddPaymentInstrumentRequestDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        locationId:
+          type: string
+        userId:
+          type: string
+        paymentType:
+          type: string
+        paymentToken:
+          type: string
+        lastFour:
+          type: string
+        cardSecurityCode:
+          type: string
+        nickname:
+          type: string
+        zipCode:
+          type: string
+        isDefault:
+          type: boolean
+        tokenType:
+          type: string
+        sourceType:
+          type: string
+        expirationMonth:
+          type: integer
+          format: int32
+        expirationYear:
+          type: integer
+          format: int32
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        default:
+          type: boolean
+    PaymentInstrumentDTO:
+      type: object
+      properties:
+        paymentInstrumentId:
+          type: string
+        clientId:
+          type: string
+        userId:
+          type: string
+        paymentType:
+          type: string
+        cardType:
+          type: string
+        expirationYear:
+          type: integer
+          format: int32
+        expirationMonth:
+          type: integer
+          format: int32
+        paymentToken:
+          type: string
+        lastFour:
+          type: string
+        nickname:
+          type: string
+        image:
+          type: string
+        isDefault:
+          type: boolean
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    ListPaymentInstrumentsResponseDTO:
+      type: object
+      properties:
+        paymentInstruments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentInstrumentDTO'
+x-refined-from:
+- incentivio-admin-api-openapi.yml
+- incentivio-mobile-api-openapi.yml

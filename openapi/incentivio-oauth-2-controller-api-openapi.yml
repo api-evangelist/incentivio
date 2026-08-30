@@ -1,0 +1,33 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition OAUTH 2 Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: oauth-2-controller
+paths:
+  /oauth2/authorizationCode/google:
+    get:
+      tags:
+      - oauth-2-controller
+      operationId: authorizationCode
+      parameters:
+      - name: clientId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: authorizationCode
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string

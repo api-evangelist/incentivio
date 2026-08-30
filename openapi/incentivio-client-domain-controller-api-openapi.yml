@@ -1,0 +1,75 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Client Domain Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: client-domain-controller
+paths:
+  /clientdomain/byalias:
+    get:
+      tags:
+      - client-domain-controller
+      operationId: getClientDomainByClientAlias
+      parameters:
+      - name: alias
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientDomainDTO'
+components:
+  schemas:
+    ClientDomainDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        domain:
+          type: string
+        status:
+          type: string
+          enum:
+          - PENDING
+          - ACTIVE
+          - FAILED
+          - DELETING
+        currentStep:
+          type: string
+          enum:
+          - VERIFY_CNAME
+          - PROVISION_TENANT
+          - ISSUE_CERT
+          - UPDATE_DISTRIBUTION
+        distributionId:
+          type: string
+        certificateArn:
+          type: string
+        failureReason:
+          type: string
+        stepFnExecutionArn:
+          type: string
+        stripeDomainId:
+          type: string
+        updatedDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+        dnsRecord:
+          type: object
+          additionalProperties:
+            type: string

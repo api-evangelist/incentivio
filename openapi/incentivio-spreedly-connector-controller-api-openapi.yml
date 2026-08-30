@@ -1,0 +1,55 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Spreedly Connector Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: spreedly-connector-controller
+paths:
+  /toastsettings:
+    put:
+      tags:
+      - spreedly-connector-controller
+      operationId: setToastSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToastSettings'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /toastsettings/clearcache:
+    get:
+      tags:
+      - spreedly-connector-controller
+      operationId: clearToastSettingsCache
+      parameters:
+      - name: clientid
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    ToastSettings:
+      type: object
+      properties:
+        clientId:
+          type: string
+        suffix:
+          type: string
+        suffixMode:
+          $ref: '#/components/schemas/SuffixMode'
+    SuffixMode:
+      type: string
+      enum:
+      - NONE
+      - FIXED
+      - VARIABLE

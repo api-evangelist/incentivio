@@ -1,0 +1,367 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Message Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: message-controller
+paths:
+  /getactivitybasedmessages:
+    post:
+      tags:
+      - message-controller
+      operationId: distributeActivityMessages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetActivityMessagesRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityMessageListDTO'
+  /changedistributedmessagestatus:
+    post:
+      tags:
+      - message-controller
+      operationId: updateDistributedMessageStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMessageDistributionStatusRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /messages/{messageid}:
+    get:
+      tags:
+      - message-controller
+      operationId: findMessage
+      parameters:
+      - name: messageid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: languagecode
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
+  /distributedmessages/{distributedmessageid}:
+    get:
+      tags:
+      - message-controller
+      operationId: getDistributedMessage
+      parameters:
+      - name: distributedmessageid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: languagecode
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributedMessageDTO'
+  /appmessages:
+    get:
+      tags:
+      - message-controller
+      operationId: findAppMessages
+      parameters:
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: languagecode
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppMessageListDTO'
+components:
+  schemas:
+    AppMessageListDTO:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppMessageDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+    AppMessageDTO:
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        merchantId:
+          type: string
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+        surveyId:
+          type: string
+        distributedEndDate:
+          type: string
+    UpdateMessageDistributionStatusRequestDTO:
+      required:
+      - distributedMessageId
+      - status
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+    ActivityMessageListDTO:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityMessageDTO'
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    MessageDisplayInfoDTO:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+    ActivityMessageDTO:
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        merchantId:
+          type: string
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+          enum:
+          - PRIVATE
+          - SHAREABLE
+          - REFERRAL
+          - SURVEY
+        surveyId:
+          type: string
+        distributedEndDate:
+          type: string
+    GetActivityMessagesRequestDTO:
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+        languageCode:
+          type: string
+        merchantId:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        events:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    DistributedMessageDTO:
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        merchantId:
+          type: string
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+        messageType:
+          type: string
+          enum:
+          - PRIVATE
+          - SHAREABLE
+          - REFERRAL
+          - SURVEY
+        shareTitle:
+          type: string
+        shareSentence:
+          type: string
+        shareShortDesc:
+          type: string
+        shareURL:
+          type: string
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+    MessageDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+        programId:
+          type: string
+        campaignId:
+          type: string
+        messageId:
+          type: string
+        title:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+        noDistributed:
+          type: integer
+          format: int64
+        messageDisplayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageDisplayInfoDTO'
+        surveyId:
+          type: string
+        deleted:
+          type: boolean

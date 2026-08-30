@@ -1,0 +1,170 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Sms Reports Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: sms-reports-controller
+paths:
+  /incentivio-connector-sms/clients/{clientId}/order-confirmation-sms/download:
+    get:
+      tags:
+      - sms-reports-controller
+      operationId: orderConfirmationSmsReportDownload
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/csv:
+              schema:
+                type: string
+  /incentivio-connector-sms/clients/{clientId}/marketing-sms/download:
+    get:
+      tags:
+      - sms-reports-controller
+      operationId: marketingSmsReportDownload
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: sortDirection
+        in: query
+        required: false
+        schema:
+          type: string
+          default: DESC
+      - name: sortBy
+        in: query
+        required: false
+        schema:
+          type: string
+          default: startDate
+      responses:
+        '200':
+          description: OK
+          content:
+            text/csv:
+              schema:
+                type: string
+  /incentivio-connector-sms/clients/{clientId}/guest-checkout-verification/download:
+    get:
+      tags:
+      - sms-reports-controller
+      operationId: guestCheckoutVerificationSmsReportDownload
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/csv:
+              schema:
+                type: string
+  /incentivio-connector-sms/clients/{clientId}/account-verification-sms/download:
+    get:
+      tags:
+      - sms-reports-controller
+      operationId: accountVerificationSmsReportDownload
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/csv:
+              schema:
+                type: string

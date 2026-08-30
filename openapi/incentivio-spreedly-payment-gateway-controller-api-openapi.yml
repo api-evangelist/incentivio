@@ -1,0 +1,100 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Spreedly Payment Gateway Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: spreedly-payment-gateway-controller
+paths:
+  /incentivio-conpay-spreedly/payment-gateway/create:
+    post:
+      tags:
+      - spreedly-payment-gateway-controller
+      operationId: createPaymentGateway
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentGatewayRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreatePaymentGatewayResponse'
+  /incentivio-conpay-spreedly/environment/create:
+    post:
+      tags:
+      - spreedly-payment-gateway-controller
+      operationId: createEnvironmentRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnvironmentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateEnvironmentResponse'
+components:
+  schemas:
+    CreatePaymentGatewayResponse:
+      type: object
+      properties:
+        gatewayToken:
+          type: string
+    CreatePaymentGatewayRequest:
+      type: object
+      properties:
+        gatewayDescription:
+          type: string
+        spreedlyEnvironmentKey:
+          type: string
+        sandbox:
+          type: boolean
+        type:
+          type: string
+    CreateEnvironmentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+    CreateEnvironmentResponse:
+      type: object
+      properties:
+        key:
+          type: string
+        signingSecret:
+          type: string
+        organizationKey:
+          type: string
+        callbackUrl:
+          type: string
+        smartRoutingEnabled:
+          type: boolean
+        allowDirectApiPaymentMethodCreation:
+          type: boolean
+        name:
+          type: string
+        defaultGatewayToken:
+          type: string
+        paymentMethodManagementEnabled:
+          type: boolean
+        auEnabled:
+          type: boolean
+        retry:
+          type: boolean
+        iframeEnhancedSecurityEnabled:
+          type: boolean
+        certificateToken:
+          type: string

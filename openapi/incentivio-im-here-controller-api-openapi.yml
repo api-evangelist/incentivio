@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Im Here Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: im-here-controller
+paths:
+  /users/{userId}/orders/markimhere:
+    post:
+      tags:
+      - im-here-controller
+      operationId: markAnOrderImHere
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: languagecode
+        in: header
+        required: false
+        schema:
+          type: string
+          default: EN
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImHereRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImHereResponseDTO'
+  /orders/{orderId}/markimhere:
+    post:
+      tags:
+      - im-here-controller
+      operationId: markAnOrderImHere_1
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: languagecode
+        in: header
+        required: false
+        schema:
+          type: string
+          default: EN
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImHereResponseDTO'
+components:
+  schemas:
+    ImHereRequestDTO:
+      type: object
+      properties:
+        orderId:
+          type: string
+    ImHereResponseDTO:
+      type: object
+      properties:
+        message:
+          type: string

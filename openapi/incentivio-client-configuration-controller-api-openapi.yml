@@ -1,0 +1,180 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Client Configuration Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: client-configuration-controller
+paths:
+  /incentivio-client-domain/clients/email-config:
+    get:
+      tags:
+      - client-configuration-controller
+      operationId: getEmailConfig
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EmailSettingBasicInfoResponseDTO'
+    put:
+      tags:
+      - client-configuration-controller
+      operationId: updateEmailConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailSettingsCreateRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EmailSettingBasicInfoResponseDTO'
+  /incentivio-client-domain/clients/email-config/verify-domain:
+    post:
+      tags:
+      - client-configuration-controller
+      operationId: verifyDomain
+      parameters:
+      - name: domain-id
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DomainValidateResDto'
+  /incentivio-client-domain/clients/email-config/client-domain:
+    post:
+      tags:
+      - client-configuration-controller
+      operationId: createEmailDomain
+      parameters:
+      - name: domain-name
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EmailSettingBasicInfoResponseDTO'
+components:
+  schemas:
+    DomainValidateDnsResDto:
+      type: object
+      properties:
+        valid:
+          type: string
+        reason:
+          type: string
+    DomainValidateResDto:
+      type: object
+      properties:
+        id:
+          type: string
+        valid:
+          type: boolean
+        validation_results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DomainValidateDnsResDto'
+    DomainAuthenticateDnsResDto:
+      type: object
+      properties:
+        valid:
+          type: string
+        type:
+          type: string
+        host:
+          type: string
+        data:
+          type: string
+    EmailHandler:
+      type: string
+      enum:
+      - AWS
+      - SENDGRID
+    EmailSettingBasicInfoResponseDTO:
+      type: object
+      properties:
+        emailHandler:
+          $ref: '#/components/schemas/EmailHandler'
+        clientId:
+          type: string
+        activeDomainId:
+          type: string
+        activeDomainName:
+          type: string
+        fromEmail:
+          type: string
+        fromEmailedName:
+          type: string
+        replyTo:
+          type: string
+        replyToName:
+          type: string
+        clientSendgridApiKey:
+          type: string
+        subUserId:
+          type: string
+        subUserName:
+          type: string
+        domains:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainBasicInfoResponseDTO'
+    EmailSettingsCreateRequestDTO:
+      type: object
+      properties:
+        emailHandler:
+          $ref: '#/components/schemas/EmailHandler'
+        externalDomainId:
+          type: string
+        fromEmail:
+          type: string
+        fromEmailedName:
+          type: string
+        replyTo:
+          type: string
+        replyToName:
+          type: string
+      required:
+      - emailHandler
+    DomainBasicInfoResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        subdomain:
+          type: string
+        domain:
+          type: string
+        username:
+          type: string
+        valid:
+          type: boolean
+        clientSpecific:
+          type: boolean
+        dns:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DomainAuthenticateDnsResDto'
+        active:
+          type: boolean

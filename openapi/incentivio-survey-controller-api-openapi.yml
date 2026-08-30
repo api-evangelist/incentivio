@@ -1,0 +1,159 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Survey Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: survey-controller
+paths:
+  /surveys/{surveyid}:
+    get:
+      tags:
+      - survey-controller
+      operationId: getSurvey
+      parameters:
+      - name: surveyid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: language
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GetSurveyResponseDTO'
+components:
+  schemas:
+    GetQuestionResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        locationId:
+          type: string
+        questionId:
+          type: string
+        questionTitle:
+          type: string
+        type:
+          type: string
+          enum:
+          - SINGLE_CHOICE
+          - MULTIPLE_CHOICE
+          - BOOLEAN
+          - OPEN_ENDED
+          - RATING
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChoiceDTO'
+        questionDisplayInfos:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionDisplayInfo'
+        isMandatory:
+          type: boolean
+        createdDateTime:
+          type: string
+          format: date-time
+        modifiedDateTime:
+          type: string
+          format: date-time
+    SurveyDisplayInfo:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        imageUrl:
+          type: string
+    QuestionDisplayInfo:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        title:
+          type: string
+        questionDescription:
+          type: string
+        imageUrl:
+          type: string
+    ChoiceDisplayInfo:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        title:
+          type: string
+    ChoiceDTO:
+      required:
+      - choiceDisplayInfos
+      - choiceTitle
+      type: object
+      properties:
+        choiceId:
+          type: string
+        choiceTitle:
+          type: string
+        imageUrl:
+          type: string
+        isDefault:
+          type: boolean
+        positionIndex:
+          type: integer
+          format: int32
+        choiceDisplayInfos:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ChoiceDisplayInfo'
+    GetSurveyResponseDTO:
+      type: object
+      properties:
+        surveyId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        locationId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        questions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/GetQuestionResponseDTO'
+        surveyDisplayInfos:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SurveyDisplayInfo'
+        createdDateTime:
+          type: string
+          format: date-time
+        modifiedDateTime:
+          type: string
+          format: date-time

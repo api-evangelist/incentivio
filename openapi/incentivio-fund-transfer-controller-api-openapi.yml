@@ -1,0 +1,354 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Fund Transfer Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: fund-transfer-controller
+paths:
+  /incentivio-giftcard-ach-service/transfers/{transferid}/cancel:
+    post:
+      tags:
+      - fund-transfer-controller
+      operationId: cancelTransfer
+      parameters:
+      - name: transferid
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 36
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-giftcard-ach-service/fundtransfers/config:
+    get:
+      tags:
+      - fund-transfer-controller
+      operationId: retrieveFundTransferConfig
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FundTransferConfigResponse'
+      deprecated: true
+    post:
+      tags:
+      - fund-transfer-controller
+      operationId: createOrUpdateFundTransferConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateFundTransferConfigRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FundTransferConfigResponse'
+      deprecated: true
+  /incentivio-giftcard-ach-service/achlocations/{locationId}/transfers:
+    get:
+      tags:
+      - fund-transfer-controller
+      operationId: retrieveTransferHistory
+      parameters:
+      - name: merchantId
+        in: header
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 1
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 1
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: pageIndex
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: sortDirection
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Direction'
+          default: DESC
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RetrieveFundTransferListResponse'
+components:
+  schemas:
+    RetrieveFundTransferListResponse:
+      type: object
+      properties:
+        transferList:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransfer'
+        pageIndex:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        totalRecordCount:
+          type: integer
+          format: int64
+    FundTransfer:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        parentTransferId:
+          type: string
+        parentTransferExternalId:
+          type: string
+        fundingTransferId:
+          type: string
+        fundedTransferId:
+          type: string
+        summaryId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        locationId:
+          type: string
+        sourceLocationId:
+          type: string
+        sourceLocationExternalId:
+          type: string
+        sourceLocationName:
+          type: string
+        destinationLocationId:
+          type: string
+        destinationLocationExternalId:
+          type: string
+        destinationLocationName:
+          type: string
+        sourceFundingAccountId:
+          type: string
+        sourceFundingAccountExternalId:
+          type: string
+        sourceFundingAccountName:
+          type: string
+        destinationFundingAccountId:
+          type: string
+        destinationFundingAccountExternalId:
+          type: string
+        destinationFundingAccountName:
+          type: string
+        amount:
+          type: number
+        amountFormatted:
+          type: string
+        fullAmount:
+          type: number
+        currencyCode:
+          type: string
+        debitAccount:
+          type: string
+        resolutionTime:
+          type: string
+          format: date-time
+        resolutionComment:
+          type: string
+        partialTransfer:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        links:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: string
+        failureReason:
+          $ref: '#/components/schemas/FundTransferFailureReason'
+        failureException:
+          $ref: '#/components/schemas/FormattedDwollaException'
+        auditEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditEvent'
+        transferStartDate:
+          type: string
+          format: date-time
+        transferEndDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+    EventNameEnum:
+      type: string
+      enum:
+      - CREATED
+      - SUBMITTED_TO_DWOLLA
+      - SUBMITTION_TO_DWOLLA_FAILED
+      - WEBHOOK_UPDATE
+      - WEBHOOK_UPDATE_FAILED
+      - CANCELLATION_STARTED
+      - CANCELLED
+      - CANCELLATION_FAILED
+      - RETRY_TRANSFER_CREATED
+    FundTransferFailureReason:
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+        explanation:
+          type: string
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    AuditEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        eventName:
+          $ref: '#/components/schemas/EventNameEnum'
+        topic:
+          type: string
+        traceId:
+          type: string
+        transferId:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        interventionRequired:
+          type: boolean
+        resolved:
+          type: boolean
+        resolutionTime:
+          type: string
+          format: date-time
+        resolutionComment:
+          type: string
+        additionalDetails:
+          type: string
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    FundTransferConfigResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+        frequency:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransferLocationConfig'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        active:
+          type: boolean
+    FormattedDwollaException:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+    FundTransferLocationConfig:
+      type: object
+      properties:
+        locationId:
+          type: string
+        active:
+          type: boolean
+    CreateOrUpdateFundTransferConfigRequest:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransferLocationConfig'
+        active:
+          type: boolean

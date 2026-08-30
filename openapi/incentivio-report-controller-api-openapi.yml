@@ -1,0 +1,1737 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: report-controller
+paths:
+  /incentivio-reports/clients/{clientid}/survey:
+    get:
+      tags:
+      - report-controller
+      operationId: getSurveyReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: surveyId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: download
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /incentivio-reports/clients/{clientid}/salesbyordertype:
+    get:
+      tags:
+      - report-controller
+      operationId: getSalesByOrderTypeReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesByOrderTypeReportDTO'
+  /incentivio-reports/clients/{clientid}/salesbylocation:
+    get:
+      tags:
+      - report-controller
+      operationId: getSalesByLocationReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesByLocationAndTimeReportDTO'
+  /incentivio-reports/clients/{clientid}/salesbychannelovertime:
+    get:
+      tags:
+      - report-controller
+      operationId: getSalesByChannelOverTimeReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesByChannelOverTimeDTO'
+  /incentivio-reports/clients/{clientid}/salesbychannel:
+    get:
+      tags:
+      - report-controller
+      operationId: getSalesByChannelReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesByChannelReportDTO'
+  /incentivio-reports/clients/{clientid}/ordersbysigninstatus:
+    get:
+      tags:
+      - report-controller
+      operationId: getOrdersBySignInStatusReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrdersBySignInStatusReportDTO'
+  /incentivio-reports/clients/{clientid}/ordersbyordertype:
+    get:
+      tags:
+      - report-controller
+      operationId: getOrdersByOrderTypeReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrdersByOrderTypeReportDTO'
+  /incentivio-reports/clients/{clientid}/ordersbylocation:
+    get:
+      tags:
+      - report-controller
+      operationId: getOrdersByLocationReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrdersByLocationAndTimeReportDTO'
+  /incentivio-reports/clients/{clientid}/ordersbychannelovertime:
+    get:
+      tags:
+      - report-controller
+      operationId: getOrdersByChannelOverTimeReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrdersByChannelOverTimeDTO'
+  /incentivio-reports/clients/{clientid}/ordersbychannel:
+    get:
+      tags:
+      - report-controller
+      operationId: getOrdersByChannelReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrdersByChannelReportDTO'
+  /incentivio-reports/clients/{clientid}/offerredemptionbytimeofthedaydistributed:
+    get:
+      tags:
+      - report-controller
+      operationId: getOfferRedemptionByTimeOfTheDayDistributedReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfferRedemptionByTimeOfTheDayDistributedReportDTO'
+  /incentivio-reports/clients/{clientid}/offerredemptionbytimeoftheday:
+    get:
+      tags:
+      - report-controller
+      operationId: getOfferRedemptionByTimeOfTheDayReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfferRedemptionByTimeOfTheDayReportDTO'
+  /incentivio-reports/clients/{clientid}/offerperformance:
+    get:
+      tags:
+      - report-controller
+      operationId: getOfferPerformanceReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfferPerformanceReportDTO'
+  /incentivio-reports/clients/{clientid}/mostpopularitems:
+    get:
+      tags:
+      - report-controller
+      operationId: getMostPopularItemsReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MostPopularItemsReportDTO'
+  /incentivio-reports/clients/{clientid}/monthlyactiveusers:
+    get:
+      tags:
+      - report-controller
+      operationId: getMonthlyActiveUsersReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-reports/clients/{clientid}/messageviewsbytimeofthedaydistributed:
+    get:
+      tags:
+      - report-controller
+      operationId: getMessageViewsByTimeOfTheDayDistributedReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MessageViewsByTimeOfTheDayDistributedReportDTO'
+  /incentivio-reports/clients/{clientid}/messageviewsbytimeoftheday:
+    get:
+      tags:
+      - report-controller
+      operationId: getMessageViewsByTimeOfTheDayReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MessageViewsByTimeOfTheDayReportDTO'
+  /incentivio-reports/clients/{clientid}/messageperformance:
+    get:
+      tags:
+      - report-controller
+      operationId: getMessagePerformanceReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MessagePerformanceReportDTO'
+  /incentivio-reports/clients/{clientid}/loyaltyofferredemptionbytimeofthedaydistributed:
+    get:
+      tags:
+      - report-controller
+      operationId: getLoyaltyOfferRedemptionByTimeOfTheDayDistributedReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoyaltyOfferRedemptionByTimeOfTheDayDistributedReportDTO'
+  /incentivio-reports/clients/{clientid}/loyaltyofferredemptionbytimeoftheday:
+    get:
+      tags:
+      - report-controller
+      operationId: getLoyaltyOfferRedemptionByTimeOfTheDayReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoyaltyOfferRedemptionByTimeOfTheDayReportDTO'
+  /incentivio-reports/clients/{clientid}/loyaltyofferperformance:
+    get:
+      tags:
+      - report-controller
+      operationId: getLoyaltyOfferPerformanceReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoyaltyOfferPerformanceReportDTO'
+  /incentivio-reports/clients/{clientid}/leastpopularitems:
+    get:
+      tags:
+      - report-controller
+      operationId: getLeastPopularItemsReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LeastPopularItemsReportDTO'
+  /incentivio-reports/clients/{clientid}/frequentlyboughttogether:
+    get:
+      tags:
+      - report-controller
+      operationId: getFrequentlyBoughtTogetherReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrequentlyBoughtTogetherReportDTO'
+  /incentivio-reports/clients/{clientid}/dailyactiveusers:
+    get:
+      tags:
+      - report-controller
+      operationId: getDailyActiveUsersReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-reports/clients/{clientid}/customersbyorders:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByOrdersReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByOrdersReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbymostvisitsperweek:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByMostVisitsPerWeekReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByMostVisitsPerWeekReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbyloyaltybalance:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByLoyaltyBalanceReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByLoyaltyBalanceReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbyhighestaverageordersize:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByHighestAverageOrderSizeReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByHighestAverageOrderSizeReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbygender:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByGenderReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomersByGenderReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbydayssincelastpurchasepercentile:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByDaysSinceLastPurchasePercentileReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByDaysSinceLastPurchasePercentileReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbydayssincelastpurchase:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByDaysSinceLastPurchaseReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByDaysSinceLastPurchaseReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbyaverageorders:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByAverageOrdersReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByAverageOrdersReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbyaveragebasketvaluepercentile:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByAverageBasketValuePercentileReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByAverageBasketValuePercentileReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbyaveragebasketvalue:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByAverageBasketValueReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByAverageBasketValueReportDTO'
+  /incentivio-reports/clients/{clientid}/customersbyage:
+    get:
+      tags:
+      - report-controller
+      operationId: getCustomersByAgeReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomersByAgeReportDTO'
+  /incentivio-reports/clients/{clientid}/averageordersize:
+    get:
+      tags:
+      - report-controller
+      operationId: getAverageOrderSizeReport
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeids
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AverageOrderSizeReportDTO'
+components:
+  schemas:
+    LoyaltyOfferRedemptionByHourDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        loyaltyOfferRedemption:
+          type: number
+    OrdersByChannelReportDTO:
+      type: object
+      properties:
+        totalOrders:
+          type: number
+        ordersByChannelList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersByChannelDTO'
+    LoyaltyOfferRedemptionByTimeOfTheDayDistributedReportDTO:
+      type: object
+      properties:
+        loyaltyOfferName:
+          type: string
+        loyaltyOffersByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyOfferRedemptionByHourDistributedDTO'
+    SalesByLocationAndTimeReportDTO:
+      type: object
+      properties:
+        storeName:
+          type: string
+        salesByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByHourDTO'
+    CustomersByGenderReportDTO:
+      type: object
+      properties:
+        totalCustomers:
+          type: number
+        customersByGenderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomersByGenderDTO'
+    OrdersByOrderTypeDTO:
+      type: object
+      properties:
+        orderType:
+          type: string
+        orders:
+          type: number
+    LoyaltyOfferPerformanceDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        value:
+          type: integer
+          format: int32
+    SalesByDateDTO:
+      type: object
+      properties:
+        storeDate:
+          type: string
+          format: date-time
+        sales:
+          type: number
+          format: double
+    CustomersByLoyaltyBalanceReportDTO:
+      type: object
+      properties:
+        customerName:
+          type: string
+        loyaltyBalance:
+          type: number
+        profileUrl:
+          type: string
+    MostPopularItemsReportDTO:
+      type: object
+      properties:
+        itemName:
+          type: string
+        itemUrl:
+          type: string
+        noOfItems:
+          type: integer
+          format: int32
+    OrdersByHourDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        orders:
+          type: number
+    CustomersByMostVisitsPerWeekReportDTO:
+      type: object
+      properties:
+        customerName:
+          type: string
+        visits:
+          type: number
+        profileUrl:
+          type: string
+    OfferRedemptionByTimeOfTheDayReportDTO:
+      type: object
+      properties:
+        offerName:
+          type: string
+        offersByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferRedemptionByHourDTO'
+    CustomersByAverageBasketValueReportDTO:
+      type: object
+      properties:
+        averageBasketValue:
+          type: string
+        customers:
+          type: number
+    CustomersByDaysSinceLastPurchasePercentileReportDTO:
+      type: object
+      properties:
+        daysSinceLastPurchasePercentile:
+          type: integer
+          format: int32
+        averageNoOfDays:
+          type: number
+          format: double
+    AverageOrderSizeReportDTO:
+      type: object
+      properties:
+        averageOrderSizeList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AverageOrderSizeDTO'
+    SalesByHourDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        sales:
+          type: number
+          format: double
+    OfferPerformanceDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        value:
+          type: integer
+          format: int32
+    OrdersByDateDTO:
+      type: object
+      properties:
+        storeDate:
+          type: string
+          format: date-time
+        orders:
+          type: number
+          format: double
+    MessageViewsByHourDistributedDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        messageViews:
+          type: number
+    FrequentlyBoughtTogetherReportDTO:
+      type: object
+      properties:
+        firstItem:
+          type: string
+        secondItem:
+          type: string
+        firstItemUrl:
+          type: string
+        secondItemUrl:
+          type: string
+        percentage:
+          type: number
+          format: double
+    CustomersByHighestAverageOrderSizeReportDTO:
+      type: object
+      properties:
+        customerName:
+          type: string
+        averageOrderSize:
+          type: number
+          format: double
+        profileUrl:
+          type: string
+    OrdersByLocationAndTimeReportDTO:
+      type: object
+      properties:
+        storeName:
+          type: string
+        ordersByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersByHourDTO'
+    OfferRedemptionByHourDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        offerRedemption:
+          type: number
+    OrdersBySignInStatusDTO:
+      type: object
+      properties:
+        signInStatus:
+          type: string
+        orders:
+          type: number
+    SalesByOrderTypeReportDTO:
+      type: object
+      properties:
+        totalSales:
+          type: number
+        salesByOrderTypeList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByOrderTypeDTO'
+    LoyaltyOfferPerformanceReportDTO:
+      type: object
+      properties:
+        loyaltyOfferPerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyOfferPerformanceDTO'
+    OrdersByChannelOverTimeDTO:
+      type: object
+      properties:
+        channelType:
+          type: string
+        ordersByDateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersByDateDTO'
+    SalesByChannelDTO:
+      type: object
+      properties:
+        channelType:
+          type: string
+        sales:
+          type: number
+          format: double
+    OrdersBySignInStatusReportDTO:
+      type: object
+      properties:
+        totalOrders:
+          type: number
+        ordersBySignInStatusList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersBySignInStatusDTO'
+    SalesByOrderTypeDTO:
+      type: object
+      properties:
+        orderType:
+          type: string
+        sales:
+          type: number
+    CustomersByAverageOrdersReportDTO:
+      type: object
+      properties:
+        averageOrders:
+          type: string
+        customers:
+          type: integer
+          format: int32
+    LeastPopularItemsReportDTO:
+      type: object
+      properties:
+        itemName:
+          type: string
+        itemUrl:
+          type: string
+        noOfItems:
+          type: integer
+          format: int32
+    SalesByChannelOverTimeDTO:
+      type: object
+      properties:
+        channelType:
+          type: string
+        salesByDateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByDateDTO'
+    OfferRedemptionByHourDistributedDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        offerRedemption:
+          type: number
+    OfferRedemptionByTimeOfTheDayDistributedReportDTO:
+      type: object
+      properties:
+        offerName:
+          type: string
+        offersByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferRedemptionByHourDistributedDTO'
+    MessageViewsByTimeOfTheDayDistributedReportDTO:
+      type: object
+      properties:
+        messageName:
+          type: string
+        messagesByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageViewsByHourDistributedDTO'
+    MessagePerformanceDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        value:
+          type: number
+    MessageViewsByHourDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        messageViews:
+          type: number
+    OrdersByChannelDTO:
+      type: object
+      properties:
+        channelType:
+          type: string
+        orders:
+          type: number
+          format: double
+    OrdersByOrderTypeReportDTO:
+      type: object
+      properties:
+        totalOrders:
+          type: number
+        ordersByOrderTypeList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersByOrderTypeDTO'
+    LoyaltyOfferRedemptionByHourDistributedDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        loyaltyOfferRedemption:
+          type: number
+    LoyaltyOfferRedemptionByTimeOfTheDayReportDTO:
+      type: object
+      properties:
+        loyaltyOfferName:
+          type: string
+        loyaltyOffersByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyOfferRedemptionByHourDTO'
+    CustomersByAverageBasketValuePercentileReportDTO:
+      type: object
+      properties:
+        averageBasketValuePercentile:
+          type: integer
+          format: int32
+        averageBasketValue:
+          type: number
+          format: double
+    CustomersByAgeReportDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        customers:
+          type: number
+    CustomersByOrdersReportDTO:
+      type: object
+      properties:
+        orders:
+          type: string
+        customers:
+          type: number
+    CustomersByDaysSinceLastPurchaseReportDTO:
+      type: object
+      properties:
+        daysSinceLastPurchase:
+          type: string
+        customers:
+          type: number
+    SalesByChannelReportDTO:
+      type: object
+      properties:
+        totalSales:
+          type: number
+        salesByChannelList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByChannelDTO'
+    OfferPerformanceReportDTO:
+      type: object
+      properties:
+        offerPerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferPerformanceDTO'
+    AverageOrderSizeDTO:
+      type: object
+      properties:
+        user:
+          type: string
+        orders:
+          type: number
+    MessageViewsByTimeOfTheDayReportDTO:
+      type: object
+      properties:
+        messageName:
+          type: string
+        messagesByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageViewsByHourDTO'
+    MessagePerformanceReportDTO:
+      type: object
+      properties:
+        messagePerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessagePerformanceDTO'
+    CustomersByGenderDTO:
+      type: object
+      properties:
+        gender:
+          type: string
+        customers:
+          type: number

@@ -1,0 +1,60 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Persona Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: persona-controller
+paths:
+  /incentivio-persona-processor/personadatasource/clientid/{clientid}/merchantid/{merchantid}/quantiletype/{quantiletype}:
+    get:
+      tags:
+      - persona-controller
+      operationId: personaDataSource
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: quantiletype
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/QuantileType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GraphPoint'
+components:
+  schemas:
+    QuantileType:
+      type: string
+      enum:
+      - DAYS_SINCE_LAST_PURCHASE
+      - AVERAGE_BASKET_VALUE
+      - PURCHASES_PER_MONTH
+    GraphPoint:
+      type: object
+      properties:
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        value:
+          type: number
+          format: double

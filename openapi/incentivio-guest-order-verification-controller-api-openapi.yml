@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Guest Order Verification Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: guest-order-verification-controller
+paths:
+  /orders/{orderId}/validateguestverificationcode/{code}:
+    put:
+      tags:
+      - guest-order-verification-controller
+      operationId: validateGuestOrderVerificationCode
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+  /orders/sendguestverificationcode:
+    post:
+      tags:
+      - guest-order-verification-controller
+      operationId: sendGuestOrderVerificationCode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuestOrderVerificationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuestOrderVerificationResponse'
+components:
+  schemas:
+    GuestOrderVerificationResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+        expirationMinutes:
+          type: integer
+          format: int64
+    GuestOrderVerificationRequest:
+      type: object
+      properties:
+        orderId:
+          type: string
+        recipient:
+          type: string

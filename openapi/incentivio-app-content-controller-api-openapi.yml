@@ -1,0 +1,193 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition App Content Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: app-content-controller
+paths:
+  /customerappcontent:
+    get:
+      tags:
+      - app-content-controller
+      operationId: retrieveCustomerAppContent
+      parameters:
+      - name: userid
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: languagecode
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: loyalty
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AppContentResponseDTO'
+components:
+  schemas:
+    AppMessageListDTO:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppMessageDTO'
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+    AppMessageDTO:
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        merchantId:
+          type: string
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          $ref: '#/components/schemas/MessageStatus'
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+        surveyId:
+          type: string
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    MessageStatus:
+      type: string
+      enum:
+      - NEW
+      - READ
+      - EXPIRED
+      - DELETED
+    AppOfferDTO:
+      type: object
+      properties:
+        distributedOfferId:
+          type: string
+        offerId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        offerCode:
+          type: string
+        codeFormat:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          $ref: '#/components/schemas/OfferStatus'
+        redemptionEndDate:
+          type: string
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        redeemType:
+          type: string
+        purchaseTypes:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        isLoyaltyOffer:
+          type: boolean
+        universalOffer:
+          type: boolean
+        alwaysAvailable:
+          type: boolean
+        enableGuestCheckout:
+          type: boolean
+    OfferStatus:
+      type: string
+      enum:
+      - NEW
+      - SAVED
+      - READ
+      - EXPIRED
+      - DELETED
+      - SYSTEM_REDEEMED
+      - USER_REDEEMED
+    AppContentResponseDTO:
+      type: object
+      properties:
+        offerList:
+          $ref: '#/components/schemas/AppOfferListDTO'
+        messageList:
+          $ref: '#/components/schemas/AppMessageListDTO'
+    AppOfferListDTO:
+      type: object
+      properties:
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppOfferDTO'
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'

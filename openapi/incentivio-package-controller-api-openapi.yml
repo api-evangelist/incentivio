@@ -1,0 +1,490 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Package Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: package-controller
+paths:
+  /incentivio-ordering-service/packages:
+    get:
+      tags:
+      - package-controller
+      operationId: listPackagesByClientId
+      parameters:
+      - name: groupId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: catalogId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListPackageResponseDTO'
+    put:
+      tags:
+      - package-controller
+      operationId: addOrUpdatePackage_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePackageRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreatePackageResponseDTO'
+  /incentivio-ordering-service/packages/{packageid}:
+    get:
+      tags:
+      - package-controller
+      operationId: viewPackageById
+      parameters:
+      - name: packageid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeChildElements
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ViewPackageResponseDTO'
+    delete:
+      tags:
+      - package-controller
+      operationId: deletePackage
+      parameters:
+      - name: packageid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    DiscountValueType:
+      type: string
+      enum:
+      - AMOUNT
+      - PERCENTAGE
+    TaxInfo:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        extTaxId:
+          type: string
+        id:
+          type: string
+        percentage:
+          type: number
+          format: double
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/TaxType'
+    DiscountType:
+      type: string
+      enum:
+      - ITEM
+      - ORDER
+    ItemDTO:
+      type: object
+      properties:
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        brandId:
+          type: string
+        calories:
+          type: number
+          format: double
+        categoryId:
+          type: string
+        clientId:
+          type: string
+          deprecated: true
+        createdDate:
+          type: string
+          deprecated: true
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        displayRank:
+          type: integer
+          format: int32
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        extTargetingId:
+          type: string
+        inheritParentOptions:
+          type: boolean
+        isTaxable:
+          type: boolean
+        itemId:
+          type: string
+        itemType:
+          $ref: '#/components/schemas/ItemType'
+        maxItemSelections:
+          type: integer
+          format: int32
+        maxQuantity:
+          type: integer
+          format: int32
+        merchantId:
+          type: string
+          deprecated: true
+        minQuantity:
+          type: integer
+          format: int32
+        optionGroupExternalIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        optionGroupSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionGroupSetting'
+          uniqueItems: true
+        orderingChannels:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderingChannels'
+        outOfStock:
+          type: boolean
+        price:
+          type: integer
+          format: int32
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        sku:
+          type: string
+          deprecated: true
+        status:
+          $ref: '#/components/schemas/Status'
+        storeIds:
+          type: array
+          items:
+            type: string
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxInfo'
+        title:
+          type: string
+        unformattedPrice:
+          type: number
+        unformattedPriceWithTax:
+          type: number
+        uom:
+          type: string
+          deprecated: true
+        upc:
+          type: string
+          deprecated: true
+        updatedDate:
+          type: string
+          deprecated: true
+    CreatePackageRequestDTO:
+      type: object
+      properties:
+        packageId:
+          type: string
+        itemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        price:
+          type: integer
+          format: int32
+        clientId:
+          type: string
+          minLength: 1
+        merchantId:
+          type: string
+          minLength: 1
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiscountDTO'
+        storeIds:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+          uniqueItems: true
+        title:
+          type: string
+        status:
+          type: string
+      required:
+      - clientId
+      - merchantId
+    OrderType:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
+    Discount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          $ref: '#/components/schemas/DiscountType'
+        discountValueType:
+          $ref: '#/components/schemas/DiscountValueType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        name:
+          type: string
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    TaxType:
+      type: string
+      enum:
+      - AMOUNT
+      - OPEN
+      - PERCENTAGE
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    OrderingChannels:
+      type: string
+      enum:
+      - MOBILE
+      - FACEBOOK
+      - NONE
+    OptionGroupSetting:
+      type: object
+      properties:
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        defaultSelectedItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        displayRank:
+          type: integer
+          format: int32
+        externalOptionGroupId:
+          type: string
+        inheritGroupSettings:
+          type: boolean
+        itemIdsAreMongoMapped:
+          type: boolean
+        mandatoryItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        maxItemSelections:
+          type: integer
+          format: int32
+        minItemSelections:
+          type: integer
+          format: int32
+        optionGroupId:
+          type: string
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          $ref: '#/components/schemas/SelectionType'
+    CreatePackageResponseDTO:
+      type: object
+      properties:
+        packageId:
+          type: string
+    ViewPackageResponseDTO:
+      type: object
+      properties:
+        packageId:
+          type: string
+        groupIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        price:
+          type: integer
+          format: int32
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        discountDto:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiscountDTO'
+        startDate:
+          type: string
+        endDate:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+          uniqueItems: true
+        title:
+          type: string
+        status:
+          type: string
+        itemDTOs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDTO'
+        storeIds:
+          type: array
+          items:
+            type: string
+    ItemType:
+      type: string
+      enum:
+      - MAIN
+      - MODIFIER
+    DiscountDTO:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          $ref: '#/components/schemas/DiscountType'
+        discountValueType:
+          $ref: '#/components/schemas/DiscountValueType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        name:
+          type: string
+    ListPackageResponseDTO:
+      type: object
+      properties:
+        packageId:
+          type: string
+        title:
+          type: string
+        groupIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    SelectionType:
+      type: string
+      enum:
+      - MULTI_SELECT
+      - SINGLE_SELECT

@@ -1,0 +1,98 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Fund Transfer Config Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: fund-transfer-config-controller
+paths:
+  /incentivio-giftcard-ach-service/fund-transfer-config/pool-account:
+    patch:
+      tags:
+      - fund-transfer-config-controller
+      operationId: updatePoolAccountFundTransferConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePoolAccountFundTransferConfigRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FundTransferConfigResponse'
+  /incentivio-giftcard-ach-service/fund-transfer-config/locations:
+    patch:
+      tags:
+      - fund-transfer-config-controller
+      operationId: updateLocationFundTransferConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationFundTransferConfigRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FundTransferConfigResponse'
+  /incentivio-giftcard-ach-service/fund-transfer-config:
+    get:
+      tags:
+      - fund-transfer-config-controller
+      operationId: retrieveFundTransferConfig_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FundTransferConfigResponse'
+components:
+  schemas:
+    UpdateLocationFundTransferConfigRequest:
+      type: object
+      properties:
+        locationId:
+          type: string
+        active:
+          type: boolean
+    FundTransferConfigResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+        frequency:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransferLocationConfig'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        active:
+          type: boolean
+    UpdatePoolAccountFundTransferConfigRequest:
+      type: object
+      properties:
+        active:
+          type: boolean
+    FundTransferLocationConfig:
+      type: object
+      properties:
+        locationId:
+          type: string
+        active:
+          type: boolean

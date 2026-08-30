@@ -1,0 +1,302 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Menu Intelligence Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: menu-intelligence-controller
+paths:
+  /incentivio-reports/menuintelligence/locations:
+    get:
+      tags:
+      - menu-intelligence-controller
+      operationId: getMenuIntelligenceLocations
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MenuIntelligenceLocation'
+  /incentivio-reports/menuintelligence/itemMetrics:
+    get:
+      tags:
+      - menu-intelligence-controller
+      operationId: getMenuIntelligenceItemMetrics
+      parameters:
+      - name: groups
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: groupType
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: location
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: searchInput
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        required: false
+        schema:
+          type: string
+          default: itemScore
+      - name: sortDirection
+        in: query
+        required: false
+        schema:
+          type: string
+          default: DESC
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MenuIntelligenceItemMetricsResponseDTO'
+  /incentivio-reports/menuintelligence/itemMetrics/export:
+    get:
+      tags:
+      - menu-intelligence-controller
+      operationId: getMenuIntelligenceItemMetricsCSVString
+      parameters:
+      - name: groups
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: groupType
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: location
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: searchInput
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        required: false
+        schema:
+          type: string
+          default: itemScore
+      - name: sortDirection
+        in: query
+        required: false
+        schema:
+          type: string
+          default: DESC
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /incentivio-reports/menuintelligence/groups:
+    get:
+      tags:
+      - menu-intelligence-controller
+      operationId: getMenuIntelligenceGroups
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MenuIntelligenceGroup'
+components:
+  schemas:
+    DoubleMetricDetail:
+      type: object
+      properties:
+        all:
+          type: number
+          format: double
+        good:
+          type: number
+          format: double
+        bad:
+          type: number
+          format: double
+    MenuIntelligenceItemMetricsResponseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuIntelligenceItemGeneralMetrics'
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+    MenuIntelligenceGroup:
+      type: object
+      properties:
+        clientId:
+          type: string
+        jobId:
+          type: integer
+          format: int32
+        createdDate:
+          type: string
+          format: date-time
+        groupDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupDetail'
+      required:
+      - createdDate
+      - groupDetails
+    IntegerMetricDetail:
+      type: object
+      properties:
+        all:
+          type: integer
+          format: int32
+        good:
+          type: integer
+          format: int32
+        bad:
+          type: integer
+          format: int32
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    LocationDetail:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+    MenuIntelligenceItemGeneralMetrics:
+      type: object
+      properties:
+        id:
+          type: string
+        jobId:
+          type: integer
+          format: int32
+        itemId:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        clientId:
+          type: string
+        itemName:
+          type: string
+        itemPrice:
+          type: number
+          format: float
+        groupNames:
+          type: array
+          items:
+            type: string
+        groupTypes:
+          type: array
+          items:
+            type: string
+        locationId:
+          type: string
+        totalVolumeSold:
+          $ref: '#/components/schemas/IntegerMetricDetail'
+        volumeSoldLastMonth:
+          $ref: '#/components/schemas/IntegerMetricDetail'
+        volumeSoldPerMonth:
+          $ref: '#/components/schemas/DoubleMetricDetail'
+        volumeSoldBreakfast:
+          $ref: '#/components/schemas/IntegerMetricDetail'
+        volumeSoldLunch:
+          $ref: '#/components/schemas/IntegerMetricDetail'
+        volumeSoldDinner:
+          $ref: '#/components/schemas/IntegerMetricDetail'
+        customerPercentage:
+          $ref: '#/components/schemas/DoubleMetricDetail'
+        avgOrdersPerMonth:
+          $ref: '#/components/schemas/DoubleMetricDetail'
+        revenueGenerated:
+          $ref: '#/components/schemas/DoubleMetricDetail'
+        indexMetricOverUnderIndexValue:
+          type: number
+          format: double
+        indexMetricOverUnderState:
+          type: string
+        itemScore:
+          type: number
+          format: double
+        itemImageUrl:
+          type: string
+      required:
+      - clientId
+      - createdDate
+      - itemName
+      - itemPrice
+      - itemScore
+    GroupDetail:
+      type: object
+      properties:
+        groupName:
+          type: string
+    MenuIntelligenceLocation:
+      type: object
+      properties:
+        clientId:
+          type: string
+        jobId:
+          type: integer
+          format: int32
+        createdDate:
+          type: string
+          format: date-time
+        locationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetail'
+      required:
+      - createdDate
+      - locationDetails

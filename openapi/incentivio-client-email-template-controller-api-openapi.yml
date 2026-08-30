@@ -1,0 +1,344 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Client Email Template Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: client-email-template-controller
+paths:
+  /incentivio-client-domain/templates/{templateId}:
+    get:
+      tags:
+      - client-email-template-controller
+      operationId: getClientTemplate
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientTemplate'
+    put:
+      tags:
+      - client-email-template-controller
+      operationId: updateClientTemplate
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClientTemplateRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientTemplate'
+    delete:
+      tags:
+      - client-email-template-controller
+      operationId: deleteClientTemplate
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+  /incentivio-client-domain/templates:
+    get:
+      tags:
+      - client-email-template-controller
+      operationId: searchClientTemplates
+      parameters:
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: emailTemplateType
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+      - name: reusable
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientTemplatesResponseDTO'
+    post:
+      tags:
+      - client-email-template-controller
+      operationId: createClientTemplate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClientTemplateRequestDTO'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientTemplate'
+  /incentivio-client-domain/templates/{templateid}/associations:
+    get:
+      tags:
+      - client-email-template-controller
+      operationId: getOffersOrMessagesByTemplateId
+      parameters:
+      - name: templateid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /incentivio-client-domain/templates/tags:
+    get:
+      tags:
+      - client-email-template-controller
+      operationId: getTemplateTags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TemplateTagResponseDTO'
+  /incentivio-client-domain/templates/events/{event}:
+    get:
+      tags:
+      - client-email-template-controller
+      operationId: getEventBasedClientTemplate
+      parameters:
+      - name: event
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/EventType'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientTemplate'
+  /incentivio-client-domain/templates/alltemplates:
+    get:
+      tags:
+      - client-email-template-controller
+      operationId: allClientTemplates
+      parameters:
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientTemplatesResponseDTO'
+components:
+  schemas:
+    ClientEmailTemplateType:
+      type: string
+      enum:
+      - OFFER
+      - LOYALTY_OFFER
+      - MESSAGE
+      - EVENT
+    ClientTemplate:
+      type: object
+      properties:
+        templateId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        name:
+          type: string
+        jsonTemplate:
+          type: string
+        htmlTemplate:
+          type: string
+        fromAddress:
+          type: string
+        bcc:
+          type: string
+        subject:
+          type: string
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        createdDate:
+          type: string
+          format: date-time
+        emailTemplateType:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+        reusable:
+          type: boolean
+    EventType:
+      type: string
+      enum:
+      - VERIFY_EMAIL
+      - USER_PASSWORD_RESET
+      - TABLET_APP_MESSAGES
+      - ADMIN_PASSWORD_RESET
+      - POINTS_EXPIRY_NOTIFICATION
+      - GIFT_CARD_FAILED
+      - COMP_GIFT_CARD_FAILED
+      - ORDER_FAILURE_NOTIFIER
+      - GIFT_CARD_EMAIL_RECEIPT
+      - GIFTCARD_PURCHASE
+      - GIFTCARD_IMPORT_FAILED
+      - GIFTCARD_IMPORT_SUCCESS
+      - GIFTCARD_REMOVAL_FAILED
+      - GIFTCARD_REMOVAL_SUCCESS
+      - EMAIL_GIFTCARD_PURCHASE_RECEIPT
+      - EMAIL_GIFTCARD_ADD_VALUE_RECEIPT
+      - EMAIL_GIFTCARD_BALANCE_REPORT_EXPORT_SUCCESS
+      - EMAIL_GIFTCARD_BALANCE_REPORT_EXPORT_FAILED
+      - EMAIL_GIFTCARD_ADD_VALUE
+      - EMAIL_GIFTCARD_PURCHASE_FOR_SENDER
+      - GIFTCARD_REFUND_RECEIPT_NOTIFICATION
+      - GIFT_ACH_TRANSFER_INIT_FAILED
+      - ORDER_RECEIVED_NOTIFICATION
+      - ORDER_CUSTOMER_NOTIFICATION
+      - GUEST_CHECKOUT_VERIFICATION
+      - PASSWORDLESS_AUTH
+    UpdateClientTemplateRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        jsonTemplate:
+          type: string
+        htmlTemplate:
+          type: string
+        fromAddress:
+          type: string
+        bcc:
+          type: string
+        subject:
+          type: string
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        emailTemplateType:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+        reusable:
+          type: boolean
+    ClientTemplatesResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientTemplate'
+    TemplateTagResponseDTO:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        tag:
+          type: string
+        required:
+          type: boolean
+        specialLink:
+          type: boolean
+    CreateClientTemplateRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        jsonTemplate:
+          type: string
+        htmlTemplate:
+          type: string
+        fromAddress:
+          type: string
+        bcc:
+          type: string
+        subject:
+          type: string
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        emailTemplateType:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+        reusable:
+          type: boolean
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64

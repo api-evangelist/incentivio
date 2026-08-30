@@ -1,0 +1,212 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Sales Report Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: sales-report-controller
+paths:
+  /incentivio-reports/clients/{clientId}/sales-by-pos-category:
+    get:
+      tags:
+      - sales-report-controller
+      operationId: retrieveSalesByPosCategoryReport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesByPosCategoryReportDTO'
+  /incentivio-reports/clients/{clientId}/sales-by-order-source:
+    get:
+      tags:
+      - sales-report-controller
+      operationId: retrieveSalesByOrderSourceReport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesByOrderSourceReportDTO'
+  /incentivio-reports/clients/{clientId}/sales-by-location:
+    get:
+      tags:
+      - sales-report-controller
+      operationId: retrieveSalesByLocationReport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: merchantId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: '*'
+      - name: storeIds
+        in: query
+        required: false
+        schema:
+          type: array
+          default:
+          - '*'
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesByLocationReportDTO'
+  /incentivio-reports/clients/{clientId}/previous-month/sales-by-location:
+    get:
+      tags:
+      - sales-report-controller
+      operationId: retrieveSalesByLocationForPreviousMonthReport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesByLocationForPreviousMonthReportDTO'
+components:
+  schemas:
+    SalesByOrderSourceReportDTO:
+      type: object
+      properties:
+        orderSource:
+          type: string
+        salesByDateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByDateDTO'
+    SalesByDateDTO:
+      type: object
+      properties:
+        storeDate:
+          type: string
+          format: date-time
+        sales:
+          type: number
+          format: double
+    SalesByLocationReportDTO:
+      type: object
+      properties:
+        locationName:
+          type: string
+        salesByDateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByDateDTO'
+    SalesByPosCategoryReportDTO:
+      type: object
+      properties:
+        posCategory:
+          type: string
+        salesByDateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByDateDTO'
+    SalesByLocationForPreviousMonthReportDTO:
+      type: object
+      properties:
+        totalSales:
+          type: number
+        comparedToPreviousMonthPercentage:
+          type: string

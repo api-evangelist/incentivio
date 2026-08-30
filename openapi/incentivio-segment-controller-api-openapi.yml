@@ -1,0 +1,607 @@
+openapi: 3.2.0
+info:
+  title: Incentivio Segment Controller API
+  version: v0
+  description: 'Operations tagged segment-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: segment-controller
+paths:
+  /incentivio-auto-tagger-service/segments/{segmentId}:
+    get:
+      tags:
+      - segment-controller
+      operationId: findSegment
+      parameters:
+      - name: segmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SegmentResponseDTO'
+    put:
+      tags:
+      - segment-controller
+      operationId: updateSegment
+      parameters:
+      - name: segmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+      - segment-controller
+      operationId: deleteSegment
+      parameters:
+      - name: segmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-auto-tagger-service/segments/{segmentId}/deactivate:
+    put:
+      tags:
+      - segment-controller
+      operationId: deactivateSegment
+      parameters:
+      - name: segmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-auto-tagger-service/segments:
+    get:
+      tags:
+      - segment-controller
+      operationId: findAllSegments
+      parameters:
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: false
+        schema:
+          type: string
+          default: segmentName
+      - name: sortDirection
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ASC
+      - name: title
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: expired
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindSegmentsResponseDTO'
+    post:
+      tags:
+      - segment-controller
+      operationId: createSegment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateSegmentResponseDTO'
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /incentivio-auto-tagger-service/segments/{segmentid}/reactivate:
+    get:
+      tags:
+      - segment-controller
+      operationId: reactivateSegment
+      parameters:
+      - name: segmentid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    servers:
+    - url: https://adminapi.incentivio.com/incentivio-admin-api
+      description: Generated server url
+  /segments/segments-by-customer:
+    get:
+      tags:
+      - segment-controller
+      operationId: findSegmentsByCustomer
+      parameters:
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindCustomerSegmentsResponseDTO'
+    servers:
+    - url: https://mobile.incentivio.com/incentivio-mobile-api
+      description: Generated server url
+components:
+  schemas:
+    SegmentResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        merchantName:
+          type: string
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentTag:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/SegmentTypeEnum'
+        segmentIcon:
+          type: string
+        visibleToCustomer:
+          type: boolean
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor'
+        adminId:
+          type: string
+        adminEmail:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+        updateDate:
+          type: string
+          format: date-time
+        lastProcessedDate:
+          type: string
+          format: date-time
+        expiredStatus:
+          type: boolean
+        displaySegmentStatus:
+          type: string
+        deletedStatus:
+          type: boolean
+        segmentDistribution:
+          type: string
+        customerCount:
+          type: integer
+          format: int32
+        calculationInProgressStatus:
+          type: boolean
+    RelationalOperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    SubCategoryEnum:
+      type: string
+      enum:
+      - LIFETIME
+      - LAST_NO_OF_DAYS
+      - NO_OF_ORDERS
+    SegmentTypeEnum:
+      type: string
+      enum:
+      - LOYALTY
+      - NORMAL
+    OperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    ProductDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        externalId:
+          type: string
+        displayInfoTitlesList:
+          type: array
+          items:
+            type: string
+    DaysOfWeekEnum:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    RuleTypeEnum:
+      type: string
+      enum:
+      - EXPRESSION
+      - LOGIC
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    CreateSegmentResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        segmentName:
+          type: string
+    RuleDescriptor:
+      type: object
+      properties:
+        ruleType:
+          $ref: '#/components/schemas/RuleTypeEnum'
+        operator:
+          $ref: '#/components/schemas/OperatorEnum'
+        expressionValue:
+          type: string
+        expressionValueNew:
+          $ref: '#/components/schemas/ExpressionValueNew'
+        expressionName:
+          type: string
+        expressoinFormat:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        logicType:
+          $ref: '#/components/schemas/LogicTypeEnum'
+        childNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleDescriptor'
+    SegmentRequestDTO:
+      type: object
+      properties:
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/SegmentTypeEnum'
+        segmentTag:
+          type: string
+        segmentIcon:
+          type: string
+        visibleToCustomer:
+          type: boolean
+        languageCode:
+          type: string
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor'
+        adminId:
+          type: string
+        adminEmail:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+        updateDate:
+          type: string
+          format: date-time
+        lastProcessedDate:
+          type: string
+          format: date-time
+        timeZone:
+          type: string
+        expiredStatus:
+          type: boolean
+        deletedStatus:
+          type: boolean
+        segmentDistribution:
+          type: string
+        advancedSettings:
+          type: object
+          additionalProperties: {}
+      required:
+      - adminEmail
+      - adminId
+      - segmentName
+      - segmentRules
+      - segmentType
+      - startDate
+      - timeZone
+    ExpressionValueNew:
+      type: object
+      properties:
+        attributeName:
+          type: string
+        attributeTitle:
+          type: string
+        attributeValues: {}
+        dataType:
+          type: string
+        productList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTO'
+          uniqueItems: true
+        subCategory:
+          $ref: '#/components/schemas/SubCategoryEnum'
+        relationalOperator:
+          $ref: '#/components/schemas/RelationalOperatorEnum'
+        quantity:
+          type: string
+        noOfDays:
+          type: integer
+          format: int32
+        noOfOrders:
+          type: integer
+          format: int32
+        startTime:
+          type: string
+        endTime:
+          type: string
+        daysOfWeek:
+          type: array
+          items:
+            $ref: '#/components/schemas/DaysOfWeekEnum'
+    LogicTypeEnum:
+      type: string
+      enum:
+      - AND
+      - OR
+      - NOT
+    FindSegmentsResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentResponseDTO'
+    SegmentLightResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentIcon:
+          type: string
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor_2'
+        deletedStatus:
+          type: boolean
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
+    FindCustomerSegmentsResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        customerId:
+          type: string
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentLightResponseDTO'
+    RuleDescriptor_2:
+      type: object
+      properties:
+        ruleType:
+          type: string
+          enum:
+          - EXPRESSION
+          - LOGIC
+        operator:
+          type: string
+          enum:
+          - EQ
+          - LT
+          - GT
+          - LT_EQ
+          - GT_EQ
+          - NOT
+          - WITHIN
+          - NOTEXISTS
+        expressionValue:
+          type: string
+        expressionValueNew:
+          $ref: '#/components/schemas/ExpressionValueNew_2'
+        expressionName:
+          type: string
+        expressoinFormat:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        logicType:
+          type: string
+          enum:
+          - AND
+          - OR
+          - NOT
+        childNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleDescriptor_2'
+    ExpressionValueNew_2:
+      type: object
+      properties:
+        attributeName:
+          type: string
+        attributeTitle:
+          type: string
+        attributeValues:
+          type: object
+        dataType:
+          type: string
+        productList:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTO'
+        subCategory:
+          type: string
+          enum:
+          - LIFETIME
+          - LAST_NO_OF_DAYS
+          - NO_OF_ORDERS
+        relationalOperator:
+          type: string
+          enum:
+          - EQ
+          - LT
+          - GT
+          - LT_EQ
+          - GT_EQ
+          - NOT
+          - WITHIN
+          - NOTEXISTS
+        quantity:
+          type: string
+        noOfDays:
+          type: integer
+          format: int32
+        noOfOrders:
+          type: integer
+          format: int32
+        startTime:
+          $ref: '#/components/schemas/LocalTime'
+        endTime:
+          $ref: '#/components/schemas/LocalTime'
+        daysOfWeek:
+          type: array
+          items:
+            type: string
+            enum:
+            - MONDAY
+            - TUESDAY
+            - WEDNESDAY
+            - THURSDAY
+            - FRIDAY
+            - SATURDAY
+            - SUNDAY
+x-refined-from:
+- incentivio-admin-api-openapi.yml
+- incentivio-mobile-api-openapi.yml

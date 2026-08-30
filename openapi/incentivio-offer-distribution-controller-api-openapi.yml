@@ -1,0 +1,129 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Offer Distribution Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: offer-distribution-controller
+paths:
+  /incentivio-offers-domain/clients/{clientid}/distributesyncactivityoffers:
+    post:
+      tags:
+      - offer-distribution-controller
+      operationId: distributeSynchronousActivityOffer
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivityOfferListRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ActivityOfferListDTO'
+  /incentivio-offers-domain/users/{userid}/offers/{offerid}/delete:
+    delete:
+      tags:
+      - offer-distribution-controller
+      operationId: markTheDistributedOfferAsDeleted
+      parameters:
+      - name: userid
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 36
+      - name: offerid
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+          minLength: 36
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    ActivityOfferListDTO:
+      type: object
+      properties:
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityOfferDTO'
+    RedeemStatus:
+      type: string
+      enum:
+      - NEW
+      - SAVED
+      - READ
+      - EXPIRED
+      - DELETED
+      - SYSTEM_REDEEMED
+      - USER_REDEEMED
+    ActivityOfferDTO:
+      type: object
+      properties:
+        distributedOfferId:
+          type: string
+        offerId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        offerCode:
+          type: string
+        codeFormat:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          $ref: '#/components/schemas/RedeemStatus'
+        redemptionEndDate:
+          type: string
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+    ActivityOfferListRequestDTO:
+      type: object
+      properties:
+        userId:
+          type: string
+          minLength: 1
+        languageCode:
+          type: string
+        offerIds:
+          type: array
+          items:
+            type: string
+        localDateTime:
+          type: string
+          minLength: 1
+      required:
+      - localDateTime
+      - userId

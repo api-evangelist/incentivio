@@ -1,0 +1,883 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Menu Import Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: menu-import-controller
+paths:
+  /incentivio-menu-service/runallimports:
+    post:
+      tags:
+      - menu-import-controller
+      operationId: runAllImports
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+  /incentivio-menu-service/locations/{locationid}/runfullimport:
+    post:
+      tags:
+      - menu-import-controller
+      operationId: runFullImport
+      parameters:
+      - name: locationid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /fail-import:
+    post:
+      tags:
+      - menu-import-controller
+      operationId: markMenuImportFailed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkMenuImportFailedRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /clients/{clientId}/requestmenuimport/{locationId}:
+    post:
+      tags:
+      - menu-import-controller
+      operationId: requestMenuImport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConnectorImportedMenuResponse'
+  /view/externallocation/catalogs:
+    get:
+      tags:
+      - menu-import-controller
+      operationId: viewExternalLocationCatalogs
+      parameters:
+      - name: clientid
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: incentlocationid
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: extlocationid
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: connectorgatewayname
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConnectorViewExternalLocationCatalogsResponseDTO'
+  /incentivio-menu-service/merchants/{merchantid}/mostrecentimports:
+    get:
+      tags:
+      - menu-import-controller
+      operationId: retrieveMostRecentMenuImports
+      parameters:
+      - name: merchantid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationTitle
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 100
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: filterByAllowedLocations
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MenuImportHistoryWithPagingDTO'
+  /incentivio-menu-service/locations/{locationid}/pastimports:
+    get:
+      tags:
+      - menu-import-controller
+      operationId: retrievePastMenuImports
+      parameters:
+      - name: locationid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 100
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MenuImportHistoryWithPagingDTO'
+  /clients/{clientId}/executemenuimport:
+    get:
+      tags:
+      - menu-import-controller
+      operationId: executeMenuImport
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    DiscountValueType:
+      type: string
+      enum:
+      - AMOUNT
+      - PERCENTAGE
+    OrderType:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
+    GroupDTO:
+      type: object
+      properties:
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        clientId:
+          type: string
+          deprecated: true
+        createdDate:
+          type: string
+          deprecated: true
+        defaultSelectedItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        displayRank:
+          type: integer
+          format: int32
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        extTargetingId:
+          type: string
+        groupItemSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupItemSetting'
+          uniqueItems: true
+        groupType:
+          $ref: '#/components/schemas/GroupType'
+        id:
+          type: string
+        includedQuantity:
+          type: integer
+          format: int32
+        inheritParentOptions:
+          type: boolean
+        itemExternalIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        mandatoryItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        maxItemSelections:
+          type: integer
+          format: int32
+        merchantId:
+          type: string
+          deprecated: true
+        minItemSelections:
+          type: integer
+          format: int32
+        optionGroupsExternalIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        override:
+          $ref: '#/components/schemas/MenuOverride'
+        priceSubstitutionType:
+          $ref: '#/components/schemas/PriceSubstitutionType'
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          $ref: '#/components/schemas/SelectionType'
+        status:
+          $ref: '#/components/schemas/Status'
+        storeIds:
+          type: array
+          items:
+            type: string
+        subGroupsExternalIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        title:
+          type: string
+        updatedDate:
+          type: string
+          deprecated: true
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    TimeSlot:
+      type: object
+      properties:
+        startTime:
+          type: string
+        endTime:
+          type: string
+      required:
+      - endTime
+      - startTime
+    GroupItemSetting:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemGuid:
+          type: string
+        maxItemSelections:
+          type: integer
+          format: int32
+        price:
+          type: integer
+          format: int32
+        isDefault:
+          type: boolean
+        displayRank:
+          type: integer
+          format: int32
+    MarkMenuImportFailedRequest:
+      type: object
+      properties:
+        requestId:
+          type: string
+        user:
+          type: string
+      required:
+      - requestId
+      - user
+    MenuImportProgressStatus:
+      type: string
+      enum:
+      - COMPLETED
+      - FAILED
+      - IN_PROGRESS
+      - NEW
+      - PUBLISHING_FAILED
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    ConnectorErrorStatus:
+      type: string
+      enum:
+      - REQUEST_ID_NOT_FOUND
+    Discount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          $ref: '#/components/schemas/DiscountType'
+        discountValueType:
+          $ref: '#/components/schemas/DiscountValueType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        name:
+          type: string
+    LocationMenuImportSummaryDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        failureDescription:
+          type: string
+        locationExternalId:
+          type: string
+        locationId:
+          type: string
+        locationTitle:
+          type: string
+        menuDownloadStartedTime:
+          type: string
+        menuImportCompletedTime:
+          type: string
+        menuImportStatus:
+          $ref: '#/components/schemas/MenuImportProgressStatus'
+        merchantId:
+          type: string
+        requestId:
+          type: string
+        userId:
+          type: string
+    GroupType:
+      type: string
+      enum:
+      - OPTION_GROUP
+      - CATALOG_GROUP
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    OptionGroupSetting:
+      type: object
+      properties:
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        defaultSelectedItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        displayRank:
+          type: integer
+          format: int32
+        externalOptionGroupId:
+          type: string
+        inheritGroupSettings:
+          type: boolean
+        itemIdsAreMongoMapped:
+          type: boolean
+        mandatoryItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        maxItemSelections:
+          type: integer
+          format: int32
+        minItemSelections:
+          type: integer
+          format: int32
+        optionGroupId:
+          type: string
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          $ref: '#/components/schemas/SelectionType'
+    ConnectorViewExternalLocationCatalogsResponseDTO:
+      type: object
+      properties:
+        externalLocationId:
+          type: string
+        catalogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLocationCatalogDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        message:
+          type: string
+    MenuOverride:
+      type: object
+      properties:
+        catalogId:
+          type: string
+        groupId:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+          uniqueItems: true
+        override:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/TimeSlot'
+            uniqueItems: true
+    TaxInfo:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        extTaxId:
+          type: string
+        id:
+          type: string
+        percentage:
+          type: number
+          format: double
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/TaxType'
+    ConnectorImportedMenuResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+        connectorErrorStatus:
+          $ref: '#/components/schemas/ConnectorErrorStatus'
+        connectorMenuResponse:
+          $ref: '#/components/schemas/ConnectorMenuResponse'
+        connectorName:
+          type: string
+        externalLocationId:
+          type: string
+        failureDescription:
+          type: string
+        httpStatus:
+          $ref: '#/components/schemas/HttpStatus'
+        locationId:
+          type: string
+        menuDownloadCompletedTime:
+          type: string
+          format: date-time
+        menuDownloadStartedTime:
+          type: string
+          format: date-time
+        menuDownloadStatus:
+          $ref: '#/components/schemas/MenuImportProgressStatus'
+        merchantId:
+          type: string
+        requestId:
+          type: string
+    ItemDTO:
+      type: object
+      properties:
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        brandId:
+          type: string
+        calories:
+          type: number
+          format: double
+        categoryId:
+          type: string
+        clientId:
+          type: string
+          deprecated: true
+        createdDate:
+          type: string
+          deprecated: true
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        displayRank:
+          type: integer
+          format: int32
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        extTargetingId:
+          type: string
+        inheritParentOptions:
+          type: boolean
+        isTaxable:
+          type: boolean
+        itemId:
+          type: string
+        itemType:
+          $ref: '#/components/schemas/ItemType'
+        maxItemSelections:
+          type: integer
+          format: int32
+        maxQuantity:
+          type: integer
+          format: int32
+        merchantId:
+          type: string
+          deprecated: true
+        minQuantity:
+          type: integer
+          format: int32
+        optionGroupExternalIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        optionGroupSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionGroupSetting'
+          uniqueItems: true
+        orderingChannels:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderingChannels'
+        outOfStock:
+          type: boolean
+        price:
+          type: integer
+          format: int32
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        sku:
+          type: string
+          deprecated: true
+        status:
+          $ref: '#/components/schemas/Status'
+        storeIds:
+          type: array
+          items:
+            type: string
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxInfo'
+        title:
+          type: string
+        unformattedPrice:
+          type: number
+        unformattedPriceWithTax:
+          type: number
+        uom:
+          type: string
+          deprecated: true
+        upc:
+          type: string
+          deprecated: true
+        updatedDate:
+          type: string
+          deprecated: true
+    TaxType:
+      type: string
+      enum:
+      - AMOUNT
+      - OPEN
+      - PERCENTAGE
+    PriceSubstitutionType:
+      type: string
+      enum:
+      - DIFFERENCE_ANY
+      - DIFFERENCE_DECREASE
+      - DIFFERENCE_INCREASE
+      - EXTERNAL
+      - FULL_PRICE
+      - NO_CHARGE
+    SelectionType:
+      type: string
+      enum:
+      - MULTI_SELECT
+      - SINGLE_SELECT
+    CatalogDTO:
+      type: object
+      properties:
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        clientId:
+          type: string
+          deprecated: true
+        createdDate:
+          type: string
+          deprecated: true
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        displayRank:
+          type: integer
+          format: int32
+        externalId:
+          type: string
+        extTargetingId:
+          type: string
+        groupExternalIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        id:
+          type: string
+        merchantId:
+          type: string
+          deprecated: true
+        override:
+          $ref: '#/components/schemas/MenuOverride'
+        status:
+          $ref: '#/components/schemas/Status'
+        storeIds:
+          type: array
+          items:
+            type: string
+        title:
+          type: string
+        updatedDate:
+          type: string
+          deprecated: true
+    DiscountType:
+      type: string
+      enum:
+      - ITEM
+      - ORDER
+    MenuImportHistoryWithPagingDTO:
+      type: object
+      properties:
+        locationMenuImportSummaryDTOList:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationMenuImportSummaryDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+    ExternalLocationCatalogDTO:
+      type: object
+      properties:
+        catalogId:
+          type: string
+        title:
+          type: string
+    ConnectorMenuResponse:
+      type: object
+      properties:
+        connectorCatalogDTOMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CatalogDTO'
+        connectorGroupDTOMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GroupDTO'
+        connectorItemDTOMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ItemDTO'
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    OrderingChannels:
+      type: string
+      enum:
+      - MOBILE
+      - FACEBOOK
+      - NONE
+    HttpStatus:
+      type: string
+      enum:
+      - CONTINUE
+      - SWITCHING_PROTOCOLS
+      - PROCESSING
+      - EARLY_HINTS
+      - CHECKPOINT
+      - OK
+      - CREATED
+      - ACCEPTED
+      - NON_AUTHORITATIVE_INFORMATION
+      - NO_CONTENT
+      - RESET_CONTENT
+      - PARTIAL_CONTENT
+      - MULTI_STATUS
+      - ALREADY_REPORTED
+      - IM_USED
+      - MULTIPLE_CHOICES
+      - MOVED_PERMANENTLY
+      - FOUND
+      - MOVED_TEMPORARILY
+      - SEE_OTHER
+      - NOT_MODIFIED
+      - USE_PROXY
+      - TEMPORARY_REDIRECT
+      - PERMANENT_REDIRECT
+      - BAD_REQUEST
+      - UNAUTHORIZED
+      - PAYMENT_REQUIRED
+      - FORBIDDEN
+      - NOT_FOUND
+      - METHOD_NOT_ALLOWED
+      - NOT_ACCEPTABLE
+      - PROXY_AUTHENTICATION_REQUIRED
+      - REQUEST_TIMEOUT
+      - CONFLICT
+      - GONE
+      - LENGTH_REQUIRED
+      - PRECONDITION_FAILED
+      - PAYLOAD_TOO_LARGE
+      - REQUEST_ENTITY_TOO_LARGE
+      - URI_TOO_LONG
+      - REQUEST_URI_TOO_LONG
+      - UNSUPPORTED_MEDIA_TYPE
+      - REQUESTED_RANGE_NOT_SATISFIABLE
+      - EXPECTATION_FAILED
+      - I_AM_A_TEAPOT
+      - INSUFFICIENT_SPACE_ON_RESOURCE
+      - METHOD_FAILURE
+      - DESTINATION_LOCKED
+      - UNPROCESSABLE_ENTITY
+      - LOCKED
+      - FAILED_DEPENDENCY
+      - TOO_EARLY
+      - UPGRADE_REQUIRED
+      - PRECONDITION_REQUIRED
+      - TOO_MANY_REQUESTS
+      - REQUEST_HEADER_FIELDS_TOO_LARGE
+      - UNAVAILABLE_FOR_LEGAL_REASONS
+      - INTERNAL_SERVER_ERROR
+      - NOT_IMPLEMENTED
+      - BAD_GATEWAY
+      - SERVICE_UNAVAILABLE
+      - GATEWAY_TIMEOUT
+      - HTTP_VERSION_NOT_SUPPORTED
+      - VARIANT_ALSO_NEGOTIATES
+      - INSUFFICIENT_STORAGE
+      - LOOP_DETECTED
+      - BANDWIDTH_LIMIT_EXCEEDED
+      - NOT_EXTENDED
+      - NETWORK_AUTHENTICATION_REQUIRED
+    ItemType:
+      type: string
+      enum:
+      - MAIN
+      - MODIFIER

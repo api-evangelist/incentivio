@@ -1,0 +1,77 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition External Link Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: external-link-controller
+paths:
+  /externallinks:
+    get:
+      tags:
+      - external-link-controller
+      operationId: getExternalLinksList
+      parameters:
+      - name: CLIENTID
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: externalLinkType
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalLinksResponseDTO'
+components:
+  schemas:
+    ExternalLinksResponseDTO:
+      type: object
+      properties:
+        externalLinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLinkDTO'
+    ExternalLinkDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        clientId:
+          type: string
+        locationId:
+          type: string
+        type:
+          type: string
+        displayInfo:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLinkDisplayInfoDTO'
+    ExternalLinkDisplayInfoDTO:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        title:
+          type: string
+        image:
+          type: string
+        url:
+          type: string
+          format: url

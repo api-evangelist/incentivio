@@ -1,0 +1,192 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Gift Card Client Onboard Controller API
+  version: v0
+servers:
+- url: https://adminapi.incentivio.com/incentivio-admin-api
+  description: Generated server url
+tags:
+- name: gift-card-client-onboard-controller
+paths:
+  /incentivio-giftcard-service/giftcard/location-config/update:
+    post:
+      tags:
+      - gift-card-client-onboard-controller
+      operationId: updateGiftCardLocationConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GiftCardLocationConfigUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /incentivio-giftcard-service/giftcard/client-config/update:
+    post:
+      tags:
+      - gift-card-client-onboard-controller
+      operationId: updateGiftCardClientConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GiftCardClientConfigUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /incentivio-giftcard-service/location/{locationid}/giftcard/location-config:
+    get:
+      tags:
+      - gift-card-client-onboard-controller
+      operationId: getGiftCardLocationConfig
+      parameters:
+      - name: locationid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /incentivio-giftcard-service/giftcard/providers:
+    get:
+      tags:
+      - gift-card-client-onboard-controller
+      operationId: getGiftCardProviders
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+  /incentivio-giftcard-service/giftcard/locations-config:
+    get:
+      tags:
+      - gift-card-client-onboard-controller
+      operationId: getGiftCardLocationsConfig
+      parameters:
+      - name: locationFilter
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1000
+      - name: sortBy
+        in: query
+        required: false
+        schema:
+          type: string
+          default: noConfiguredLocations
+      - name: sortDirection
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ASC
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GiftCardLocationConfig'
+  /incentivio-giftcard-service/client/{clientid}/giftcard/client-config:
+    get:
+      tags:
+      - gift-card-client-onboard-controller
+      operationId: getGiftCardClientConfig
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GiftCardClientConfigResponse'
+components:
+  schemas:
+    GiftCardServiceProvider:
+      type: string
+      enum:
+      - INCENTIVIO_GIFTCARD_SERVICE
+      - WORLDPAY
+      - WORLDPAY_VALUETEC
+      - GIVEX
+      - SQUARE
+      - VALUTEC
+      - E_CARD_SYSTEMS
+    GiftCardLocationConfigUpdateRequest:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationSettings:
+          type: object
+          additionalProperties:
+            type: string
+    GiftCardClientConfigResponse:
+      type: object
+      properties:
+        giftCardProvider:
+          $ref: '#/components/schemas/GiftCardServiceProvider'
+        securityCodeEnabled:
+          type: boolean
+        poolAccountSettings:
+          type: object
+          additionalProperties:
+            type: string
+    GiftCardClientConfigUpdateRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        giftCardProvider:
+          $ref: '#/components/schemas/GiftCardServiceProvider'
+        securityCodeEnabled:
+          type: boolean
+        poolAccountSettings:
+          type: object
+          additionalProperties:
+            type: string
+    GiftCardLocationConfig:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        locationConfig:
+          type: object
+          additionalProperties:
+            type: string

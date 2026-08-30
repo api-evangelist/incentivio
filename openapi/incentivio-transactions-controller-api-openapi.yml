@@ -1,0 +1,382 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Transactions Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: transactions-controller
+paths:
+  /transactions:
+    get:
+      tags:
+      - transactions-controller
+      operationId: findTransactions
+      parameters:
+      - name: merchantid
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: sortby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: txDateTime
+      - name: sortdirection
+        in: query
+        required: false
+        schema:
+          type: string
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindTransactionsResponseDTO'
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        customerId:
+          type: string
+        extCustomerId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    FindTransactionsResponseDTO:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    Total:
+      type: object
+      properties:
+        dicountTotal:
+          type: integer
+          format: int32
+        due:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        itemTotal:
+          type: integer
+          format: int32
+        nonTaxedChargeTotal:
+          type: integer
+          format: int32
+        paid:
+          type: integer
+          format: int32
+        processingFee:
+          type: integer
+          format: int32
+        subTotal:
+          type: integer
+          format: int32
+        tax:
+          type: integer
+          format: int32
+        taxedChargeTotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+    TransactionDTO:
+      type: object
+      properties:
+        appliedDiscounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedDiscount'
+        businessDate:
+          type: string
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        clientId:
+          type: string
+        closedDate:
+          type: string
+          format: date-time
+        customerId:
+          type: string
+        deleted:
+          type: boolean
+        deletedDate:
+          type: string
+          format: date-time
+        diningOption:
+          type: string
+        externalDiningOptionName:
+          type: string
+        externalDiningOptionId:
+          type: string
+        displayNumber:
+          type: string
+        employeeId:
+          type: string
+        employeeName:
+          type: string
+        extCustId:
+          type: string
+        extendedAttribs:
+          type: object
+          additionalProperties:
+            type: string
+        extLoyaltyId:
+          type: string
+        extStoreId:
+          type: string
+        extTxId:
+          type: string
+        fullFilDate:
+          type: string
+          format: date-time
+        id:
+          type: string
+        importBatchId:
+          type: string
+        importedDate:
+          type: string
+          format: date-time
+        laneId:
+          type: string
+        loyaltyId:
+          type: string
+        loyaltyNumber:
+          type: string
+        loyaltyPoints:
+          type: number
+          format: double
+        loyaltyStatus:
+          type: string
+          enum:
+          - ALREADY_PROCESSED
+          - FAILED
+          - IGNORED
+          - NOT_PROCESSED
+          - SUCCESS
+        loyaltyStatusModifiedTime:
+          type: string
+          format: date-time
+        merchantId:
+          type: string
+        modifiedDate:
+          type: string
+          format: date-time
+        openedDate:
+          type: string
+          format: date-time
+        orderType:
+          type: string
+        paymentStatus:
+          type: string
+        posId:
+          type: string
+        posName:
+          type: string
+        refund:
+          $ref: '#/components/schemas/Refund'
+        refundStatus:
+          type: string
+        source:
+          type: string
+        storeId:
+          type: string
+        storeName:
+          type: string
+        total:
+          $ref: '#/components/schemas/Total'
+        transactionType:
+          type: string
+        txCreatedDate:
+          type: string
+          format: date-time
+        txDateTime:
+          type: string
+          format: date-time
+        txModifiedDate:
+          type: string
+          format: date-time
+        txZoneId:
+          type: string
+        voided:
+          type: boolean
+        voidInfo:
+          $ref: '#/components/schemas/VoidInfo'
+        reImport:
+          type: boolean
+    Payment:
+      type: object
+      properties:
+        paymentTxId:
+          type: string
+        externalTxId:
+          type: string
+        paidDate:
+          type: string
+        paymentType:
+          type: string
+          enum:
+          - CARD_NOT_PRESENT
+          - CARD_PRESENT
+          - CASH
+          - THIRD_PARTY
+          - APPLE_PAY
+          - ANDROID_PAY
+          - SAMSUNG_PAY
+          - NO_PAYMENT
+          - GOOGLE_PAY
+          - ONE_TIME_TOKEN
+          - PERMANENT_TOKEN
+          - GIFT_CARD
+          - PAYMENT_SKIPPED
+        cardType:
+          type: string
+        lastFour:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        tipAmount:
+          type: integer
+          format: int32
+        amountTendered:
+          type: integer
+          format: int32
+    Check:
+      type: object
+      properties:
+        checkId:
+          type: string
+        extCheckId:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        amount:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+    Refund:
+      type: object
+      properties:
+        refundAmount:
+          type: integer
+          format: int32
+        refundBusinessDate:
+          type: string
+          format: date
+        refundDate:
+          type: string
+          format: date-time
+        tipRefundAmount:
+          type: integer
+          format: int32
+    VoidInfo:
+      type: object
+      properties:
+        voidBusinessDate:
+          type: string
+          format: date
+        voidDate:
+          type: string
+          format: date-time
+        voidReason:
+          type: string
+    AppliedDiscount:
+      type: object
+      properties:
+        additionalAttribs:
+          type: object
+          additionalProperties:
+            type: string
+        appliedDiscount:
+          type: integer
+          format: int32
+        appliedQuantity:
+          type: integer
+          format: int32
+        discountType:
+          type: string
+        distributedOfferId:
+          type: string
+        extOfferId:
+          type: string
+        incentivioDistributedOfferId:
+          type: string
+        name:
+          type: string
+        offerCode:
+          type: string
+        offerId:
+          type: string
+        voided:
+          type: boolean

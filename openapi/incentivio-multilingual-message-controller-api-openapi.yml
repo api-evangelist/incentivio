@@ -1,0 +1,33 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Multilingual Message Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: multilingual-message-controller
+paths:
+  /appdisplaymessage/{clientid}:
+    get:
+      tags:
+      - multilingual-message-controller
+      operationId: getAppDisplayMessage
+      parameters:
+      - name: clientid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: checksum
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string

@@ -1,0 +1,399 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Order Payment Controller API
+  version: v0
+servers:
+- url: https://mobile.incentivio.com/incentivio-mobile-api
+  description: Generated server url
+tags:
+- name: order-payment-controller
+paths:
+  /orders/{orderid}/preparepayment:
+    post:
+      tags:
+      - order-payment-controller
+      operationId: prepareOrderPayment
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InitOrderResponseDTO'
+  /orders/{orderid}/prepareguestpayment:
+    post:
+      tags:
+      - order-payment-controller
+      operationId: prepareGuestOrderPayment
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InitOrderResponseDTO'
+  /orders/{orderid}/makepayment:
+    post:
+      tags:
+      - order-payment-controller
+      operationId: makeOrderPayment
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: inc-user-language
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: language
+        in: query
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentResponseDTO'
+  /orders/{orderid}/makeguestpayment:
+    post:
+      tags:
+      - order-payment-controller
+      operationId: makeGuestOrderPayment
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: inc-user-language
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: language
+        in: query
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentResponseDTO'
+  /orders/payment/initorder:
+    post:
+      tags:
+      - order-payment-controller
+      operationId: initOrder
+      parameters:
+      - name: CLIENTID
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitOrderRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InitOrderResponseDTO'
+  /orders/{orderid}/paymentstatus:
+    get:
+      tags:
+      - order-payment-controller
+      operationId: checkOrderPaymentStatus
+      parameters:
+      - name: orderid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentResponseDTO'
+components:
+  schemas:
+    InitOrderResponseDTO:
+      type: object
+      properties:
+        otherData:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        paymentConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentConfig'
+    InitOrderRequestDTO:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        cardType:
+          type: string
+        lastFour:
+          type: string
+        locationId:
+          type: string
+        merchantId:
+          type: string
+        orderId:
+          type: string
+        otherData:
+          type: string
+        paymentToken:
+          type: string
+    OrderOptionInfo:
+      type: object
+      properties:
+        optionName:
+          type: string
+        information:
+          type: string
+        optionDescription:
+          type: string
+    PaymentRequestDTO:
+      required:
+      - email
+      - firstName
+      - lastName
+      - phone
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        paymentMode:
+          type: string
+          enum:
+          - PAYMENT_MANDATORY
+          - PAYMENT_OPTIONAL
+          - NO_PAYMENT
+        paymentType:
+          type: string
+          enum:
+          - CARD_NOT_PRESENT
+          - CARD_PRESENT
+          - CASH
+          - THIRD_PARTY
+          - APPLE_PAY
+          - ANDROID_PAY
+          - SAMSUNG_PAY
+          - NO_PAYMENT
+          - GOOGLE_PAY
+          - ONE_TIME_TOKEN
+          - PERMANENT_TOKEN
+          - GIFT_CARD
+          - PAYMENT_SKIPPED
+        paymentToken:
+          type: string
+        cardType:
+          type: string
+        expirationYear:
+          type: integer
+          format: int32
+        expirationMonth:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        deliveryInstructions:
+          type: string
+        orderNote:
+          type: string
+        tableNumber:
+          type: string
+        isOneTimeTransaction:
+          type: boolean
+        paymentMethodType:
+          type: string
+        zipCode:
+          type: string
+        sourceType:
+          type: string
+        orderOptionInfo:
+          $ref: '#/components/schemas/OrderOptionInfo'
+        cardNickname:
+          type: string
+        savePaymentInstrument:
+          type: boolean
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+    PaymentConfig:
+      type: object
+      properties:
+        orderType:
+          type: string
+          enum:
+          - DELIVERY
+          - PICKUP
+          - DINEIN
+        paymentModes:
+          type: array
+          items:
+            type: string
+            enum:
+            - PAYMENT_MANDATORY
+            - PAYMENT_OPTIONAL
+            - NO_PAYMENT
+        placePOSOrdersAsOpen:
+          type: boolean
+        guestCheckoutSupported:
+          type: boolean
+    BillingAddress:
+      type: object
+      properties:
+        name:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+        phoneNumber:
+          type: string
+    PaymentResponseDTO:
+      type: object
+      properties:
+        orderStatus:
+          type: string
+          enum:
+          - ORDER_SUCCESS
+          - ORDER_PENDING
+          - ORDER_REVERSAL_SUCCESS
+          - ORDER_REVERSAL_FAILED
+          - ORDER_REVERSAL_NOT_SUPPORTED
+          - ORDER_PROCESSOR_TIMEOUT
+          - ORDER_PROCESSING_ERROR
+          - PAYMENT_SUCCESS
+          - PAYMENT_3DS2_AUTHENTICATION_PENDING
+          - PAYMENT_SKIPPED
+          - PAYMENT_DECLINED
+          - PAYMENT_PENDING
+          - PAYMENT_PROCESSOR_TIMEOUT
+          - PAYMENT_GATEWAY_ERROR
+          - INSUFFICIENT_FUNDS
+          - INSUFFICIENT_GIFT_CARD_FUNDS
+          - INVALID_PAYMENT_DETAILS
+          - PAYMENT_PROCESSING_ERROR
+          - PAYMENT_REVERSAL_SUCCESS
+          - PAYMENT_REVERSAL_FAILED
+          - CARD_VERFICATION_SUCCESS
+          - CARD_VERFICATION_FAILED
+          - CARD_VERFICATION_ISSUER_DECLINE
+          - CARD_AVS_VERFICATION_FAILED
+          - CARD_VERIFICATION_AVS_ZIP_CODE_MISMATCH
+          - CARD_3DS_VERIFICATION_FAILED
+          - PAYMENT_ISSUER_TIMEOUT
+          - CARD_EXPIRED
+          - PAYMENT_TX_NOT_FOUND
+          - INVALID_INPUTS
+          - CARD_NOT_SUPPORTED
+          - PAYMENT_METHOD_ERROR
+          - REDEMPTION_ERROR
+          - INTERNAL_SERVER_ERROR
+          - CONFIGURATION_ERROR
+          - PRICE_CALCULATION_SUCCESS
+          - PRICE_CALCULATION_FAILED
+          - PRICE_CALCULATION_TIMEOUT
+          - CVV2_MISMATCH
+          - CVV_REJECTED
+          - DUPLICATE_TRANSACTION
+        orderCreatedDate:
+          type: string
+        externalOrderId:
+          type: string
+        orderId:
+          type: string
+        orderNumber:
+          type: string
+        amountTendered:
+          type: integer
+          format: int32
+        orderFulfillTime:
+          type: string
+        trackingUrl:
+          type: string
+        externalStatuses:
+          type: object
+          additionalProperties:
+            type: string
