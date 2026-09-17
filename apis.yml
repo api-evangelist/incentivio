@@ -1137,28 +1137,6 @@ apis:
     url: data-model/incentivio-data-model.yml
   - type: WellKnown
     url: well-known/incentivio-well-known.yml
-- aid: incentivio:incentivio-oauth-2-controller-api
-  name: Incentivio OAUTH 2 Controller API
-  description: The oauth-2-controller API from Incentivio — 1 operation(s) for oauth-2-controller.
-  humanURL: https://incentivio.com/feature/incentivio-connect/
-  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
-  tags:
-  - o-auth-2-controller
-  tags_raw:
-  - oauth-2-controller
-  properties:
-  - type: OpenAPI
-    url: openapi/incentivio-oauth-2-controller-api-openapi.yml
-  - type: Authentication
-    url: authentication/incentivio-authentication.yml
-  - type: Conventions
-    url: conventions/incentivio-conventions.yml
-  - type: ErrorCatalog
-    url: errors/incentivio-error-codes.yml
-  - type: DataModel
-    url: data-model/incentivio-data-model.yml
-  - type: WellKnown
-    url: well-known/incentivio-well-known.yml
 - aid: incentivio:incentivio-offer-distribution-controller-api
   name: Incentivio Offer Distribution Controller API
   description: >-
@@ -1871,6 +1849,26 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/incentivio-web-app-config-controller-api-openapi.yml
+  - type: Authentication
+    url: authentication/incentivio-authentication.yml
+  - type: Conventions
+    url: conventions/incentivio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/incentivio-error-codes.yml
+  - type: DataModel
+    url: data-model/incentivio-data-model.yml
+  - type: WellKnown
+    url: well-known/incentivio-well-known.yml
+- aid: incentivio:incentivio-o-auth-2-controller-api
+  name: Incentivio o auth 2 controller API
+  description: The o auth 2 controller API from Incentivio — 1 operation(s) for o auth 2 controller.
+  humanURL: https://incentivio.com/feature/incentivio-connect/
+  baseURL: https://mobile.incentivio.com/incentivio-mobile-api
+  tags:
+  - o auth 2 controller
+  properties:
+  - type: OpenAPI
+    url: openapi/incentivio-o-auth-2-controller-api-openapi.yml
   - type: Authentication
     url: authentication/incentivio-authentication.yml
   - type: Conventions
