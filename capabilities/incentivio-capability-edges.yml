@@ -1,0 +1,124 @@
+slug: incentivio
+provider: Incentivio
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 11
+edges:
+- tag: loyalty-controller
+  spec_file: incentivio-loyalty-controller-api-openapi.yml
+  capability_id: BC-420.40
+  capability_id_l1: BC-420
+  capability_name: Loyalty & Retention Management
+  confidence: 0.9
+  evidence: GET /loyaltypointssummary findLoyaltyPointsSummary; GET /loyaltyaccounts/expiring-points;
+    schemas ViewLoyaltyAccountResponseDTO, TierDetailsDTO, LoyaltyTransactionDTO
+  reason: Loyalty accounts, point balances, expiry and tier details with transaction history — plainly
+    loyalty programme administration.
+- tag: client-admin-controller
+  spec_file: incentivio-client-admin-controller-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: createAdminUser / updateAdminUser / deleteAdminUser, adminUserLogin, requestPasswordReset,
+    verifyAdminUserAccount; schemas RoleDTO, PermissionDTO, ClientAuthorization, LocationAuthorization
+  reason: Administrator account lifecycle, authentication, password reset and role/permission authorisation
+    — identity and access management, not a restaurant business capability.
+- tag: segment-controller
+  spec_file: incentivio-segment-controller-api-openapi.yml
+  capability_id: BC-420.20
+  capability_id_l1: BC-420
+  capability_name: Customer Segmentation Management
+  confidence: 0.85
+  evidence: createSegment, findSegmentsByCustomer, schemas SegmentRequestDTO, RuleDescriptor, FindCustomerSegmentsResponseDTO
+  reason: Full lifecycle of rule-based guest segments plus resolution of which segments a given customer
+    belongs to — this is customer segmentation management for marketing targeting.
+- tag: loyalty-report-controller
+  spec_file: incentivio-loyalty-report-controller-api-openapi.yml
+  capability_id: BC-420.40
+  capability_id_l1: BC-420
+  capability_name: Loyalty & Retention Management
+  confidence: 0.8
+  evidence: GET /incentivio-reports/loyaltyreport/offers/performance/summary getLoyaltyReportOfferPerformanceSummary;
+    schemas LoyaltyReportBrandOverallSummaryDTO, OfferTypeEnum
+  reason: Performance and trend reporting on loyalty offers, locations and franchise loyalty sales — measurement
+    of the loyalty programme; some ambiguity between loyalty management and management reporting, so 0.8.
+- tag: ml-controller
+  spec_file: incentivio-ml-controller-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /ml/portal/client/model/train  startTrainingProcess; POST /ml/portal/client/rules  createRecommendationRules;
+    schemas ModelTrainingRequest, StartTrainingProcessResponse
+  reason: Operations train ML models and manage recommendation rules/configuration — AI/ML model lifecycle
+    management. Some routing endpoints are pure proxy, hence 0.8 not 0.95.
+- tag: role-module-permission-controller
+  spec_file: incentivio-role-module-permission-controller-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: createRole, updateRole, deleteRole, findPermissions with schemas RoleDTO, PermissionDTO, ModuleDTO
+  reason: CRUD over roles and module permissions for client admin users is role-based access control administration,
+    i.e. identity and access management. Not a restaurant business capability despite the vendor's domain.
+- tag: survey-answer-controller
+  spec_file: incentivio-survey-answer-controller-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.8
+  evidence: PUT /surveys/{surveyid}/submitanswers submitAnswers; SubmitAnswerRequestDTO
+  reason: Captures guest survey responses, which is voice-of-customer/survey feedback collection. Complements
+    the survey report in the reporting API.
+- tag: customer-segment-tag-controller
+  spec_file: incentivio-customer-segment-tag-controller-api-openapi.yml
+  capability_id: BC-420.20
+  capability_id_l1: BC-420
+  capability_name: Customer Segmentation Management
+  confidence: 0.78
+  evidence: GET /incentivio-auto-tagger-service/customer-segments/{customerId} findSegmentsByCustomer;
+    schemas SegmentLightResponseDTO, FindCustomerSegmentsResponseDTO, RuleDescriptor
+  reason: Resolves the marketing segments a given customer belongs to, with rule descriptors — customer
+    segmentation management.
+- tag: customer-tag-and-rule-controller
+  spec_file: incentivio-customer-tag-and-rule-controller-api-openapi.yml
+  capability_id: BC-420.20
+  capability_id_l1: BC-420
+  capability_name: Customer Segmentation Management
+  confidence: 0.7
+  evidence: createCustomerTag, findPaginatedTagsAndRulesByClientId, findCustomerTagTypesByClientId; schemas
+    TagAndRuleDTO, CustomerTagRequestDTO, TagType
+  reason: Definition and maintenance of customer tags and the rules that assign them — the machinery of
+    customer segmentation/personas; some overlap with customer data management keeps confidence at 0.7.
+- tag: guest-journey-controller
+  spec_file: incentivio-guest-journey-controller-api-openapi.yml
+  capability_id: BC-420.30
+  capability_id_l1: BC-420
+  capability_name: Customer Lifecycle Management
+  confidence: 0.7
+  evidence: GET /incentivio-guest-journey-service/user/{userId}/journey viewGuestJourney; schemas GuestSegmentType,
+    GuestSegmentRecoveryInfo, GuestJourneyStatus, GuestRevenueSummary
+  reason: Operations expose guest journey stage, segment membership, recovery/lapsed information and guest
+    revenue/count summaries — customer lifecycle (acquisition, growth, retention, win-back) monitoring
+    rather than generic analytics plumbing.
+- tag: order-offers-controller
+  spec_file: incentivio-order-offers-controller-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.7
+  evidence: POST /orders/{orderid}/applydiscount applyDiscount, POST /orders/{orderid}/removediscount
+    removeDiscount, POST /orderoffers/applyofferonnextvisit; schemas OrderOfferDTO, OrderDiscount, QualifyingItem
+  reason: Operations evaluate eligible offers and apply/remove discounts on an order, including next-visit
+    offers — promotional and discount administration. Overlaps somewhat with loyalty programme mechanics,
+    hence 0.70 rather than higher.
