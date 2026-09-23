@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Incentivio Preset Order Controller API
   version: v0
-  description: 'Operations tagged preset-order-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged preset-order-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.json, incentivio-mobile-api-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://adminapi.incentivio.com/incentivio-admin-api
   description: Generated server url
@@ -34,6 +34,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GetPresetOrderConfigResponseDTO'
+      summary: Get preset order config
+      x-summary-source: derived
     put:
       tags:
       - preset-order-controller
@@ -62,6 +64,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GetPresetOrderConfigResponseDTO'
+      summary: Update preset order config
+      x-summary-source: derived
     delete:
       tags:
       - preset-order-controller
@@ -80,6 +84,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete preset order config
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -124,6 +130,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ListPresetOrderResponseWithPagingForAdminDTO'
+      summary: List preset order config
+      x-summary-source: derived
     post:
       tags:
       - preset-order-controller
@@ -147,6 +155,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GetPresetOrderConfigResponseDTO'
+      summary: Create preset order config
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -183,16 +193,204 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PresetOrderResponseDTO'
+      summary: Get preset order
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
 components:
   schemas:
-    OrderType:
+    ChargeType:
       type: string
       enum:
-      - DELIVERY
-      - PICKUP
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    Tax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        extTaxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        applicableEntity:
+          $ref: '#/components/schemas/OrderEntity'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeRule'
+    UpdatePresetOrderConfigRequestDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        locationId:
+          type: string
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderConfigDisplayInfo'
+          uniqueItems: true
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        restrictionType:
+          $ref: '#/components/schemas/OrderRestrictionType'
+        dateSelectionMode:
+          $ref: '#/components/schemas/DateSelectionMode'
+        timeSelectionMode:
+          $ref: '#/components/schemas/TimeSelectionMode'
+        itemValidationMode:
+          $ref: '#/components/schemas/ItemValidationMode'
+        inheritChargesFromLocation:
+          type: boolean
+        displayPresetValueConfirmationPage:
+          type: boolean
+        deliveryInfo:
+          $ref: '#/components/schemas/DeliveryInfo'
+        requestedFulfillDate:
+          type: string
+          format: date
+        requestedFulfillTime:
+          type: string
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOrderItemReqDTO'
+        orderInstructions:
+          type: string
+      required:
+      - code
+    TimeSelectionMode:
+      type: string
+      enum:
+      - ASAP
+      - FIXED
+      - USER_SELECT
+    DateSelectionMode:
+      type: string
+      enum:
+      - FIXED
+      - TODAY
+      - USER_SELECT
+    OrderConfigDisplayInfo:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        description:
+          type: string
+        notEnoughPrepTimeErrorMessage:
+          type: string
+    OrderEntity:
+      type: string
+      enum:
+      - ORDER
+      - ITEM
+    CreatePresetOrderConfigRequestDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          minLength: 1
+        locationId:
+          type: string
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderConfigDisplayInfo'
+          uniqueItems: true
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        restrictionType:
+          $ref: '#/components/schemas/OrderRestrictionType'
+        dateSelectionMode:
+          $ref: '#/components/schemas/DateSelectionMode'
+        timeSelectionMode:
+          $ref: '#/components/schemas/TimeSelectionMode'
+        itemValidationMode:
+          $ref: '#/components/schemas/ItemValidationMode'
+        inheritChargesFromLocation:
+          type: boolean
+        displayPresetValueConfirmationPage:
+          type: boolean
+        deliveryInfo:
+          $ref: '#/components/schemas/DeliveryInfo'
+        requestedFulfillDate:
+          type: string
+          format: date
+        requestedFulfillTime:
+          type: string
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOrderItemReqDTO'
+        orderInstructions:
+          type: string
+      required:
+      - code
+    ListPresetOrderResponseWithPagingForAdminDTO:
+      type: object
+      properties:
+        presetOrderConfigResponseDTOs:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetPresetOrderConfigResponseDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    OrderRestrictionType:
+      type: string
+      enum:
+      - RESTRICTED_ORDER
+      - REGULAR_ORDER
+    AddOrderItemReqDTO:
+      type: object
+      properties:
+        itemId:
+          type: string
+          minLength: 1
+        quantity:
+          type: integer
+          format: int32
+        note:
+          type: string
+        groupId:
+          type: string
+        discountIds:
+          type: array
+          items:
+            type: string
+        externalId:
+          type: string
+        itemInstructions:
+          type: string
+        catalogId:
+          type: string
+      required:
+      - groupId
+      - itemId
+      - quantity
     Charge:
       type: object
       properties:
@@ -227,6 +425,57 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tax'
+    Operator:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - LTEQ
+      - GT
+      - GTE
+    ChargeRule:
+      type: object
+      properties:
+        amount:
+          type: integer
+          format: int32
+        operator:
+          $ref: '#/components/schemas/Operator'
+    DeliveryInfo:
+      type: object
+      properties:
+        deliveryAddress:
+          $ref: '#/components/schemas/Address'
+        deliveryInstructions:
+          type: string
+    OrderType:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
     PagingDTO:
       type: object
       properties:
@@ -289,306 +538,12 @@ components:
             $ref: '#/components/schemas/AddOrderItemReqDTO'
         orderInstructions:
           type: string
-    ChargeType:
-      type: string
-      enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
-    ChargeRule:
-      type: object
-      properties:
-        amount:
-          type: integer
-          format: int32
-        operator:
-          $ref: '#/components/schemas/Operator'
-    OrderRestrictionType:
-      type: string
-      enum:
-      - RESTRICTED_ORDER
-      - REGULAR_ORDER
-    Tax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        applicableEntity:
-          $ref: '#/components/schemas/OrderEntity'
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeRule'
-    Operator:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - LTEQ
-      - GT
-      - GTE
-    Address:
-      type: object
-      properties:
-        street1:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        lat:
-          type: number
-          format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
-          type: string
-    ListPresetOrderResponseWithPagingForAdminDTO:
-      type: object
-      properties:
-        presetOrderConfigResponseDTOs:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetPresetOrderConfigResponseDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    CreatePresetOrderConfigRequestDTO:
-      type: object
-      properties:
-        code:
-          type: string
-          minLength: 1
-        locationId:
-          type: string
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderConfigDisplayInfo'
-          uniqueItems: true
-        orderType:
-          $ref: '#/components/schemas/OrderType'
-        restrictionType:
-          $ref: '#/components/schemas/OrderRestrictionType'
-        dateSelectionMode:
-          $ref: '#/components/schemas/DateSelectionMode'
-        timeSelectionMode:
-          $ref: '#/components/schemas/TimeSelectionMode'
-        itemValidationMode:
-          $ref: '#/components/schemas/ItemValidationMode'
-        inheritChargesFromLocation:
-          type: boolean
-        displayPresetValueConfirmationPage:
-          type: boolean
-        deliveryInfo:
-          $ref: '#/components/schemas/DeliveryInfo'
-        requestedFulfillDate:
-          type: string
-          format: date
-        requestedFulfillTime:
-          type: string
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/Charge'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddOrderItemReqDTO'
-        orderInstructions:
-          type: string
-      required:
-      - code
     ItemValidationMode:
       type: string
       enum:
       - NONE
       - BASE_ITEM
       - BASE_WITH_MODIFIERS
-    OrderConfigDisplayInfo:
-      type: object
-      properties:
-        languageCode:
-          type: string
-        description:
-          type: string
-        notEnoughPrepTimeErrorMessage:
-          type: string
-    DateSelectionMode:
-      type: string
-      enum:
-      - FIXED
-      - TODAY
-      - USER_SELECT
-    TimeSelectionMode:
-      type: string
-      enum:
-      - ASAP
-      - FIXED
-      - USER_SELECT
-    DeliveryInfo:
-      type: object
-      properties:
-        deliveryAddress:
-          $ref: '#/components/schemas/Address'
-        deliveryInstructions:
-          type: string
-    UpdatePresetOrderConfigRequestDTO:
-      type: object
-      properties:
-        code:
-          type: string
-        locationId:
-          type: string
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderConfigDisplayInfo'
-          uniqueItems: true
-        orderType:
-          $ref: '#/components/schemas/OrderType'
-        restrictionType:
-          $ref: '#/components/schemas/OrderRestrictionType'
-        dateSelectionMode:
-          $ref: '#/components/schemas/DateSelectionMode'
-        timeSelectionMode:
-          $ref: '#/components/schemas/TimeSelectionMode'
-        itemValidationMode:
-          $ref: '#/components/schemas/ItemValidationMode'
-        inheritChargesFromLocation:
-          type: boolean
-        displayPresetValueConfirmationPage:
-          type: boolean
-        deliveryInfo:
-          $ref: '#/components/schemas/DeliveryInfo'
-        requestedFulfillDate:
-          type: string
-          format: date
-        requestedFulfillTime:
-          type: string
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/Charge'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddOrderItemReqDTO'
-        orderInstructions:
-          type: string
-      required:
-      - code
-    OrderEntity:
-      type: string
-      enum:
-      - ORDER
-      - ITEM
-    AddOrderItemReqDTO:
-      type: object
-      properties:
-        itemId:
-          type: string
-          minLength: 1
-        quantity:
-          type: integer
-          format: int32
-        note:
-          type: string
-        groupId:
-          type: string
-        discountIds:
-          type: array
-          items:
-            type: string
-        externalId:
-          type: string
-        itemInstructions:
-          type: string
-        catalogId:
-          type: string
-      required:
-      - groupId
-      - itemId
-      - quantity
-    Address_2:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-        aptSuite:
-          type: string
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
-    Charge_2:
-      type: object
-      properties:
-        chargeId:
-          type: string
-        chargeDescription:
-          type: string
-        chargeType:
-          type: string
-          enum:
-          - OPEN
-          - AMOUNT
-          - PERCENTAGE
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
     PresetOrderResponseDTO:
       type: object
       properties:
@@ -657,6 +612,23 @@ components:
             $ref: '#/components/schemas/AddOrderItemReqDTO_2'
         orderInstructions:
           type: string
+    Address_2:
+      type: object
+      properties:
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string
     AddOrderItemReqDTO_2:
       required:
       - itemId
@@ -686,6 +658,46 @@ components:
         quantity:
           type: integer
           format: int32
+    Charge_2:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        chargeDescription:
+          type: string
+        chargeType:
+          type: string
+          enum:
+          - OPEN
+          - AMOUNT
+          - PERCENTAGE
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
 x-refined-from:
-- incentivio-admin-api-openapi.yml
-- incentivio-mobile-api-openapi.yml
+- incentivio-admin-api-openapi.json
+- incentivio-mobile-api-openapi.json

@@ -32,6 +32,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PreparePaymentResponseDTO'
+      summary: Purchase and email gift card prepare payment
+      x-summary-source: derived
   /giftcard/add-value/payment/prepare:
     post:
       tags:
@@ -50,6 +52,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PreparePaymentResponseDTO'
+      summary: Add value to gift card prepare payment
+      x-summary-source: derived
   /ecard/purchase/payment/prepare:
     post:
       tags:
@@ -68,6 +72,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PreparePaymentResponseDTO'
+      summary: Purchase ECard prepare payment
+      x-summary-source: derived
   /giftcard/transaction/{incentiviotxid}/payment/status:
     get:
       tags:
@@ -86,12 +92,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GiftCardTransactionResponseDTO'
+      summary: Check tx payment status
+      x-summary-source: derived
 components:
   schemas:
     PreparePaymentResponseDTO:
       type: object
       properties:
         attributes:
+          type: object
+          additionalProperties:
+            type: string
+    GiftCardTransactionResponseDTO:
+      type: object
+      properties:
+        transactionType:
+          type: string
+        cardIdentifier:
+          type: string
+        securityCode:
+          type: string
+        cardAccountBalance:
+          type: number
+          format: double
+        transactionValue:
+          type: number
+          format: double
+        cardStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+        paymentStatus:
+          type: string
+        transactionStatus:
+          type: string
+        rootErrors:
+          type: object
+          additionalProperties:
+            type: string
+        extendedAttributes:
           type: object
           additionalProperties:
             type: string
@@ -163,62 +203,6 @@ components:
           type: string
         oneTimeTransaction:
           type: boolean
-    GiftCardTransactionResponseDTO:
-      type: object
-      properties:
-        transactionType:
-          type: string
-        cardIdentifier:
-          type: string
-        securityCode:
-          type: string
-        cardAccountBalance:
-          type: number
-          format: double
-        transactionValue:
-          type: number
-          format: double
-        cardStatus:
-          type: string
-          enum:
-          - ACTIVE
-          - INACTIVE
-        paymentStatus:
-          type: string
-        transactionStatus:
-          type: string
-        rootErrors:
-          type: object
-          additionalProperties:
-            type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    GiftCardSender:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        customerId:
-          type: string
-        adminId:
-          type: string
-    GiftCardRecipient:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        message:
-          type: string
     AddValueRequestDTO:
       required:
       - amount
@@ -284,6 +268,21 @@ components:
           format: int32
         oneTimeTransaction:
           type: boolean
+    GiftCardSender:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        customerId:
+          type: string
+        adminId:
+          type: string
     PurchaseECardRequestDTO:
       required:
       - amount
@@ -346,3 +345,12 @@ components:
           format: int32
         oneTimeTransaction:
           type: boolean
+    GiftCardRecipient:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        message:
+          type: string

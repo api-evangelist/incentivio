@@ -38,6 +38,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImHereResponseDTO'
+      summary: Mark an order im here
+      x-summary-source: derived
   /orders/{orderId}/markimhere:
     post:
       tags:
@@ -62,15 +64,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImHereResponseDTO'
+      summary: Mark an order im here 1
+      x-summary-source: derived
 components:
   schemas:
-    ImHereRequestDTO:
-      type: object
-      properties:
-        orderId:
-          type: string
     ImHereResponseDTO:
       type: object
       properties:
         message:
+          type: string
+    ImHereRequestDTO:
+      type: object
+      properties:
+        orderId:
           type: string

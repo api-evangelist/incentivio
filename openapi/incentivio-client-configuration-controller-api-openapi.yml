@@ -20,6 +20,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/EmailSettingBasicInfoResponseDTO'
+      summary: Get email config
+      x-summary-source: derived
     put:
       tags:
       - client-configuration-controller
@@ -37,6 +39,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/EmailSettingBasicInfoResponseDTO'
+      summary: Update email config
+      x-summary-source: derived
   /incentivio-client-domain/clients/email-config/verify-domain:
     post:
       tags:
@@ -55,6 +59,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/DomainValidateResDto'
+      summary: Verify domain
+      x-summary-source: derived
   /incentivio-client-domain/clients/email-config/client-domain:
     post:
       tags:
@@ -73,15 +79,10 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/EmailSettingBasicInfoResponseDTO'
+      summary: Create email domain
+      x-summary-source: derived
 components:
   schemas:
-    DomainValidateDnsResDto:
-      type: object
-      properties:
-        valid:
-          type: string
-        reason:
-          type: string
     DomainValidateResDto:
       type: object
       properties:
@@ -93,6 +94,58 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/DomainValidateDnsResDto'
+    EmailSettingsCreateRequestDTO:
+      type: object
+      properties:
+        emailHandler:
+          $ref: '#/components/schemas/EmailHandler'
+        externalDomainId:
+          type: string
+        fromEmail:
+          type: string
+        fromEmailedName:
+          type: string
+        replyTo:
+          type: string
+        replyToName:
+          type: string
+      required:
+      - emailHandler
+    DomainValidateDnsResDto:
+      type: object
+      properties:
+        valid:
+          type: string
+        reason:
+          type: string
+    EmailHandler:
+      type: string
+      enum:
+      - AWS
+      - SENDGRID
+    DomainBasicInfoResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        subdomain:
+          type: string
+        domain:
+          type: string
+        username:
+          type: string
+        valid:
+          type: boolean
+        clientSpecific:
+          type: boolean
+        dns:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DomainAuthenticateDnsResDto'
+        active:
+          type: boolean
     DomainAuthenticateDnsResDto:
       type: object
       properties:
@@ -104,11 +157,6 @@ components:
           type: string
         data:
           type: string
-    EmailHandler:
-      type: string
-      enum:
-      - AWS
-      - SENDGRID
     EmailSettingBasicInfoResponseDTO:
       type: object
       properties:
@@ -138,43 +186,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DomainBasicInfoResponseDTO'
-    EmailSettingsCreateRequestDTO:
-      type: object
-      properties:
-        emailHandler:
-          $ref: '#/components/schemas/EmailHandler'
-        externalDomainId:
-          type: string
-        fromEmail:
-          type: string
-        fromEmailedName:
-          type: string
-        replyTo:
-          type: string
-        replyToName:
-          type: string
-      required:
-      - emailHandler
-    DomainBasicInfoResponseDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        externalId:
-          type: string
-        subdomain:
-          type: string
-        domain:
-          type: string
-        username:
-          type: string
-        valid:
-          type: boolean
-        clientSpecific:
-          type: boolean
-        dns:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DomainAuthenticateDnsResDto'
-        active:
-          type: boolean

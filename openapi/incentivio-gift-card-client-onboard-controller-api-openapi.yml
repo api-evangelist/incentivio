@@ -22,6 +22,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update gift card location config
+      x-summary-source: derived
   /incentivio-giftcard-service/giftcard/client-config/update:
     post:
       tags:
@@ -36,6 +38,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update gift card client config
+      x-summary-source: derived
   /incentivio-giftcard-service/location/{locationid}/giftcard/location-config:
     get:
       tags:
@@ -56,6 +60,8 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
+      summary: Get gift card location config
+      x-summary-source: derived
   /incentivio-giftcard-service/giftcard/providers:
     get:
       tags:
@@ -70,6 +76,8 @@ paths:
                 type: array
                 items:
                   type: string
+      summary: Get gift card providers
+      x-summary-source: derived
   /incentivio-giftcard-service/giftcard/locations-config:
     get:
       tags:
@@ -116,6 +124,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GiftCardLocationConfig'
+      summary: Get gift card locations config
+      x-summary-source: derived
   /incentivio-giftcard-service/client/{clientid}/giftcard/client-config:
     get:
       tags:
@@ -134,24 +144,20 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GiftCardClientConfigResponse'
+      summary: Get gift card client config
+      x-summary-source: derived
 components:
   schemas:
-    GiftCardServiceProvider:
-      type: string
-      enum:
-      - INCENTIVIO_GIFTCARD_SERVICE
-      - WORLDPAY
-      - WORLDPAY_VALUETEC
-      - GIVEX
-      - SQUARE
-      - VALUTEC
-      - E_CARD_SYSTEMS
-    GiftCardLocationConfigUpdateRequest:
+    GiftCardClientConfigUpdateRequest:
       type: object
       properties:
-        locationId:
+        clientId:
           type: string
-        locationSettings:
+        giftCardProvider:
+          $ref: '#/components/schemas/GiftCardServiceProvider'
+        securityCodeEnabled:
+          type: boolean
+        poolAccountSettings:
           type: object
           additionalProperties:
             type: string
@@ -166,19 +172,25 @@ components:
           type: object
           additionalProperties:
             type: string
-    GiftCardClientConfigUpdateRequest:
+    GiftCardLocationConfigUpdateRequest:
       type: object
       properties:
-        clientId:
+        locationId:
           type: string
-        giftCardProvider:
-          $ref: '#/components/schemas/GiftCardServiceProvider'
-        securityCodeEnabled:
-          type: boolean
-        poolAccountSettings:
+        locationSettings:
           type: object
           additionalProperties:
             type: string
+    GiftCardServiceProvider:
+      type: string
+      enum:
+      - INCENTIVIO_GIFTCARD_SERVICE
+      - WORLDPAY
+      - WORLDPAY_VALUETEC
+      - GIVEX
+      - SQUARE
+      - VALUTEC
+      - E_CARD_SYSTEMS
     GiftCardLocationConfig:
       type: object
       properties:

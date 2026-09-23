@@ -55,6 +55,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TopRecommendedItemsDTO'
+      summary: Get top recommended items report
+      x-summary-source: derived
   /incentivio-reports/clients/{clientId}/recommendation-dashboard/summary:
     get:
       tags:
@@ -73,6 +75,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/RecommendationSummaryDTO'
+      summary: Get recommendation summary
+      x-summary-source: derived
   /incentivio-reports/clients/{clientId}/recommendation-dashboard/average-basket-value:
     get:
       tags:
@@ -120,6 +124,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RecommendedAverageBasketValueDTO'
+      summary: Get average basket value report
+      x-summary-source: derived
   /incentivio-ordering-service/adminitem/image:
     get:
       tags:
@@ -148,23 +154,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TopRecommendedItemsDTO'
+      summary: Get item images by display titles
+      x-summary-source: derived
 components:
   schemas:
-    RecommendedAverageBasketValueDTO:
-      type: object
-      properties:
-        date:
-          type: integer
-          format: int64
-        txWithNoRecommendationsPresented:
-          type: number
-          format: float
-        txWithRecommendationsPurchased:
-          type: number
-          format: float
-        txWithRecommendationsPresentedButNotPurchased:
-          type: number
-          format: float
     RecommendationSummaryDTO:
       type: object
       properties:
@@ -211,3 +204,18 @@ components:
           format: float
         imageUrl:
           type: string
+    RecommendedAverageBasketValueDTO:
+      type: object
+      properties:
+        date:
+          type: integer
+          format: int64
+        txWithNoRecommendationsPresented:
+          type: number
+          format: float
+        txWithRecommendationsPurchased:
+          type: number
+          format: float
+        txWithRecommendationsPresentedButNotPurchased:
+          type: number
+          format: float

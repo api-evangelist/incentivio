@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Incentivio Dynamic Env Controller API
   version: v0
-  description: 'Operations tagged dynamic-env-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged dynamic-env-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.json, incentivio-mobile-api-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://adminapi.incentivio.com/incentivio-admin-api
   description: Generated server url
@@ -25,6 +25,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/DynamicEnvDTO'
+      summary: Get dynamic env list
+      x-summary-source: derived
     post:
       tags:
       - dynamic-env-controller
@@ -42,6 +44,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/DynamicEnvDTO'
+      summary: Save dynamic env
+      x-summary-source: derived
     delete:
       tags:
       - dynamic-env-controller
@@ -55,6 +59,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete dynamic env
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -70,5 +76,5 @@ components:
         environmentDescription:
           type: string
 x-refined-from:
-- incentivio-admin-api-openapi.yml
-- incentivio-mobile-api-openapi.yml
+- incentivio-admin-api-openapi.json
+- incentivio-mobile-api-openapi.json

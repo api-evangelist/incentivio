@@ -20,6 +20,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/MenuIntelligenceLocation'
+      summary: Get menu intelligence locations
+      x-summary-source: derived
   /incentivio-reports/menuintelligence/itemMetrics:
     get:
       tags:
@@ -79,6 +81,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/MenuIntelligenceItemMetricsResponseDTO'
+      summary: Get menu intelligence item metrics
+      x-summary-source: derived
   /incentivio-reports/menuintelligence/itemMetrics/export:
     get:
       tags:
@@ -126,6 +130,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Get menu intelligence item metrics CSV string
+      x-summary-source: derived
   /incentivio-reports/menuintelligence/groups:
     get:
       tags:
@@ -138,29 +144,10 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/MenuIntelligenceGroup'
+      summary: Get menu intelligence groups
+      x-summary-source: derived
 components:
   schemas:
-    DoubleMetricDetail:
-      type: object
-      properties:
-        all:
-          type: number
-          format: double
-        good:
-          type: number
-          format: double
-        bad:
-          type: number
-          format: double
-    MenuIntelligenceItemMetricsResponseDTO:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/MenuIntelligenceItemGeneralMetrics'
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
     MenuIntelligenceGroup:
       type: object
       properties:
@@ -179,6 +166,29 @@ components:
       required:
       - createdDate
       - groupDetails
+    MenuIntelligenceLocation:
+      type: object
+      properties:
+        clientId:
+          type: string
+        jobId:
+          type: integer
+          format: int32
+        createdDate:
+          type: string
+          format: date-time
+        locationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetail'
+      required:
+      - createdDate
+      - locationDetails
+    GroupDetail:
+      type: object
+      properties:
+        groupName:
+          type: string
     IntegerMetricDetail:
       type: object
       properties:
@@ -191,21 +201,6 @@ components:
         bad:
           type: integer
           format: int32
-    ResultsPagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
     LocationDetail:
       type: object
       properties:
@@ -213,6 +208,18 @@ components:
           type: string
         locationName:
           type: string
+    DoubleMetricDetail:
+      type: object
+      properties:
+        all:
+          type: number
+          format: double
+        good:
+          type: number
+          format: double
+        bad:
+          type: number
+          format: double
     MenuIntelligenceItemGeneralMetrics:
       type: object
       properties:
@@ -277,26 +284,27 @@ components:
       - itemName
       - itemPrice
       - itemScore
-    GroupDetail:
+    ResultsPagingDTO:
       type: object
       properties:
-        groupName:
-          type: string
-    MenuIntelligenceLocation:
-      type: object
-      properties:
-        clientId:
-          type: string
-        jobId:
+        total:
+          type: integer
+          format: int64
+        count:
           type: integer
           format: int32
-        createdDate:
-          type: string
-          format: date-time
-        locationDetails:
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    MenuIntelligenceItemMetricsResponseDTO:
+      type: object
+      properties:
+        content:
           type: array
           items:
-            $ref: '#/components/schemas/LocationDetail'
-      required:
-      - createdDate
-      - locationDetails
+            $ref: '#/components/schemas/MenuIntelligenceItemGeneralMetrics'
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'

@@ -43,107 +43,10 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindCustomerSegmentsResponseDTO'
+      summary: Find segments by customer
+      x-summary-source: derived
 components:
   schemas:
-    SegmentLightResponseDTO:
-      type: object
-      properties:
-        segmentId:
-          type: string
-        segmentName:
-          type: string
-        segmentDescription:
-          type: string
-        segmentIcon:
-          type: string
-        segmentRules:
-          $ref: '#/components/schemas/RuleDescriptor'
-        deletedStatus:
-          type: boolean
-    SubCategoryEnum:
-      type: string
-      enum:
-      - LIFETIME
-      - LAST_NO_OF_DAYS
-      - NO_OF_ORDERS
-    RelationalOperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    FindCustomerSegmentsResponseDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        customerId:
-          type: string
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentLightResponseDTO'
-    ProductDTO:
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        externalId:
-          type: string
-        displayInfoTitlesList:
-          type: array
-          items:
-            type: string
-    OperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    RuleTypeEnum:
-      type: string
-      enum:
-      - EXPRESSION
-      - LOGIC
-    DaysOfWeekEnum:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
-    ResultsPagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
     RuleDescriptor:
       type: object
       properties:
@@ -169,6 +72,74 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RuleDescriptor'
+    SubCategoryEnum:
+      type: string
+      enum:
+      - LIFETIME
+      - LAST_NO_OF_DAYS
+      - NO_OF_ORDERS
+    DaysOfWeekEnum:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    LogicTypeEnum:
+      type: string
+      enum:
+      - AND
+      - OR
+      - NOT
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    RelationalOperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    RuleTypeEnum:
+      type: string
+      enum:
+      - EXPRESSION
+      - LOGIC
+    SegmentLightResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentIcon:
+          type: string
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor'
+        deletedStatus:
+          type: boolean
     ExpressionValueNew:
       type: object
       properties:
@@ -204,9 +175,40 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DaysOfWeekEnum'
-    LogicTypeEnum:
+    ProductDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        externalId:
+          type: string
+        displayInfoTitlesList:
+          type: array
+          items:
+            type: string
+    FindCustomerSegmentsResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        customerId:
+          type: string
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentLightResponseDTO'
+    OperatorEnum:
       type: string
       enum:
-      - AND
-      - OR
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
       - NOT
+      - WITHIN
+      - NOTEXISTS

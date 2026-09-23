@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Incentivio File Controller API
   version: v0
-  description: 'Operations tagged file-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged file-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.json, incentivio-mobile-api-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://adminapi.incentivio.com/incentivio-admin-api
   description: Generated server url
@@ -34,6 +34,8 @@ paths:
             application/json:
               schema:
                 type: string
+      summary: Upload file
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -61,6 +63,8 @@ paths:
               schema:
                 type: string
                 format: byte
+      summary: Retrieve file
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -83,6 +87,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete file
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -121,6 +127,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/MobileFileUploadResponseDTO'
+      summary: Upload file
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -136,5 +144,5 @@ components:
         downloadUrl:
           type: string
 x-refined-from:
-- incentivio-admin-api-openapi.yml
-- incentivio-mobile-api-openapi.yml
+- incentivio-admin-api-openapi.json
+- incentivio-mobile-api-openapi.json

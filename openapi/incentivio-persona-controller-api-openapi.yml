@@ -38,14 +38,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GraphPoint'
+      summary: Persona data source
+      x-summary-source: derived
 components:
   schemas:
-    QuantileType:
-      type: string
-      enum:
-      - DAYS_SINCE_LAST_PURCHASE
-      - AVERAGE_BASKET_VALUE
-      - PURCHASES_PER_MONTH
     GraphPoint:
       type: object
       properties:
@@ -58,3 +54,9 @@ components:
         value:
           type: number
           format: double
+    QuantileType:
+      type: string
+      enum:
+      - DAYS_SINCE_LAST_PURCHASE
+      - AVERAGE_BASKET_VALUE
+      - PURCHASES_PER_MONTH

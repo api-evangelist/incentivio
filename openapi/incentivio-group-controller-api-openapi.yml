@@ -77,6 +77,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ListGroupResponseWithPagingForAdminDTO'
+      summary: List groups by catalog id
+      x-summary-source: derived
     put:
       tags:
       - group-controller
@@ -94,6 +96,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CreateGroupResponseDTO'
+      summary: Add or update group
+      x-summary-source: derived
     patch:
       tags:
       - group-controller
@@ -113,6 +117,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Patch groups
+      x-summary-source: derived
   /incentivio-ordering-service/groups/list:
     post:
       tags:
@@ -131,6 +137,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ListGroupResponseWithPagingForAdminDTO'
+      summary: List groups
+      x-summary-source: derived
   /incentivio-ordering-service/groups/delete:
     post:
       tags:
@@ -147,6 +155,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete groups
+      x-summary-source: derived
   /incentivio-ordering-service/admingroups/{groupid}:
     get:
       tags:
@@ -175,6 +185,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewGroupAdminDTO'
+      summary: View group by id
+      x-summary-source: derived
   /incentivio-ordering-service/admingroups/downloadcsv:
     get:
       tags:
@@ -187,6 +199,8 @@ paths:
             text/plain:
               schema:
                 type: string
+      summary: Download groups CSV
+      x-summary-source: derived
   /incentivio-ordering-service/admingroups/by-displayinfo-title:
     get:
       tags:
@@ -229,6 +243,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindGroupsDisplayInfoResponse'
+      summary: Get group by display info title for admin
+      x-summary-source: derived
   /incentivio-ordering-service/groups/{groupid}:
     delete:
       tags:
@@ -243,66 +259,26 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete group
+      x-summary-source: derived
 components:
   schemas:
-    DiscountValueType:
+    GroupType:
       type: string
       enum:
-      - AMOUNT
-      - PERCENTAGE
-    OrderType:
-      type: string
-      enum:
-      - DELIVERY
-      - PICKUP
-    GroupDTO:
+      - OPTION_GROUP
+      - CATALOG_GROUP
+    OptionGroupSettingDTO:
       type: object
       properties:
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        clientId:
+        optionGroupId:
           type: string
-          deprecated: true
-        createdDate:
-          type: string
-          deprecated: true
-        defaultSelectedItemIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
         displayRank:
           type: integer
           format: int32
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        externalId:
-          type: string
-        extTargetingId:
-          type: string
-        groupItemSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupItemSetting'
-          uniqueItems: true
-        groupType:
-          $ref: '#/components/schemas/GroupType'
-        id:
-          type: string
-        includedQuantity:
-          type: integer
-          format: int32
-        inheritParentOptions:
+        inheritGroupSettings:
           type: boolean
-        itemExternalIds:
+        defaultSelectedItemIds:
           type: array
           items:
             type: string
@@ -312,87 +288,235 @@ components:
           items:
             type: string
           uniqueItems: true
-        maxItemSelections:
-          type: integer
-          format: int32
-        merchantId:
-          type: string
-          deprecated: true
-        minItemSelections:
-          type: integer
-          format: int32
-        optionGroupsExternalIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        override:
-          $ref: '#/components/schemas/MenuOverride'
-        priceSubstitutionType:
-          $ref: '#/components/schemas/PriceSubstitutionType'
         selectionMandatory:
           type: boolean
         selectionType:
           $ref: '#/components/schemas/SelectionType'
+        maxItemSelections:
+          type: integer
+          format: int32
+        minItemSelections:
+          type: integer
+          format: int32
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+    CreateGroupResponseDTO:
+      type: object
+      properties:
+        groupId:
+          type: string
+    TaxInfoDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        extTaxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/TaxTypeDTO'
+        amount:
+          type: number
+          format: double
+        percentage:
+          type: number
+          format: double
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTypeDTO'
+    MenuOverride:
+      type: object
+      properties:
+        catalogId:
+          type: string
+        groupId:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+          uniqueItems: true
+        override:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/TimeSlot'
+            uniqueItems: true
+    OrderingChannels:
+      type: string
+      enum:
+      - MOBILE
+      - FACEBOOK
+      - NONE
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    StoreInfo:
+      type: object
+      properties:
+        smallImage:
+          type: string
+        storeId:
+          type: string
+        title:
+          type: string
+    DiscountType:
+      type: string
+      enum:
+      - ITEM
+      - ORDER
+    TaxTypeDTO:
+      type: string
+      enum:
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    OrderTypeDTO:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
+    CreateGroupRequestDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+          minLength: 1
+        merchantId:
+          type: string
+          minLength: 1
+        externalId:
+          type: string
+        title:
+          type: string
+          minLength: 1
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
         status:
-          $ref: '#/components/schemas/Status'
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
         storeIds:
           type: array
           items:
             type: string
-        subGroupsExternalIds:
+        groupId:
+          type: string
+        groupType:
+          $ref: '#/components/schemas/GroupType'
+        itemIds:
           type: array
           items:
             type: string
           uniqueItems: true
-        title:
-          type: string
-        updatedDate:
-          type: string
-          deprecated: true
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-    TimeSlot:
-      type: object
-      properties:
-        startTime:
-          type: string
-        endTime:
-          type: string
-      required:
-      - endTime
-      - startTime
-    GroupItemSetting:
-      type: object
-      properties:
-        itemId:
-          type: string
-        itemGuid:
-          type: string
+        groupItemSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupItemSetting'
+          uniqueItems: true
+        defaultSelectedItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        mandatoryItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        optionGroups:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        subGroups:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          $ref: '#/components/schemas/SelectionType'
+        inheritParentOptions:
+          type: boolean
         maxItemSelections:
           type: integer
           format: int32
-        price:
+        minItemSelections:
           type: integer
           format: int32
-        isDefault:
-          type: boolean
-        displayRank:
-          type: integer
-          format: int32
+      required:
+      - clientId
+      - merchantId
+      - title
+    ItemType:
+      type: string
+      enum:
+      - MAIN
+      - MODIFIER
+    FindGroupsDisplayInfoResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupDisplayInfoDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
     ViewItemAdminDTO:
       type: object
       properties:
@@ -516,6 +640,11 @@ components:
       - clientId
       - merchantId
       - title
+    SelectionType:
+      type: string
+      enum:
+      - MULTI_SELECT
+      - SINGLE_SELECT
     Discount:
       type: object
       properties:
@@ -537,30 +666,74 @@ components:
           format: float
         name:
           type: string
+    ListGroupResponseWithPagingForAdminDTO:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListGroupAdminDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
     Direction:
       type: string
       enum:
       - ASC
       - DESC
-    CreateGroupResponseDTO:
+    TimeSlot:
       type: object
       properties:
-        groupId:
+        startTime:
           type: string
-    CreateGroupRequestDTO:
+        endTime:
+          type: string
+      required:
+      - endTime
+      - startTime
+    OrderType:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
+    GroupDisplayInfoDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        idType:
+          type: string
+        displayInfoTitles:
+          type: array
+          items:
+            type: string
+        groupType:
+          type: string
+        groupsByDisplayInfoTitle:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupDTO'
+    PriceSubstitutionType:
+      type: string
+      enum:
+      - DIFFERENCE_ANY
+      - DIFFERENCE_DECREASE
+      - DIFFERENCE_INCREASE
+      - EXTERNAL
+      - FULL_PRICE
+      - NO_CHARGE
+    ListGroupAdminDTO:
       type: object
       properties:
         clientId:
           type: string
-          minLength: 1
         merchantId:
           type: string
-          minLength: 1
         externalId:
+          type: string
+        extTargetingId:
           type: string
         title:
           type: string
-          minLength: 1
         createdDate:
           type: string
           format: date-time
@@ -569,10 +742,8 @@ components:
           format: date-time
         startDate:
           type: string
-          format: date-time
         endDate:
           type: string
-          format: date-time
         displayRank:
           type: integer
           format: int32
@@ -598,6 +769,12 @@ components:
           type: array
           items:
             type: string
+        storeInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreInfo'
+        originalTitle:
+          type: string
         groupId:
           type: string
         groupType:
@@ -607,27 +784,22 @@ components:
           items:
             type: string
           uniqueItems: true
-        groupItemSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupItemSetting'
-          uniqueItems: true
-        defaultSelectedItemIds:
+        defaultSelectedItems:
           type: array
           items:
             type: string
           uniqueItems: true
-        mandatoryItemIds:
+        mandatoryItems:
           type: array
           items:
             type: string
           uniqueItems: true
-        optionGroups:
+        optionGroupIds:
           type: array
           items:
             type: string
           uniqueItems: true
-        subGroups:
+        subGroupIds:
           type: array
           items:
             type: string
@@ -644,60 +816,15 @@ components:
         minItemSelections:
           type: integer
           format: int32
+        groupItemSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupItemSetting'
+          uniqueItems: true
       required:
       - clientId
       - merchantId
       - title
-    GroupType:
-      type: string
-      enum:
-      - OPTION_GROUP
-      - CATALOG_GROUP
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
-    GroupDisplayInfoDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        idType:
-          type: string
-        displayInfoTitles:
-          type: array
-          items:
-            type: string
-        groupType:
-          type: string
-        groupsByDisplayInfoTitle:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupDTO'
-    ListGroupResponseWithPagingForAdminDTO:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ListGroupAdminDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
     ViewGroupAdminDTO:
       type: object
       properties:
@@ -819,140 +946,59 @@ components:
       - clientId
       - merchantId
       - title
-    MenuOverride:
+    DiscountValueType:
+      type: string
+      enum:
+      - AMOUNT
+      - PERCENTAGE
+    GroupDTO:
       type: object
       properties:
-        catalogId:
-          type: string
-        groupId:
-          type: string
         applicableOrderTypes:
           type: array
           items:
             $ref: '#/components/schemas/OrderType'
-          uniqueItems: true
-        override:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/TimeSlot'
-            uniqueItems: true
-    ListGroupAdminDTO:
-      type: object
-      properties:
         clientId:
           type: string
-        merchantId:
-          type: string
-        externalId:
-          type: string
-        extTargetingId:
-          type: string
-        title:
-          type: string
+          deprecated: true
         createdDate:
           type: string
-          format: date-time
-        updatedDate:
-          type: string
-          format: date-time
-        startDate:
-          type: string
-        endDate:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
+          deprecated: true
+        defaultSelectedItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
         displayInfo:
           type: array
           items:
             $ref: '#/components/schemas/DisplayInfo'
-        status:
-          type: string
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
+        displayRank:
+          type: integer
+          format: int32
         extendedAttributes:
           type: object
           additionalProperties:
             type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        storeIds:
-          type: array
-          items:
-            type: string
-        storeInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreInfo'
-        originalTitle:
+        externalId:
           type: string
-        groupId:
+        extTargetingId:
           type: string
-        groupType:
-          $ref: '#/components/schemas/GroupType'
-        itemIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        defaultSelectedItems:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        mandatoryItems:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        optionGroupIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        subGroupIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        selectionMandatory:
-          type: boolean
-        selectionType:
-          $ref: '#/components/schemas/SelectionType'
-        inheritParentOptions:
-          type: boolean
-        maxItemSelections:
-          type: integer
-          format: int32
-        minItemSelections:
-          type: integer
-          format: int32
         groupItemSettings:
           type: array
           items:
             $ref: '#/components/schemas/GroupItemSetting'
           uniqueItems: true
-      required:
-      - clientId
-      - merchantId
-      - title
-    OptionGroupSettingDTO:
-      type: object
-      properties:
-        optionGroupId:
+        groupType:
+          $ref: '#/components/schemas/GroupType'
+        id:
           type: string
-        displayRank:
+        includedQuantity:
           type: integer
           format: int32
-        inheritGroupSettings:
+        inheritParentOptions:
           type: boolean
-        defaultSelectedItemIds:
+        itemExternalIds:
           type: array
           items:
             type: string
@@ -962,20 +1008,44 @@ components:
           items:
             type: string
           uniqueItems: true
+        maxItemSelections:
+          type: integer
+          format: int32
+        merchantId:
+          type: string
+          deprecated: true
+        minItemSelections:
+          type: integer
+          format: int32
+        optionGroupsExternalIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        override:
+          $ref: '#/components/schemas/MenuOverride'
+        priceSubstitutionType:
+          $ref: '#/components/schemas/PriceSubstitutionType'
         selectionMandatory:
           type: boolean
         selectionType:
           $ref: '#/components/schemas/SelectionType'
-        maxItemSelections:
-          type: integer
-          format: int32
-        minItemSelections:
-          type: integer
-          format: int32
-        applicableOrderTypes:
+        status:
+          $ref: '#/components/schemas/Status'
+        storeIds:
           type: array
           items:
-            $ref: '#/components/schemas/OrderType'
+            type: string
+        subGroupsExternalIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        title:
+          type: string
+        updatedDate:
+          type: string
+          deprecated: true
     GroupSearchRequestDTO:
       type: object
       properties:
@@ -1020,75 +1090,39 @@ components:
           uniqueItems: true
         type:
           $ref: '#/components/schemas/GroupType'
-    PriceSubstitutionType:
-      type: string
-      enum:
-      - DIFFERENCE_ANY
-      - DIFFERENCE_DECREASE
-      - DIFFERENCE_INCREASE
-      - EXTERNAL
-      - FULL_PRICE
-      - NO_CHARGE
-    OrderTypeDTO:
-      type: string
-      enum:
-      - DELIVERY
-      - PICKUP
-    FindGroupsDisplayInfoResponse:
+    PagingDTO:
       type: object
       properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupDisplayInfoDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    TaxTypeDTO:
-      type: string
-      enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
-    SelectionType:
-      type: string
-      enum:
-      - MULTI_SELECT
-      - SINGLE_SELECT
-    DiscountType:
-      type: string
-      enum:
-      - ITEM
-      - ORDER
-    StoreInfo:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    GroupItemSetting:
       type: object
       properties:
-        smallImage:
+        itemId:
           type: string
-        storeId:
+        itemGuid:
           type: string
-        title:
-          type: string
-    TaxInfoDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/TaxTypeDTO'
-        amount:
-          type: number
-          format: double
-        percentage:
-          type: number
-          format: double
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderTypeDTO'
+        maxItemSelections:
+          type: integer
+          format: int32
+        price:
+          type: integer
+          format: int32
+        isDefault:
+          type: boolean
+        displayRank:
+          type: integer
+          format: int32
     BulkUpdateRequest:
       type: object
       properties:
@@ -1103,19 +1137,3 @@ components:
       - field
       - ids
       - value
-    Status:
-      type: string
-      enum:
-      - ACTIVE
-      - INACTIVE
-    OrderingChannels:
-      type: string
-      enum:
-      - MOBILE
-      - FACEBOOK
-      - NONE
-    ItemType:
-      type: string
-      enum:
-      - MAIN
-      - MODIFIER

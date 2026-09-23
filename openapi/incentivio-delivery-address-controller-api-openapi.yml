@@ -26,6 +26,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateDeliveryAddressResponseDTO'
+      summary: Add or update single delivery address
+      x-summary-source: derived
   /save/multipledeliveryaddresses:
     put:
       tags:
@@ -44,6 +46,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateDeliveryAddressResponseDTO'
+      summary: Add or update multiple delivery address
+      x-summary-source: derived
   /deliveryaddresses:
     get:
       tags:
@@ -62,6 +66,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListDeliveryAddressResponseDTO'
+      summary: Get delivery address list by client id and user id
+      x-summary-source: derived
     delete:
       tags:
       - delivery-address-controller
@@ -77,37 +83,10 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete delivery address by ids
+      x-summary-source: derived
 components:
   schemas:
-    ListDeliveryAddressResponseDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        deliveryAddressList:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressDTO'
-    CreateDeliveryAddressResponseDTO:
-      type: object
-      properties:
-        id:
-          type: string
-    CreateDeliveryAddressRequestDTO:
-      required:
-      - clientId
-      type: object
-      properties:
-        id:
-          type: string
-        clientId:
-          type: string
-        userId:
-          type: string
-        addresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressDTO'
     AddressDTO:
       required:
       - city
@@ -140,4 +119,33 @@ components:
           type: number
           format: double
         aptSuite:
+          type: string
+    CreateDeliveryAddressRequestDTO:
+      required:
+      - clientId
+      type: object
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        userId:
+          type: string
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressDTO'
+    ListDeliveryAddressResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        deliveryAddressList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressDTO'
+    CreateDeliveryAddressResponseDTO:
+      type: object
+      properties:
+        id:
           type: string

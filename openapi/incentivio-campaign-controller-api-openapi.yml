@@ -43,29 +43,10 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindCampaignResponseDTO'
+      summary: Find campaigns by client and merchant id
+      x-summary-source: derived
 components:
   schemas:
-    CampaignDTO:
-      type: object
-      properties:
-        campaignId:
-          type: string
-        programId:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        merchantId:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
     ResultsPagingDTO:
       type: object
       properties:
@@ -90,3 +71,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CampaignDTO'
+    CampaignDTO:
+      type: object
+      properties:
+        campaignId:
+          type: string
+        programId:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        merchantId:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date

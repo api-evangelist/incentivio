@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Incentivio User Controller API
   version: v0
-  description: 'Operations tagged user-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged user-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.json, incentivio-mobile-api-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://adminapi.incentivio.com/incentivio-admin-api
   description: Generated server url
@@ -35,6 +35,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/AccountBlockResponseDTO'
+      summary: Unblock user account
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -62,6 +64,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/AccountBlockResponseDTO'
+      summary: Block user account
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -83,6 +87,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Create password reset token
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -107,6 +113,8 @@ paths:
                 additionalProperties:
                   type: integer
                   format: int32
+      summary: Un bounce email
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -133,6 +141,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindUserAccountResponseDTO'
+      summary: Find user account
+      x-summary-source: derived
     patch:
       tags:
       - user-controller
@@ -159,6 +169,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Patch user account
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -192,6 +204,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserAccountChangeLogResponseDTO'
+      summary: Find all change log by use cases
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -275,6 +289,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindUserResponseDTO'
+      summary: Find user accounts by filter method
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -296,6 +312,8 @@ paths:
             text/plain:
               schema:
                 type: string
+      summary: Download users CSV
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -317,6 +335,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindUserByTokenResponseDTO'
+      summary: Find user account by token
+      x-summary-source: derived
     put:
       tags:
       - user-controller
@@ -336,6 +356,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update incomplete user account
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -357,6 +379,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VerifyEmailResponseDTO'
+      summary: Verify user account email
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -379,6 +403,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/LoginResponseDTO'
       deprecated: true
+      summary: User login
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -401,6 +427,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/LoginResponseDTO'
       deprecated: true
+      summary: User login2
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -416,6 +444,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindUserAccountResponseDTO_2'
+      summary: Find user account
+      x-summary-source: derived
     post:
       tags:
       - user-controller
@@ -439,6 +469,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateUserAccountResponseDTO'
+      summary: Create user account
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -466,6 +498,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/FindUserAccountResponseDTO_2'
       deprecated: true
+      summary: Find user account SMS
+      x-summary-source: derived
     post:
       tags:
       - user-controller
@@ -484,6 +518,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/CreateSMSUserAccountResponseDTO'
       deprecated: true
+      summary: Create user account SMS
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -510,6 +546,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindUserAccountResponseDTO_2'
+      summary: External account find user account
+      x-summary-source: derived
     post:
       tags:
       - user-controller
@@ -527,6 +565,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateUserAccountResponseDTO'
+      summary: External account create user account
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -560,6 +600,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Verify user account with code
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -582,6 +624,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Resend verification email
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -608,6 +652,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserLookUpResponseDTO'
+      summary: User lookup
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -639,6 +685,8 @@ paths:
             application/json:
               schema:
                 type: boolean
+      summary: Is user access code exist
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -656,6 +704,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update email preference
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -671,6 +721,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetUserDevicesResponseDTO'
+      summary: Get user devices
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -697,11 +749,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CheckCompatibilityResponseDTO'
+      summary: Check compatibility
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
 components:
   schemas:
+    Gender:
+      type: string
+      enum:
+      - MALE
+      - FEMALE
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
     UserAccountDTO:
       type: object
       properties:
@@ -738,29 +825,6 @@ components:
           type: boolean
         linked:
           type: boolean
-    Address:
-      type: object
-      properties:
-        street1:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        lat:
-          type: number
-          format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
-          type: string
     HouseholdDTO:
       type: object
       properties:
@@ -773,20 +837,18 @@ components:
       properties:
         userId:
           type: string
-    Gender:
-      type: string
-      enum:
-      - MALE
-      - FEMALE
-    FindUserResponseDTO:
+    UserAccountChangeLogResponseDTO:
       type: object
       properties:
-        resultsPaging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserAccountDTO'
+        adminUserName:
+          type: string
+        description:
+          type: string
+        actionType:
+          type: string
+        changedDateTime:
+          type: string
+          format: date-time
     FindUserAccountResponseDTO:
       type: object
       properties:
@@ -839,20 +901,24 @@ components:
           type: boolean
         linked:
           type: boolean
-    UserAccountPatchRequestDto:
-      type: object
-      properties:
-        op:
-          $ref: '#/components/schemas/Operation'
-        attribute:
-          type: string
-        value:
-          type: string
-    Direction:
+    Operation:
       type: string
       enum:
-      - ASC
-      - DESC
+      - TEST
+      - REMOVE
+      - ADD
+      - REPLACE
+      - MOVE
+      - COPY
+    FindUserResponseDTO:
+      type: object
+      properties:
+        resultsPaging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserAccountDTO'
     ResultsPagingDTO:
       type: object
       properties:
@@ -875,246 +941,20 @@ components:
           type: string
       required:
       - reason
-    UserAccountChangeLogResponseDTO:
-      type: object
-      properties:
-        adminUserName:
-          type: string
-        description:
-          type: string
-        actionType:
-          type: string
-        changedDateTime:
-          type: string
-          format: date-time
-    Status:
+    Direction:
       type: string
       enum:
-      - ACTIVE
-      - INACTIVE
-    Operation:
-      type: string
-      enum:
-      - TEST
-      - REMOVE
-      - ADD
-      - REPLACE
-      - MOVE
-      - COPY
-    UserAccountDTO_2:
+      - ASC
+      - DESC
+    UserAccountPatchRequestDto:
       type: object
       properties:
-        userId:
+        op:
+          $ref: '#/components/schemas/Operation'
+        attribute:
           type: string
-        clientId:
+        value:
           type: string
-        email:
-          type: string
-        gender:
-          type: string
-          enum:
-          - MALE
-          - FEMALE
-        dateOfBirth:
-          type: string
-          format: date-time
-        phoneNumber:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        baseLanguagePrefrerence:
-          type: string
-        aliasId:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        emailBounced:
-          type: boolean
-        userAccountNumber:
-          type: string
-        confirmedPoints:
-          type: integer
-          format: int32
-        blocked:
-          type: boolean
-    CreateSMSUserAccountResponseDTO:
-      type: object
-      properties:
-        accountAliasId:
-          type: string
-        phoneNumber:
-          type: string
-    UserDeviceDTO:
-      type: object
-      properties:
-        deviceUniqueId:
-          type: string
-        deviceId:
-          type: string
-        deviceType:
-          type: string
-        dateOfAdded:
-          type: string
-    LoginResponseDTO:
-      type: object
-      properties:
-        accountID:
-          type: string
-        accountAlias:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        cookieValue:
-          type: string
-    FindUserAccountResponseDTO_2:
-      type: object
-      properties:
-        userId:
-          type: string
-        accountAliasId:
-          type: string
-        mergedPrimaryUserAccountId:
-          type: string
-        household:
-          $ref: '#/components/schemas/HouseholdDTO_2'
-        address:
-          $ref: '#/components/schemas/Address_2'
-        clientId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phoneNumber:
-          type: string
-        externalId:
-          type: string
-        baseLanguagePrefrerence:
-          type: string
-        status:
-          type: string
-        howAcquired:
-          type: string
-        gender:
-          type: string
-        dateOfBirth:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        userProfileImageUrl:
-          type: string
-    GetUserDevicesResponseDTO:
-      type: object
-      properties:
-        deviceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserDeviceDTO'
-    CreateUserAccountResponseDTO:
-      type: object
-      properties:
-        userId:
-          type: string
-        referralId:
-          type: string
-        verified:
-          type: boolean
-    VerifyEmailResponseDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        emailAddress:
-          type: string
-        status:
-          type: string
-        userAccount:
-          $ref: '#/components/schemas/UserAccountLightResponseDTO'
-    UserLookUpResponseDTO:
-      type: object
-      properties:
-        contact:
-          type: string
-    Address_2:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-        aptSuite:
-          type: string
-    HouseholdDTO_2:
-      type: object
-      properties:
-        title:
-          type: string
-    CheckCompatibilityResponseDTO:
-      type: object
-      properties:
-        sdkCompatibility:
-          type: string
-          enum:
-          - COMPATIBLE
-          - UPGRADE_RECOMMENDED
-          - UPGRADE_REQUIRED
-          - NONE
-    CreateExternalUserAccountRequestDTO:
-      required:
-      - baseLanguagePrefrerence
-      - email
-      - externalId
-      - firstName
-      - howAcquired
-      - lastName
-      - password
-      - salt
-      type: object
-      properties:
-        externalId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        baseLanguagePrefrerence:
-          type: string
-        howAcquired:
-          type: string
-        password:
-          type: string
-        salt:
-          type: string
-        gender:
-          type: string
-        phoneNumber:
-          type: string
-        dateOfBirth:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address_2'
     UpdateIncompleteUserAccountRequestDTO:
       type: object
       properties:
@@ -1130,18 +970,29 @@ components:
           type: string
         dateOfBirth:
           type: string
-    LoginRequestDTO:
-      required:
-      - password
-      - username
+    UserDeviceDTO:
       type: object
       properties:
-        username:
+        deviceUniqueId:
           type: string
-        password:
+        deviceId:
           type: string
-        rememberme:
-          type: boolean
+        deviceType:
+          type: string
+        dateOfAdded:
+          type: string
+    CreateSMSUserAccountRequestDTO:
+      required:
+      - phoneNumber
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+    UserLookUpResponseDTO:
+      type: object
+      properties:
+        contact:
+          type: string
     CreateUserAccountRequestDTO:
       required:
       - baseLanguagePrefrerence
@@ -1191,6 +1042,26 @@ components:
           type: string
         userProfileImageUrl:
           type: string
+    LoginResponseDTO:
+      type: object
+      properties:
+        accountID:
+          type: string
+        accountAlias:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        cookieValue:
+          type: string
+    CreateSMSUserAccountResponseDTO:
+      type: object
+      properties:
+        accountAliasId:
+          type: string
+        phoneNumber:
+          type: string
     UserAccountLightResponseDTO:
       type: object
       properties:
@@ -1202,6 +1073,196 @@ components:
           type: string
         phoneNumber:
           type: string
+    CreateExternalUserAccountRequestDTO:
+      required:
+      - baseLanguagePrefrerence
+      - email
+      - externalId
+      - firstName
+      - howAcquired
+      - lastName
+      - password
+      - salt
+      type: object
+      properties:
+        externalId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        baseLanguagePrefrerence:
+          type: string
+        howAcquired:
+          type: string
+        password:
+          type: string
+        salt:
+          type: string
+        gender:
+          type: string
+        phoneNumber:
+          type: string
+        dateOfBirth:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address_2'
+    UserAccountDTO_2:
+      type: object
+      properties:
+        userId:
+          type: string
+        clientId:
+          type: string
+        email:
+          type: string
+        gender:
+          type: string
+          enum:
+          - MALE
+          - FEMALE
+        dateOfBirth:
+          type: string
+          format: date-time
+        phoneNumber:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        baseLanguagePrefrerence:
+          type: string
+        aliasId:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        emailBounced:
+          type: boolean
+        userAccountNumber:
+          type: string
+        confirmedPoints:
+          type: integer
+          format: int32
+        blocked:
+          type: boolean
+    VerifyEmailResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        emailAddress:
+          type: string
+        status:
+          type: string
+        userAccount:
+          $ref: '#/components/schemas/UserAccountLightResponseDTO'
+    CheckCompatibilityResponseDTO:
+      type: object
+      properties:
+        sdkCompatibility:
+          type: string
+          enum:
+          - COMPATIBLE
+          - UPGRADE_RECOMMENDED
+          - UPGRADE_REQUIRED
+          - NONE
+    GetUserDevicesResponseDTO:
+      type: object
+      properties:
+        deviceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDeviceDTO'
+    HouseholdDTO_2:
+      type: object
+      properties:
+        title:
+          type: string
+    FindUserAccountResponseDTO_2:
+      type: object
+      properties:
+        userId:
+          type: string
+        accountAliasId:
+          type: string
+        mergedPrimaryUserAccountId:
+          type: string
+        household:
+          $ref: '#/components/schemas/HouseholdDTO_2'
+        address:
+          $ref: '#/components/schemas/Address_2'
+        clientId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        externalId:
+          type: string
+        baseLanguagePrefrerence:
+          type: string
+        status:
+          type: string
+        howAcquired:
+          type: string
+        gender:
+          type: string
+        dateOfBirth:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        userProfileImageUrl:
+          type: string
+    Address_2:
+      type: object
+      properties:
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string
+    CreateUserAccountResponseDTO:
+      type: object
+      properties:
+        userId:
+          type: string
+        referralId:
+          type: string
+        verified:
+          type: boolean
+    LoginRequestDTO:
+      required:
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        rememberme:
+          type: boolean
     FindUserByTokenResponseDTO:
       type: object
       properties:
@@ -1209,13 +1270,6 @@ components:
           $ref: '#/components/schemas/UserAccountDTO_2'
         message:
           type: string
-    CreateSMSUserAccountRequestDTO:
-      required:
-      - phoneNumber
-      type: object
-      properties:
-        phoneNumber:
-          type: string
 x-refined-from:
-- incentivio-admin-api-openapi.yml
-- incentivio-mobile-api-openapi.yml
+- incentivio-admin-api-openapi.json
+- incentivio-mobile-api-openapi.json

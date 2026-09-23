@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Incentivio Offers Controller API
   version: v0
-  description: 'Operations tagged offers-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged offers-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.json, incentivio-mobile-api-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://adminapi.incentivio.com/incentivio-admin-api
   description: Generated server url
@@ -28,6 +28,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Redeem by id
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -55,6 +57,8 @@ paths:
       responses:
         '204':
           description: No Content
+      summary: Delete offer
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -72,6 +76,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Redeem by id
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -99,6 +105,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RedeemOfferResponseDTO'
+      summary: Process QR code
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -120,6 +128,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ActivityOfferListDTO'
+      summary: Get offers based on user activity
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -141,6 +151,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ActivityContentResponseDTO'
+      summary: Get activity based content
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -158,6 +170,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update distributed offer status
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -184,6 +198,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetOfferResponseDTO'
+      summary: Get offer
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -210,6 +226,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DistributedOfferDTO'
+      summary: Get distributed offer
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -253,6 +271,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppOffersResponseDTO'
+      summary: Find distributed offers
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -296,6 +316,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppContentResponseDTO'
+      summary: Get app content
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -321,28 +343,207 @@ components:
           type: string
       required:
       - transactionDate
-    RedeemOfferResponseDTO:
+    ActivityMessageDTO:
       type: object
       properties:
-        pointsRedeemed:
-          type: integer
-          format: int32
-        totalPointsBalance:
-          type: integer
-          format: int32
+        distributedMessageId:
+          type: string
+        merchantId:
+          type: string
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
         smallImage:
           type: string
         mediumImage:
           type: string
-    AppMessageListDTO:
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+          enum:
+          - PRIVATE
+          - SHAREABLE
+          - REFERRAL
+          - SURVEY
+        surveyId:
+          type: string
+        distributedEndDate:
+          type: string
+    ActivityMessageListDTO:
       type: object
       properties:
         messages:
           type: array
           items:
-            $ref: '#/components/schemas/AppMessageDTO'
+            $ref: '#/components/schemas/ActivityMessageDTO'
+    ActivityContentResponseDTO:
+      type: object
+      properties:
+        offerList:
+          $ref: '#/components/schemas/ActivityOfferListDTO'
+        messageList:
+          $ref: '#/components/schemas/ActivityMessageListDTO'
+    AppOfferListDTO:
+      type: object
+      properties:
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppOfferDTO'
         paging:
           $ref: '#/components/schemas/PagingDto'
+    AppMessageDTO:
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        merchantId:
+          type: string
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+        surveyId:
+          type: string
+        distributedEndDate:
+          type: string
+    AppOfferDTO:
+      type: object
+      properties:
+        distributedOfferId:
+          type: string
+        offerId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        offerCode:
+          type: string
+        codeFormat:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - SAVED
+          - READ
+          - EXPIRED
+          - DELETED
+          - SYSTEM_REDEEMED
+          - USER_REDEEMED
+        redemptionEndDate:
+          type: string
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        redeemType:
+          type: string
+        purchaseTypes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        isLoyaltyOffer:
+          type: boolean
+        pointsCost:
+          type: integer
+          format: int32
+        eligible:
+          type: boolean
+        universalOffer:
+          type: boolean
+        redemptionEndDateType:
+          type: string
+    UpdateDistributedOfferStatusRequestDTO:
+      required:
+      - redeemStatus
+      type: object
+      properties:
+        distributedOfferId:
+          type: string
+        distributedOfferCode:
+          type: string
+        redeemStatus:
+          type: string
+          enum:
+          - NEW
+          - SAVED
+          - READ
+          - EXPIRED
+          - DELETED
+          - SYSTEM_REDEEMED
+          - USER_REDEEMED
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
     GetOfferResponseDTO:
       type: object
       properties:
@@ -415,89 +616,6 @@ components:
           type: boolean
         offerRedemptionExpired:
           type: boolean
-    AppOfferDTO:
-      type: object
-      properties:
-        distributedOfferId:
-          type: string
-        offerId:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        offerCode:
-          type: string
-        codeFormat:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - SAVED
-          - READ
-          - EXPIRED
-          - DELETED
-          - SYSTEM_REDEEMED
-          - USER_REDEEMED
-        redemptionEndDate:
-          type: string
-        distributedDate:
-          type: string
-        updatedDate:
-          type: string
-        redeemType:
-          type: string
-        purchaseTypes:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        isLoyaltyOffer:
-          type: boolean
-        pointsCost:
-          type: integer
-          format: int32
-        eligible:
-          type: boolean
-        universalOffer:
-          type: boolean
-        redemptionEndDateType:
-          type: string
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-    AppOfferListDTO:
-      type: object
-      properties:
-        offers:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppOfferDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
     ActivityContentRequestDTO:
       type: object
       properties:
@@ -523,25 +641,20 @@ components:
               type: string
         localDateTime:
           type: string
-    UpdateDistributedOfferStatusRequestDTO:
-      required:
-      - redeemStatus
+    AppOffersResponseDTO:
       type: object
       properties:
-        distributedOfferId:
-          type: string
-        distributedOfferCode:
-          type: string
-        redeemStatus:
-          type: string
-          enum:
-          - NEW
-          - SAVED
-          - READ
-          - EXPIRED
-          - DELETED
-          - SYSTEM_REDEEMED
-          - USER_REDEEMED
+        offerList:
+          $ref: '#/components/schemas/AppOfferListDTO'
+    AppMessageListDTO:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppMessageDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
     ActivityOfferListDTO:
       type: object
       properties:
@@ -549,75 +662,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ActivityOfferDTO'
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
-    AppOffersResponseDTO:
-      type: object
-      properties:
-        offerList:
-          $ref: '#/components/schemas/AppOfferListDTO'
-    AppMessageDTO:
-      type: object
-      properties:
-        distributedMessageId:
-          type: string
-        merchantId:
-          type: string
-        messageId:
-          type: string
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - READ
-          - EXPIRED
-          - DELETED
-        distributedDate:
-          type: string
-        updatedDate:
-          type: string
-        messageType:
-          type: string
-        surveyId:
-          type: string
-        distributedEndDate:
-          type: string
-    ActivityMessageListDTO:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActivityMessageDTO'
     ActivityOfferDTO:
       type: object
       properties:
@@ -670,6 +714,13 @@ components:
           type: string
         redemptionEndDateType:
           type: string
+    AppContentResponseDTO:
+      type: object
+      properties:
+        offerList:
+          $ref: '#/components/schemas/AppOfferListDTO'
+        messageList:
+          $ref: '#/components/schemas/AppMessageListDTO'
     RedeemOfferAPIRequestDTO_2:
       required:
       - transactionDate
@@ -688,6 +739,19 @@ components:
           type: number
           format: double
         distributedOfferId:
+          type: string
+    RedeemOfferResponseDTO:
+      type: object
+      properties:
+        pointsRedeemed:
+          type: integer
+          format: int32
+        totalPointsBalance:
+          type: integer
+          format: int32
+        smallImage:
+          type: string
+        mediumImage:
           type: string
     DistributedOfferDTO:
       type: object
@@ -746,63 +810,21 @@ components:
           format: int32
         loyaltyOffer:
           type: boolean
-    ActivityMessageDTO:
+    PagingDto:
       type: object
       properties:
-        distributedMessageId:
-          type: string
-        merchantId:
-          type: string
-        messageId:
-          type: string
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - READ
-          - EXPIRED
-          - DELETED
-        distributedDate:
-          type: string
-        updatedDate:
-          type: string
-        messageType:
-          type: string
-          enum:
-          - PRIVATE
-          - SHAREABLE
-          - REFERRAL
-          - SURVEY
-        surveyId:
-          type: string
-        distributedEndDate:
-          type: string
-    ActivityContentResponseDTO:
-      type: object
-      properties:
-        offerList:
-          $ref: '#/components/schemas/ActivityOfferListDTO'
-        messageList:
-          $ref: '#/components/schemas/ActivityMessageListDTO'
-    AppContentResponseDTO:
-      type: object
-      properties:
-        offerList:
-          $ref: '#/components/schemas/AppOfferListDTO'
-        messageList:
-          $ref: '#/components/schemas/AppMessageListDTO'
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
 x-refined-from:
-- incentivio-admin-api-openapi.yml
-- incentivio-mobile-api-openapi.yml
+- incentivio-admin-api-openapi.json
+- incentivio-mobile-api-openapi.json

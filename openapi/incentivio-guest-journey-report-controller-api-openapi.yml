@@ -31,8 +31,19 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GuestJourneyReportResponseDTO'
+      summary: Export guest journey analysis
+      x-summary-source: derived
 components:
   schemas:
+    GuestJourneyReportResponseDTO:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        message:
+          type: string
+        filePath:
+          type: string
     StatusEnum:
       type: string
       enum:
@@ -43,12 +54,3 @@ components:
       - RETRYING
       - DOWNLOADED
       - NODATA
-    GuestJourneyReportResponseDTO:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        message:
-          type: string
-        filePath:
-          type: string

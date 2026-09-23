@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: OpenAPI definition Deliveries By Location Report Controller API
+  title: OpenAPI definition Deliveries By Location Report Controller…
   version: v0
 servers:
 - url: https://adminapi.incentivio.com/incentivio-admin-api
@@ -55,8 +55,19 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/DeliveriesByLocationReportDTO'
+      summary: Retrieve deliveries by location report
+      x-summary-source: derived
 components:
   schemas:
+    DeliveriesByLocationReportDTO:
+      type: object
+      properties:
+        locationName:
+          type: string
+        deliveriesByDateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveriesByDateDTO'
     DeliveriesByDateDTO:
       type: object
       properties:
@@ -73,12 +84,3 @@ components:
           type: number
         totalSales:
           type: number
-    DeliveriesByLocationReportDTO:
-      type: object
-      properties:
-        locationName:
-          type: string
-        deliveriesByDateList:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveriesByDateDTO'

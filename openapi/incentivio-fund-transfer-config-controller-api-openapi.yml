@@ -26,6 +26,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FundTransferConfigResponse'
+      summary: Update pool account fund transfer config
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/fund-transfer-config/locations:
     patch:
       tags:
@@ -44,6 +46,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FundTransferConfigResponse'
+      summary: Update location fund transfer config
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/fund-transfer-config:
     get:
       tags:
@@ -56,9 +60,23 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FundTransferConfigResponse'
+      summary: Retrieve fund transfer config 1
+      x-summary-source: derived
 components:
   schemas:
     UpdateLocationFundTransferConfigRequest:
+      type: object
+      properties:
+        locationId:
+          type: string
+        active:
+          type: boolean
+    UpdatePoolAccountFundTransferConfigRequest:
+      type: object
+      properties:
+        active:
+          type: boolean
+    FundTransferLocationConfig:
       type: object
       properties:
         locationId:
@@ -82,17 +100,5 @@ components:
         modifiedDate:
           type: string
           format: date-time
-        active:
-          type: boolean
-    UpdatePoolAccountFundTransferConfigRequest:
-      type: object
-      properties:
-        active:
-          type: boolean
-    FundTransferLocationConfig:
-      type: object
-      properties:
-        locationId:
-          type: string
         active:
           type: boolean

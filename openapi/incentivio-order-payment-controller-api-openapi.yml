@@ -32,6 +32,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/InitOrderResponseDTO'
+      summary: Prepare order payment
+      x-summary-source: derived
   /orders/{orderid}/prepareguestpayment:
     post:
       tags:
@@ -56,6 +58,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/InitOrderResponseDTO'
+      summary: Prepare guest order payment
+      x-summary-source: derived
   /orders/{orderid}/makepayment:
     post:
       tags:
@@ -90,6 +94,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PaymentResponseDTO'
+      summary: Make order payment
+      x-summary-source: derived
   /orders/{orderid}/makeguestpayment:
     post:
       tags:
@@ -124,6 +130,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PaymentResponseDTO'
+      summary: Make guest order payment
+      x-summary-source: derived
   /orders/payment/initorder:
     post:
       tags:
@@ -148,6 +156,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/InitOrderResponseDTO'
+      summary: Init order
+      x-summary-source: derived
   /orders/{orderid}/paymentstatus:
     get:
       tags:
@@ -166,21 +176,31 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PaymentResponseDTO'
+      summary: Check order payment status
+      x-summary-source: derived
 components:
   schemas:
-    InitOrderResponseDTO:
+    PaymentConfig:
       type: object
       properties:
-        otherData:
+        orderType:
           type: string
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
-        paymentConfigs:
+          enum:
+          - DELIVERY
+          - PICKUP
+          - DINEIN
+        paymentModes:
           type: array
           items:
-            $ref: '#/components/schemas/PaymentConfig'
+            type: string
+            enum:
+            - PAYMENT_MANDATORY
+            - PAYMENT_OPTIONAL
+            - NO_PAYMENT
+        placePOSOrdersAsOpen:
+          type: boolean
+        guestCheckoutSupported:
+          type: boolean
     InitOrderRequestDTO:
       type: object
       properties:
@@ -201,15 +221,6 @@ components:
         otherData:
           type: string
         paymentToken:
-          type: string
-    OrderOptionInfo:
-      type: object
-      properties:
-        optionName:
-          type: string
-        information:
-          type: string
-        optionDescription:
           type: string
     PaymentRequestDTO:
       required:
@@ -291,45 +302,14 @@ components:
           type: boolean
         billingAddress:
           $ref: '#/components/schemas/BillingAddress'
-    PaymentConfig:
+    OrderOptionInfo:
       type: object
       properties:
-        orderType:
+        optionName:
           type: string
-          enum:
-          - DELIVERY
-          - PICKUP
-          - DINEIN
-        paymentModes:
-          type: array
-          items:
-            type: string
-            enum:
-            - PAYMENT_MANDATORY
-            - PAYMENT_OPTIONAL
-            - NO_PAYMENT
-        placePOSOrdersAsOpen:
-          type: boolean
-        guestCheckoutSupported:
-          type: boolean
-    BillingAddress:
-      type: object
-      properties:
-        name:
+        information:
           type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        zip:
-          type: string
-        country:
-          type: string
-        phoneNumber:
+        optionDescription:
           type: string
     PaymentResponseDTO:
       type: object
@@ -397,3 +377,35 @@ components:
           type: object
           additionalProperties:
             type: string
+    BillingAddress:
+      type: object
+      properties:
+        name:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+        phoneNumber:
+          type: string
+    InitOrderResponseDTO:
+      type: object
+      properties:
+        otherData:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        paymentConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentConfig'

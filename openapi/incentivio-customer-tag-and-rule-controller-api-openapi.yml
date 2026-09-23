@@ -26,6 +26,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TagAndRuleDTO'
+      summary: Find customer tag by id
+      x-summary-source: derived
     put:
       tags:
       - customer-tag-and-rule-controller
@@ -45,6 +47,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update customer tag
+      x-summary-source: derived
     delete:
       tags:
       - customer-tag-and-rule-controller
@@ -58,6 +62,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete customer tag
+      x-summary-source: derived
   /incentivio-user-domain/customer-tags:
     get:
       tags:
@@ -90,6 +96,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CustomerTagAndRulesWithPagingForAdminDTO'
+      summary: Find paginated tags and rules by client id
+      x-summary-source: derived
     post:
       tags:
       - customer-tag-and-rule-controller
@@ -107,6 +115,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TagAndRuleDTO'
+      summary: Create customer tag
+      x-summary-source: derived
   /incentivio-user-domain/tags-and-rules:
     get:
       tags:
@@ -119,6 +129,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TagsAndRulesResponseDTO'
+      summary: Find tags and rules by client id
+      x-summary-source: derived
   /incentivio-user-domain/customer-tags-types:
     get:
       tags:
@@ -133,8 +145,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CustomerTagDataType'
+      summary: Find customer tag types by client id
+      x-summary-source: derived
 components:
   schemas:
+    CustomerTagDataType:
+      type: string
+      enum:
+      - NUMBER
+      - TEXT
+      - DATE
+      - COLLECTION
+      - GEO
     TagAndRuleDTO:
       type: object
       properties:
@@ -174,14 +196,49 @@ components:
           type: array
           items:
             type: string
-    CustomerTagDataType:
+    TagsAndRulesResponseDTO:
+      type: object
+      properties:
+        tagAndRuleDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAndRuleDTO'
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    Source:
       type: string
       enum:
-      - NUMBER
-      - TEXT
-      - DATE
-      - COLLECTION
-      - GEO
+      - SYSTEM
+      - GUEST_INPUT
+      - GENERATED
+      - IMPORTED_MANUAL
+    CustomerTagAndRulesWithPagingForAdminDTO:
+      type: object
+      properties:
+        tagAndRuleDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAndRuleDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    TagType:
+      type: string
+      enum:
+      - CUSTOM
+      - SYSTEM
     CustomerTagRequestDTO:
       type: object
       properties:
@@ -206,46 +263,3 @@ components:
       - attributeType
       - key
       - title
-    Source:
-      type: string
-      enum:
-      - SYSTEM
-      - GUEST_INPUT
-      - GENERATED
-      - IMPORTED_MANUAL
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-    CustomerTagAndRulesWithPagingForAdminDTO:
-      type: object
-      properties:
-        tagAndRuleDTOS:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagAndRuleDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    TagsAndRulesResponseDTO:
-      type: object
-      properties:
-        tagAndRuleDTOS:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagAndRuleDTO'
-    TagType:
-      type: string
-      enum:
-      - CUSTOM
-      - SYSTEM

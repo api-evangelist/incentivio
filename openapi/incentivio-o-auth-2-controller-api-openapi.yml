@@ -6,12 +6,12 @@ servers:
 - url: https://mobile.incentivio.com/incentivio-mobile-api
   description: Generated server url
 tags:
-- name: oauth-2-controller
+- name: o auth 2 controller
 paths:
   /oauth2/authorizationCode/google:
     get:
       tags:
-      - oauth-2-controller
+      - o auth 2 controller
       operationId: authorizationCode
       parameters:
       - name: clientId
@@ -31,3 +31,5 @@ paths:
             application/json:
               schema:
                 type: string
+      summary: Authorization code
+      x-summary-source: derived

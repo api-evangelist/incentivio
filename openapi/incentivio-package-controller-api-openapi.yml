@@ -33,6 +33,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ListPackageResponseDTO'
+      summary: List packages by client id
+      x-summary-source: derived
     put:
       tags:
       - package-controller
@@ -50,6 +52,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CreatePackageResponseDTO'
+      summary: Add or update package 1
+      x-summary-source: derived
   /incentivio-ordering-service/packages/{packageid}:
     get:
       tags:
@@ -73,6 +77,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewPackageResponseDTO'
+      summary: View package by id
+      x-summary-source: derived
     delete:
       tags:
       - package-controller
@@ -86,13 +92,69 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete package
+      x-summary-source: derived
 components:
   schemas:
-    DiscountValueType:
+    ItemType:
       type: string
       enum:
-      - AMOUNT
-      - PERCENTAGE
+      - MAIN
+      - MODIFIER
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    OptionGroupSetting:
+      type: object
+      properties:
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        defaultSelectedItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        displayRank:
+          type: integer
+          format: int32
+        externalOptionGroupId:
+          type: string
+        inheritGroupSettings:
+          type: boolean
+        itemIdsAreMongoMapped:
+          type: boolean
+        mandatoryItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        maxItemSelections:
+          type: integer
+          format: int32
+        minItemSelections:
+          type: integer
+          format: int32
+        optionGroupId:
+          type: string
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          $ref: '#/components/schemas/SelectionType'
+    OrderingChannels:
+      type: string
+      enum:
+      - MOBILE
+      - FACEBOOK
+      - NONE
+    OrderType:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
     TaxInfo:
       type: object
       properties:
@@ -114,11 +176,216 @@ components:
           type: string
         taxType:
           $ref: '#/components/schemas/TaxType'
+    DiscountDTO:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          $ref: '#/components/schemas/DiscountType'
+        discountValueType:
+          $ref: '#/components/schemas/DiscountValueType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        name:
+          type: string
+    SelectionType:
+      type: string
+      enum:
+      - MULTI_SELECT
+      - SINGLE_SELECT
+    CreatePackageResponseDTO:
+      type: object
+      properties:
+        packageId:
+          type: string
+    DiscountValueType:
+      type: string
+      enum:
+      - AMOUNT
+      - PERCENTAGE
+    Discount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          $ref: '#/components/schemas/DiscountType'
+        discountValueType:
+          $ref: '#/components/schemas/DiscountValueType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        name:
+          type: string
     DiscountType:
       type: string
       enum:
       - ITEM
       - ORDER
+    TaxType:
+      type: string
+      enum:
+      - AMOUNT
+      - OPEN
+      - PERCENTAGE
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    ListPackageResponseDTO:
+      type: object
+      properties:
+        packageId:
+          type: string
+        title:
+          type: string
+        groupIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    CreatePackageRequestDTO:
+      type: object
+      properties:
+        packageId:
+          type: string
+        itemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        price:
+          type: integer
+          format: int32
+        clientId:
+          type: string
+          minLength: 1
+        merchantId:
+          type: string
+          minLength: 1
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiscountDTO'
+        storeIds:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+          uniqueItems: true
+        title:
+          type: string
+        status:
+          type: string
+      required:
+      - clientId
+      - merchantId
+    ViewPackageResponseDTO:
+      type: object
+      properties:
+        packageId:
+          type: string
+        groupIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        price:
+          type: integer
+          format: int32
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        discountDto:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiscountDTO'
+        startDate:
+          type: string
+        endDate:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+          uniqueItems: true
+        title:
+          type: string
+        status:
+          type: string
+        itemDTOs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDTO'
+        storeIds:
+          type: array
+          items:
+            type: string
     ItemDTO:
       type: object
       properties:
@@ -229,262 +496,3 @@ components:
         updatedDate:
           type: string
           deprecated: true
-    CreatePackageRequestDTO:
-      type: object
-      properties:
-        packageId:
-          type: string
-        itemIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        price:
-          type: integer
-          format: int32
-        clientId:
-          type: string
-          minLength: 1
-        merchantId:
-          type: string
-          minLength: 1
-        discounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiscountDTO'
-        storeIds:
-          type: array
-          items:
-            type: string
-        startDate:
-          type: string
-        endDate:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        externalId:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
-          uniqueItems: true
-        title:
-          type: string
-        status:
-          type: string
-      required:
-      - clientId
-      - merchantId
-    OrderType:
-      type: string
-      enum:
-      - DELIVERY
-      - PICKUP
-    Discount:
-      type: object
-      properties:
-        discountId:
-          type: string
-        extDiscountId:
-          type: string
-        description:
-          type: string
-        discountType:
-          $ref: '#/components/schemas/DiscountType'
-        discountValueType:
-          $ref: '#/components/schemas/DiscountValueType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        name:
-          type: string
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
-    TaxType:
-      type: string
-      enum:
-      - AMOUNT
-      - OPEN
-      - PERCENTAGE
-    Status:
-      type: string
-      enum:
-      - ACTIVE
-      - INACTIVE
-    OrderingChannels:
-      type: string
-      enum:
-      - MOBILE
-      - FACEBOOK
-      - NONE
-    OptionGroupSetting:
-      type: object
-      properties:
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        defaultSelectedItemIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        displayRank:
-          type: integer
-          format: int32
-        externalOptionGroupId:
-          type: string
-        inheritGroupSettings:
-          type: boolean
-        itemIdsAreMongoMapped:
-          type: boolean
-        mandatoryItemIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        maxItemSelections:
-          type: integer
-          format: int32
-        minItemSelections:
-          type: integer
-          format: int32
-        optionGroupId:
-          type: string
-        selectionMandatory:
-          type: boolean
-        selectionType:
-          $ref: '#/components/schemas/SelectionType'
-    CreatePackageResponseDTO:
-      type: object
-      properties:
-        packageId:
-          type: string
-    ViewPackageResponseDTO:
-      type: object
-      properties:
-        packageId:
-          type: string
-        groupIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        price:
-          type: integer
-          format: int32
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        discountDto:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiscountDTO'
-        startDate:
-          type: string
-        endDate:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        externalId:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
-          uniqueItems: true
-        title:
-          type: string
-        status:
-          type: string
-        itemDTOs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemDTO'
-        storeIds:
-          type: array
-          items:
-            type: string
-    ItemType:
-      type: string
-      enum:
-      - MAIN
-      - MODIFIER
-    DiscountDTO:
-      type: object
-      properties:
-        discountId:
-          type: string
-        extDiscountId:
-          type: string
-        description:
-          type: string
-        discountType:
-          $ref: '#/components/schemas/DiscountType'
-        discountValueType:
-          $ref: '#/components/schemas/DiscountValueType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        name:
-          type: string
-    ListPackageResponseDTO:
-      type: object
-      properties:
-        packageId:
-          type: string
-        title:
-          type: string
-        groupIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-    SelectionType:
-      type: string
-      enum:
-      - MULTI_SELECT
-      - SINGLE_SELECT

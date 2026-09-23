@@ -26,6 +26,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerReportDownloadResponseDTO'
+      summary: Download active customers
+      x-summary-source: derived
   /incentivio-reports/clients/{clientId}/total-signups:
     get:
       tags:
@@ -44,6 +46,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TotalSignUpsReportDTO'
+      summary: Retrieve total sign ups
+      x-summary-source: derived
   /incentivio-reports/clients/{clientId}/previous-month/new-signups:
     get:
       tags:
@@ -62,6 +66,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/NewSignUpsForPreviousMonthReportDTO'
+      summary: Retrieve new sign ups for previous month
+      x-summary-source: derived
   /incentivio-reports/clients/{clientId}/new-signups:
     get:
       tags:
@@ -94,6 +100,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/NewSignUpsReportDTO'
+      summary: Retrieve new sign ups
+      x-summary-source: derived
   /incentivio-reports/clients/{clientId}/customers/download:
     get:
       tags:
@@ -122,21 +130,10 @@ paths:
             text/csv:
               schema:
                 type: string
+      summary: Customers download
+      x-summary-source: derived
 components:
   schemas:
-    CustomerReportDownloadRequestStatus:
-      type: string
-      enum:
-      - INPROGRESS
-      - FAILED
-      - DOWNLOADED
-      - EMAILED
-    TotalSignUpsReportDTO:
-      type: object
-      properties:
-        totalSignedUp:
-          type: integer
-          format: int32
     CustomerReportDownloadRequestDTO:
       type: object
       properties:
@@ -159,14 +156,6 @@ components:
           type: array
           items:
             type: string
-    NewSignUpsReportDTO:
-      type: object
-      properties:
-        signedUpDate:
-          type: string
-          format: date-time
-        totalSignedUp:
-          type: number
     NewSignUpsForPreviousMonthReportDTO:
       type: object
       properties:
@@ -184,3 +173,24 @@ components:
         data:
           type: object
           additionalProperties: {}
+    CustomerReportDownloadRequestStatus:
+      type: string
+      enum:
+      - INPROGRESS
+      - FAILED
+      - DOWNLOADED
+      - EMAILED
+    NewSignUpsReportDTO:
+      type: object
+      properties:
+        signedUpDate:
+          type: string
+          format: date-time
+        totalSignedUp:
+          type: number
+    TotalSignUpsReportDTO:
+      type: object
+      properties:
+        totalSignedUp:
+          type: integer
+          format: int32

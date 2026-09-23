@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Incentivio Segment Controller API
   version: v0
-  description: 'Operations tagged segment-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged segment-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.json, incentivio-mobile-api-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://adminapi.incentivio.com/incentivio-admin-api
   description: Generated server url
@@ -29,6 +29,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/SegmentResponseDTO'
+      summary: Find segment
+      x-summary-source: derived
     put:
       tags:
       - segment-controller
@@ -48,6 +50,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update segment
+      x-summary-source: derived
     delete:
       tags:
       - segment-controller
@@ -61,6 +65,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete segment
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -78,6 +84,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Deactivate segment
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -128,6 +136,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindSegmentsResponseDTO'
+      summary: Find all segments
+      x-summary-source: derived
     post:
       tags:
       - segment-controller
@@ -145,6 +155,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CreateSegmentResponseDTO'
+      summary: Create segment
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -162,6 +174,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Reactivate segment
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -190,148 +204,13 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindCustomerSegmentsResponseDTO'
+      summary: Find segments by customer
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
 components:
   schemas:
-    SegmentResponseDTO:
-      type: object
-      properties:
-        segmentId:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        merchantName:
-          type: string
-        segmentName:
-          type: string
-        segmentDescription:
-          type: string
-        segmentTag:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/SegmentTypeEnum'
-        segmentIcon:
-          type: string
-        visibleToCustomer:
-          type: boolean
-        segmentRules:
-          $ref: '#/components/schemas/RuleDescriptor'
-        adminId:
-          type: string
-        adminEmail:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        createdDate:
-          type: string
-          format: date-time
-        updateDate:
-          type: string
-          format: date-time
-        lastProcessedDate:
-          type: string
-          format: date-time
-        expiredStatus:
-          type: boolean
-        displaySegmentStatus:
-          type: string
-        deletedStatus:
-          type: boolean
-        segmentDistribution:
-          type: string
-        customerCount:
-          type: integer
-          format: int32
-        calculationInProgressStatus:
-          type: boolean
-    RelationalOperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    SubCategoryEnum:
-      type: string
-      enum:
-      - LIFETIME
-      - LAST_NO_OF_DAYS
-      - NO_OF_ORDERS
-    SegmentTypeEnum:
-      type: string
-      enum:
-      - LOYALTY
-      - NORMAL
-    OperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    ProductDTO:
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        externalId:
-          type: string
-        displayInfoTitlesList:
-          type: array
-          items:
-            type: string
-    DaysOfWeekEnum:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
-    RuleTypeEnum:
-      type: string
-      enum:
-      - EXPRESSION
-      - LOGIC
-    ResultsPagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
-    CreateSegmentResponseDTO:
-      type: object
-      properties:
-        segmentId:
-          type: string
-        segmentName:
-          type: string
     RuleDescriptor:
       type: object
       properties:
@@ -411,6 +290,88 @@ components:
       - segmentType
       - startDate
       - timeZone
+    SubCategoryEnum:
+      type: string
+      enum:
+      - LIFETIME
+      - LAST_NO_OF_DAYS
+      - NO_OF_ORDERS
+    CreateSegmentResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        segmentName:
+          type: string
+    DaysOfWeekEnum:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    FindSegmentsResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentResponseDTO'
+    LogicTypeEnum:
+      type: string
+      enum:
+      - AND
+      - OR
+      - NOT
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    RelationalOperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    RuleTypeEnum:
+      type: string
+      enum:
+      - EXPRESSION
+      - LOGIC
+    ProductDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        externalId:
+          type: string
+        displayInfoTitlesList:
+          type: array
+          items:
+            type: string
     ExpressionValueNew:
       type: object
       properties:
@@ -446,64 +407,76 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DaysOfWeekEnum'
-    LogicTypeEnum:
-      type: string
-      enum:
-      - AND
-      - OR
-      - NOT
-    FindSegmentsResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentResponseDTO'
-    SegmentLightResponseDTO:
+    SegmentResponseDTO:
       type: object
       properties:
         segmentId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        merchantName:
           type: string
         segmentName:
           type: string
         segmentDescription:
           type: string
+        segmentTag:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/SegmentTypeEnum'
         segmentIcon:
           type: string
+        visibleToCustomer:
+          type: boolean
         segmentRules:
-          $ref: '#/components/schemas/RuleDescriptor_2'
+          $ref: '#/components/schemas/RuleDescriptor'
+        adminId:
+          type: string
+        adminEmail:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+        updateDate:
+          type: string
+          format: date-time
+        lastProcessedDate:
+          type: string
+          format: date-time
+        expiredStatus:
+          type: boolean
+        displaySegmentStatus:
+          type: string
         deletedStatus:
           type: boolean
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
-    FindCustomerSegmentsResponseDTO:
-      type: object
-      properties:
-        clientId:
+        segmentDistribution:
           type: string
-        customerId:
-          type: string
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentLightResponseDTO'
+        customerCount:
+          type: integer
+          format: int32
+        calculationInProgressStatus:
+          type: boolean
+    SegmentTypeEnum:
+      type: string
+      enum:
+      - LOYALTY
+      - NORMAL
+    OperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
     RuleDescriptor_2:
       type: object
       properties:
@@ -545,6 +518,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RuleDescriptor_2'
+    SegmentLightResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentIcon:
+          type: string
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor_2'
+        deletedStatus:
+          type: boolean
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
     ExpressionValueNew_2:
       type: object
       properties:
@@ -602,6 +605,19 @@ components:
             - FRIDAY
             - SATURDAY
             - SUNDAY
+    FindCustomerSegmentsResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        customerId:
+          type: string
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentLightResponseDTO'
 x-refined-from:
-- incentivio-admin-api-openapi.yml
-- incentivio-mobile-api-openapi.yml
+- incentivio-admin-api-openapi.json
+- incentivio-mobile-api-openapi.json

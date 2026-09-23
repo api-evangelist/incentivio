@@ -53,6 +53,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update store
+      x-summary-source: derived
     delete:
       tags:
       - store-controller
@@ -91,6 +93,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete store
+      x-summary-source: derived
   /incentivio-client-domain/reach/display:
     post:
       tags:
@@ -109,6 +113,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Read reach display info
+      x-summary-source: derived
   /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}/stores:
     get:
       tags:
@@ -171,6 +177,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindStoresResponseDTO'
+      summary: Search store by merchant
+      x-summary-source: derived
     post:
       tags:
       - store-controller
@@ -209,6 +217,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CreateStoreResponseDTO'
+      summary: Create store
+      x-summary-source: derived
   /incentivio-client-domain/clients/{clientid}/storetypes:
     get:
       tags:
@@ -232,6 +242,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindStoreTypesResponseDTO'
+      summary: List store type by client id
+      x-summary-source: derived
   /incentivio-client-domain/clients/{clientid}/stores:
     get:
       tags:
@@ -317,6 +329,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindStoresResponseDTO'
+      summary: Search store by client
+      x-summary-source: derived
   /incentivio-client-domain/clients/{clientid}/stores/{identifier}:
     get:
       tags:
@@ -356,6 +370,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/StoreDTO'
+      summary: Read store by client and identifier
+      x-summary-source: derived
   /incentivio-client-domain/clients/{clientid}/reach:
     get:
       tags:
@@ -379,6 +395,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Read client reach string
+      x-summary-source: derived
   /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}/stores/{identifier}:
     get:
       tags:
@@ -428,6 +446,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/StoreDTO'
+      summary: Read store by merchant and identifier
+      x-summary-source: derived
   /incentivio-client-domain/clients/{clientid}/merchants/{merchantid}/admins/{adminid}/stores:
     get:
       tags:
@@ -495,6 +515,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindStoresResponseDTO'
+      summary: Search store by admin
+      x-summary-source: derived
   /incentivio-client-domain/clients/{clientid}/all/stores:
     get:
       tags:
@@ -518,6 +540,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindAllStoresResponseDTO'
+      summary: List store by client id
+      x-summary-source: derived
   /incentivio-client-domain/clients/all/stores:
     get:
       tags:
@@ -530,6 +554,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindAllStoresResponseDTO'
+      summary: List store
+      x-summary-source: derived
   /incentivio-client-domain/admin/stores:
     get:
       tags:
@@ -554,6 +580,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindAdminStoresResponseDTO'
+      summary: List stores for admin
+      x-summary-source: derived
   /incentivio-client-domain/admin/stores/overall:
     get:
       tags:
@@ -578,13 +606,67 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindAdminStoresResponseDTO'
+      summary: List stores for admin overall
+      x-summary-source: derived
 components:
   schemas:
+    AddressDTO:
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+    FindAllStoresResponseDTO:
+      type: object
+      properties:
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDTO'
+    FindStoresResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDTO'
     CreateStoreResponseDTO:
       type: object
       properties:
         storeId:
           type: string
+    AdminStoreDTO:
+      type: object
+      properties:
+        storeId:
+          type: string
+        merchantId:
+          type: string
+        title:
+          type: string
+    ReachStringDTO:
+      type: object
+      properties:
+        reach:
+          type: string
+    FindAdminStoresResponseDTO:
+      type: object
+      properties:
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminStoreDTO'
     CreateStoreRequestDTO:
       type: object
       properties:
@@ -629,57 +711,13 @@ components:
           type: boolean
       required:
       - title
-    FindAdminStoresResponseDTO:
+    FindStoreTypesResponseDTO:
       type: object
       properties:
-        stores:
+        storeTypes:
           type: array
           items:
-            $ref: '#/components/schemas/AdminStoreDTO'
-    UpdateStoreRequestDTO:
-      type: object
-      properties:
-        title:
-          type: string
-        address:
-          $ref: '#/components/schemas/AddressDTO'
-        phoneNumber:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        regionId:
-          type: string
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        storeType:
-          type: string
-        beaconId:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreDisplayInfo'
-          uniqueItems: true
-        isCatering:
-          type: boolean
-        isMenuBrowsing:
-          type: boolean
-        viewOnlyLocationEnabled:
-          type: boolean
-        isTest:
-          type: boolean
-        regionEmpty:
-          type: boolean
+            $ref: '#/components/schemas/StoreTypeDTO'
     StoreTypeDTO:
       type: object
       properties:
@@ -689,25 +727,11 @@ components:
           type: string
         description:
           type: string
-    FindAllStoresResponseDTO:
-      type: object
-      properties:
-        stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreDTO'
     Direction:
       type: string
       enum:
       - ASC
       - DESC
-    FindStoreTypesResponseDTO:
-      type: object
-      properties:
-        storeTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreTypeDTO'
     StoreDTO:
       type: object
       properties:
@@ -756,21 +780,50 @@ components:
           type: boolean
         isTest:
           type: boolean
-    PagingDto:
+    UpdateStoreRequestDTO:
       type: object
       properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
+        title:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        phoneNumber:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        regionId:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        storeType:
+          type: string
+        beaconId:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDisplayInfo'
+          uniqueItems: true
+        isCatering:
+          type: boolean
+        isMenuBrowsing:
+          type: boolean
+        viewOnlyLocationEnabled:
+          type: boolean
+        isTest:
+          type: boolean
+        regionEmpty:
+          type: boolean
     StoreDisplayInfo:
       type: object
       properties:
@@ -786,41 +839,18 @@ components:
           type: string
         mediumImage:
           type: string
-    AdminStoreDTO:
+    PagingDto:
       type: object
       properties:
-        storeId:
-          type: string
-        merchantId:
-          type: string
-        title:
-          type: string
-    FindStoresResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-        stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreDTO'
-    AddressDTO:
-      type: object
-      properties:
-        city:
-          type: string
-        country:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-    ReachStringDTO:
-      type: object
-      properties:
-        reach:
-          type: string
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64

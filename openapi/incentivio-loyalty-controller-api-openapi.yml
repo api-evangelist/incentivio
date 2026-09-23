@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Incentivio Loyalty Controller API
   version: v0
-  description: 'Operations tagged loyalty-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged loyalty-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.json, incentivio-mobile-api-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://adminapi.incentivio.com/incentivio-admin-api
   description: Generated server url
@@ -83,6 +83,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FindLoyaltyHistoryResponseDTO'
+      summary: View loyal account history
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -105,6 +107,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ViewLoyaltyAccountResponseDTO'
+      summary: View loyalty account
+      x-summary-source: derived
     put:
       tags:
       - loyalty-controller
@@ -118,6 +122,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Upsert loyalty account external id
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -135,6 +141,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Upsert loyalty card id
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -150,6 +158,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoyaltyPointsSummaryDTO'
+      summary: Find loyalty points summary
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -173,6 +183,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NextExpiringLoyaltyPointsResponseDTO'
+      summary: Get next expiring loyalty points
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -223,6 +235,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExpiringLoyaltyPointsResponseDTO'
+      summary: Get expiring loyalty points
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -281,6 +295,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindLoyaltyHistoryResponseDTO'
+      summary: View loyal account history
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -315,17 +331,6 @@ components:
           $ref: '#/components/schemas/LoyaltyTransactionStatus'
         confirmationDate:
           type: string
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    LoyaltyTransactionStatus:
-      type: string
-      enum:
-      - PENDING
-      - CONFIRMED
-      - EXPIRED
     ResultsPagingDTO:
       type: object
       properties:
@@ -341,6 +346,11 @@ components:
         currentPage:
           type: integer
           format: int32
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
     FindLoyaltyHistoryResponseDTO:
       type: object
       properties:
@@ -350,27 +360,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LoyaltyTransactionDTO'
-    NextExpiringLoyaltyPointsResponseDTO:
+    LoyaltyTransactionStatus:
+      type: string
+      enum:
+      - PENDING
+      - CONFIRMED
+      - EXPIRED
+    ExpiringLoyaltyPointsResponseDTO:
       type: object
       properties:
-        nextExpiringPoints:
-          type: integer
-          format: int32
-        expiryDate:
-          type: string
-    LoyaltyPointsSummaryDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        totalOriginalpoints:
-          type: integer
-          format: int32
-        totalRemainingpoints:
-          type: integer
-          format: int32
-        timeSummarized:
-          type: string
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        expiringLoyaltyPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyTransactionDTO_2'
     LoyaltyTransactionDTO_2:
       type: object
       properties:
@@ -421,6 +425,27 @@ components:
         confirmationDate:
           type: string
         expiryDate:
+          type: string
+    NextExpiringLoyaltyPointsResponseDTO:
+      type: object
+      properties:
+        nextExpiringPoints:
+          type: integer
+          format: int32
+        expiryDate:
+          type: string
+    LoyaltyPointsSummaryDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        totalOriginalpoints:
+          type: integer
+          format: int32
+        totalRemainingpoints:
+          type: integer
+          format: int32
+        timeSummarized:
           type: string
     ViewLoyaltyAccountResponseDTO:
       type: object
@@ -483,15 +508,6 @@ components:
         upperBoundary:
           type: number
           format: double
-    ExpiringLoyaltyPointsResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        expiringLoyaltyPoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/LoyaltyTransactionDTO_2'
 x-refined-from:
-- incentivio-admin-api-openapi.yml
-- incentivio-mobile-api-openapi.yml
+- incentivio-admin-api-openapi.json
+- incentivio-mobile-api-openapi.json

@@ -26,3 +26,5 @@ paths:
             application/json:
               schema:
                 type: boolean
+      summary: Get cache
+      x-summary-source: derived

@@ -22,6 +22,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ACHLocationDTO'
+      summary: Retrieve ACH locations for admin
+      x-summary-source: derived
     put:
       tags:
       - gift-card-ach-controller
@@ -47,6 +49,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Update location 1
+      x-summary-source: derived
     post:
       tags:
       - gift-card-ach-controller
@@ -66,6 +70,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/RetrieveAchLocationListResponse'
+      summary: Retrieve locations by ACH location IDs
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/achlocations/{locationId}/fundingaccount:
     put:
       tags:
@@ -99,6 +105,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Update funding account
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/{locationId}/retry-verification:
     post:
       tags:
@@ -125,6 +133,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Retry verification
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/client-token:
     post:
       tags:
@@ -144,6 +154,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/RetrieveClientTokenResponse'
+      summary: Retrieve client token
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/achlocations/{locationId}/status:
     post:
       tags:
@@ -170,6 +182,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Update location status
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/achlocations/{locationId}/fundingaccount/{fundingAccountId}/verifymicrodeposits:
     post:
       tags:
@@ -210,6 +224,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Verify micro deposits
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/achlocations/copy-customer-and-account:
     post:
       tags:
@@ -228,6 +244,8 @@ paths:
             '*/*':
               schema:
                 type: object
+      summary: Copy customer and account
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/iav-token/{customerId}:
     get:
       tags:
@@ -246,6 +264,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/RetrieveIAVTokenResponse'
+      summary: Retrieve IAV token
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/achlocations/{locationId}:
     get:
       tags:
@@ -272,6 +292,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ACHLocationDTO'
+      summary: Retrieve location
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/achlocations/{locationId}/fundingaccount/{fundingAccountId}/balance:
     get:
       tags:
@@ -306,6 +328,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Retrieve funding account balance
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/achlocations/{locationId}/beneficialowners:
     get:
       tags:
@@ -333,6 +357,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/RetrieveBeneficalOwnersResponse'
+      summary: Retrieve beneficial owners
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/achlocations/{locationId}/funding-source:
     delete:
       tags:
@@ -358,6 +384,8 @@ paths:
             '*/*':
               schema:
                 type: object
+      summary: Remove funding source
+      x-summary-source: derived
   /incentivio-giftcard-ach-service/achlocations/{locationId}/customer:
     delete:
       tags:
@@ -383,76 +411,15 @@ paths:
             '*/*':
               schema:
                 type: object
+      summary: Remove customer
+      x-summary-source: derived
 components:
   schemas:
-    UpdateFundingAccountRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        externalId:
-          type: string
-        externalUrl:
-          type: string
-    AdminPortalMetaDataRequest:
-      type: object
-      properties:
-        deviceDetail:
-          $ref: '#/components/schemas/DeviceDetailRequest'
-        userDetail:
-          $ref: '#/components/schemas/UserDetailRequest'
-    UserDetailRequest:
-      type: object
-      properties:
-        userId:
-          type: string
-        userName:
-          type: string
-        email:
-          type: string
-    VerificationStatusEnum:
+    BankAccountTypeEnum:
       type: string
       enum:
-      - UNVERIFIED
-      - DOCUMENT
-      - VERIFIED
-      - INCOMPLETE
-    VerifyMicroDepositsRequest:
-      type: object
-      properties:
-        amount1:
-          type: string
-        amount2:
-          type: string
-    BusinessController:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        dateOfBirth:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
-    RetrieveClientTokenResponse:
-      type: object
-      properties:
-        token:
-          type: string
-    LocationDetailRequest:
-      type: object
-      properties:
-        locationId:
-          type: string
-        locationName:
-          type: string
-        metaData:
-          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
-        locationEnabled:
-          type: boolean
+      - CHECKING
+      - SAVINGS
     ACHBeneficialOwner:
       type: object
       properties:
@@ -475,63 +442,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ACHDocument'
-    Address:
+    RetrieveIAVTokenResponse:
       type: object
       properties:
-        street1:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        lat:
-          type: number
-          format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
-          type: string
-    UpdateLocationStatusRequest:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-    RetrieveAchLocationListResponse:
-      type: object
-      properties:
-        locationList:
-          type: array
-          items:
-            $ref: '#/components/schemas/ACHLocationDTO'
-    TypeEnum:
-      type: string
-      enum:
-      - PASSPORT
-      - LICENSE
-      - ID_CARD
-      - OTHER
-    RetrieveBeneficalOwnersResponse:
-      type: object
-      properties:
-        beneficialOwners:
-          type: array
-          items:
-            $ref: '#/components/schemas/ACHBeneficialOwner'
-    RetryCustomerVerificationRequest:
-      type: object
-      properties:
-        dateOfBirth:
-          type: string
-        fullSSN:
-          type: string
-        ein:
+        token:
           type: string
     UpdateLocationRequest:
       type: object
@@ -542,89 +456,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LocationDetailRequest'
-    BankAccountTypeEnum:
-      type: string
-      enum:
-      - CHECKING
-      - SAVINGS
-    RetrieveIAVTokenResponse:
+    RetryCustomerVerificationRequest:
       type: object
       properties:
-        token:
+        dateOfBirth:
           type: string
-    ACHDocument:
-      type: object
-      properties:
-        id:
+        fullSSN:
           type: string
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        type:
-          $ref: '#/components/schemas/TypeEnum'
-        created:
-          type: string
-          format: date-time
-        failureReason:
-          type: string
-        allFailureReasons:
-          type: array
-          items:
-            type: object
-            additionalProperties:
-              type: string
-    CopyCustomerAndAccountRequest:
-      type: object
-      properties:
-        fromLocationId:
-          type: string
-        toLocationIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-    DeviceDetailRequest:
-      type: object
-      properties:
-        deviceIpAddress:
-          type: string
-        deviceType:
-          type: string
-        browserType:
-          type: string
-    StatusEnum:
-      type: string
-      enum:
-      - INPROGRESS
-      - SUCCESS
-      - FAILED
-      - EMAILED
-      - RETRYING
-      - DOWNLOADED
-      - NODATA
-    ACHFundingAccount:
-      type: object
-      properties:
-        id:
-          type: string
-        externalId:
-          type: string
-        externalURL:
-          type: string
-        bankAccountType:
-          $ref: '#/components/schemas/BankAccountTypeEnum'
-        accountNickName:
-          type: string
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        deleted:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-        fingerprint:
+        ein:
           type: string
     ACHLocationDTO:
       type: object
@@ -695,3 +534,194 @@ components:
           type: boolean
         overallStatus:
           type: string
+    VerificationStatusEnum:
+      type: string
+      enum:
+      - UNVERIFIED
+      - DOCUMENT
+      - VERIFIED
+      - INCOMPLETE
+    TypeEnum:
+      type: string
+      enum:
+      - PASSPORT
+      - LICENSE
+      - ID_CARD
+      - OTHER
+    UpdateLocationStatusRequest:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+    RetrieveBeneficalOwnersResponse:
+      type: object
+      properties:
+        beneficialOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHBeneficialOwner'
+    ACHDocument:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        created:
+          type: string
+          format: date-time
+        failureReason:
+          type: string
+        allFailureReasons:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+    UserDetailRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    BusinessController:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        dateOfBirth:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    RetrieveClientTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    DeviceDetailRequest:
+      type: object
+      properties:
+        deviceIpAddress:
+          type: string
+        deviceType:
+          type: string
+        browserType:
+          type: string
+    RetrieveAchLocationListResponse:
+      type: object
+      properties:
+        locationList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHLocationDTO'
+    AdminPortalMetaDataRequest:
+      type: object
+      properties:
+        deviceDetail:
+          $ref: '#/components/schemas/DeviceDetailRequest'
+        userDetail:
+          $ref: '#/components/schemas/UserDetailRequest'
+    VerifyMicroDepositsRequest:
+      type: object
+      properties:
+        amount1:
+          type: string
+        amount2:
+          type: string
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    ACHFundingAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        externalURL:
+          type: string
+        bankAccountType:
+          $ref: '#/components/schemas/BankAccountTypeEnum'
+        accountNickName:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        deleted:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        fingerprint:
+          type: string
+    UpdateFundingAccountRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        externalUrl:
+          type: string
+    CopyCustomerAndAccountRequest:
+      type: object
+      properties:
+        fromLocationId:
+          type: string
+        toLocationIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    LocationDetailRequest:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+        locationEnabled:
+          type: boolean

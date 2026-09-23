@@ -31,6 +31,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Upload file to stripe
+      x-summary-source: derived
   /incentivio-payments/**:
     get:
       tags:
@@ -43,6 +45,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Service
+      x-summary-source: derived
     put:
       tags:
       - payments-controller
@@ -54,6 +58,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Service 2
+      x-summary-source: derived
     post:
       tags:
       - payments-controller
@@ -65,6 +71,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Service 1
+      x-summary-source: derived
     delete:
       tags:
       - payments-controller
@@ -76,6 +84,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Service 3
+      x-summary-source: derived
     options:
       tags:
       - payments-controller
@@ -87,6 +97,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Service 6
+      x-summary-source: derived
     head:
       tags:
       - payments-controller
@@ -98,6 +110,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Service 5
+      x-summary-source: derived
     patch:
       tags:
       - payments-controller
@@ -109,3 +123,5 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Service 4
+      x-summary-source: derived

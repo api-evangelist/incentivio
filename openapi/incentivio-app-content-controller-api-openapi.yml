@@ -53,17 +53,27 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/AppContentResponseDTO'
+      summary: Retrieve customer app content
+      x-summary-source: derived
 components:
   schemas:
-    AppMessageListDTO:
+    AppContentResponseDTO:
       type: object
       properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppMessageDTO'
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
+        offerList:
+          $ref: '#/components/schemas/AppOfferListDTO'
+        messageList:
+          $ref: '#/components/schemas/AppMessageListDTO'
+    OfferStatus:
+      type: string
+      enum:
+      - NEW
+      - SAVED
+      - READ
+      - EXPIRED
+      - DELETED
+      - SYSTEM_REDEEMED
+      - USER_REDEEMED
     AppMessageDTO:
       type: object
       properties:
@@ -95,28 +105,15 @@ components:
           type: string
         surveyId:
           type: string
-    ResultsPagingDTO:
+    AppMessageListDTO:
       type: object
       properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
-    MessageStatus:
-      type: string
-      enum:
-      - NEW
-      - READ
-      - EXPIRED
-      - DELETED
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppMessageDTO'
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
     AppOfferDTO:
       type: object
       properties:
@@ -165,23 +162,28 @@ components:
           type: boolean
         enableGuestCheckout:
           type: boolean
-    OfferStatus:
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    MessageStatus:
       type: string
       enum:
       - NEW
-      - SAVED
       - READ
       - EXPIRED
       - DELETED
-      - SYSTEM_REDEEMED
-      - USER_REDEEMED
-    AppContentResponseDTO:
-      type: object
-      properties:
-        offerList:
-          $ref: '#/components/schemas/AppOfferListDTO'
-        messageList:
-          $ref: '#/components/schemas/AppMessageListDTO'
     AppOfferListDTO:
       type: object
       properties:

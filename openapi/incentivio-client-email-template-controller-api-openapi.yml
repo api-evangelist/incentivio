@@ -26,6 +26,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClientTemplate'
+      summary: Get client template
+      x-summary-source: derived
     put:
       tags:
       - client-email-template-controller
@@ -49,6 +51,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClientTemplate'
+      summary: Update client template
+      x-summary-source: derived
     delete:
       tags:
       - client-email-template-controller
@@ -62,6 +66,8 @@ paths:
       responses:
         '204':
           description: No Content
+      summary: Delete client template
+      x-summary-source: derived
   /incentivio-client-domain/templates:
     get:
       tags:
@@ -103,6 +109,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClientTemplatesResponseDTO'
+      summary: Search client templates
+      x-summary-source: derived
     post:
       tags:
       - client-email-template-controller
@@ -120,6 +128,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClientTemplate'
+      summary: Create client template
+      x-summary-source: derived
   /incentivio-client-domain/templates/{templateid}/associations:
     get:
       tags:
@@ -138,6 +148,8 @@ paths:
             application/json:
               schema:
                 type: string
+      summary: Get offers or messages by template id
+      x-summary-source: derived
   /incentivio-client-domain/templates/tags:
     get:
       tags:
@@ -152,6 +164,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TemplateTagResponseDTO'
+      summary: Get template tags
+      x-summary-source: derived
   /incentivio-client-domain/templates/events/{event}:
     get:
       tags:
@@ -170,6 +184,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClientTemplate'
+      summary: Get event based client template
+      x-summary-source: derived
   /incentivio-client-domain/templates/alltemplates:
     get:
       tags:
@@ -195,8 +211,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClientTemplatesResponseDTO'
+      summary: All client templates
+      x-summary-source: derived
 components:
   schemas:
+    CreateClientTemplateRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        jsonTemplate:
+          type: string
+        htmlTemplate:
+          type: string
+        fromAddress:
+          type: string
+        bcc:
+          type: string
+        subject:
+          type: string
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        emailTemplateType:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+        reusable:
+          type: boolean
     ClientEmailTemplateType:
       type: string
       enum:
@@ -204,6 +243,19 @@ components:
       - LOYALTY_OFFER
       - MESSAGE
       - EVENT
+    TemplateTagResponseDTO:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        tag:
+          type: string
+        required:
+          type: boolean
+        specialLink:
+          type: boolean
     ClientTemplate:
       type: object
       properties:
@@ -263,27 +315,6 @@ components:
       - ORDER_CUSTOMER_NOTIFICATION
       - GUEST_CHECKOUT_VERIFICATION
       - PASSWORDLESS_AUTH
-    UpdateClientTemplateRequestDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        jsonTemplate:
-          type: string
-        htmlTemplate:
-          type: string
-        fromAddress:
-          type: string
-        bcc:
-          type: string
-        subject:
-          type: string
-        eventType:
-          $ref: '#/components/schemas/EventType'
-        emailTemplateType:
-          $ref: '#/components/schemas/ClientEmailTemplateType'
-        reusable:
-          type: boolean
     ClientTemplatesResponseDTO:
       type: object
       properties:
@@ -293,20 +324,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ClientTemplate'
-    TemplateTagResponseDTO:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ClientEmailTemplateType'
-        eventType:
-          $ref: '#/components/schemas/EventType'
-        tag:
-          type: string
-        required:
-          type: boolean
-        specialLink:
-          type: boolean
-    CreateClientTemplateRequestDTO:
+    UpdateClientTemplateRequestDTO:
       type: object
       properties:
         name:

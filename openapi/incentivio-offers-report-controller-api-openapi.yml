@@ -26,6 +26,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/OfferPerformanceReportExportResponseDTO'
+      summary: Export offer performance report
+      x-summary-source: derived
   /incentivio-reports/clients/{clientId}/offer-performance:
     get:
       tags:
@@ -97,8 +99,18 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/OfferPerformanceReportDTO'
+      summary: Retrieve offer performance report
+      x-summary-source: derived
 components:
   schemas:
+    OfferPerformanceDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        value:
+          type: integer
+          format: int32
     OfferPerformanceReportExportResponseDTO:
       type: object
       properties:
@@ -108,11 +120,28 @@ components:
           type: string
         generatedCSV:
           type: string
+    OfferPerformanceReportDTO:
+      type: object
+      properties:
+        offerPerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferPerformanceDTO'
     Direction:
       type: string
       enum:
       - ASC
       - DESC
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
     OfferPerformanceReportExportRequestDTO:
       type: object
       properties:
@@ -138,28 +167,3 @@ components:
           type: array
           items:
             type: string
-    StatusEnum:
-      type: string
-      enum:
-      - INPROGRESS
-      - SUCCESS
-      - FAILED
-      - EMAILED
-      - RETRYING
-      - DOWNLOADED
-      - NODATA
-    OfferPerformanceReportDTO:
-      type: object
-      properties:
-        offerPerformanceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OfferPerformanceDTO'
-    OfferPerformanceDTO:
-      type: object
-      properties:
-        attribute:
-          type: string
-        value:
-          type: integer
-          format: int32

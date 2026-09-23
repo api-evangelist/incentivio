@@ -22,6 +22,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Refund transaction
+      x-summary-source: derived
   /incentivio-ordering-service/orders/reversepayment:
     post:
       tags:
@@ -36,8 +38,37 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Refund order
+      x-summary-source: derived
 components:
   schemas:
+    RefundOrderRequest:
+      type: object
+      properties:
+        adminUserId:
+          type: string
+        automaticReversal:
+          type: boolean
+        emailReceipt:
+          type: boolean
+        isPartialRefund:
+          type: boolean
+        refundAmount:
+          type: integer
+          format: int32
+        refundReason:
+          type: string
+          minLength: 1
+        requestedBy:
+          type: string
+        orderId:
+          type: string
+        extPaymentTransactionId:
+          type: string
+      required:
+      - isPartialRefund
+      - orderId
+      - refundReason
     RefundTransactionRequest:
       type: object
       properties:
@@ -70,30 +101,3 @@ components:
       - isPartialRefund
       - refundReason
       - type
-    RefundOrderRequest:
-      type: object
-      properties:
-        adminUserId:
-          type: string
-        automaticReversal:
-          type: boolean
-        emailReceipt:
-          type: boolean
-        isPartialRefund:
-          type: boolean
-        refundAmount:
-          type: integer
-          format: int32
-        refundReason:
-          type: string
-          minLength: 1
-        requestedBy:
-          type: string
-        orderId:
-          type: string
-        extPaymentTransactionId:
-          type: string
-      required:
-      - isPartialRefund
-      - orderId
-      - refundReason

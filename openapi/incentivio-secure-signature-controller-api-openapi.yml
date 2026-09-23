@@ -20,6 +20,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/SignatureResponse'
+      summary: Generate signature
+      x-summary-source: derived
 components:
   schemas:
     SignatureResponse:

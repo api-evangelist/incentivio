@@ -28,6 +28,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Submit answers
+      x-summary-source: derived
   /surveys/{surveyid}/submitanswer:
     put:
       tags:
@@ -48,15 +50,10 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Submit answer
+      x-summary-source: derived
 components:
   schemas:
-    SubmitAnswersRequestDTO:
-      type: object
-      properties:
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubmitAnswerRequestDTO'
     SubmitAnswerRequestDTO:
       required:
       - questionId
@@ -73,3 +70,10 @@ components:
             type: string
         textAnswer:
           type: string
+    SubmitAnswersRequestDTO:
+      type: object
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubmitAnswerRequestDTO'

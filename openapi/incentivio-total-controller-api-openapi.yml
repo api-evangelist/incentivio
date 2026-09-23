@@ -34,6 +34,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/OrderTotalDTO'
+      summary: Calculate order total for items
+      x-summary-source: derived
   /orders/{orderid}/calculatetotal:
     get:
       tags:
@@ -52,20 +54,10 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/OrderTotalDTO'
+      summary: Calculate price
+      x-summary-source: derived
 components:
   schemas:
-    OrderTax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        taxDescription:
-          type: string
-        taxAmountApplied:
-          type: integer
-          format: int32
-        displayTaxAmountApplied:
-          type: string
     ChargeSummary:
       type: object
       properties:
@@ -148,6 +140,18 @@ components:
           items:
             $ref: '#/components/schemas/OrderTax'
         displayTotalTaxes:
+          type: string
+    OrderTax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        taxDescription:
+          type: string
+        taxAmountApplied:
+          type: integer
+          format: int32
+        displayTaxAmountApplied:
           type: string
     OrderTotalDTO:
       type: object

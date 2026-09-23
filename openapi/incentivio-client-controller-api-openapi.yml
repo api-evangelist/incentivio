@@ -76,6 +76,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindStoresResponseDTO'
+      summary: Find stores by client
+      x-summary-source: derived
   /clients/{clientid}/clientalias:
     get:
       tags:
@@ -94,6 +96,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindClientResponseDTO'
+      summary: Get alias by client id
+      x-summary-source: derived
   /clientalias/{clientAlias}:
     get:
       tags:
@@ -112,25 +116,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindClientResponseDTO'
+      summary: Get client id by alias
+      x-summary-source: derived
 components:
   schemas:
-    Address:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-        aptSuite:
-          type: string
     AddressDTO:
       required:
       - city
@@ -164,27 +153,38 @@ components:
           format: double
         aptSuite:
           type: string
-    FindClientResponseDTO:
+    Address:
       type: object
       properties:
-        clientId:
+        streetAddress1:
           type: string
-        alias:
+        streetAddress2:
           type: string
-        address:
-          $ref: '#/components/schemas/AddressDTO'
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string
+    StoreDisplayInfo:
+      type: object
+      properties:
+        languageCode:
+          type: string
         title:
           type: string
         shortDescription:
           type: string
         longDescription:
           type: string
-        logoImage:
+        smallImage:
           type: string
-          format: byte
-        medLogo:
+        mediumImage:
           type: string
-          format: byte
     StoreDTO:
       type: object
       properties:
@@ -225,21 +225,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StoreDisplayInfo'
-    StoreDisplayInfo:
-      type: object
-      properties:
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
     FindStoresResponseDTO:
       type: object
       properties:
@@ -249,6 +234,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StoreDTO'
+    FindClientResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        alias:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        logoImage:
+          type: string
+          format: byte
+        medLogo:
+          type: string
+          format: byte
     PagingDto:
       type: object
       properties:

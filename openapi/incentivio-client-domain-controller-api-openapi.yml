@@ -28,6 +28,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ClientDomainDTO'
+      summary: Get client domain by client alias
+      x-summary-source: derived
 components:
   schemas:
     ClientDomainDTO:

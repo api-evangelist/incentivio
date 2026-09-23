@@ -32,6 +32,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PulseCSVResponseDTO'
+      summary: Get data grid csv
+      x-summary-source: derived
   /incentivio-reports/pulse/email/{reportType}/opened:
     get:
       tags:
@@ -94,6 +96,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PulsePieGraph'
+      summary: Get opened
+      x-summary-source: derived
   /incentivio-reports/pulse/email/{reportType}/data:
     get:
       tags:
@@ -165,6 +169,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PulseDataGridWithTotalEmailDataDTO'
+      summary: Get data grid
+      x-summary-source: derived
   /incentivio-reports/pulse/email/{reportType}/cards:
     get:
       tags:
@@ -227,6 +233,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/EmailCardsDTO'
+      summary: Get email pulse cards
+      x-summary-source: derived
   /incentivio-reports/pulse/email/{reportType}/bounced:
     get:
       tags:
@@ -289,6 +297,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PulsePieGraph'
+      summary: Get bounced
+      x-summary-source: derived
   /incentivio-reports/pulse/email/overview/trends:
     get:
       tags:
@@ -307,6 +317,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PulseTimeSeries'
+      summary: Get overview trends
+      x-summary-source: derived
   /incentivio-reports/pulse/email/offers:
     get:
       tags:
@@ -321,6 +333,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/EmailPulseOfferDTO'
+      summary: Get offers
+      x-summary-source: derived
   /incentivio-reports/pulse/email/messages:
     get:
       tags:
@@ -335,8 +349,84 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/EmailPulseMessageDTO'
+      summary: Get messages
+      x-summary-source: derived
 components:
   schemas:
+    CardTypeEnum:
+      type: string
+      enum:
+      - number
+      - percent
+      - currency
+    EmailPulseDataCSVRequestDTO:
+      type: object
+      properties:
+        clientname:
+          type: string
+        requestStatus:
+          $ref: '#/components/schemas/RequestStatusEnum'
+        startdate:
+          type: string
+          format: date
+        enddate:
+          type: string
+          format: date
+        storeids:
+          type: array
+          items:
+            type: string
+        columns:
+          type: array
+          items:
+            type: string
+        reportType:
+          type: string
+        emailType:
+          type: string
+        status:
+          type: string
+        campaignIds:
+          type: array
+          items:
+            type: string
+        offerIds:
+          type: array
+          items:
+            type: string
+        messageIds:
+          type: array
+          items:
+            type: string
+    PulseTimeSeries:
+      type: object
+      properties:
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/PulseTimeSeriesEntry'
+        xlabels:
+          type: array
+          items:
+            type: string
+    EmailPulseMessageDTO:
+      type: object
+      properties:
+        messageId:
+          type: string
+        title:
+          type: string
+    PulseDataGridWithTotalEmailDataDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailDataDTO'
+        total:
+          $ref: '#/components/schemas/EmailDataDTO'
     EmailPulseOfferDTO:
       type: object
       properties:
@@ -344,28 +434,31 @@ components:
           type: string
         title:
           type: string
-    SortingRequest:
+    PulsePieGraphEntry:
       type: object
       properties:
-        sortBy:
+        label:
           type: string
-        sortDirection:
-          type: string
-    PagingDTO:
+        value:
+          type: number
+    PaginationRequest:
       type: object
       properties:
-        total:
+        page:
           type: integer
           format: int32
         count:
           type: integer
           format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
+    PulseTimeSeriesEntry:
+      type: object
+      properties:
+        label:
+          type: string
+        data:
+          type: array
+          items:
+            type: number
     PulseDateRange:
       type: object
       properties:
@@ -381,27 +474,7 @@ components:
         comparisonenddate:
           type: string
           format: date
-    PulseTimeSeriesEntry:
-      type: object
-      properties:
-        label:
-          type: string
-        data:
-          type: array
-          items:
-            type: number
-    PulseTimeSeries:
-      type: object
-      properties:
-        series:
-          type: array
-          items:
-            $ref: '#/components/schemas/PulseTimeSeriesEntry'
-        xlabels:
-          type: array
-          items:
-            type: string
-    RequestStatusEnum:
+    StatusEnum:
       type: string
       enum:
       - INPROGRESS
@@ -411,16 +484,28 @@ components:
       - RETRYING
       - DOWNLOADED
       - NODATA
-    PulseCSVResponseDTO:
+    EmailCardsDTO:
       type: object
       properties:
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        responseMessage:
+        emailsSent:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        emailsDelivered:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        openRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        clickRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        unsubscribeRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        spamReportRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+    SortingRequest:
+      type: object
+      properties:
+        sortBy:
           type: string
-        data:
-          type: object
-          additionalProperties: {}
+        sortDirection:
+          type: string
     EmailDataDTO:
       type: object
       properties:
@@ -480,54 +565,6 @@ components:
           type: string
         spamReports:
           type: string
-    PulsePieGraph:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PulsePieGraphEntry'
-    PaginationRequest:
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-    PulseDataGridWithTotalEmailDataDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmailDataDTO'
-        total:
-          $ref: '#/components/schemas/EmailDataDTO'
-    CardTypeEnum:
-      type: string
-      enum:
-      - number
-      - percent
-      - currency
-    EmailCardsDTO:
-      type: object
-      properties:
-        emailsSent:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        emailsDelivered:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        openRate:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        clickRate:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        unsubscribeRate:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        spamReportRate:
-          $ref: '#/components/schemas/PulseSummaryCard'
     PulseSummaryCard:
       type: object
       properties:
@@ -541,53 +578,32 @@ components:
             type: number
         cardType:
           $ref: '#/components/schemas/CardTypeEnum'
-    EmailPulseMessageDTO:
+    PulseCSVResponseDTO:
       type: object
       properties:
-        messageId:
-          type: string
-        title:
-          type: string
-    EmailPulseDataCSVRequestDTO:
-      type: object
-      properties:
-        clientname:
-          type: string
-        requestStatus:
-          $ref: '#/components/schemas/RequestStatusEnum'
-        startdate:
-          type: string
-          format: date
-        enddate:
-          type: string
-          format: date
-        storeids:
-          type: array
-          items:
-            type: string
-        columns:
-          type: array
-          items:
-            type: string
-        reportType:
-          type: string
-        emailType:
-          type: string
         status:
+          $ref: '#/components/schemas/StatusEnum'
+        responseMessage:
           type: string
-        campaignIds:
-          type: array
-          items:
-            type: string
-        offerIds:
-          type: array
-          items:
-            type: string
-        messageIds:
-          type: array
-          items:
-            type: string
-    StatusEnum:
+        data:
+          type: object
+          additionalProperties: {}
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    RequestStatusEnum:
       type: string
       enum:
       - INPROGRESS
@@ -597,10 +613,10 @@ components:
       - RETRYING
       - DOWNLOADED
       - NODATA
-    PulsePieGraphEntry:
+    PulsePieGraph:
       type: object
       properties:
-        label:
-          type: string
-        value:
-          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PulsePieGraphEntry'

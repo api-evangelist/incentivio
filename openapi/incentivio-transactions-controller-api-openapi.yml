@@ -65,8 +65,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindTransactionsResponseDTO'
+      summary: Find transactions
+      x-summary-source: derived
 components:
   schemas:
+    Payment:
+      type: object
+      properties:
+        paymentTxId:
+          type: string
+        externalTxId:
+          type: string
+        paidDate:
+          type: string
+        paymentType:
+          type: string
+          enum:
+          - CARD_NOT_PRESENT
+          - CARD_PRESENT
+          - CASH
+          - THIRD_PARTY
+          - APPLE_PAY
+          - ANDROID_PAY
+          - SAMSUNG_PAY
+          - NO_PAYMENT
+          - GOOGLE_PAY
+          - ONE_TIME_TOKEN
+          - PERMANENT_TOKEN
+          - GIFT_CARD
+          - PAYMENT_SKIPPED
+        cardType:
+          type: string
+        lastFour:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        tipAmount:
+          type: integer
+          format: int32
+        amountTendered:
+          type: integer
+          format: int32
     Customer:
       type: object
       properties:
@@ -82,30 +122,46 @@ components:
           type: string
         phone:
           type: string
-    FindTransactionsResponseDTO:
+    VoidInfo:
       type: object
       properties:
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    PagingDTO:
+        voidBusinessDate:
+          type: string
+          format: date
+        voidDate:
+          type: string
+          format: date-time
+        voidReason:
+          type: string
+    AppliedDiscount:
       type: object
       properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
+        additionalAttribs:
+          type: object
+          additionalProperties:
+            type: string
+        appliedDiscount:
           type: integer
           format: int32
-        currentPage:
+        appliedQuantity:
           type: integer
           format: int32
+        discountType:
+          type: string
+        distributedOfferId:
+          type: string
+        extOfferId:
+          type: string
+        incentivioDistributedOfferId:
+          type: string
+        name:
+          type: string
+        offerCode:
+          type: string
+        offerId:
+          type: string
+        voided:
+          type: boolean
     Total:
       type: object
       properties:
@@ -142,6 +198,64 @@ components:
         total:
           type: integer
           format: int32
+    Check:
+      type: object
+      properties:
+        checkId:
+          type: string
+        extCheckId:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        amount:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+    Refund:
+      type: object
+      properties:
+        refundAmount:
+          type: integer
+          format: int32
+        refundBusinessDate:
+          type: string
+          format: date
+        refundDate:
+          type: string
+          format: date-time
+        tipRefundAmount:
+          type: integer
+          format: int32
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    FindTransactionsResponseDTO:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
     TransactionDTO:
       type: object
       properties:
@@ -267,116 +381,4 @@ components:
         voidInfo:
           $ref: '#/components/schemas/VoidInfo'
         reImport:
-          type: boolean
-    Payment:
-      type: object
-      properties:
-        paymentTxId:
-          type: string
-        externalTxId:
-          type: string
-        paidDate:
-          type: string
-        paymentType:
-          type: string
-          enum:
-          - CARD_NOT_PRESENT
-          - CARD_PRESENT
-          - CASH
-          - THIRD_PARTY
-          - APPLE_PAY
-          - ANDROID_PAY
-          - SAMSUNG_PAY
-          - NO_PAYMENT
-          - GOOGLE_PAY
-          - ONE_TIME_TOKEN
-          - PERMANENT_TOKEN
-          - GIFT_CARD
-          - PAYMENT_SKIPPED
-        cardType:
-          type: string
-        lastFour:
-          type: string
-        amount:
-          type: integer
-          format: int32
-        tipAmount:
-          type: integer
-          format: int32
-        amountTendered:
-          type: integer
-          format: int32
-    Check:
-      type: object
-      properties:
-        checkId:
-          type: string
-        extCheckId:
-          type: string
-        customer:
-          $ref: '#/components/schemas/Customer'
-        amount:
-          type: integer
-          format: int32
-        gratuity:
-          type: integer
-          format: int32
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payment'
-    Refund:
-      type: object
-      properties:
-        refundAmount:
-          type: integer
-          format: int32
-        refundBusinessDate:
-          type: string
-          format: date
-        refundDate:
-          type: string
-          format: date-time
-        tipRefundAmount:
-          type: integer
-          format: int32
-    VoidInfo:
-      type: object
-      properties:
-        voidBusinessDate:
-          type: string
-          format: date
-        voidDate:
-          type: string
-          format: date-time
-        voidReason:
-          type: string
-    AppliedDiscount:
-      type: object
-      properties:
-        additionalAttribs:
-          type: object
-          additionalProperties:
-            type: string
-        appliedDiscount:
-          type: integer
-          format: int32
-        appliedQuantity:
-          type: integer
-          format: int32
-        discountType:
-          type: string
-        distributedOfferId:
-          type: string
-        extOfferId:
-          type: string
-        incentivioDistributedOfferId:
-          type: string
-        name:
-          type: string
-        offerCode:
-          type: string
-        offerId:
-          type: string
-        voided:
           type: boolean

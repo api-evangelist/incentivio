@@ -53,6 +53,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GiftCardPoolSummaryReportDTO'
+      summary: Get gift card pool summary report
+      x-summary-source: derived
   /incentivio-reports/clients/{clientid}/giftcardpoolsummary/download-csv:
     get:
       tags:
@@ -101,6 +103,8 @@ paths:
             text/csv:
               schema:
                 type: string
+      summary: Download gift card pool summary as CSV2
+      x-summary-source: derived
   /incentivio-reports/clients/{clientid}/giftcardpoolsummary/download-csv-s3url:
     get:
       tags:
@@ -143,16 +147,10 @@ paths:
             text/plain:
               schema:
                 type: string
+      summary: Download gift card pool summary as CSVS3 url
+      x-summary-source: derived
 components:
   schemas:
-    AmountByBonusAccountDTO:
-      type: object
-      properties:
-        amount:
-          type: number
-        noOfRecords:
-          type: integer
-          format: int32
     AmountByLocationDTO:
       type: object
       properties:
@@ -165,7 +163,7 @@ components:
         noOfRecords:
           type: integer
           format: int32
-    AmountByPoolAccountDTO:
+    AmountByBonusAccountDTO:
       type: object
       properties:
         amount:
@@ -184,3 +182,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AmountByLocationDTO'
+    AmountByPoolAccountDTO:
+      type: object
+      properties:
+        amount:
+          type: number
+        noOfRecords:
+          type: integer
+          format: int32

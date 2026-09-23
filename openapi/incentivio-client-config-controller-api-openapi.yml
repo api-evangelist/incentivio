@@ -26,3 +26,5 @@ paths:
             application/json:
               schema:
                 type: boolean
+      summary: Find client config reach status
+      x-summary-source: derived

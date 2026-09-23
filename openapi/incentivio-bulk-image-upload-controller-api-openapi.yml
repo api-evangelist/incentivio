@@ -28,6 +28,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BulkImageUploadReadResponse'
+      summary: Read
+      x-summary-source: derived
     put:
       tags:
       - bulk-image-upload-controller
@@ -49,6 +51,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update
+      x-summary-source: derived
   /incentivio-menu-service/bulkimageuploads:
     get:
       tags:
@@ -118,6 +122,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BulkImageUploadSearchResponse'
+      summary: Search 1
+      x-summary-source: derived
     post:
       tags:
       - bulk-image-upload-controller
@@ -135,6 +141,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BulkImageUploadCreateResponse'
+      summary: Create
+      x-summary-source: derived
   /incentivio-menu-service/bulkimageuploads/{id}/process:
     post:
       tags:
@@ -151,8 +159,20 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Process
+      x-summary-source: derived
 components:
   schemas:
+    ImageFileMatch:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+      required:
+      - id
+      - title
     ImageFileStatus:
       type: string
       enum:
@@ -176,6 +196,19 @@ components:
       required:
       - processedFiles
       - status
+    BulkImageUploadStatus:
+      type: string
+      enum:
+      - COMPLETE
+      - ERROR
+      - PROCESSING
+      - UPLOADED
+      - UPLOADING
+    BulkImageUploadReadResponse:
+      type: object
+      properties:
+        bulkImageUpload:
+          $ref: '#/components/schemas/BulkImageUpload'
     ImageFile:
       type: object
       properties:
@@ -194,24 +227,26 @@ components:
       required:
       - filename
       - status
-    BulkImageUploadReadResponse:
+    BulkImageUploadSearchResponse:
       type: object
       properties:
-        bulkImageUpload:
-          $ref: '#/components/schemas/BulkImageUpload'
+        bulkImageUploads:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkImageUpload'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
     BulkImageUploadCreateResponse:
       type: object
       properties:
         id:
           type: string
-    BulkImageUploadStatus:
+    BulkImageUploadType:
       type: string
       enum:
-      - COMPLETE
-      - ERROR
-      - PROCESSING
-      - UPLOADED
-      - UPLOADING
+      - CATALOG
+      - GROUP
+      - ITEM
     BulkImageUploadCreateRequest:
       type: object
       properties:
@@ -264,31 +299,6 @@ components:
       - status
       - type
       - uploadId
-    BulkImageUploadType:
-      type: string
-      enum:
-      - CATALOG
-      - GROUP
-      - ITEM
-    BulkImageUploadSearchResponse:
-      type: object
-      properties:
-        bulkImageUploads:
-          type: array
-          items:
-            $ref: '#/components/schemas/BulkImageUpload'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-    ImageFileMatch:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-      required:
-      - id
-      - title
     PagingDto:
       type: object
       properties:

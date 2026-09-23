@@ -48,6 +48,8 @@ paths:
             text/csv:
               schema:
                 type: string
+      summary: Order confirmation sms report download
+      x-summary-source: derived
   /incentivio-connector-sms/clients/{clientId}/marketing-sms/download:
     get:
       tags:
@@ -88,6 +90,8 @@ paths:
             text/csv:
               schema:
                 type: string
+      summary: Marketing sms report download
+      x-summary-source: derived
   /incentivio-connector-sms/clients/{clientId}/guest-checkout-verification/download:
     get:
       tags:
@@ -128,6 +132,8 @@ paths:
             text/csv:
               schema:
                 type: string
+      summary: Guest checkout verification sms report download
+      x-summary-source: derived
   /incentivio-connector-sms/clients/{clientId}/account-verification-sms/download:
     get:
       tags:
@@ -168,3 +174,5 @@ paths:
             text/csv:
               schema:
                 type: string
+      summary: Account verification sms report download
+      x-summary-source: derived

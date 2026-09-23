@@ -26,6 +26,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewItemMobileDTO'
+      summary: View item by id
+      x-summary-source: derived
   /items/outofstock/{locationId}:
     get:
       tags:
@@ -46,6 +48,8 @@ paths:
                 type: array
                 items:
                   type: string
+      summary: Get out of stock item ids by location
+      x-summary-source: derived
   /groups/{groupid}:
     get:
       tags:
@@ -74,6 +78,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewGroupMobileDTO'
+      summary: View group by id
+      x-summary-source: derived
   /catalogs:
     get:
       tags:
@@ -111,6 +117,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ListCatalogMobileDTO'
+      summary: List catalogs
+      x-summary-source: derived
   /cacheditems/item:
     get:
       tags:
@@ -154,6 +162,8 @@ paths:
             application/json:
               schema:
                 type: string
+      summary: Read cached item
+      x-summary-source: derived
   /cachedcatalogs:
     get:
       tags:
@@ -192,6 +202,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Retrieve cached catalogs
+      x-summary-source: derived
   /cachedcatalogs/compressed:
     get:
       tags:
@@ -231,33 +243,10 @@ paths:
               schema:
                 type: string
                 format: byte
+      summary: Get compressed cached catalog
+      x-summary-source: derived
 components:
   schemas:
-    Discount:
-      type: object
-      properties:
-        discountId:
-          type: string
-        extDiscountId:
-          type: string
-        description:
-          type: string
-        discountType:
-          type: string
-          enum:
-          - ITEM
-          - ORDER
-        discountValueType:
-          type: string
-          enum:
-          - AMOUNT
-          - PERCENTAGE
-        amount:
-          type: number
-          format: float
-        percentage:
-          type: number
-          format: float
     OptionGroupSettingDTO:
       type: object
       properties:
@@ -296,25 +285,6 @@ components:
             - DELIVERY
             - PICKUP
             - DINEIN
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
     ListCatalogMobileDTO:
       required:
       - title
@@ -364,6 +334,50 @@ components:
           items:
             $ref: '#/components/schemas/ViewGroupMobileDTO'
         groupIds:
+          type: array
+          items:
+            type: string
+    Discount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          type: string
+          enum:
+          - ITEM
+          - ORDER
+        discountValueType:
+          type: string
+          enum:
+          - AMOUNT
+          - PERCENTAGE
+        amount:
+          type: number
+          format: float
+        percentage:
+          type: number
+          format: float
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
           type: array
           items:
             type: string

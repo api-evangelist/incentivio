@@ -43,6 +43,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GiftCardBalanceReportDTO'
+      summary: Generate balance report
+      x-summary-source: derived
   /incentivio-giftcard-service/clients/{clientid}/balance-report/export:
     get:
       tags:
@@ -66,6 +68,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GiftCardBalanceExportReportResponse'
+      summary: Export gift card balance report
+      x-summary-source: derived
 components:
   schemas:
     GiftCardBalanceRecord:
@@ -99,6 +103,17 @@ components:
         initialPurchaseAmount:
           type: string
         initialPurchaseLocation:
+          type: string
+    GiftCardBalanceReportDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCardBalanceRecord'
+        releaseDate:
           type: string
     PagingDTO:
       type: object
@@ -134,14 +149,3 @@ components:
       - RETRYING
       - DOWNLOADED
       - NODATA
-    GiftCardBalanceReportDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/GiftCardBalanceRecord'
-        releaseDate:
-          type: string

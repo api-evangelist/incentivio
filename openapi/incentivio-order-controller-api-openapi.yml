@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Incentivio Order Controller API
   version: v0
-  description: 'Operations tagged order-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.yml, incentivio-mobile-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged order-controller across 2 of this provider''s published API definitions: incentivio-admin-api-openapi.json, incentivio-mobile-api-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://adminapi.incentivio.com/incentivio-admin-api
   description: Generated server url
@@ -36,6 +36,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Update audit event
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -57,6 +59,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CreateCatalogResponseDTO'
+      summary: Add or update catalog
+      x-summary-source: derived
     patch:
       tags:
       - order-controller
@@ -76,6 +80,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Patch catalogs
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -101,6 +107,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Admin orders for last five mins
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -157,6 +165,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OrderNotificationMessageResponseDTO'
+      summary: Get order notifications
+      x-summary-source: derived
     post:
       tags:
       - order-controller
@@ -212,6 +222,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Send order notification
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -229,6 +241,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Cancel order
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -250,6 +264,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/DailySalesReportExportResponseDTO'
+      summary: Export daily sales report for admin
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -271,6 +287,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ListCatalogResponseWithPagingForAdminDTO'
+      summary: List catalogs by client id and store ids for admin
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -290,6 +308,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete catalogs
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -313,6 +333,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ListCatalogAdminDTO'
+      summary: Add cache catalog OLD
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -337,6 +359,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CatalogCacheResponse'
+      summary: Cache catalog
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -362,6 +386,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Patch order
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -460,6 +486,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/SearchOrdersResponseDTOWithPagingForAdmin'
+      summary: Search orders for admin
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -523,6 +551,8 @@ paths:
               schema:
                 type: integer
                 format: int32
+      summary: Get orders count
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -540,6 +570,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Send order receipt
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -602,6 +634,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/OrdersCountResponseDTO'
+      summary: Get im here orders count
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -661,6 +695,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/DailyOrdersResponseDTOWithPagingForAdmin'
+      summary: Daily orders for admin
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -706,6 +742,8 @@ paths:
             text/csv:
               schema:
                 type: string
+      summary: Download daily orders for CSV export
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -727,6 +765,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Get pool account time zone
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -748,6 +788,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewOrderResponseDTOForAdmin'
+      summary: View order by id for admin
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -800,6 +842,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ListCatalogResponseWithPagingForAdminDTO'
+      summary: List catalogs by client id and store ids for admin 1
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -836,6 +880,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewCatalogAdminDTO'
+      summary: View catalog by id for admin
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -853,6 +899,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete catalog
+      x-summary-source: derived
     servers:
     - url: https://adminapi.incentivio.com/incentivio-admin-api
       description: Generated server url
@@ -906,6 +954,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ListOrderResponseDTO'
+      summary: List orders
+      x-summary-source: derived
     put:
       tags:
       - order-controller
@@ -923,6 +973,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CreateOrderResponseDTO'
+      summary: Add or update order
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -944,6 +996,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewOrderResponseDTO'
+      summary: Validate order recreation
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -965,6 +1019,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewOrderResponseDTO'
+      summary: View order by id
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
@@ -1021,32 +1077,1008 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/OrderHistoryResponseWithPagingDTO'
+      summary: List orders history
+      x-summary-source: derived
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
 components:
   schemas:
-    CreateCacheCatalogRequestDTO:
+    Tax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        extTaxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        applicableEntity:
+          $ref: '#/components/schemas/OrderEntity'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeRule'
+    OrderEntity:
+      type: string
+      enum:
+      - ORDER
+      - ITEM
+    ListCatalogAdminDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        externalId:
+          type: string
+        extTargetingId:
+          type: string
+        title:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+        startDate:
+          type: string
+        endDate:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        status:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        storeIds:
+          type: array
+          items:
+            type: string
+        storeInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreInfo'
+        originalTitle:
+          type: string
+        catalogId:
+          type: string
+        groupIds:
+          type: array
+          items:
+            type: string
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupAdminDTO'
+        lastPublished:
+          type: string
+          format: date-time
+      required:
+      - clientId
+      - merchantId
+      - title
+    StoreInfo:
+      type: object
+      properties:
+        smallImage:
+          type: string
+        storeId:
+          type: string
+        title:
+          type: string
+    OrderSort:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    SearchOrdersResponseDTOForAdmin:
+      type: object
+      properties:
+        orderId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        locationId:
+          type: string
+        extOrderId:
+          type: string
+        orderNumber:
+          type: string
+        customer:
+          $ref: '#/components/schemas/SearchCustomerDTO'
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+        closedTime:
+          type: string
+        orderTotal:
+          $ref: '#/components/schemas/OrderTotalDTO'
+        locationName:
+          type: string
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        fulfillmentStatus:
+          $ref: '#/components/schemas/FulfillmentStatus'
+        orderFulfillTime:
+          type: string
+        originalFulfillTime:
+          type: string
+        orderSource:
+          $ref: '#/components/schemas/OrderSource'
+        orderNote:
+          type: string
+        orderOptionName:
+          type: string
+        hasCustomerNotifications:
+          type: boolean
+        imHere:
+          type: boolean
+        imHereUpdated:
+          type: string
+    DailySalesReportRequestStatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - EMAILED
+      - DOWNLOADED
+      - RETRYING
+      - FAILED
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    DailySalesReportExportRequestDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        adminName:
+          type: string
+        adminId:
+          type: string
+        emailIds:
+          type: array
+          items:
+            type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        startDateStr:
+          type: string
+        endDateStr:
+          type: string
+        filterModes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderFilteringMode'
+        storeIds:
+          type: array
+          items:
+            type: string
+    OrderTypeDTO:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
+    OrderTotalDTO:
+      type: object
+      properties:
+        preDiscountSubtotal:
+          type: integer
+          format: int32
+        subtotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        displayTotal:
+          type: string
+        displaySubtotal:
+          type: string
+        displayPreDiscountSubtotal:
+          type: string
+    OrderNotificationMessageResponseDTO:
+      type: object
+      properties:
+        subject:
+          type: string
+        message:
+          type: string
+        messageType:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    CreateCatalogRequestDTO:
       type: object
       properties:
         clientId:
           type: string
           minLength: 1
-        localDateTime:
+        merchantId:
+          type: string
+          minLength: 1
+        externalId:
+          type: string
+        title:
+          type: string
+          minLength: 1
+        createdDate:
           type: string
           format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        status:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
         storeIds:
           type: array
           items:
             type: string
-          minItems: 1
-        userId:
+        catalogId:
           type: string
-        requestId:
-          type: string
+        groupIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
       required:
       - clientId
-      - storeIds
+      - merchantId
+      - title
+    RoleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        role:
+          type: string
+        description:
+          type: string
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDTO'
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+    ViewOrderResponseDTOForAdmin:
+      type: object
+      properties:
+        orderId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        locationId:
+          type: string
+        extOrderId:
+          type: string
+        orderName:
+          type: string
+        orderNumber:
+          type: string
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        customer:
+          $ref: '#/components/schemas/Customer'
+        guestCount:
+          type: integer
+          format: int32
+        tableId:
+          type: string
+        tableNumber:
+          type: string
+        delivery:
+          $ref: '#/components/schemas/DeliveryInfo'
+        openedTime:
+          type: string
+        closedTime:
+          type: string
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        orderNote:
+          type: string
+        orderFulfillTime:
+          type: string
+          format: date-time
+        revenueCenter:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+          uniqueItems: true
+        orderDiscounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDiscount'
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        orderTotal:
+          $ref: '#/components/schemas/OrderTotal'
+        itemsCountDetails:
+          $ref: '#/components/schemas/ItemsCountDTO'
+        fulfillmentStatus:
+          $ref: '#/components/schemas/FulfillmentStatus'
+        orderSource:
+          $ref: '#/components/schemas/OrderSource'
+        auditEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditEventDTO'
+        orderOptionName:
+          type: string
+        trackingUrl:
+          type: string
+    ChargeRule:
+      type: object
+      properties:
+        amount:
+          type: integer
+          format: int32
+        operator:
+          $ref: '#/components/schemas/Operator'
+    FindAdminUserResponseDTO:
+      type: object
+      properties:
+        adminAccountAuthorization:
+          $ref: '#/components/schemas/AdminAccountAuthorization'
+        adminId:
+          type: string
+        email:
+          type: string
+        clientID:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        merchantId:
+          type: string
+        role:
+          $ref: '#/components/schemas/RoleDTO'
+        status:
+          type: string
+        deleted:
+          type: boolean
+        storeIds:
+          type: array
+          items:
+            type: string
+        reach:
+          type: string
+        hasEntireClientReach:
+          type: boolean
+    ViewGroupAdminDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        externalId:
+          type: string
+        extTargetingId:
+          type: string
+        title:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+        startDate:
+          type: string
+        endDate:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        status:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        storeIds:
+          type: array
+          items:
+            type: string
+        storeInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreInfo'
+        originalTitle:
+          type: string
+        groupId:
+          type: string
+        groupType:
+          $ref: '#/components/schemas/GroupType'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewItemAdminDTO'
+        itemIds:
+          type: array
+          items:
+            type: string
+        defaultSelectedItems:
+          type: array
+          items:
+            type: string
+        defaultSelectedItemObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewItemAdminDTO'
+        mandatoryItems:
+          type: array
+          items:
+            type: string
+        mandatoryItemObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewItemAdminDTO'
+        optionGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupAdminDTO'
+        optionGroupSetting:
+          $ref: '#/components/schemas/OptionGroupSettingDTO'
+        optionGroupIds:
+          type: array
+          items:
+            type: string
+        subGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupAdminDTO'
+        subGroupIds:
+          type: array
+          items:
+            type: string
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          $ref: '#/components/schemas/SelectionType'
+        inheritParentOptions:
+          type: boolean
+        maxItemSelections:
+          type: integer
+          format: int32
+        minItemSelections:
+          type: integer
+          format: int32
+        groupItemSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupItemSetting'
+          uniqueItems: true
+      required:
+      - clientId
+      - merchantId
+      - title
+    AppliedDiscount:
+      type: object
+      properties:
+        offerId:
+          type: string
+        extOfferId:
+          type: string
+        distributedOfferId:
+          type: string
+        offerCode:
+          type: string
+        name:
+          type: string
+        discountType:
+          type: string
+        appliedDiscount:
+          type: integer
+          format: int32
+        additionalAttribs:
+          type: object
+          additionalProperties:
+            type: string
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    GroupItemSetting:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemGuid:
+          type: string
+        maxItemSelections:
+          type: integer
+          format: int32
+        price:
+          type: integer
+          format: int32
+        isDefault:
+          type: boolean
+        displayRank:
+          type: integer
+          format: int32
+    BulkUpdateRequest:
+      type: object
+      properties:
+        field:
+          type: string
+        ids:
+          type: array
+          items:
+            type: string
+        value: {}
+      required:
+      - field
+      - ids
+      - value
+    GroupType:
+      type: string
+      enum:
+      - OPTION_GROUP
+      - CATALOG_GROUP
+    ChargeType:
+      type: string
+      enum:
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    DailyOrdersResponseDTOForAdmin:
+      type: object
+      properties:
+        orderId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        locationId:
+          type: string
+        extOrderId:
+          type: string
+        customer:
+          $ref: '#/components/schemas/SearchCustomerDTO'
+        createdDate:
+          type: string
+        localCreatedDate:
+          type: string
+        updatedDate:
+          type: string
+        orderTotal:
+          $ref: '#/components/schemas/OrderTotalDTO'
+        orderFulfillTime:
+          type: string
+          format: date-time
+        closedTime:
+          type: string
+          format: date-time
+        localClosedTime:
+          type: string
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        locationName:
+          type: string
+        orderGoodStanding:
+          type: boolean
+        orderGoodStandingStatusDescription:
+          type: string
+        offerRedeemStatusInGoodStanding:
+          type: boolean
+        offerRedeemStatusInGoodStandingDescription:
+          type: string
+        interventionRequired:
+          type: boolean
+        orderSource:
+          $ref: '#/components/schemas/OrderSource'
+        filterStatus:
+          $ref: '#/components/schemas/OrderFilteringMode'
+    OptionGroupSettingDTO:
+      type: object
+      properties:
+        optionGroupId:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        inheritGroupSettings:
+          type: boolean
+        defaultSelectedItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        mandatoryItemIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          $ref: '#/components/schemas/SelectionType'
+        maxItemSelections:
+          type: integer
+          format: int32
+        minItemSelections:
+          type: integer
+          format: int32
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+    TaxSummary:
+      type: object
+      properties:
+        totalTaxes:
+          type: integer
+          format: int32
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTax'
+    PermissionDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        permission:
+          type: string
+        description:
+          type: string
+        moduleID:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+    OrderNotificationRequestDTO:
+      type: object
+      properties:
+        subject:
+          type: string
+        message:
+          type: string
+        messageType:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        updateFulfillTime:
+          type: boolean
+        newFulfillTime:
+          type: string
+          format: date-time
+        timeInMinutes:
+          type: integer
+          format: int32
+    ChargeSummary:
+      type: object
+      properties:
+        taxableCharges:
+          type: integer
+          format: int32
+        nonTaxableCharges:
+          type: integer
+          format: int32
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderCharge'
+        totalCharges:
+          type: integer
+          format: int32
+        totalChargesWithTax:
+          type: integer
+          format: int32
+        totalTaxes:
+          type: integer
+          format: int32
+    CatalogCacheResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+        clientId:
+          type: string
+        status:
+          $ref: '#/components/schemas/CatalogCacheProgressStatus'
+        startedTime:
+          type: string
+        completedTime:
+          type: string
+    CreateCatalogResponseDTO:
+      type: object
+      properties:
+        catalogId:
+          type: string
+    VoidInfo:
+      type: object
+      properties:
+        voidDate:
+          type: string
+          format: date-time
+        voidBusinessDate:
+          type: string
+          format: date
+        voidReason:
+          type: string
+    SelectionType:
+      type: string
+      enum:
+      - MULTI_SELECT
+      - SINGLE_SELECT
+    Refund:
+      type: object
+      properties:
+        refundAmount:
+          type: integer
+          format: int32
+        tipRefundAmount:
+          type: integer
+          format: int32
+        refundDate:
+          type: string
+          format: date-time
+        refundBusinessDate:
+          type: string
+          format: date
+    DeliveryInfo:
+      type: object
+      properties:
+        deliveryAddress:
+          $ref: '#/components/schemas/Address'
+        deliveryInstructions:
+          type: string
+    ListCatalogResponseWithPagingForAdminDTO:
+      type: object
+      properties:
+        catalogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListCatalogAdminDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    AuditEventDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        eventName:
+          type: string
+        traceId:
+          type: string
+        transactionId:
+          type: string
+        eventTime:
+          type: string
+        description:
+          type: string
+        interventionRequired:
+          type: boolean
+        resolved:
+          type: boolean
+        resolutionTime:
+          type: string
+        resolutionComment:
+          type: string
+        requestedBy:
+          $ref: '#/components/schemas/FindAdminUserResponseDTO'
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalStatuses:
+          type: object
+          additionalProperties:
+            type: string
+        additionalDetails:
+          type: string
+    DiscountValueType:
+      type: string
+      enum:
+      - AMOUNT
+      - PERCENTAGE
+    DailySalesReportExportResponseDTO:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/DailySalesReportRequestStatusEnum'
+        message:
+          type: string
+        request:
+          $ref: '#/components/schemas/DailySalesReportExportRequestDTO'
+        generatedCSV:
+          type: string
+    Operation:
+      type: string
+      enum:
+      - TEST
+      - REMOVE
+      - ADD
+      - REPLACE
+      - MOVE
+      - COPY
+    OrderDiscount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        distributedOfferId:
+          type: string
+        description:
+          type: string
+        discountType:
+          $ref: '#/components/schemas/DiscountType'
+        pointsCost:
+          type: integer
+          format: int32
+        discountAmount:
+          type: integer
+          format: int32
+        discountPercentage:
+          type: number
+          format: float
+        appliedDiscount:
+          type: integer
+          format: int32
+        displayAppliedDiscount:
+          type: string
+    CatalogIntegrationType:
+      type: string
+      enum:
+      - INTEGRATED
+      - STANDALONE
     OrderCharge:
       type: object
       properties:
@@ -1072,21 +2104,589 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tax'
-    Refund:
+    TaxInfoDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        extTaxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/TaxTypeDTO'
+        amount:
+          type: number
+          format: double
+        percentage:
+          type: number
+          format: double
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTypeDTO'
+    ViewCatalogAdminDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        externalId:
+          type: string
+        extTargetingId:
+          type: string
+        title:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+        startDate:
+          type: string
+        endDate:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        status:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        storeIds:
+          type: array
+          items:
+            type: string
+        storeInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreInfo'
+        originalTitle:
+          type: string
+        catalogId:
+          type: string
+        catalogIntegrationType:
+          $ref: '#/components/schemas/CatalogIntegrationType'
+        compressedCatalogJson:
+          type: string
+        groupIds:
+          type: array
+          items:
+            type: string
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupAdminDTO'
+        lastPublished:
+          type: string
+          format: date-time
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreInfo'
+      required:
+      - clientId
+      - merchantId
+      - title
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    MerchantAuthorization:
+      type: object
+      properties:
+        all:
+          type: boolean
+        id:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAuthorization'
+          uniqueItems: true
+      required:
+      - all
+      - id
+      - locations
+    CatalogCacheProgressStatus:
+      type: string
+      enum:
+      - IN_PROGRESS
+      - FAILED
+      - COMPLETED
+    Check:
+      type: object
+      properties:
+        checkId:
+          type: string
+        openedDate:
+          type: string
+          format: date-time
+        closedDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        deletedDate:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+        displayNumber:
+          type: string
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+        appliedCharges:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedCharge'
+        appliedDiscounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedDiscount'
+        total:
+          $ref: '#/components/schemas/Total'
+        paymentStatus:
+          type: string
+        voided:
+          type: boolean
+        voidInfo:
+          $ref: '#/components/schemas/VoidInfo'
+        customer:
+          $ref: '#/components/schemas/Customer'
+        loyaltyStatus:
+          $ref: '#/components/schemas/LoyaltyStatus'
+        loyaltyStatusModifiedTime:
+          type: string
+          format: date-time
+        loyaltyUnSuccessfulReason:
+          $ref: '#/components/schemas/LoyaltyUnSuccessfulReason'
+        loyaltyUnSuccessfulAdditionalInfo:
+          type: string
+        customerResolved:
+          type: boolean
+    DiscountType:
+      type: string
+      enum:
+      - ITEM
+      - ORDER
+    FulfillmentStatus:
+      type: string
+      enum:
+      - NONE
+      - NEW
+      - CONFIRM
+      - PREP
+      - READY
+      - DELIVERY
+      - CLOSED
+      - CANCELED
+    CreateCacheCatalogRequestDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+          minLength: 1
+        localDateTime:
+          type: string
+          format: date-time
+        storeIds:
+          type: array
+          items:
+            type: string
+          minItems: 1
+        userId:
+          type: string
+        requestId:
+          type: string
+      required:
+      - clientId
+      - storeIds
+    SearchCustomerDTO:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+    Customer:
+      type: object
+      properties:
+        incentivioId:
+          type: string
+        extId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNo:
+          type: string
+    OrderFilteringMode:
+      type: string
+      enum:
+      - ALL_ORDERS
+      - CLOSED_ORDERS
+      - ABANDONED_ORDERS
+      - MENU_BROWSING_ORDERS
+      - CANCELED_ORDERS
+      - REFUNDED_ORDERS
+      - TEST_ORDERS
+      - PAYMENT_ERROR_ORDERS
+      - NONPAYMENT_ERROR_ORDERS
+    Discount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          $ref: '#/components/schemas/DiscountType'
+        discountValueType:
+          $ref: '#/components/schemas/DiscountValueType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        name:
+          type: string
+    AppliedTax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        appliedTax:
+          type: integer
+          format: int32
+    LoyaltyStatus:
+      type: string
+      enum:
+      - SUCCESS
+      - FAILED
+      - IGNORED
+      - NOT_PROCESSED
+    RefundSummary:
+      type: object
+      properties:
+        totalRefundAmount:
+          type: integer
+          format: int32
+        refunds:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderRefund'
+    OrderItem:
+      type: object
+      properties:
+        orderItemId:
+          type: string
+        itemId:
+          type: string
+        extItemId:
+          type: string
+        itemName:
+          type: string
+        displayName:
+          type: string
+        instructions:
+          type: string
+        sku:
+          type: string
+        upc:
+          type: string
+        catalogId:
+          type: string
+        extCatalogId:
+          type: string
+        groupId:
+          type: string
+        extGroupId:
+          type: string
+        brandId:
+          type: string
+        extBrandId:
+          type: string
+        categoryId:
+          type: string
+        extCategoryId:
+          type: string
+        uom:
+          type: string
+        unitPrice:
+          type: integer
+          format: int32
+        quantity:
+          type: integer
+          format: int32
+        appliedDiscounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedDiscount'
+        appliedTax:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedTax'
+        preDiscountItemTotal:
+          type: integer
+          format: int32
+        dicountTotal:
+          type: integer
+          format: int32
+        taxTotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        voided:
+          type: boolean
+        voidInfo:
+          $ref: '#/components/schemas/VoidInfo'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        notes:
+          type: string
+    ModuleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        order:
+          type: integer
+          format: int32
+        roleModulePermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionDTO'
+        allPermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionDTO'
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+    Total:
+      type: object
+      properties:
+        itemTotal:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        tax:
+          type: integer
+          format: int32
+        taxedChargeTotal:
+          type: integer
+          format: int32
+        nonTaxedChargeTotal:
+          type: integer
+          format: int32
+        dicountTotal:
+          type: integer
+          format: int32
+        subTotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        paid:
+          type: integer
+          format: int32
+        due:
+          type: integer
+          format: int32
+        processingFee:
+          type: integer
+          format: int32
+    AppliedCharge:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        extChargeId:
+          type: string
+        chargeDescription:
+          type: string
+        chargeType:
+          type: string
+        appliedCharge:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        appliedTax:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedTax'
+    OrderRefund:
       type: object
       properties:
         refundAmount:
           type: integer
           format: int32
-        tipRefundAmount:
-          type: integer
-          format: int32
+        refundReason:
+          type: string
         refundDate:
           type: string
-          format: date-time
-        refundBusinessDate:
+        requestedBy:
           type: string
-          format: date
+        userInfo:
+          $ref: '#/components/schemas/FindAdminUserResponseDTO'
+    OrderTax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        taxDescription:
+          type: string
+        taxAmountApplied:
+          type: integer
+          format: int32
+    OrderingChannels:
+      type: string
+      enum:
+      - MOBILE
+      - FACEBOOK
+      - NONE
+    OrdersCountResponseDTO:
+      type: object
+      properties:
+        orderCount:
+          type: integer
+          format: int32
+        imHereNewOrderCount:
+          type: integer
+          format: int32
+        imHerePrepOrderCount:
+          type: integer
+          format: int32
+    OrderStatus:
+      type: string
+      enum:
+      - OPEN
+      - CLOSED
+      - CANCELED
+      - REFUNDED
+      - SYNC_PENDING
+    LoyaltyUnSuccessfulReason:
+      type: string
+      enum:
+      - CHECKS_NOT_FOUND
+      - CUSTOMER_NULL
+      - TOTAL_NULL
+      - EMAIL_AND_PHONE_NUMBER_NULL
+      - USER_ACCOUNT_NOT_FOUND
+      - ZERO_SUB_TOTAL
+      - EXCEPTION_ON_CUSTOMER_LOOKUP
+      - EXCEPTION_ON_ADDING_LOYALTY_POINTS
+      - DUPLICATE_USER_FOUND_FOR_PHONE_NUMBER
+      - EXT_USER_ID_NULL
+      - DUPLICATE_USER_FOUND_FOR_USER_LOOKUP_MODE
+      - NO_LOOKUP_DETAIL_FOUND_FOR_LOOKUP
+      - EXT_USERID_IS_REQUIRED
+      - EMAIL_OR_PHONE_NUMBER_IS_REQUIRED
+      - CHECKNAME_EMAIL_OR_PHONE_NUMBER_IS_REQUIRED
+      - VOIDED_CHECK
+      - EXTUSERID_EMAIL_AND_PHONE_NUMBER_NULL
+      - OPEN_CHECK
+      - ZERO_SUB_TOTAL_WITHOUT_EXCLUDED_PRODUCTS
+    DailyOrdersSummaryDTO:
+      type: object
+      properties:
+        noOfRecords:
+          type: integer
+          format: int32
+        totalOfOrderTotal:
+          type: number
+          format: double
+        totalOfOrderSubtotal:
+          type: number
+          format: double
+    TaxTypeDTO:
+      type: string
+      enum:
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    SearchOrdersResponseDTOWithPagingForAdmin:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchOrdersResponseDTOForAdmin'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    ItemType:
+      type: string
+      enum:
+      - MAIN
+      - MODIFIER
     ViewItemAdminDTO:
       type: object
       properties:
@@ -1210,176 +2810,97 @@ components:
       - clientId
       - merchantId
       - title
-    PermissionDTO:
+    PatchRequestDTO:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-        permission:
+        op:
+          $ref: '#/components/schemas/Operation'
+        path:
           type: string
-        description:
+        value:
           type: string
-        moduleID:
-          type: integer
-          format: int64
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
-    GroupType:
+    Operator:
       type: string
       enum:
-      - OPTION_GROUP
-      - CATALOG_GROUP
-    Address:
+      - EQ
+      - LT
+      - LTEQ
+      - GT
+      - GTE
+    OrderSortBy:
+      type: string
+      enum:
+      - ORDER_FULFILL_TIME
+      - UPDATED_DATE
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    DailyOrdersResponseDTOWithPagingForAdmin:
       type: object
       properties:
-        street1:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        lat:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/DailyOrdersResponseDTOForAdmin'
+        totalAmount:
           type: number
           format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
-          type: string
-    ClientAuthorization:
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        summary:
+          $ref: '#/components/schemas/DailyOrdersSummaryDTO'
+    UpdateAuditEventRequestDTO:
       type: object
       properties:
-        all:
+        resolved:
           type: boolean
-        id:
+        comment:
           type: string
-        merchants:
-          type: array
-          items:
-            $ref: '#/components/schemas/MerchantAuthorization'
-          uniqueItems: true
-      required:
-      - all
-      - id
-      - merchants
-    OrderItem:
+    OrderType:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
+    OrderTotal:
       type: object
       properties:
-        orderItemId:
-          type: string
-        itemId:
-          type: string
-        extItemId:
-          type: string
-        itemName:
-          type: string
-        displayName:
-          type: string
-        instructions:
-          type: string
-        sku:
-          type: string
-        upc:
-          type: string
-        catalogId:
-          type: string
-        extCatalogId:
-          type: string
-        groupId:
-          type: string
-        extGroupId:
-          type: string
-        brandId:
-          type: string
-        extBrandId:
-          type: string
-        categoryId:
-          type: string
-        extCategoryId:
-          type: string
-        uom:
-          type: string
-        unitPrice:
+        preDiscountSubtotal:
           type: integer
           format: int32
-        quantity:
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary'
+        refundSummary:
+          $ref: '#/components/schemas/RefundSummary'
+        subtotal:
           type: integer
           format: int32
-        appliedDiscounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppliedDiscount'
-        appliedTax:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppliedTax'
-        preDiscountItemTotal:
-          type: integer
-          format: int32
-        dicountTotal:
-          type: integer
-          format: int32
-        taxTotal:
+        gratuity:
           type: integer
           format: int32
         total:
           type: integer
           format: int32
-        voided:
-          type: boolean
-        voidInfo:
-          $ref: '#/components/schemas/VoidInfo'
-        createdDate:
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        displayTotal:
           type: string
-          format: date-time
-        modifiedDate:
+        displaySubtotal:
           type: string
-          format: date-time
-        notes:
+        displayPreDiscountSubtotal:
           type: string
-    TaxSummary:
-      type: object
-      properties:
-        totalTaxes:
+        displayTotalDiscountApplied:
+          type: string
+        displayGratuity:
+          type: string
+        totalTaxApplied:
           type: integer
           format: int32
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderTax'
-    OrderEntity:
-      type: string
-      enum:
-      - ORDER
-      - ITEM
     Payment:
       type: object
       properties:
@@ -1405,460 +2926,76 @@ components:
           type: string
         refund:
           $ref: '#/components/schemas/Refund'
-    SearchCustomerDTO:
+    ClientAuthorization:
       type: object
       properties:
-        firstName:
+        all:
+          type: boolean
+        id:
           type: string
-        lastName:
+        merchants:
+          type: array
+          items:
+            $ref: '#/components/schemas/MerchantAuthorization'
+          uniqueItems: true
+      required:
+      - all
+      - id
+      - merchants
+    ItemsCountDTO:
+      type: object
+      properties:
+        totalItemsCount:
+          type: integer
+          format: int32
+        itemsCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+    AdminAccountAuthorization:
+      type: object
+      properties:
+        dateCreated:
           type: string
-        phone:
+          format: date-time
+        dateUpdated:
           type: string
+          format: date-time
+        all:
+          type: boolean
+        clientIdRoleIds:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientAuthorization'
+          uniqueItems: true
         email:
           type: string
-    Check:
-      type: object
-      properties:
-        checkId:
-          type: string
-        openedDate:
-          type: string
-          format: date-time
-        closedDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-        deletedDate:
-          type: string
-          format: date-time
-        deleted:
-          type: boolean
-        displayNumber:
-          type: string
-        orderItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItem'
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payment'
-        appliedCharges:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppliedCharge'
-        appliedDiscounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppliedDiscount'
-        total:
-          $ref: '#/components/schemas/Total'
-        paymentStatus:
-          type: string
-        voided:
-          type: boolean
-        voidInfo:
-          $ref: '#/components/schemas/VoidInfo'
-        customer:
-          $ref: '#/components/schemas/Customer'
-        loyaltyStatus:
-          $ref: '#/components/schemas/LoyaltyStatus'
-        loyaltyStatusModifiedTime:
-          type: string
-          format: date-time
-        loyaltyUnSuccessfulReason:
-          $ref: '#/components/schemas/LoyaltyUnSuccessfulReason'
-        loyaltyUnSuccessfulAdditionalInfo:
-          type: string
-        customerResolved:
-          type: boolean
-    DailyOrdersResponseDTOForAdmin:
-      type: object
-      properties:
-        orderId:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        locationId:
-          type: string
-        extOrderId:
-          type: string
-        customer:
-          $ref: '#/components/schemas/SearchCustomerDTO'
-        createdDate:
-          type: string
-        localCreatedDate:
-          type: string
-        updatedDate:
-          type: string
-        orderTotal:
-          $ref: '#/components/schemas/OrderTotalDTO'
-        orderFulfillTime:
-          type: string
-          format: date-time
-        closedTime:
-          type: string
-          format: date-time
-        localClosedTime:
-          type: string
-        status:
-          $ref: '#/components/schemas/OrderStatus'
-        locationName:
-          type: string
-        orderGoodStanding:
-          type: boolean
-        orderGoodStandingStatusDescription:
-          type: string
-        offerRedeemStatusInGoodStanding:
-          type: boolean
-        offerRedeemStatusInGoodStandingDescription:
-          type: string
-        interventionRequired:
-          type: boolean
-        orderSource:
-          $ref: '#/components/schemas/OrderSource'
-        filterStatus:
-          $ref: '#/components/schemas/OrderFilteringMode'
-    RefundSummary:
-      type: object
-      properties:
-        totalRefundAmount:
-          type: integer
-          format: int32
-        refunds:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderRefund'
-    ViewCatalogAdminDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        externalId:
-          type: string
-        extTargetingId:
-          type: string
-        title:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        updatedDate:
-          type: string
-          format: date-time
-        startDate:
-          type: string
-        endDate:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
-        status:
-          type: string
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        extendedAttributes:
+        locationIdClientIds:
           type: object
           additionalProperties:
             type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        storeIds:
-          type: array
-          items:
-            type: string
-        storeInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreInfo'
-        originalTitle:
-          type: string
-        catalogId:
-          type: string
-        catalogIntegrationType:
-          $ref: '#/components/schemas/CatalogIntegrationType'
-        compressedCatalogJson:
-          type: string
-        groupIds:
-          type: array
-          items:
-            type: string
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupAdminDTO'
-        lastPublished:
-          type: string
-          format: date-time
-        stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreInfo'
       required:
-      - clientId
-      - merchantId
-      - title
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-    OrderSortBy:
+      - all
+      - clientIdRoleIds
+      - clients
+      - dateCreated
+      - dateUpdated
+      - email
+      - locationIdClientIds
+    OrderSource:
       type: string
       enum:
-      - ORDER_FULFILL_TIME
-      - UPDATED_DATE
-    ChargeType:
-      type: string
-      enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    Operation:
-      type: string
-      enum:
-      - TEST
-      - REMOVE
-      - ADD
-      - REPLACE
-      - MOVE
-      - COPY
-    ViewOrderResponseDTOForAdmin:
-      type: object
-      properties:
-        orderId:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        locationId:
-          type: string
-        extOrderId:
-          type: string
-        orderName:
-          type: string
-        orderNumber:
-          type: string
-        orderType:
-          $ref: '#/components/schemas/OrderType'
-        customer:
-          $ref: '#/components/schemas/Customer'
-        guestCount:
-          type: integer
-          format: int32
-        tableId:
-          type: string
-        tableNumber:
-          type: string
-        delivery:
-          $ref: '#/components/schemas/DeliveryInfo'
-        openedTime:
-          type: string
-        closedTime:
-          type: string
-        status:
-          $ref: '#/components/schemas/OrderStatus'
-        orderNote:
-          type: string
-        orderFulfillTime:
-          type: string
-          format: date-time
-        revenueCenter:
-          type: string
-        createdDate:
-          type: string
-        updatedDate:
-          type: string
-        orderItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItem'
-          uniqueItems: true
-        orderDiscounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderDiscount'
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Check'
-        orderTotal:
-          $ref: '#/components/schemas/OrderTotal'
-        itemsCountDetails:
-          $ref: '#/components/schemas/ItemsCountDTO'
-        fulfillmentStatus:
-          $ref: '#/components/schemas/FulfillmentStatus'
-        orderSource:
-          $ref: '#/components/schemas/OrderSource'
-        auditEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditEventDTO'
-        orderOptionName:
-          type: string
-        trackingUrl:
-          type: string
-    CatalogCacheProgressStatus:
-      type: string
-      enum:
-      - IN_PROGRESS
-      - FAILED
-      - COMPLETED
-    ViewGroupAdminDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        externalId:
-          type: string
-        extTargetingId:
-          type: string
-        title:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        updatedDate:
-          type: string
-          format: date-time
-        startDate:
-          type: string
-        endDate:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
-        status:
-          type: string
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        storeIds:
-          type: array
-          items:
-            type: string
-        storeInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreInfo'
-        originalTitle:
-          type: string
-        groupId:
-          type: string
-        groupType:
-          $ref: '#/components/schemas/GroupType'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewItemAdminDTO'
-        itemIds:
-          type: array
-          items:
-            type: string
-        defaultSelectedItems:
-          type: array
-          items:
-            type: string
-        defaultSelectedItemObjects:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewItemAdminDTO'
-        mandatoryItems:
-          type: array
-          items:
-            type: string
-        mandatoryItemObjects:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewItemAdminDTO'
-        optionGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupAdminDTO'
-        optionGroupSetting:
-          $ref: '#/components/schemas/OptionGroupSettingDTO'
-        optionGroupIds:
-          type: array
-          items:
-            type: string
-        subGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupAdminDTO'
-        subGroupIds:
-          type: array
-          items:
-            type: string
-        selectionMandatory:
-          type: boolean
-        selectionType:
-          $ref: '#/components/schemas/SelectionType'
-        inheritParentOptions:
-          type: boolean
-        maxItemSelections:
-          type: integer
-          format: int32
-        minItemSelections:
-          type: integer
-          format: int32
-        groupItemSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupItemSetting'
-          uniqueItems: true
-      required:
-      - clientId
-      - merchantId
-      - title
+      - APP
+      - WEB
+      - POS
+      - KIOSK
+      - GOOGLE_ORDERING
     CatalogSearchRequestDTO:
       type: object
       properties:
@@ -1907,665 +3044,6 @@ components:
           items:
             type: string
           uniqueItems: true
-    Tax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        applicableEntity:
-          $ref: '#/components/schemas/OrderEntity'
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeRule'
-    LoyaltyStatus:
-      type: string
-      enum:
-      - SUCCESS
-      - FAILED
-      - IGNORED
-      - NOT_PROCESSED
-    OrdersCountResponseDTO:
-      type: object
-      properties:
-        orderCount:
-          type: integer
-          format: int32
-        imHereNewOrderCount:
-          type: integer
-          format: int32
-        imHerePrepOrderCount:
-          type: integer
-          format: int32
-    DailySalesReportExportRequestDTO:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        adminName:
-          type: string
-        adminId:
-          type: string
-        emailIds:
-          type: array
-          items:
-            type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        startDateStr:
-          type: string
-        endDateStr:
-          type: string
-        filterModes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderFilteringMode'
-        storeIds:
-          type: array
-          items:
-            type: string
-    LoyaltyUnSuccessfulReason:
-      type: string
-      enum:
-      - CHECKS_NOT_FOUND
-      - CUSTOMER_NULL
-      - TOTAL_NULL
-      - EMAIL_AND_PHONE_NUMBER_NULL
-      - USER_ACCOUNT_NOT_FOUND
-      - ZERO_SUB_TOTAL
-      - EXCEPTION_ON_CUSTOMER_LOOKUP
-      - EXCEPTION_ON_ADDING_LOYALTY_POINTS
-      - DUPLICATE_USER_FOUND_FOR_PHONE_NUMBER
-      - EXT_USER_ID_NULL
-      - DUPLICATE_USER_FOUND_FOR_USER_LOOKUP_MODE
-      - NO_LOOKUP_DETAIL_FOUND_FOR_LOOKUP
-      - EXT_USERID_IS_REQUIRED
-      - EMAIL_OR_PHONE_NUMBER_IS_REQUIRED
-      - CHECKNAME_EMAIL_OR_PHONE_NUMBER_IS_REQUIRED
-      - VOIDED_CHECK
-      - EXTUSERID_EMAIL_AND_PHONE_NUMBER_NULL
-      - OPEN_CHECK
-      - ZERO_SUB_TOTAL_WITHOUT_EXCLUDED_PRODUCTS
-    SelectionType:
-      type: string
-      enum:
-      - MULTI_SELECT
-      - SINGLE_SELECT
-    DiscountType:
-      type: string
-      enum:
-      - ITEM
-      - ORDER
-    StoreInfo:
-      type: object
-      properties:
-        smallImage:
-          type: string
-        storeId:
-          type: string
-        title:
-          type: string
-    OrderRefund:
-      type: object
-      properties:
-        refundAmount:
-          type: integer
-          format: int32
-        refundReason:
-          type: string
-        refundDate:
-          type: string
-        requestedBy:
-          type: string
-        userInfo:
-          $ref: '#/components/schemas/FindAdminUserResponseDTO'
-    SearchOrdersResponseDTOWithPagingForAdmin:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchOrdersResponseDTOForAdmin'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    UpdateAuditEventRequestDTO:
-      type: object
-      properties:
-        resolved:
-          type: boolean
-        comment:
-          type: string
-    AdminAccountAuthorization:
-      type: object
-      properties:
-        dateCreated:
-          type: string
-          format: date-time
-        dateUpdated:
-          type: string
-          format: date-time
-        all:
-          type: boolean
-        clientIdRoleIds:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-        clients:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientAuthorization'
-          uniqueItems: true
-        email:
-          type: string
-        locationIdClientIds:
-          type: object
-          additionalProperties:
-            type: string
-      required:
-      - all
-      - clientIdRoleIds
-      - clients
-      - dateCreated
-      - dateUpdated
-      - email
-      - locationIdClientIds
-    OrderDiscount:
-      type: object
-      properties:
-        discountId:
-          type: string
-        extDiscountId:
-          type: string
-        distributedOfferId:
-          type: string
-        description:
-          type: string
-        discountType:
-          $ref: '#/components/schemas/DiscountType'
-        pointsCost:
-          type: integer
-          format: int32
-        discountAmount:
-          type: integer
-          format: int32
-        discountPercentage:
-          type: number
-          format: float
-        appliedDiscount:
-          type: integer
-          format: int32
-        displayAppliedDiscount:
-          type: string
-    AppliedDiscount:
-      type: object
-      properties:
-        offerId:
-          type: string
-        extOfferId:
-          type: string
-        distributedOfferId:
-          type: string
-        offerCode:
-          type: string
-        name:
-          type: string
-        discountType:
-          type: string
-        appliedDiscount:
-          type: integer
-          format: int32
-        additionalAttribs:
-          type: object
-          additionalProperties:
-            type: string
-    DiscountValueType:
-      type: string
-      enum:
-      - AMOUNT
-      - PERCENTAGE
-    OrderSort:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    OrderType:
-      type: string
-      enum:
-      - DELIVERY
-      - PICKUP
-    FulfillmentStatus:
-      type: string
-      enum:
-      - NONE
-      - NEW
-      - CONFIRM
-      - PREP
-      - READY
-      - DELIVERY
-      - CLOSED
-      - CANCELED
-    ListCatalogResponseWithPagingForAdminDTO:
-      type: object
-      properties:
-        catalogs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ListCatalogAdminDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    GroupItemSetting:
-      type: object
-      properties:
-        itemId:
-          type: string
-        itemGuid:
-          type: string
-        maxItemSelections:
-          type: integer
-          format: int32
-        price:
-          type: integer
-          format: int32
-        isDefault:
-          type: boolean
-        displayRank:
-          type: integer
-          format: int32
-    AppliedCharge:
-      type: object
-      properties:
-        chargeId:
-          type: string
-        extChargeId:
-          type: string
-        chargeDescription:
-          type: string
-        chargeType:
-          type: string
-        appliedCharge:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
-        appliedTax:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppliedTax'
-    RoleDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        role:
-          type: string
-        description:
-          type: string
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleDTO'
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-    AppliedTax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          type: string
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        appliedTax:
-          type: integer
-          format: int32
-    ModuleDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        description:
-          type: string
-        order:
-          type: integer
-          format: int32
-        roleModulePermissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionDTO'
-        allPermissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionDTO'
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-    ChargeRule:
-      type: object
-      properties:
-        amount:
-          type: integer
-          format: int32
-        operator:
-          $ref: '#/components/schemas/Operator'
-    CatalogCacheResponse:
-      type: object
-      properties:
-        requestId:
-          type: string
-        clientId:
-          type: string
-        status:
-          $ref: '#/components/schemas/CatalogCacheProgressStatus'
-        startedTime:
-          type: string
-        completedTime:
-          type: string
-    SearchOrdersResponseDTOForAdmin:
-      type: object
-      properties:
-        orderId:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        locationId:
-          type: string
-        extOrderId:
-          type: string
-        orderNumber:
-          type: string
-        customer:
-          $ref: '#/components/schemas/SearchCustomerDTO'
-        createdDate:
-          type: string
-        updatedDate:
-          type: string
-        closedTime:
-          type: string
-        orderTotal:
-          $ref: '#/components/schemas/OrderTotalDTO'
-        locationName:
-          type: string
-        status:
-          $ref: '#/components/schemas/OrderStatus'
-        orderType:
-          $ref: '#/components/schemas/OrderType'
-        fulfillmentStatus:
-          $ref: '#/components/schemas/FulfillmentStatus'
-        orderFulfillTime:
-          type: string
-        originalFulfillTime:
-          type: string
-        orderSource:
-          $ref: '#/components/schemas/OrderSource'
-        orderNote:
-          type: string
-        orderOptionName:
-          type: string
-        hasCustomerNotifications:
-          type: boolean
-        imHere:
-          type: boolean
-        imHereUpdated:
-          type: string
-    Operator:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - LTEQ
-      - GT
-      - GTE
-    OrderNotificationRequestDTO:
-      type: object
-      properties:
-        subject:
-          type: string
-        message:
-          type: string
-        messageType:
-          type: string
-        email:
-          type: string
-        phoneNumber:
-          type: string
-        updateFulfillTime:
-          type: boolean
-        newFulfillTime:
-          type: string
-          format: date-time
-        timeInMinutes:
-          type: integer
-          format: int32
-    OrderTypeDTO:
-      type: string
-      enum:
-      - DELIVERY
-      - PICKUP
-    OrderFilteringMode:
-      type: string
-      enum:
-      - ALL_ORDERS
-      - CLOSED_ORDERS
-      - ABANDONED_ORDERS
-      - MENU_BROWSING_ORDERS
-      - CANCELED_ORDERS
-      - REFUNDED_ORDERS
-      - TEST_ORDERS
-      - PAYMENT_ERROR_ORDERS
-      - NONPAYMENT_ERROR_ORDERS
-    TaxInfoDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/TaxTypeDTO'
-        amount:
-          type: number
-          format: double
-        percentage:
-          type: number
-          format: double
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderTypeDTO'
-    DailySalesReportExportResponseDTO:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/DailySalesReportRequestStatusEnum'
-        message:
-          type: string
-        request:
-          $ref: '#/components/schemas/DailySalesReportExportRequestDTO'
-        generatedCSV:
-          type: string
-    DeliveryInfo:
-      type: object
-      properties:
-        deliveryAddress:
-          $ref: '#/components/schemas/Address'
-        deliveryInstructions:
-          type: string
-    OrderStatus:
-      type: string
-      enum:
-      - OPEN
-      - CLOSED
-      - CANCELED
-      - REFUNDED
-      - SYNC_PENDING
-    VoidInfo:
-      type: object
-      properties:
-        voidDate:
-          type: string
-          format: date-time
-        voidBusinessDate:
-          type: string
-          format: date
-        voidReason:
-          type: string
-    ListCatalogAdminDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        externalId:
-          type: string
-        extTargetingId:
-          type: string
-        title:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        updatedDate:
-          type: string
-          format: date-time
-        startDate:
-          type: string
-        endDate:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
-        status:
-          type: string
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        storeIds:
-          type: array
-          items:
-            type: string
-        storeInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreInfo'
-        originalTitle:
-          type: string
-        catalogId:
-          type: string
-        groupIds:
-          type: array
-          items:
-            type: string
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupAdminDTO'
-        lastPublished:
-          type: string
-          format: date-time
-      required:
-      - clientId
-      - merchantId
-      - title
-    CatalogIntegrationType:
-      type: string
-      enum:
-      - INTEGRATED
-      - STANDALONE
-    DailyOrdersSummaryDTO:
-      type: object
-      properties:
-        noOfRecords:
-          type: integer
-          format: int32
-        totalOfOrderTotal:
-          type: number
-          format: double
-        totalOfOrderSubtotal:
-          type: number
-          format: double
-    OrderTax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        taxDescription:
-          type: string
-        taxAmountApplied:
-          type: integer
-          format: int32
-    Customer:
-      type: object
-      properties:
-        incentivioId:
-          type: string
-        extId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phoneNo:
-          type: string
     LocationAuthorization:
       type: object
       properties:
@@ -2573,586 +3051,6 @@ components:
           type: string
       required:
       - id
-    MerchantAuthorization:
-      type: object
-      properties:
-        all:
-          type: boolean
-        id:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationAuthorization'
-          uniqueItems: true
-      required:
-      - all
-      - id
-      - locations
-    OrderTotal:
-      type: object
-      properties:
-        preDiscountSubtotal:
-          type: integer
-          format: int32
-        taxSummary:
-          $ref: '#/components/schemas/TaxSummary'
-        chargeSummary:
-          $ref: '#/components/schemas/ChargeSummary'
-        refundSummary:
-          $ref: '#/components/schemas/RefundSummary'
-        subtotal:
-          type: integer
-          format: int32
-        gratuity:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        displayTotal:
-          type: string
-        displaySubtotal:
-          type: string
-        displayPreDiscountSubtotal:
-          type: string
-        displayTotalDiscountApplied:
-          type: string
-        displayGratuity:
-          type: string
-        totalTaxApplied:
-          type: integer
-          format: int32
-    FindAdminUserResponseDTO:
-      type: object
-      properties:
-        adminAccountAuthorization:
-          $ref: '#/components/schemas/AdminAccountAuthorization'
-        adminId:
-          type: string
-        email:
-          type: string
-        clientID:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        merchantId:
-          type: string
-        role:
-          $ref: '#/components/schemas/RoleDTO'
-        status:
-          type: string
-        deleted:
-          type: boolean
-        storeIds:
-          type: array
-          items:
-            type: string
-        reach:
-          type: string
-        hasEntireClientReach:
-          type: boolean
-    OrderSource:
-      type: string
-      enum:
-      - APP
-      - WEB
-      - POS
-      - KIOSK
-      - GOOGLE_ORDERING
-    OrderTotalDTO:
-      type: object
-      properties:
-        preDiscountSubtotal:
-          type: integer
-          format: int32
-        subtotal:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        displayTotal:
-          type: string
-        displaySubtotal:
-          type: string
-        displayPreDiscountSubtotal:
-          type: string
-    ChargeSummary:
-      type: object
-      properties:
-        taxableCharges:
-          type: integer
-          format: int32
-        nonTaxableCharges:
-          type: integer
-          format: int32
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderCharge'
-        totalCharges:
-          type: integer
-          format: int32
-        totalChargesWithTax:
-          type: integer
-          format: int32
-        totalTaxes:
-          type: integer
-          format: int32
-    Discount:
-      type: object
-      properties:
-        discountId:
-          type: string
-        extDiscountId:
-          type: string
-        description:
-          type: string
-        discountType:
-          $ref: '#/components/schemas/DiscountType'
-        discountValueType:
-          $ref: '#/components/schemas/DiscountValueType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        name:
-          type: string
-    AuditEventDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        eventName:
-          type: string
-        traceId:
-          type: string
-        transactionId:
-          type: string
-        eventTime:
-          type: string
-        description:
-          type: string
-        interventionRequired:
-          type: boolean
-        resolved:
-          type: boolean
-        resolutionTime:
-          type: string
-        resolutionComment:
-          type: string
-        requestedBy:
-          $ref: '#/components/schemas/FindAdminUserResponseDTO'
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        externalStatuses:
-          type: object
-          additionalProperties:
-            type: string
-        additionalDetails:
-          type: string
-    DailyOrdersResponseDTOWithPagingForAdmin:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/DailyOrdersResponseDTOForAdmin'
-        totalAmount:
-          type: number
-          format: double
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-        summary:
-          $ref: '#/components/schemas/DailyOrdersSummaryDTO'
-    Total:
-      type: object
-      properties:
-        itemTotal:
-          type: integer
-          format: int32
-        gratuity:
-          type: integer
-          format: int32
-        tax:
-          type: integer
-          format: int32
-        taxedChargeTotal:
-          type: integer
-          format: int32
-        nonTaxedChargeTotal:
-          type: integer
-          format: int32
-        dicountTotal:
-          type: integer
-          format: int32
-        subTotal:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        paid:
-          type: integer
-          format: int32
-        due:
-          type: integer
-          format: int32
-        processingFee:
-          type: integer
-          format: int32
-    OptionGroupSettingDTO:
-      type: object
-      properties:
-        optionGroupId:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        inheritGroupSettings:
-          type: boolean
-        defaultSelectedItemIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        mandatoryItemIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        selectionMandatory:
-          type: boolean
-        selectionType:
-          $ref: '#/components/schemas/SelectionType'
-        maxItemSelections:
-          type: integer
-          format: int32
-        minItemSelections:
-          type: integer
-          format: int32
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-    CreateCatalogRequestDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-          minLength: 1
-        merchantId:
-          type: string
-          minLength: 1
-        externalId:
-          type: string
-        title:
-          type: string
-          minLength: 1
-        createdDate:
-          type: string
-          format: date-time
-        updatedDate:
-          type: string
-          format: date-time
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        displayRank:
-          type: integer
-          format: int32
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
-        status:
-          type: string
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        storeIds:
-          type: array
-          items:
-            type: string
-        catalogId:
-          type: string
-        groupIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-      required:
-      - clientId
-      - merchantId
-      - title
-    DailySalesReportRequestStatusEnum:
-      type: string
-      enum:
-      - INPROGRESS
-      - EMAILED
-      - DOWNLOADED
-      - RETRYING
-      - FAILED
-    TaxTypeDTO:
-      type: string
-      enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
-    BulkUpdateRequest:
-      type: object
-      properties:
-        field:
-          type: string
-        ids:
-          type: array
-          items:
-            type: string
-        value: {}
-      required:
-      - field
-      - ids
-      - value
-    ItemsCountDTO:
-      type: object
-      properties:
-        totalItemsCount:
-          type: integer
-          format: int32
-        itemsCount:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int32
-    CreateCatalogResponseDTO:
-      type: object
-      properties:
-        catalogId:
-          type: string
-    OrderingChannels:
-      type: string
-      enum:
-      - MOBILE
-      - FACEBOOK
-      - NONE
-    Status:
-      type: string
-      enum:
-      - ACTIVE
-      - INACTIVE
-    OrderNotificationMessageResponseDTO:
-      type: object
-      properties:
-        subject:
-          type: string
-        message:
-          type: string
-        messageType:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    PatchRequestDTO:
-      type: object
-      properties:
-        op:
-          $ref: '#/components/schemas/Operation'
-        path:
-          type: string
-        value:
-          type: string
-    ItemType:
-      type: string
-      enum:
-      - MAIN
-      - MODIFIER
-    OrderTax_2:
-      type: object
-      properties:
-        taxId:
-          type: string
-        taxDescription:
-          type: string
-        taxAmountApplied:
-          type: integer
-          format: int32
-        displayTaxAmountApplied:
-          type: string
-    Customer_2:
-      type: object
-      properties:
-        customerId:
-          type: string
-        extCustomerId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-    OrderCharge_2:
-      type: object
-      properties:
-        chargeId:
-          type: string
-        chargeName:
-          type: string
-        chargeDescription:
-          type: string
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
-        chargeApplied:
-          type: integer
-          format: int32
-        displayChargeApplied:
-          type: string
-    OrderTotal_2:
-      type: object
-      properties:
-        preDiscountSubtotal:
-          type: integer
-          format: int32
-        taxSummary:
-          $ref: '#/components/schemas/TaxSummary_2'
-        chargeSummary:
-          $ref: '#/components/schemas/ChargeSummary_2'
-        totalDiscountApplied:
-          type: integer
-          format: int32
-        subtotal:
-          type: integer
-          format: int32
-        gratuity:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        displayTotal:
-          type: string
-        displaySubtotal:
-          type: string
-        displayTotalDiscountApplied:
-          type: string
-        displayGratuity:
-          type: string
-        displayPreDiscountSubtotal:
-          type: string
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-    ChargeSummary_2:
-      type: object
-      properties:
-        taxableCharges:
-          type: integer
-          format: int32
-        nonTaxableCharges:
-          type: integer
-          format: int32
-        totalCharges:
-          type: integer
-          format: int32
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderCharge_2'
-        displayTaxableCharges:
-          type: string
-        displayNonTaxableCharges:
-          type: string
-        displayTotalCharges:
-          type: string
-    CreateOrderResponseDTO:
-      type: object
-      properties:
-        orderId:
-          type: string
-    Address_2:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-        aptSuite:
-          type: string
-    OrderItemGroup:
-      type: object
-      properties:
-        groupId:
-          type: string
-        groupExtId:
-          type: string
-        groupType:
-          type: string
-          enum:
-          - CATALOG_GROUP
-          - OPTION_GROUP
-        groupName:
-          type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
     ListOrderHistoryResponseDTO:
       type: object
       properties:
@@ -3251,6 +3149,90 @@ components:
           type: string
         deliveryInstructions:
           type: string
+    CreateOrderRequestDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        userId:
+          type: string
+        orderId:
+          type: string
+        locationId:
+          type: string
+        orderName:
+          type: string
+        orderType:
+          type: string
+          enum:
+          - DELIVERY
+          - PICKUP
+          - DINEIN
+        customer:
+          $ref: '#/components/schemas/CustomerDTO'
+        guestCount:
+          type: integer
+          format: int32
+        tableNumber:
+          type: string
+        delivery:
+          $ref: '#/components/schemas/Delivery'
+        requestedFulfillTime:
+          type: string
+        revenueCenter:
+          type: string
+        orderNote:
+          type: string
+        orderSource:
+          type: string
+          enum:
+          - APP
+          - WEB
+          - POS
+          - KIOSK
+          - GOOGLE_ORDERING
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        restrictedOrder:
+          type: boolean
+        presetOrderId:
+          type: string
+        languageCode:
+          type: string
+    OrderCharge_2:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        chargeName:
+          type: string
+        chargeDescription:
+          type: string
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        chargeApplied:
+          type: integer
+          format: int32
+        displayChargeApplied:
+          type: string
+    TaxSummary_2:
+      type: object
+      properties:
+        totalTaxes:
+          type: integer
+          format: int32
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTax_2'
+        displayTotalTaxes:
+          type: string
     ListOrderResponseDTO:
       type: object
       properties:
@@ -3277,6 +3259,83 @@ components:
           - CLOSED
           - CANCELED
           - SYNC_PENDING
+    OrderTax_2:
+      type: object
+      properties:
+        taxId:
+          type: string
+        taxDescription:
+          type: string
+        taxAmountApplied:
+          type: integer
+          format: int32
+        displayTaxAmountApplied:
+          type: string
+    OrderHistoryResponseWithPagingDTO:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListOrderHistoryResponseDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+    ChargeSummary_2:
+      type: object
+      properties:
+        taxableCharges:
+          type: integer
+          format: int32
+        nonTaxableCharges:
+          type: integer
+          format: int32
+        totalCharges:
+          type: integer
+          format: int32
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderCharge_2'
+        displayTaxableCharges:
+          type: string
+        displayNonTaxableCharges:
+          type: string
+        displayTotalCharges:
+          type: string
+    CustomerDTO:
+      type: object
+      properties:
+        customerId:
+          type: string
+        extCustomerId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    Check_2:
+      type: object
+      properties:
+        checkId:
+          type: string
+        extCheckId:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer_2'
+        amount:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment_2'
     ItemTotal:
       type: object
       properties:
@@ -3308,15 +3367,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    OrderHistoryResponseWithPagingDTO:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/ListOrderHistoryResponseDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
     ViewOrderResponseDTO:
       type: object
       properties:
@@ -3397,17 +3447,27 @@ components:
           - GOOGLE_ORDERING
         guestOrderVerified:
           type: boolean
-    TaxSummary_2:
+    Customer_2:
       type: object
       properties:
-        totalTaxes:
-          type: integer
-          format: int32
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderTax_2'
-        displayTotalTaxes:
+        customerId:
+          type: string
+        extCustomerId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    Delivery:
+      type: object
+      properties:
+        deliveryAddress:
+          $ref: '#/components/schemas/Address_2'
+        deliveryInstructions:
           type: string
     OrderItem_2:
       type: object
@@ -3473,20 +3533,27 @@ components:
           type: string
         taxable:
           type: boolean
-    CustomerDTO:
+    CreateOrderResponseDTO:
       type: object
       properties:
-        customerId:
+        orderId:
           type: string
-        extCustomerId:
+    Address_2:
+      type: object
+      properties:
+        streetAddress1:
           type: string
-        firstName:
+        streetAddress2:
           type: string
-        lastName:
+        city:
           type: string
-        email:
+        postalCode:
           type: string
-        phone:
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
           type: string
     Payment_2:
       type: object
@@ -3526,32 +3593,60 @@ components:
         amountTendered:
           type: integer
           format: int32
-    Check_2:
+    OrderTotal_2:
       type: object
       properties:
-        checkId:
-          type: string
-        extCheckId:
-          type: string
-        customer:
-          $ref: '#/components/schemas/Customer_2'
-        amount:
+        preDiscountSubtotal:
+          type: integer
+          format: int32
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary_2'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary_2'
+        totalDiscountApplied:
+          type: integer
+          format: int32
+        subtotal:
           type: integer
           format: int32
         gratuity:
           type: integer
           format: int32
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payment_2'
-    Delivery:
+        total:
+          type: integer
+          format: int32
+        displayTotal:
+          type: string
+        displaySubtotal:
+          type: string
+        displayTotalDiscountApplied:
+          type: string
+        displayGratuity:
+          type: string
+        displayPreDiscountSubtotal:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    OrderItemGroup:
       type: object
       properties:
-        deliveryAddress:
-          $ref: '#/components/schemas/Address_2'
-        deliveryInstructions:
+        groupId:
           type: string
+        groupExtId:
+          type: string
+        groupType:
+          type: string
+          enum:
+          - CATALOG_GROUP
+          - OPTION_GROUP
+        groupName:
+          type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
     OrderDiscount_2:
       type: object
       properties:
@@ -3582,58 +3677,21 @@ components:
           format: int32
         displayAppliedDiscount:
           type: string
-    CreateOrderRequestDTO:
+    PagingDto:
       type: object
       properties:
-        clientId:
-          type: string
-        userId:
-          type: string
-        orderId:
-          type: string
-        locationId:
-          type: string
-        orderName:
-          type: string
-        orderType:
-          type: string
-          enum:
-          - DELIVERY
-          - PICKUP
-          - DINEIN
-        customer:
-          $ref: '#/components/schemas/CustomerDTO'
-        guestCount:
+        count:
           type: integer
           format: int32
-        tableNumber:
-          type: string
-        delivery:
-          $ref: '#/components/schemas/Delivery'
-        requestedFulfillTime:
-          type: string
-        revenueCenter:
-          type: string
-        orderNote:
-          type: string
-        orderSource:
-          type: string
-          enum:
-          - APP
-          - WEB
-          - POS
-          - KIOSK
-          - GOOGLE_ORDERING
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        restrictedOrder:
-          type: boolean
-        presetOrderId:
-          type: string
-        languageCode:
-          type: string
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
 x-refined-from:
-- incentivio-admin-api-openapi.yml
-- incentivio-mobile-api-openapi.yml
+- incentivio-admin-api-openapi.json
+- incentivio-mobile-api-openapi.json

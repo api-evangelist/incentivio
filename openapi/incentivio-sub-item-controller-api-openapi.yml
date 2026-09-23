@@ -26,6 +26,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CreateSubItemResponseDTO'
+      summary: Add or update package
+      x-summary-source: derived
   /incentivio-ordering-service/adminsubitems:
     get:
       tags:
@@ -46,6 +48,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ListSubItemResponseAdminDTO'
+      summary: List sub items by client id and item id for admin
+      x-summary-source: derived
   /incentivio-ordering-service/adminsubitems/{subitemid}:
     get:
       tags:
@@ -64,6 +68,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewSubItemResponseAdminDTO'
+      summary: View sub item by id for admin
+      x-summary-source: derived
   /incentivio-ordering-service/subitems/{subitemid}:
     delete:
       tags:
@@ -78,28 +84,18 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Delete sub items
+      x-summary-source: derived
 components:
   schemas:
-    DisplayInfo:
+    CreateSubItemResponseDTO:
       type: object
       properties:
-        langCode:
+        subItemId:
           type: string
-        title:
+        label:
           type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
-    ListSubItemResponseAdminDTO:
+    ViewSubItemResponseAdminDTO:
       type: object
       properties:
         subItemId:
@@ -156,13 +152,6 @@ components:
         createdDate:
           type: string
         updatedDate:
-          type: string
-    CreateSubItemResponseDTO:
-      type: object
-      properties:
-        subItemId:
-          type: string
-        label:
           type: string
     CreateSubItemRequestDTO:
       type: object
@@ -223,7 +212,26 @@ components:
       required:
       - clientId
       - merchantId
-    ViewSubItemResponseAdminDTO:
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    ListSubItemResponseAdminDTO:
       type: object
       properties:
         subItemId:

@@ -31,3 +31,5 @@ paths:
             '*/*':
               schema:
                 type: string
+      summary: Get app display message
+      x-summary-source: derived

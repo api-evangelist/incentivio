@@ -26,6 +26,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductSearchResponse'
+      summary: Search
+      x-summary-source: derived
   /incentivio-menu-service/search/locations:
     get:
       tags:
@@ -49,19 +51,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LocationDetailResponse'
+      summary: Search locations
+      x-summary-source: derived
 components:
   schemas:
-    LocationDetailResponse:
+    ItemType:
+      type: string
+      enum:
+      - MAIN
+      - MODIFIER
+    TargetingLocationVariant:
       type: object
       properties:
-        extTargetingId:
+        productTitle:
           type: string
-        productType:
-          $ref: '#/components/schemas/ProductType'
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/TargetingLocationVariant'
+        incentivioId:
+          type: string
+        externalId:
+          type: string
+        locationId:
+          type: string
+        locationName:
+          type: string
+        price:
+          type: string
+        status:
+          type: string
+        itemType:
+          type: string
+        productId:
+          type: string
     Status:
       type: string
       enum:
@@ -86,32 +105,6 @@ components:
         priceVariationCount:
           type: integer
           format: int32
-    TargetingLocationVariant:
-      type: object
-      properties:
-        productTitle:
-          type: string
-        incentivioId:
-          type: string
-        externalId:
-          type: string
-        locationId:
-          type: string
-        locationName:
-          type: string
-        price:
-          type: string
-        status:
-          type: string
-        itemType:
-          type: string
-        productId:
-          type: string
-    ItemType:
-      type: string
-      enum:
-      - MAIN
-      - MODIFIER
     SearchTargetingParams:
       type: object
       properties:
@@ -132,6 +125,12 @@ components:
           format: int32
         cursor:
           type: string
+    ProductType:
+      type: string
+      enum:
+      - ITEM
+      - GROUP
+      - MENU
     ProductSearchResponse:
       type: object
       properties:
@@ -143,9 +142,14 @@ components:
           type: string
         hasMoreResults:
           type: boolean
-    ProductType:
-      type: string
-      enum:
-      - ITEM
-      - GROUP
-      - MENU
+    LocationDetailResponse:
+      type: object
+      properties:
+        extTargetingId:
+          type: string
+        productType:
+          $ref: '#/components/schemas/ProductType'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetingLocationVariant'
