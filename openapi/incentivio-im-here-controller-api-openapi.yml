@@ -68,13 +68,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ImHereResponseDTO:
-      type: object
-      properties:
-        message:
-          type: string
     ImHereRequestDTO:
       type: object
       properties:
         orderId:
+          type: string
+    ImHereResponseDTO:
+      type: object
+      properties:
+        message:
           type: string

@@ -218,36 +218,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateRoleResponseDTO:
-      type: object
-      properties:
-        id:
-          type: string
-    SearchModulesResponseDTO:
-      type: object
-      properties:
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleDTO'
-    CreateRoleRequestDTO:
-      type: object
-      properties:
-        role:
-          type: string
-        description:
-          type: string
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleDTO'
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-      required:
-      - modules
-      - role
     ModuleDTO:
       type: object
       properties:
@@ -273,6 +243,25 @@ components:
           type: boolean
         deleted:
           type: boolean
+    CreateRoleResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    SearchRolesResponseDTO:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
     RoleDTO:
       type: object
       properties:
@@ -291,11 +280,13 @@ components:
           type: boolean
         deleted:
           type: boolean
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
+    SearchModulesResponseDTO:
+      type: object
+      properties:
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDTO'
     UpdateRoleRequestDTO:
       type: object
       properties:
@@ -333,15 +324,6 @@ components:
           type: boolean
         deleted:
           type: boolean
-    SearchRolesResponseDTO:
-      type: object
-      properties:
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoleDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
     PagingDto:
       type: object
       properties:
@@ -357,3 +339,21 @@ components:
         totalPages:
           type: integer
           format: int64
+    CreateRoleRequestDTO:
+      type: object
+      properties:
+        role:
+          type: string
+        description:
+          type: string
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDTO'
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+      required:
+      - modules
+      - role

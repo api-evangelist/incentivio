@@ -154,6 +154,121 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    OrderCharge:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        chargeName:
+          type: string
+        chargeDescription:
+          type: string
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        chargeApplied:
+          type: integer
+          format: int32
+        displayChargeApplied:
+          type: string
+    OrderUpdateSummaryDTO:
+      type: object
+      properties:
+        itemsCountDetails:
+          $ref: '#/components/schemas/ItemsCountDTO'
+        orderItems:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        orderTotal:
+          $ref: '#/components/schemas/OrderTotal'
+    OrderTotal:
+      type: object
+      properties:
+        preDiscountSubtotal:
+          type: integer
+          format: int32
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary'
+        totalDiscountApplied:
+          type: integer
+          format: int32
+        subtotal:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        displayTotal:
+          type: string
+        displaySubtotal:
+          type: string
+        displayTotalDiscountApplied:
+          type: string
+        displayGratuity:
+          type: string
+        displayPreDiscountSubtotal:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    ItemTotalDTO:
+      type: object
+      properties:
+        preDiscountSubtotal:
+          type: integer
+          format: int32
+        subtotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary'
+        optionsTotal:
+          type: integer
+          format: int32
+        optionsDiscountedTotal:
+          type: integer
+          format: int32
+        itemPrice:
+          type: integer
+          format: int32
+        itemDisountedPrice:
+          type: integer
+          format: int32
+    AddOrderItemListReqDTO:
+      type: object
+      properties:
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOrderItemReqDTO'
+    OrderTax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        taxDescription:
+          type: string
+        taxAmountApplied:
+          type: integer
+          format: int32
+        displayTaxAmountApplied:
+          type: string
     ItemTotal:
       type: object
       properties:
@@ -185,28 +300,24 @@ components:
           type: object
           additionalProperties:
             type: string
-    ChargeSummary:
+    ItemsCountDTO:
       type: object
       properties:
-        taxableCharges:
+        totalItemsCount:
           type: integer
           format: int32
-        nonTaxableCharges:
-          type: integer
-          format: int32
-        totalCharges:
-          type: integer
-          format: int32
-        charges:
+        itemsCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+    UpdateOrderItemReqDTO:
+      type: object
+      properties:
+        orderItems:
           type: array
           items:
-            $ref: '#/components/schemas/OrderCharge'
-        displayTaxableCharges:
-          type: string
-        displayNonTaxableCharges:
-          type: string
-        displayTotalCharges:
-          type: string
+            $ref: '#/components/schemas/OrderItemDTO'
     DisplayInfo:
       type: object
       properties:
@@ -262,191 +373,6 @@ components:
           format: int32
         orderItemId:
           type: string
-    AddOrderItemListReqDTO:
-      type: object
-      properties:
-        orderItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddOrderItemReqDTO'
-    OrderTotal:
-      type: object
-      properties:
-        preDiscountSubtotal:
-          type: integer
-          format: int32
-        taxSummary:
-          $ref: '#/components/schemas/TaxSummary'
-        chargeSummary:
-          $ref: '#/components/schemas/ChargeSummary'
-        totalDiscountApplied:
-          type: integer
-          format: int32
-        subtotal:
-          type: integer
-          format: int32
-        gratuity:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        displayTotal:
-          type: string
-        displaySubtotal:
-          type: string
-        displayTotalDiscountApplied:
-          type: string
-        displayGratuity:
-          type: string
-        displayPreDiscountSubtotal:
-          type: string
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    OrderCharge:
-      type: object
-      properties:
-        chargeId:
-          type: string
-        chargeName:
-          type: string
-        chargeDescription:
-          type: string
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
-        chargeApplied:
-          type: integer
-          format: int32
-        displayChargeApplied:
-          type: string
-    ItemsCountDTO:
-      type: object
-      properties:
-        totalItemsCount:
-          type: integer
-          format: int32
-        itemsCount:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int32
-    AddOrderItemReqDTO:
-      required:
-      - itemId
-      - quantity
-      type: object
-      properties:
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        catalogId:
-          type: string
-        discountIds:
-          type: array
-          items:
-            type: string
-        externalId:
-          type: string
-        groupId:
-          type: string
-        itemId:
-          type: string
-        itemInstructions:
-          type: string
-        note:
-          type: string
-        quantity:
-          type: integer
-          format: int32
-    TaxSummary:
-      type: object
-      properties:
-        totalTaxes:
-          type: integer
-          format: int32
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderTax'
-        displayTotalTaxes:
-          type: string
-    OrderItemGroup:
-      type: object
-      properties:
-        groupId:
-          type: string
-        groupExtId:
-          type: string
-        groupType:
-          type: string
-          enum:
-          - CATALOG_GROUP
-          - OPTION_GROUP
-        groupName:
-          type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    OrderUpdateSummaryDTO:
-      type: object
-      properties:
-        itemsCountDetails:
-          $ref: '#/components/schemas/ItemsCountDTO'
-        orderItems:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItem'
-        orderTotal:
-          $ref: '#/components/schemas/OrderTotal'
-    ItemTotalDTO:
-      type: object
-      properties:
-        preDiscountSubtotal:
-          type: integer
-          format: int32
-        subtotal:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        taxSummary:
-          $ref: '#/components/schemas/TaxSummary'
-        chargeSummary:
-          $ref: '#/components/schemas/ChargeSummary'
-        optionsTotal:
-          type: integer
-          format: int32
-        optionsDiscountedTotal:
-          type: integer
-          format: int32
-        itemPrice:
-          type: integer
-          format: int32
-        itemDisountedPrice:
-          type: integer
-          format: int32
-    OrderTax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        taxDescription:
-          type: string
-        taxAmountApplied:
-          type: integer
-          format: int32
-        displayTaxAmountApplied:
-          type: string
     OrderDiscount:
       type: object
       properties:
@@ -476,6 +402,87 @@ components:
           type: integer
           format: int32
         displayAppliedDiscount:
+          type: string
+    OrderItemGroup:
+      type: object
+      properties:
+        groupId:
+          type: string
+        groupExtId:
+          type: string
+        groupType:
+          type: string
+          enum:
+          - CATALOG_GROUP
+          - OPTION_GROUP
+        groupName:
+          type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    AddOrderItemReqDTO:
+      required:
+      - itemId
+      - quantity
+      type: object
+      properties:
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        catalogId:
+          type: string
+        discountIds:
+          type: array
+          items:
+            type: string
+        externalId:
+          type: string
+        groupId:
+          type: string
+        itemId:
+          type: string
+        itemInstructions:
+          type: string
+        note:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    ChargeSummary:
+      type: object
+      properties:
+        taxableCharges:
+          type: integer
+          format: int32
+        nonTaxableCharges:
+          type: integer
+          format: int32
+        totalCharges:
+          type: integer
+          format: int32
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderCharge'
+        displayTaxableCharges:
+          type: string
+        displayNonTaxableCharges:
+          type: string
+        displayTotalCharges:
+          type: string
+    TaxSummary:
+      type: object
+      properties:
+        totalTaxes:
+          type: integer
+          format: int32
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTax'
+        displayTotalTaxes:
           type: string
     OrderItem:
       type: object
@@ -541,10 +548,3 @@ components:
           type: string
         taxable:
           type: boolean
-    UpdateOrderItemReqDTO:
-      type: object
-      properties:
-        orderItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemDTO'

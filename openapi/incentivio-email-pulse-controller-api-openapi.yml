@@ -353,112 +353,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CardTypeEnum:
-      type: string
-      enum:
-      - number
-      - percent
-      - currency
-    EmailPulseDataCSVRequestDTO:
-      type: object
-      properties:
-        clientname:
-          type: string
-        requestStatus:
-          $ref: '#/components/schemas/RequestStatusEnum'
-        startdate:
-          type: string
-          format: date
-        enddate:
-          type: string
-          format: date
-        storeids:
-          type: array
-          items:
-            type: string
-        columns:
-          type: array
-          items:
-            type: string
-        reportType:
-          type: string
-        emailType:
-          type: string
-        status:
-          type: string
-        campaignIds:
-          type: array
-          items:
-            type: string
-        offerIds:
-          type: array
-          items:
-            type: string
-        messageIds:
-          type: array
-          items:
-            type: string
-    PulseTimeSeries:
-      type: object
-      properties:
-        series:
-          type: array
-          items:
-            $ref: '#/components/schemas/PulseTimeSeriesEntry'
-        xlabels:
-          type: array
-          items:
-            type: string
-    EmailPulseMessageDTO:
-      type: object
-      properties:
-        messageId:
-          type: string
-        title:
-          type: string
-    PulseDataGridWithTotalEmailDataDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmailDataDTO'
-        total:
-          $ref: '#/components/schemas/EmailDataDTO'
-    EmailPulseOfferDTO:
-      type: object
-      properties:
-        offerId:
-          type: string
-        title:
-          type: string
-    PulsePieGraphEntry:
-      type: object
-      properties:
-        label:
-          type: string
-        value:
-          type: number
-    PaginationRequest:
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-    PulseTimeSeriesEntry:
-      type: object
-      properties:
-        label:
-          type: string
-        data:
-          type: array
-          items:
-            type: number
     PulseDateRange:
       type: object
       properties:
@@ -474,38 +368,70 @@ components:
         comparisonenddate:
           type: string
           format: date
-    StatusEnum:
+    EmailPulseOfferDTO:
+      type: object
+      properties:
+        offerId:
+          type: string
+        title:
+          type: string
+    PulsePieGraph:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PulsePieGraphEntry'
+    CardTypeEnum:
       type: string
       enum:
-      - INPROGRESS
-      - SUCCESS
-      - FAILED
-      - EMAILED
-      - RETRYING
-      - DOWNLOADED
-      - NODATA
-    EmailCardsDTO:
+      - number
+      - percent
+      - currency
+    PulseDataGridWithTotalEmailDataDTO:
       type: object
       properties:
-        emailsSent:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        emailsDelivered:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        openRate:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        clickRate:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        unsubscribeRate:
-          $ref: '#/components/schemas/PulseSummaryCard'
-        spamReportRate:
-          $ref: '#/components/schemas/PulseSummaryCard'
-    SortingRequest:
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailDataDTO'
+        total:
+          $ref: '#/components/schemas/EmailDataDTO'
+    PulseTimeSeriesEntry:
       type: object
       properties:
-        sortBy:
+        label:
           type: string
-        sortDirection:
-          type: string
+        data:
+          type: array
+          items:
+            type: number
+    PulseTimeSeries:
+      type: object
+      properties:
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/PulseTimeSeriesEntry'
+        xlabels:
+          type: array
+          items:
+            type: string
+    PulseSummaryCard:
+      type: object
+      properties:
+        value:
+          type: number
+        comparisonNumber:
+          type: number
+        sparkLineData:
+          type: array
+          items:
+            type: number
+        cardType:
+          $ref: '#/components/schemas/CardTypeEnum'
     EmailDataDTO:
       type: object
       properties:
@@ -565,19 +491,69 @@ components:
           type: string
         spamReports:
           type: string
-    PulseSummaryCard:
+    PulsePieGraphEntry:
       type: object
       properties:
+        label:
+          type: string
         value:
           type: number
-        comparisonNumber:
-          type: number
-        sparkLineData:
+    SortingRequest:
+      type: object
+      properties:
+        sortBy:
+          type: string
+        sortDirection:
+          type: string
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    EmailPulseDataCSVRequestDTO:
+      type: object
+      properties:
+        clientname:
+          type: string
+        requestStatus:
+          $ref: '#/components/schemas/RequestStatusEnum'
+        startdate:
+          type: string
+          format: date
+        enddate:
+          type: string
+          format: date
+        storeids:
           type: array
           items:
-            type: number
-        cardType:
-          $ref: '#/components/schemas/CardTypeEnum'
+            type: string
+        columns:
+          type: array
+          items:
+            type: string
+        reportType:
+          type: string
+        emailType:
+          type: string
+        status:
+          type: string
+        campaignIds:
+          type: array
+          items:
+            type: string
+        offerIds:
+          type: array
+          items:
+            type: string
+        messageIds:
+          type: array
+          items:
+            type: string
     PulseCSVResponseDTO:
       type: object
       properties:
@@ -588,6 +564,15 @@ components:
         data:
           type: object
           additionalProperties: {}
+    PaginationRequest:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
     PagingDTO:
       type: object
       properties:
@@ -603,6 +588,13 @@ components:
         currentPage:
           type: integer
           format: int32
+    EmailPulseMessageDTO:
+      type: object
+      properties:
+        messageId:
+          type: string
+        title:
+          type: string
     RequestStatusEnum:
       type: string
       enum:
@@ -613,10 +605,18 @@ components:
       - RETRYING
       - DOWNLOADED
       - NODATA
-    PulsePieGraph:
+    EmailCardsDTO:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PulsePieGraphEntry'
+        emailsSent:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        emailsDelivered:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        openRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        clickRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        unsubscribeRate:
+          $ref: '#/components/schemas/PulseSummaryCard'
+        spamReportRate:
+          $ref: '#/components/schemas/PulseSummaryCard'

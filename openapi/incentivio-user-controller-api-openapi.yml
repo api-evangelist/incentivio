@@ -436,7 +436,7 @@ paths:
     get:
       tags:
       - user-controller
-      operationId: findUserAccount
+      operationId: getUseraccounts
       responses:
         '200':
           description: OK
@@ -446,6 +446,8 @@ paths:
                 $ref: '#/components/schemas/FindUserAccountResponseDTO_2'
       summary: Find user account
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: findUserAccount
     post:
       tags:
       - user-controller
@@ -756,39 +758,34 @@ paths:
       description: Generated server url
 components:
   schemas:
-    Gender:
-      type: string
-      enum:
-      - MALE
-      - FEMALE
     Status:
       type: string
       enum:
       - ACTIVE
       - INACTIVE
-    Address:
+    FindUserResponseDTO:
       type: object
       properties:
-        street1:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        lat:
-          type: number
-          format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
-          type: string
+        resultsPaging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserAccountDTO'
+    Operation:
+      type: string
+      enum:
+      - TEST
+      - REMOVE
+      - ADD
+      - REPLACE
+      - MOVE
+      - COPY
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
     UserAccountDTO:
       type: object
       properties:
@@ -825,17 +822,19 @@ components:
           type: boolean
         linked:
           type: boolean
+    AccountBlockRequestDTO:
+      type: object
+      properties:
+        reason:
+          type: string
+      required:
+      - reason
     HouseholdDTO:
       type: object
       properties:
         shortDescription:
           type: string
         longDescription:
-          type: string
-    AccountBlockResponseDTO:
-      type: object
-      properties:
-        userId:
           type: string
     UserAccountChangeLogResponseDTO:
       type: object
@@ -849,6 +848,63 @@ components:
         changedDateTime:
           type: string
           format: date-time
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    UserAccountPatchRequestDto:
+      type: object
+      properties:
+        op:
+          $ref: '#/components/schemas/Operation'
+        attribute:
+          type: string
+        value:
+          type: string
+    Gender:
+      type: string
+      enum:
+      - MALE
+      - FEMALE
+    AccountBlockResponseDTO:
+      type: object
+      properties:
+        userId:
+          type: string
     FindUserAccountResponseDTO:
       type: object
       properties:
@@ -901,177 +957,20 @@ components:
           type: boolean
         linked:
           type: boolean
-    Operation:
-      type: string
-      enum:
-      - TEST
-      - REMOVE
-      - ADD
-      - REPLACE
-      - MOVE
-      - COPY
-    FindUserResponseDTO:
+    CheckCompatibilityResponseDTO:
       type: object
       properties:
-        resultsPaging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserAccountDTO'
-    ResultsPagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
-    AccountBlockRequestDTO:
-      type: object
-      properties:
-        reason:
-          type: string
-      required:
-      - reason
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    UserAccountPatchRequestDto:
-      type: object
-      properties:
-        op:
-          $ref: '#/components/schemas/Operation'
-        attribute:
-          type: string
-        value:
-          type: string
-    UpdateIncompleteUserAccountRequestDTO:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-        phoneNumber:
-          type: string
-        dateOfBirth:
-          type: string
-    UserDeviceDTO:
-      type: object
-      properties:
-        deviceUniqueId:
-          type: string
-        deviceId:
-          type: string
-        deviceType:
-          type: string
-        dateOfAdded:
-          type: string
-    CreateSMSUserAccountRequestDTO:
-      required:
-      - phoneNumber
-      type: object
-      properties:
-        phoneNumber:
-          type: string
-    UserLookUpResponseDTO:
-      type: object
-      properties:
-        contact:
-          type: string
-    CreateUserAccountRequestDTO:
-      required:
-      - baseLanguagePrefrerence
-      - email
-      - firstName
-      - howAcquired
-      - lastName
-      - password
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address_2'
-        authenticationProvider:
+        sdkCompatibility:
           type: string
           enum:
-          - APPLE
-          - GOOGLE
-          - INCENTIVIO
-          - OTP
-        baseLanguagePrefrerence:
-          type: string
-        dateOfBirth:
-          type: string
-        email:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        firstName:
-          type: string
-        gender:
-          type: string
-        household:
-          $ref: '#/components/schemas/HouseholdDTO_2'
-        howAcquired:
-          type: string
-        jwt:
-          type: string
-        lastName:
-          type: string
-        password:
-          type: string
-        phoneNumber:
-          type: string
-        referralCode:
-          type: string
-        userProfileImageUrl:
-          type: string
-    LoginResponseDTO:
+          - COMPATIBLE
+          - UPGRADE_RECOMMENDED
+          - UPGRADE_REQUIRED
+          - NONE
+    HouseholdDTO_2:
       type: object
       properties:
-        accountID:
-          type: string
-        accountAlias:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        cookieValue:
-          type: string
-    CreateSMSUserAccountResponseDTO:
-      type: object
-      properties:
-        accountAliasId:
-          type: string
-        phoneNumber:
-          type: string
-    UserAccountLightResponseDTO:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phoneNumber:
+        title:
           type: string
     CreateExternalUserAccountRequestDTO:
       required:
@@ -1151,6 +1050,159 @@ components:
           format: int32
         blocked:
           type: boolean
+    UpdateIncompleteUserAccountRequestDTO:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phoneNumber:
+          type: string
+        dateOfBirth:
+          type: string
+    LoginResponseDTO:
+      type: object
+      properties:
+        accountID:
+          type: string
+        accountAlias:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        cookieValue:
+          type: string
+    CreateUserAccountRequestDTO:
+      required:
+      - baseLanguagePrefrerence
+      - email
+      - firstName
+      - howAcquired
+      - lastName
+      - password
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address_2'
+        authenticationProvider:
+          type: string
+          enum:
+          - APPLE
+          - GOOGLE
+          - INCENTIVIO
+          - OTP
+        baseLanguagePrefrerence:
+          type: string
+        dateOfBirth:
+          type: string
+        email:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        firstName:
+          type: string
+        gender:
+          type: string
+        household:
+          $ref: '#/components/schemas/HouseholdDTO_2'
+        howAcquired:
+          type: string
+        jwt:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+        phoneNumber:
+          type: string
+        referralCode:
+          type: string
+        userProfileImageUrl:
+          type: string
+    CreateSMSUserAccountRequestDTO:
+      required:
+      - phoneNumber
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+    CreateUserAccountResponseDTO:
+      type: object
+      properties:
+        userId:
+          type: string
+        referralId:
+          type: string
+        verified:
+          type: boolean
+    CreateSMSUserAccountResponseDTO:
+      type: object
+      properties:
+        accountAliasId:
+          type: string
+        phoneNumber:
+          type: string
+    UserDeviceDTO:
+      type: object
+      properties:
+        deviceUniqueId:
+          type: string
+        deviceId:
+          type: string
+        deviceType:
+          type: string
+        dateOfAdded:
+          type: string
+    UserAccountLightResponseDTO:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+    UserLookUpResponseDTO:
+      type: object
+      properties:
+        contact:
+          type: string
+    LoginRequestDTO:
+      required:
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        rememberme:
+          type: boolean
+    FindUserByTokenResponseDTO:
+      type: object
+      properties:
+        userAccountDTO:
+          $ref: '#/components/schemas/UserAccountDTO_2'
+        message:
+          type: string
+    GetUserDevicesResponseDTO:
+      type: object
+      properties:
+        deviceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDeviceDTO'
     VerifyEmailResponseDTO:
       type: object
       properties:
@@ -1162,27 +1214,22 @@ components:
           type: string
         userAccount:
           $ref: '#/components/schemas/UserAccountLightResponseDTO'
-    CheckCompatibilityResponseDTO:
+    Address_2:
       type: object
       properties:
-        sdkCompatibility:
+        streetAddress1:
           type: string
-          enum:
-          - COMPATIBLE
-          - UPGRADE_RECOMMENDED
-          - UPGRADE_REQUIRED
-          - NONE
-    GetUserDevicesResponseDTO:
-      type: object
-      properties:
-        deviceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserDeviceDTO'
-    HouseholdDTO_2:
-      type: object
-      properties:
-        title:
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
           type: string
     FindUserAccountResponseDTO_2:
       type: object
@@ -1224,51 +1271,6 @@ components:
           additionalProperties:
             type: string
         userProfileImageUrl:
-          type: string
-    Address_2:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-        aptSuite:
-          type: string
-    CreateUserAccountResponseDTO:
-      type: object
-      properties:
-        userId:
-          type: string
-        referralId:
-          type: string
-        verified:
-          type: boolean
-    LoginRequestDTO:
-      required:
-      - password
-      - username
-      type: object
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-        rememberme:
-          type: boolean
-    FindUserByTokenResponseDTO:
-      type: object
-      properties:
-        userAccountDTO:
-          $ref: '#/components/schemas/UserAccountDTO_2'
-        message:
           type: string
 x-refined-from:
 - incentivio-admin-api-openapi.json

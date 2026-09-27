@@ -153,6 +153,25 @@ components:
           type: string
         updatedDate:
           type: string
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
     CreateSubItemRequestDTO:
       type: object
       properties:
@@ -212,25 +231,6 @@ components:
       required:
       - clientId
       - merchantId
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
     ListSubItemResponseAdminDTO:
       type: object
       properties:

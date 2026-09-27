@@ -131,104 +131,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    FundTransferLocationConfig:
-      type: object
-      properties:
-        locationId:
-          type: string
-        active:
-          type: boolean
-    CreateOrUpdateFundTransferConfigRequest:
-      type: object
-      properties:
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/FundTransferLocationConfig'
-        active:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        path:
-          type: string
-    FundTransferFailureReason:
-      type: object
-      properties:
-        code:
-          type: string
-        description:
-          type: string
-        explanation:
-          type: string
-    StatusEnum:
-      type: string
-      enum:
-      - INPROGRESS
-      - SUCCESS
-      - FAILED
-      - EMAILED
-      - RETRYING
-      - DOWNLOADED
-      - NODATA
-    FormattedDwollaException:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    FundTransferConfigResponse:
-      type: object
-      properties:
-        clientId:
-          type: string
-        frequency:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/FundTransferLocationConfig'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-        active:
-          type: boolean
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    RetrieveFundTransferListResponse:
-      type: object
-      properties:
-        transferList:
-          type: array
-          items:
-            $ref: '#/components/schemas/FundTransfer'
-        pageIndex:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        totalRecordCount:
-          type: integer
-          format: int64
     AuditEvent:
       type: object
       properties:
@@ -256,6 +158,11 @@ components:
           type: string
         additionalDetails:
           type: string
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
     EventNameEnum:
       type: string
       enum:
@@ -268,6 +175,32 @@ components:
       - CANCELLED
       - CANCELLATION_FAILED
       - RETRY_TRANSFER_CREATED
+    FundTransferLocationConfig:
+      type: object
+      properties:
+        locationId:
+          type: string
+        active:
+          type: boolean
+    FundTransferConfigResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+        frequency:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransferLocationConfig'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        active:
+          type: boolean
     FundTransfer:
       type: object
       properties:
@@ -360,3 +293,70 @@ components:
         modifiedDate:
           type: string
           format: date-time
+    CreateOrUpdateFundTransferConfigRequest:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransferLocationConfig'
+        active:
+          type: boolean
+    RetrieveFundTransferListResponse:
+      type: object
+      properties:
+        transferList:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransfer'
+        pageIndex:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        totalRecordCount:
+          type: integer
+          format: int64
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    FundTransferFailureReason:
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+        explanation:
+          type: string
+    FormattedDwollaException:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'

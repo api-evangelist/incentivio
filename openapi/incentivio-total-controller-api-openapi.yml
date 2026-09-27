@@ -58,28 +58,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ChargeSummary:
-      type: object
-      properties:
-        taxableCharges:
-          type: integer
-          format: int32
-        nonTaxableCharges:
-          type: integer
-          format: int32
-        totalCharges:
-          type: integer
-          format: int32
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderCharge'
-        displayTaxableCharges:
-          type: string
-        displayNonTaxableCharges:
-          type: string
-        displayTotalCharges:
-          type: string
     OrderCharge:
       type: object
       properties:
@@ -99,47 +77,6 @@ components:
           type: integer
           format: int32
         displayChargeApplied:
-          type: string
-    AddOrderItemReqDTO:
-      required:
-      - itemId
-      - quantity
-      type: object
-      properties:
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        catalogId:
-          type: string
-        discountIds:
-          type: array
-          items:
-            type: string
-        externalId:
-          type: string
-        groupId:
-          type: string
-        itemId:
-          type: string
-        itemInstructions:
-          type: string
-        note:
-          type: string
-        quantity:
-          type: integer
-          format: int32
-    TaxSummary:
-      type: object
-      properties:
-        totalTaxes:
-          type: integer
-          format: int32
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderTax'
-        displayTotalTaxes:
           type: string
     OrderTax:
       type: object
@@ -176,3 +113,66 @@ components:
           type: object
           additionalProperties:
             type: string
+    AddOrderItemReqDTO:
+      required:
+      - itemId
+      - quantity
+      type: object
+      properties:
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        catalogId:
+          type: string
+        discountIds:
+          type: array
+          items:
+            type: string
+        externalId:
+          type: string
+        groupId:
+          type: string
+        itemId:
+          type: string
+        itemInstructions:
+          type: string
+        note:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    ChargeSummary:
+      type: object
+      properties:
+        taxableCharges:
+          type: integer
+          format: int32
+        nonTaxableCharges:
+          type: integer
+          format: int32
+        totalCharges:
+          type: integer
+          format: int32
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderCharge'
+        displayTaxableCharges:
+          type: string
+        displayNonTaxableCharges:
+          type: string
+        displayTotalCharges:
+          type: string
+    TaxSummary:
+      type: object
+      properties:
+        totalTaxes:
+          type: integer
+          format: int32
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTax'
+        displayTotalTaxes:
+          type: string

@@ -163,52 +163,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ImageFileMatch:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-      required:
-      - id
-      - title
-    ImageFileStatus:
-      type: string
-      enum:
-      - ERROR
-      - PROCESSED
-      - QUEUED
-      - UPLOADED
-    BulkImageUploadUpdateRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        processedFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImageFile'
-        status:
-          $ref: '#/components/schemas/BulkImageUploadStatus'
-        statusMessage:
-          type: string
-      required:
-      - processedFiles
-      - status
-    BulkImageUploadStatus:
-      type: string
-      enum:
-      - COMPLETE
-      - ERROR
-      - PROCESSING
-      - UPLOADED
-      - UPLOADING
-    BulkImageUploadReadResponse:
-      type: object
-      properties:
-        bulkImageUpload:
-          $ref: '#/components/schemas/BulkImageUpload'
     ImageFile:
       type: object
       properties:
@@ -227,6 +181,52 @@ components:
       required:
       - filename
       - status
+    ImageFileMatch:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+      required:
+      - id
+      - title
+    BulkImageUploadCreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+    BulkImageUploadUpdateRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        processedFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageFile'
+        status:
+          $ref: '#/components/schemas/BulkImageUploadStatus'
+        statusMessage:
+          type: string
+      required:
+      - processedFiles
+      - status
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
     BulkImageUploadSearchResponse:
       type: object
       properties:
@@ -236,36 +236,26 @@ components:
             $ref: '#/components/schemas/BulkImageUpload'
         paging:
           $ref: '#/components/schemas/PagingDto'
-    BulkImageUploadCreateResponse:
-      type: object
-      properties:
-        id:
-          type: string
-    BulkImageUploadType:
+    ImageFileStatus:
       type: string
       enum:
-      - CATALOG
-      - GROUP
-      - ITEM
-    BulkImageUploadCreateRequest:
+      - ERROR
+      - PROCESSED
+      - QUEUED
+      - UPLOADED
+    BulkImageUploadReadResponse:
       type: object
       properties:
-        adminId:
-          type: string
-        clientId:
-          type: string
-        processedFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImageFile'
-        type:
-          $ref: '#/components/schemas/BulkImageUploadType'
-        uploadId:
-          type: string
-      required:
-      - processedFiles
-      - type
-      - uploadId
+        bulkImageUpload:
+          $ref: '#/components/schemas/BulkImageUpload'
+    BulkImageUploadStatus:
+      type: string
+      enum:
+      - COMPLETE
+      - ERROR
+      - PROCESSING
+      - UPLOADED
+      - UPLOADING
     BulkImageUpload:
       type: object
       properties:
@@ -299,18 +289,28 @@ components:
       - status
       - type
       - uploadId
-    PagingDto:
+    BulkImageUploadType:
+      type: string
+      enum:
+      - CATALOG
+      - GROUP
+      - ITEM
+    BulkImageUploadCreateRequest:
       type: object
       properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
+        adminId:
+          type: string
+        clientId:
+          type: string
+        processedFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageFile'
+        type:
+          $ref: '#/components/schemas/BulkImageUploadType'
+        uploadId:
+          type: string
+      required:
+      - processedFiles
+      - type
+      - uploadId

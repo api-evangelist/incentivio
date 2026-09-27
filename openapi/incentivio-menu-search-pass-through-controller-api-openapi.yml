@@ -55,11 +55,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ItemType:
+    Status:
       type: string
       enum:
-      - MAIN
-      - MODIFIER
+      - ACTIVE
+      - INACTIVE
+    ProductSearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSearchResult'
+        nextCursor:
+          type: string
+        hasMoreResults:
+          type: boolean
     TargetingLocationVariant:
       type: object
       properties:
@@ -81,11 +92,11 @@ components:
           type: string
         productId:
           type: string
-    Status:
+    ItemType:
       type: string
       enum:
-      - ACTIVE
-      - INACTIVE
+      - MAIN
+      - MODIFIER
     ProductSearchResult:
       type: object
       properties:
@@ -105,6 +116,12 @@ components:
         priceVariationCount:
           type: integer
           format: int32
+    ProductType:
+      type: string
+      enum:
+      - ITEM
+      - GROUP
+      - MENU
     SearchTargetingParams:
       type: object
       properties:
@@ -125,23 +142,6 @@ components:
           format: int32
         cursor:
           type: string
-    ProductType:
-      type: string
-      enum:
-      - ITEM
-      - GROUP
-      - MENU
-    ProductSearchResponse:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductSearchResult'
-        nextCursor:
-          type: string
-        hasMoreResults:
-          type: boolean
     LocationDetailResponse:
       type: object
       properties:

@@ -201,26 +201,24 @@ components:
           type: boolean
         guestCheckoutSupported:
           type: boolean
-    InitOrderRequestDTO:
+    BillingAddress:
       type: object
       properties:
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
-        cardType:
+        name:
           type: string
-        lastFour:
+        address1:
           type: string
-        locationId:
+        address2:
           type: string
-        merchantId:
+        city:
           type: string
-        orderId:
+        state:
           type: string
-        otherData:
+        zip:
           type: string
-        paymentToken:
+        country:
+          type: string
+        phoneNumber:
           type: string
     PaymentRequestDTO:
       required:
@@ -302,15 +300,6 @@ components:
           type: boolean
         billingAddress:
           $ref: '#/components/schemas/BillingAddress'
-    OrderOptionInfo:
-      type: object
-      properties:
-        optionName:
-          type: string
-        information:
-          type: string
-        optionDescription:
-          type: string
     PaymentResponseDTO:
       type: object
       properties:
@@ -377,25 +366,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    BillingAddress:
-      type: object
-      properties:
-        name:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        zip:
-          type: string
-        country:
-          type: string
-        phoneNumber:
-          type: string
     InitOrderResponseDTO:
       type: object
       properties:
@@ -409,3 +379,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PaymentConfig'
+    InitOrderRequestDTO:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        cardType:
+          type: string
+        lastFour:
+          type: string
+        locationId:
+          type: string
+        merchantId:
+          type: string
+        orderId:
+          type: string
+        otherData:
+          type: string
+        paymentToken:
+          type: string
+    OrderOptionInfo:
+      type: object
+      properties:
+        optionName:
+          type: string
+        information:
+          type: string
+        optionDescription:
+          type: string

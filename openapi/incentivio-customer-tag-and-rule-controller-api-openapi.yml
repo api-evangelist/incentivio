@@ -149,14 +149,30 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CustomerTagDataType:
-      type: string
-      enum:
-      - NUMBER
-      - TEXT
-      - DATE
-      - COLLECTION
-      - GEO
+    CustomerTagRequestDTO:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        key:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        attributeType:
+          type: string
+          minLength: 1
+        collectionValues:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+      required:
+      - attributeType
+      - key
+      - title
     TagAndRuleDTO:
       type: object
       properties:
@@ -196,6 +212,15 @@ components:
           type: array
           items:
             type: string
+    CustomerTagAndRulesWithPagingForAdminDTO:
+      type: object
+      properties:
+        tagAndRuleDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAndRuleDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
     TagsAndRulesResponseDTO:
       type: object
       properties:
@@ -203,6 +228,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TagAndRuleDTO'
+    Source:
+      type: string
+      enum:
+      - SYSTEM
+      - GUEST_INPUT
+      - GENERATED
+      - IMPORTED_MANUAL
     PagingDTO:
       type: object
       properties:
@@ -218,48 +250,16 @@ components:
         currentPage:
           type: integer
           format: int32
-    Source:
+    CustomerTagDataType:
       type: string
       enum:
-      - SYSTEM
-      - GUEST_INPUT
-      - GENERATED
-      - IMPORTED_MANUAL
-    CustomerTagAndRulesWithPagingForAdminDTO:
-      type: object
-      properties:
-        tagAndRuleDTOS:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagAndRuleDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
+      - NUMBER
+      - TEXT
+      - DATE
+      - COLLECTION
+      - GEO
     TagType:
       type: string
       enum:
       - CUSTOM
       - SYSTEM
-    CustomerTagRequestDTO:
-      type: object
-      properties:
-        title:
-          type: string
-          minLength: 1
-        key:
-          type: string
-          minLength: 1
-        description:
-          type: string
-        attributeType:
-          type: string
-          minLength: 1
-        collectionValues:
-          type: array
-          items:
-            type: string
-        source:
-          type: string
-      required:
-      - attributeType
-      - key
-      - title

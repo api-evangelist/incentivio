@@ -57,23 +57,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AppContentResponseDTO:
-      type: object
-      properties:
-        offerList:
-          $ref: '#/components/schemas/AppOfferListDTO'
-        messageList:
-          $ref: '#/components/schemas/AppMessageListDTO'
-    OfferStatus:
+    MessageStatus:
       type: string
       enum:
       - NEW
-      - SAVED
       - READ
       - EXPIRED
       - DELETED
-      - SYSTEM_REDEEMED
-      - USER_REDEEMED
     AppMessageDTO:
       type: object
       properties:
@@ -105,15 +95,22 @@ components:
           type: string
         surveyId:
           type: string
-    AppMessageListDTO:
+    AppOfferListDTO:
       type: object
       properties:
-        messages:
+        offers:
           type: array
           items:
-            $ref: '#/components/schemas/AppMessageDTO'
+            $ref: '#/components/schemas/AppOfferDTO'
         paging:
           $ref: '#/components/schemas/ResultsPagingDTO'
+    AppContentResponseDTO:
+      type: object
+      properties:
+        offerList:
+          $ref: '#/components/schemas/AppOfferListDTO'
+        messageList:
+          $ref: '#/components/schemas/AppMessageListDTO'
     AppOfferDTO:
       type: object
       properties:
@@ -162,6 +159,25 @@ components:
           type: boolean
         enableGuestCheckout:
           type: boolean
+    OfferStatus:
+      type: string
+      enum:
+      - NEW
+      - SAVED
+      - READ
+      - EXPIRED
+      - DELETED
+      - SYSTEM_REDEEMED
+      - USER_REDEEMED
+    AppMessageListDTO:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppMessageDTO'
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
     ResultsPagingDTO:
       type: object
       properties:
@@ -177,19 +193,3 @@ components:
         currentPage:
           type: integer
           format: int32
-    MessageStatus:
-      type: string
-      enum:
-      - NEW
-      - READ
-      - EXPIRED
-      - DELETED
-    AppOfferListDTO:
-      type: object
-      properties:
-        offers:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppOfferDTO'
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'

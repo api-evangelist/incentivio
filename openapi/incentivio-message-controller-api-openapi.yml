@@ -135,49 +135,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ActivityMessageDTO:
-      type: object
-      properties:
-        distributedMessageId:
-          type: string
-        merchantId:
-          type: string
-        messageId:
-          type: string
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - READ
-          - EXPIRED
-          - DELETED
-        distributedDate:
-          type: string
-        updatedDate:
-          type: string
-        messageType:
-          type: string
-          enum:
-          - PRIVATE
-          - SHAREABLE
-          - REFERRAL
-          - SURVEY
-        surveyId:
-          type: string
-        distributedEndDate:
-          type: string
     MessageDTO:
       type: object
       properties:
@@ -206,28 +163,29 @@ components:
           type: string
         deleted:
           type: boolean
-    ActivityMessageListDTO:
+    GetActivityMessagesRequestDTO:
+      required:
+      - userId
       type: object
       properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActivityMessageDTO'
-    MessageDisplayInfoDTO:
-      type: object
-      properties:
+        userId:
+          type: string
         languageCode:
           type: string
-        title:
+        merchantId:
           type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        events:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
     AppMessageDTO:
       type: object
       properties:
@@ -266,30 +224,21 @@ components:
           type: string
         distributedEndDate:
           type: string
-    AppMessageListDTO:
+    PagingDto:
       type: object
       properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppMessageDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-    UpdateMessageDistributionStatusRequestDTO:
-      required:
-      - distributedMessageId
-      - status
-      type: object
-      properties:
-        distributedMessageId:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - READ
-          - EXPIRED
-          - DELETED
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
     DistributedMessageDTO:
       type: object
       properties:
@@ -337,41 +286,92 @@ components:
           type: string
         updatedDate:
           type: string
-    GetActivityMessagesRequestDTO:
-      required:
-      - userId
+    ActivityMessageListDTO:
       type: object
       properties:
-        userId:
-          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityMessageDTO'
+    AppMessageListDTO:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppMessageDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+    MessageDisplayInfoDTO:
+      type: object
+      properties:
         languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+    UpdateMessageDistributionStatusRequestDTO:
+      required:
+      - distributedMessageId
+      - status
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+    ActivityMessageDTO:
+      type: object
+      properties:
+        distributedMessageId:
           type: string
         merchantId:
           type: string
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        events:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+          enum:
+          - PRIVATE
+          - SHAREABLE
+          - REFERRAL
+          - SURVEY
+        surveyId:
+          type: string
+        distributedEndDate:
+          type: string

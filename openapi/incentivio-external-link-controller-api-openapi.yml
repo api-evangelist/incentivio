@@ -40,13 +40,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ExternalLinksResponseDTO:
+    ExternalLinkDisplayInfoDTO:
       type: object
       properties:
-        externalLinks:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalLinkDTO'
+        languageCode:
+          type: string
+        title:
+          type: string
+        image:
+          type: string
+        url:
+          type: string
+          format: url
     ExternalLinkDTO:
       type: object
       properties:
@@ -65,15 +70,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExternalLinkDisplayInfoDTO'
-    ExternalLinkDisplayInfoDTO:
+    ExternalLinksResponseDTO:
       type: object
       properties:
-        languageCode:
-          type: string
-        title:
-          type: string
-        image:
-          type: string
-        url:
-          type: string
-          format: url
+        externalLinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLinkDTO'

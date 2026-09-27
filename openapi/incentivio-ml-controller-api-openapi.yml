@@ -285,7 +285,7 @@ paths:
     get:
       tags:
       - ml-controller
-      operationId: routeMLRequest
+      operationId: getMlMobile**
       parameters:
       - name: body
         in: query
@@ -301,10 +301,12 @@ paths:
                 type: string
       summary: Route ML request
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: routeMLRequest
     put:
       tags:
       - ml-controller
-      operationId: routeMLRequest_3
+      operationId: putMlMobile**
       requestBody:
         content:
           application/json:
@@ -319,10 +321,12 @@ paths:
                 type: string
       summary: Route ML request 3
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: routeMLRequest_3
     post:
       tags:
       - ml-controller
-      operationId: routeMLRequest_2
+      operationId: postMlMobile**
       requestBody:
         content:
           application/json:
@@ -337,10 +341,12 @@ paths:
                 type: string
       summary: Route ML request 2
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: routeMLRequest_2
     delete:
       tags:
       - ml-controller
-      operationId: routeMLRequest_5
+      operationId: deleteMlMobile**
       requestBody:
         content:
           application/json:
@@ -355,10 +361,12 @@ paths:
                 type: string
       summary: Route ML request 5
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: routeMLRequest_5
     options:
       tags:
       - ml-controller
-      operationId: routeMLRequest_6
+      operationId: optionsMlMobile**
       requestBody:
         content:
           application/json:
@@ -373,10 +381,12 @@ paths:
                 type: string
       summary: Route ML request 6
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: routeMLRequest_6
     head:
       tags:
       - ml-controller
-      operationId: routeMLRequest_1
+      operationId: headMlMobile**
       requestBody:
         content:
           application/json:
@@ -391,10 +401,12 @@ paths:
                 type: string
       summary: Route ML request 1
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: routeMLRequest_1
     patch:
       tags:
       - ml-controller
-      operationId: routeMLRequest_4
+      operationId: patchMlMobile**
       requestBody:
         content:
           application/json:
@@ -409,22 +421,13 @@ paths:
                 type: string
       summary: Route ML request 4
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: routeMLRequest_4
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
 components:
   schemas:
-    UpdateLocationResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        updatedLocationsCount:
-          type: integer
-          format: int32
     CreateRuleRequest:
       type: object
       properties:
@@ -434,23 +437,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RuleRequest'
-    ItemCategoryChaingingRequest:
+    DeleteRuleResponse:
       type: object
       properties:
-        clientId:
+        code:
+          type: integer
+          format: int32
+        message:
           type: string
-        itemName:
-          type: string
-        category:
-          type: string
-        subCategory:
-          type: string
-        previousCategory:
-          type: string
-        previousSubCategory:
-          type: string
-        metaData:
-          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
     DeleteRuleRequest:
       type: object
       properties:
@@ -460,118 +454,6 @@ components:
           type: string
         metaData:
           $ref: '#/components/schemas/AdminPortalMetaDataRequest'
-    LocationDetailRequest:
-      type: object
-      properties:
-        locationId:
-          type: string
-        locationName:
-          type: string
-        metaData:
-          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
-        locationEnabled:
-          type: boolean
-    DeviceDetailRequest:
-      type: object
-      properties:
-        deviceIpAddress:
-          type: string
-        deviceType:
-          type: string
-        browserType:
-          type: string
-    UpdatedConfigurationResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        newSideCount:
-          type: integer
-          format: int32
-        newBeverageCount:
-          type: integer
-          format: int32
-        newDessertCount:
-          type: integer
-          format: int32
-        newMaxRuleRecommendations:
-          type: integer
-          format: int32
-        newMaxRecommendations:
-          type: integer
-          format: int32
-    UserDetailRequest:
-      type: object
-      properties:
-        userId:
-          type: string
-        userName:
-          type: string
-        email:
-          type: string
-    UpdateLocationRequest:
-      type: object
-      properties:
-        clientId:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationDetailRequest'
-    RuleRequest:
-      type: object
-      properties:
-        ruleId:
-          type: string
-        ruleType:
-          type: string
-        triggerMenus:
-          type: array
-          items:
-            type: string
-        triggerGroups:
-          type: array
-          items:
-            type: string
-        triggerItems:
-          type: array
-          items:
-            type: string
-        recommendationItems:
-          type: array
-          items:
-            type: string
-        metaData:
-          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
-    CreateRuleResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        ruleCount:
-          type: integer
-          format: int32
-    DeleteRuleResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    AdminPortalMetaDataRequest:
-      type: object
-      properties:
-        deviceDetail:
-          $ref: '#/components/schemas/DeviceDetailRequest'
-        userDetail:
-          $ref: '#/components/schemas/UserDetailRequest'
     UpdateConfigurationRequest:
       type: object
       properties:
@@ -597,7 +479,7 @@ components:
           format: int32
         metaData:
           $ref: '#/components/schemas/AdminPortalMetaDataRequest'
-    StartTrainingProcessResponse:
+    UpdateLocationResponse:
       type: object
       properties:
         code:
@@ -605,6 +487,9 @@ components:
           format: int32
         message:
           type: string
+        updatedLocationsCount:
+          type: integer
+          format: int32
     CategoryChangedItemResponse:
       type: object
       properties:
@@ -620,12 +505,141 @@ components:
           type: string
         previousSubCategory:
           type: string
+    UserDetailRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
+    RuleRequest:
+      type: object
+      properties:
+        ruleId:
+          type: string
+        ruleType:
+          type: string
+        triggerMenus:
+          type: array
+          items:
+            type: string
+        triggerGroups:
+          type: array
+          items:
+            type: string
+        triggerItems:
+          type: array
+          items:
+            type: string
+        recommendationItems:
+          type: array
+          items:
+            type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    DeviceDetailRequest:
+      type: object
+      properties:
+        deviceIpAddress:
+          type: string
+        deviceType:
+          type: string
+        browserType:
+          type: string
+    LocationDetailRequest:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+        locationEnabled:
+          type: boolean
+    UpdateLocationRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailRequest'
     ModelTrainingRequest:
       type: object
       properties:
         clientId:
           type: string
         clientName:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    UpdatedConfigurationResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        newSideCount:
+          type: integer
+          format: int32
+        newBeverageCount:
+          type: integer
+          format: int32
+        newDessertCount:
+          type: integer
+          format: int32
+        newMaxRuleRecommendations:
+          type: integer
+          format: int32
+        newMaxRecommendations:
+          type: integer
+          format: int32
+    CreateRuleResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        ruleCount:
+          type: integer
+          format: int32
+    AdminPortalMetaDataRequest:
+      type: object
+      properties:
+        deviceDetail:
+          $ref: '#/components/schemas/DeviceDetailRequest'
+        userDetail:
+          $ref: '#/components/schemas/UserDetailRequest'
+    StartTrainingProcessResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    ItemCategoryChaingingRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        itemName:
+          type: string
+        category:
+          type: string
+        subCategory:
+          type: string
+        previousCategory:
+          type: string
+        previousSubCategory:
           type: string
         metaData:
           $ref: '#/components/schemas/AdminPortalMetaDataRequest'

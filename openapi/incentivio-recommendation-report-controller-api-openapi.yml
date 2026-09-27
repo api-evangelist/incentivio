@@ -158,6 +158,25 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    TopRecommendedItemsDTO:
+      type: object
+      properties:
+        itemName:
+          type: string
+        qty:
+          type: integer
+          format: int32
+        orders:
+          type: integer
+          format: int32
+        revenue:
+          type: number
+          format: float
+        takeRate:
+          type: number
+          format: float
+        imageUrl:
+          type: string
     RecommendationSummaryDTO:
       type: object
       properties:
@@ -185,25 +204,6 @@ components:
         comparedToPreviousMonthPercentage:
           type: number
           format: float
-    TopRecommendedItemsDTO:
-      type: object
-      properties:
-        itemName:
-          type: string
-        qty:
-          type: integer
-          format: int32
-        orders:
-          type: integer
-          format: int32
-        revenue:
-          type: number
-          format: float
-        takeRate:
-          type: number
-          format: float
-        imageUrl:
-          type: string
     RecommendedAverageBasketValueDTO:
       type: object
       properties:

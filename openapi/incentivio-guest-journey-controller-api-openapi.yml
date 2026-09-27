@@ -205,18 +205,18 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/GuestSegmentInfo'
-    GuestCountSummary:
+    GuestSegmentOfferInfo:
       type: object
       properties:
-        clientId:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/GuestSegmentType'
-        date:
-          type: string
-        guestCount:
+        offerTypeCount:
           type: integer
-          format: int64
+          format: int32
+        distributionCount:
+          type: integer
+          format: int32
+        redemptionPercentage:
+          type: number
+          format: double
     GuestSegmentInfo:
       type: object
       properties:
@@ -260,6 +260,43 @@ components:
         updatedDate:
           type: string
           format: date-time
+    GuestSegmentTrend:
+      type: string
+      enum:
+      - UPTREND
+      - DOWNTREND
+      - STAGNANT
+    GuestJourneyStatus:
+      type: object
+      properties:
+        jobId:
+          type: integer
+          format: int32
+        status:
+          type: string
+        modifiedDate:
+          type: string
+    GuestCountSummary:
+      type: object
+      properties:
+        clientId:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        guestCount:
+          type: integer
+          format: int64
+    GuestRevenueSummaryResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestRevenueSummary'
     GuestSegmentType:
       type: string
       enum:
@@ -271,69 +308,15 @@ components:
       - WHALE
       - SLIDER
       - CHURNED
-    GuestCountSummaryByStore:
+    GuestRevenueSummaryByStoreResponse:
       type: object
       properties:
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        storeId:
-          type: string
-        storeName:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/GuestSegmentType'
-        date:
-          type: string
-        guestCount:
-          type: integer
-          format: int64
-    GuestRevenueSummaryByStore:
-      type: object
-      properties:
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        storeId:
-          type: string
-        storeName:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/GuestSegmentType'
-        date:
-          type: string
-        revenuePercentage:
-          type: number
-          format: double
-    GuestSegmentOfferInfo:
-      type: object
-      properties:
-        offerTypeCount:
-          type: integer
-          format: int32
-        distributionCount:
-          type: integer
-          format: int32
-        redemptionPercentage:
-          type: number
-          format: double
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestRevenueSummaryByStore'
     ViewGuestJourneyResponse:
       type: object
       properties:
@@ -352,30 +335,39 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/GuestCountSummary'
-    GuestSegmentTrend:
-      type: string
-      enum:
-      - UPTREND
-      - DOWNTREND
-      - STAGNANT
-    GuestCountSummaryByStoreResponse:
+    PagingDTO:
       type: object
       properties:
-        summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuestCountSummaryByStore'
-    GuestRevenueSummaryByStoreResponse:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    GuestRevenueSummaryByStore:
       type: object
       properties:
-        summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuestRevenueSummaryByStore'
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        storeId:
+          type: string
+        storeName:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        revenuePercentage:
+          type: number
+          format: double
     GuestSegmentRecoveryInfo:
       type: object
       properties:
@@ -385,25 +377,6 @@ components:
         recoveredAnnualSpend:
           type: number
           format: double
-    GuestJourneyStatus:
-      type: object
-      properties:
-        jobId:
-          type: integer
-          format: int32
-        status:
-          type: string
-        modifiedDate:
-          type: string
-    GuestRevenueSummaryResponse:
-      type: object
-      properties:
-        summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuestRevenueSummary'
     GuestRevenueSummary:
       type: object
       properties:
@@ -416,3 +389,30 @@ components:
           format: double
         date:
           type: string
+    GuestCountSummaryByStore:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        storeId:
+          type: string
+        storeName:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        guestCount:
+          type: integer
+          format: int64
+    GuestCountSummaryByStoreResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestCountSummaryByStore'

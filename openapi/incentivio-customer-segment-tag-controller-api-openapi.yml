@@ -47,6 +47,32 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    SubCategoryEnum:
+      type: string
+      enum:
+      - LIFETIME
+      - LAST_NO_OF_DAYS
+      - NO_OF_ORDERS
+    RuleTypeEnum:
+      type: string
+      enum:
+      - EXPRESSION
+      - LOGIC
+    SegmentLightResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentIcon:
+          type: string
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor'
+        deletedStatus:
+          type: boolean
     RuleDescriptor:
       type: object
       properties:
@@ -72,12 +98,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RuleDescriptor'
-    SubCategoryEnum:
+    LogicTypeEnum:
       type: string
       enum:
-      - LIFETIME
-      - LAST_NO_OF_DAYS
-      - NO_OF_ORDERS
+      - AND
+      - OR
+      - NOT
+    FindCustomerSegmentsResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        customerId:
+          type: string
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentLightResponseDTO'
+    OperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
     DaysOfWeekEnum:
       type: string
       enum:
@@ -88,12 +138,19 @@ components:
       - FRIDAY
       - SATURDAY
       - SUNDAY
-    LogicTypeEnum:
-      type: string
-      enum:
-      - AND
-      - OR
-      - NOT
+    ProductDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        externalId:
+          type: string
+        displayInfoTitlesList:
+          type: array
+          items:
+            type: string
     ResultsPagingDTO:
       type: object
       properties:
@@ -109,37 +166,6 @@ components:
         currentPage:
           type: integer
           format: int32
-    RelationalOperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    RuleTypeEnum:
-      type: string
-      enum:
-      - EXPRESSION
-      - LOGIC
-    SegmentLightResponseDTO:
-      type: object
-      properties:
-        segmentId:
-          type: string
-        segmentName:
-          type: string
-        segmentDescription:
-          type: string
-        segmentIcon:
-          type: string
-        segmentRules:
-          $ref: '#/components/schemas/RuleDescriptor'
-        deletedStatus:
-          type: boolean
     ExpressionValueNew:
       type: object
       properties:
@@ -175,33 +201,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DaysOfWeekEnum'
-    ProductDTO:
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        externalId:
-          type: string
-        displayInfoTitlesList:
-          type: array
-          items:
-            type: string
-    FindCustomerSegmentsResponseDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        customerId:
-          type: string
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentLightResponseDTO'
-    OperatorEnum:
+    RelationalOperatorEnum:
       type: string
       enum:
       - EQ

@@ -148,27 +148,14 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GiftCardClientConfigUpdateRequest:
+    GiftCardLocationConfig:
       type: object
       properties:
-        clientId:
+        locationId:
           type: string
-        giftCardProvider:
-          $ref: '#/components/schemas/GiftCardServiceProvider'
-        securityCodeEnabled:
-          type: boolean
-        poolAccountSettings:
-          type: object
-          additionalProperties:
-            type: string
-    GiftCardClientConfigResponse:
-      type: object
-      properties:
-        giftCardProvider:
-          $ref: '#/components/schemas/GiftCardServiceProvider'
-        securityCodeEnabled:
-          type: boolean
-        poolAccountSettings:
+        locationName:
+          type: string
+        locationConfig:
           type: object
           additionalProperties:
             type: string
@@ -191,14 +178,27 @@ components:
       - SQUARE
       - VALUTEC
       - E_CARD_SYSTEMS
-    GiftCardLocationConfig:
+    GiftCardClientConfigUpdateRequest:
       type: object
       properties:
-        locationId:
+        clientId:
           type: string
-        locationName:
-          type: string
-        locationConfig:
+        giftCardProvider:
+          $ref: '#/components/schemas/GiftCardServiceProvider'
+        securityCodeEnabled:
+          type: boolean
+        poolAccountSettings:
+          type: object
+          additionalProperties:
+            type: string
+    GiftCardClientConfigResponse:
+      type: object
+      properties:
+        giftCardProvider:
+          $ref: '#/components/schemas/GiftCardServiceProvider'
+        securityCodeEnabled:
+          type: boolean
+        poolAccountSettings:
           type: object
           additionalProperties:
             type: string

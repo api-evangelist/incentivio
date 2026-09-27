@@ -184,17 +184,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SalesByDateDTO'
-    SalesByLocationForPreviousMonthReportDTO:
+    SalesByPosCategoryReportDTO:
       type: object
       properties:
-        totalSales:
-          type: number
-        comparedToPreviousMonthPercentage:
-          type: string
-    SalesByOrderSourceReportDTO:
-      type: object
-      properties:
-        orderSource:
+        posCategory:
           type: string
         salesByDateList:
           type: array
@@ -209,10 +202,17 @@ components:
         sales:
           type: number
           format: double
-    SalesByPosCategoryReportDTO:
+    SalesByLocationForPreviousMonthReportDTO:
       type: object
       properties:
-        posCategory:
+        totalSales:
+          type: number
+        comparedToPreviousMonthPercentage:
+          type: string
+    SalesByOrderSourceReportDTO:
+      type: object
+      properties:
+        orderSource:
           type: string
         salesByDateList:
           type: array

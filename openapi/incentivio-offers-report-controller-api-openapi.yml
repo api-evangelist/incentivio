@@ -103,45 +103,11 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    OfferPerformanceDTO:
-      type: object
-      properties:
-        attribute:
-          type: string
-        value:
-          type: integer
-          format: int32
-    OfferPerformanceReportExportResponseDTO:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        message:
-          type: string
-        generatedCSV:
-          type: string
-    OfferPerformanceReportDTO:
-      type: object
-      properties:
-        offerPerformanceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OfferPerformanceDTO'
     Direction:
       type: string
       enum:
       - ASC
       - DESC
-    StatusEnum:
-      type: string
-      enum:
-      - INPROGRESS
-      - SUCCESS
-      - FAILED
-      - EMAILED
-      - RETRYING
-      - DOWNLOADED
-      - NODATA
     OfferPerformanceReportExportRequestDTO:
       type: object
       properties:
@@ -167,3 +133,37 @@ components:
           type: array
           items:
             type: string
+    OfferPerformanceDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        value:
+          type: integer
+          format: int32
+    OfferPerformanceReportExportResponseDTO:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        message:
+          type: string
+        generatedCSV:
+          type: string
+    OfferPerformanceReportDTO:
+      type: object
+      properties:
+        offerPerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferPerformanceDTO'
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA

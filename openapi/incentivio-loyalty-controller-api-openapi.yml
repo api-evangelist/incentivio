@@ -244,7 +244,7 @@ paths:
     get:
       tags:
       - loyalty-controller
-      operationId: viewLoyalAccountHistory
+      operationId: getLoyaltyaccountsAccounthistory
       parameters:
       - name: merchantid
         in: query
@@ -297,11 +297,33 @@ paths:
                 $ref: '#/components/schemas/FindLoyaltyHistoryResponseDTO'
       summary: View loyal account history
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: viewLoyalAccountHistory
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url
 components:
   schemas:
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    LoyaltyTransactionStatus:
+      type: string
+      enum:
+      - PENDING
+      - CONFIRMED
+      - EXPIRED
+    FindLoyaltyHistoryResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        loyaltyHistories:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyTransactionDTO'
     LoyaltyTransactionDTO:
       type: object
       properties:
@@ -346,26 +368,19 @@ components:
         currentPage:
           type: integer
           format: int32
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    FindLoyaltyHistoryResponseDTO:
+    LoyaltyPointsSummaryDTO:
       type: object
       properties:
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        loyaltyHistories:
-          type: array
-          items:
-            $ref: '#/components/schemas/LoyaltyTransactionDTO'
-    LoyaltyTransactionStatus:
-      type: string
-      enum:
-      - PENDING
-      - CONFIRMED
-      - EXPIRED
+        clientId:
+          type: string
+        totalOriginalpoints:
+          type: integer
+          format: int32
+        totalRemainingpoints:
+          type: integer
+          format: int32
+        timeSummarized:
+          type: string
     ExpiringLoyaltyPointsResponseDTO:
       type: object
       properties:
@@ -375,6 +390,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LoyaltyTransactionDTO_2'
+    TierDetailsDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        lowerBoundary:
+          type: number
+          format: double
+        upperBoundary:
+          type: number
+          format: double
+    NextExpiringLoyaltyPointsResponseDTO:
+      type: object
+      properties:
+        nextExpiringPoints:
+          type: integer
+          format: int32
+        expiryDate:
+          type: string
+    UpsertLoyaltyCardRequestDTO:
+      type: object
+      properties:
+        loyaltyCardId:
+          type: string
     LoyaltyTransactionDTO_2:
       type: object
       properties:
@@ -426,26 +465,10 @@ components:
           type: string
         expiryDate:
           type: string
-    NextExpiringLoyaltyPointsResponseDTO:
+    UpsertLoyaltyAccountExternalIdDTO:
       type: object
       properties:
-        nextExpiringPoints:
-          type: integer
-          format: int32
-        expiryDate:
-          type: string
-    LoyaltyPointsSummaryDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        totalOriginalpoints:
-          type: integer
-          format: int32
-        totalRemainingpoints:
-          type: integer
-          format: int32
-        timeSummarized:
+        externalId:
           type: string
     ViewLoyaltyAccountResponseDTO:
       type: object
@@ -487,27 +510,6 @@ components:
         createdDateString:
           type: string
           format: date-time
-    UpsertLoyaltyAccountExternalIdDTO:
-      type: object
-      properties:
-        externalId:
-          type: string
-    UpsertLoyaltyCardRequestDTO:
-      type: object
-      properties:
-        loyaltyCardId:
-          type: string
-    TierDetailsDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        lowerBoundary:
-          type: number
-          format: double
-        upperBoundary:
-          type: number
-          format: double
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

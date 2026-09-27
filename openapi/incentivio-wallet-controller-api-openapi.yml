@@ -147,15 +147,6 @@ paths:
       description: Generated server url
 components:
   schemas:
-    WalletConfigDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        tokenizeGatewayName:
-          type: string
-        walletGatewayName:
-          type: string
     PutWalletConfigRequestDTO:
       type: object
       properties:
@@ -163,13 +154,6 @@ components:
           type: string
         walletGatewayName:
           type: string
-    ScanToPaySalesSummaryResponse:
-      type: object
-      properties:
-        salesSummary:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ScanToPaySalesSummary'
     ScanToPaySalesSummary:
       type: object
       properties:
@@ -187,6 +171,67 @@ components:
         finalTotal:
           type: integer
           format: int64
+    WalletConfigDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        tokenizeGatewayName:
+          type: string
+        walletGatewayName:
+          type: string
+    ScanToPaySalesSummaryResponse:
+      type: object
+      properties:
+        salesSummary:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ScanToPaySalesSummary'
+    ListPaymentInstrumentsResponseDTO:
+      type: object
+      properties:
+        paymentInstruments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentInstrumentDTO'
+    PaymentInstrumentDTO:
+      type: object
+      properties:
+        paymentInstrumentId:
+          type: string
+        clientId:
+          type: string
+        userId:
+          type: string
+        paymentType:
+          type: string
+        cardType:
+          type: string
+        expirationYear:
+          type: integer
+          format: int32
+        expirationMonth:
+          type: integer
+          format: int32
+        paymentToken:
+          type: string
+        lastFour:
+          type: string
+        nickname:
+          type: string
+        image:
+          type: string
+        isDefault:
+          type: boolean
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    AddPaymentInstrumentResponseDTO:
+      type: object
+      properties:
+        paymentInstrumentId:
+          type: string
     AddPaymentInstrumentRequestDTO:
       type: object
       properties:
@@ -226,51 +271,6 @@ components:
             type: string
         default:
           type: boolean
-    ListPaymentInstrumentsResponseDTO:
-      type: object
-      properties:
-        paymentInstruments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentInstrumentDTO'
-    AddPaymentInstrumentResponseDTO:
-      type: object
-      properties:
-        paymentInstrumentId:
-          type: string
-    PaymentInstrumentDTO:
-      type: object
-      properties:
-        paymentInstrumentId:
-          type: string
-        clientId:
-          type: string
-        userId:
-          type: string
-        paymentType:
-          type: string
-        cardType:
-          type: string
-        expirationYear:
-          type: integer
-          format: int32
-        expirationMonth:
-          type: integer
-          format: int32
-        paymentToken:
-          type: string
-        lastFour:
-          type: string
-        nickname:
-          type: string
-        image:
-          type: string
-        isDefault:
-          type: boolean
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

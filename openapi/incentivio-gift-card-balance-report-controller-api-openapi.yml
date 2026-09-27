@@ -72,6 +72,41 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    GiftCardBalanceReportDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCardBalanceRecord'
+        releaseDate:
+          type: string
+    GiftCardBalanceExportReportResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        message:
+          type: string
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
     GiftCardBalanceRecord:
       type: object
       properties:
@@ -103,41 +138,6 @@ components:
         initialPurchaseAmount:
           type: string
         initialPurchaseLocation:
-          type: string
-    GiftCardBalanceReportDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/GiftCardBalanceRecord'
-        releaseDate:
-          type: string
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-    GiftCardBalanceExportReportResponse:
-      type: object
-      properties:
-        requestId:
-          type: string
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        message:
           type: string
     StatusEnum:
       type: string

@@ -83,34 +83,17 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DomainValidateResDto:
+    DomainAuthenticateDnsResDto:
       type: object
       properties:
-        id:
-          type: string
         valid:
-          type: boolean
-        validation_results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DomainValidateDnsResDto'
-    EmailSettingsCreateRequestDTO:
-      type: object
-      properties:
-        emailHandler:
-          $ref: '#/components/schemas/EmailHandler'
-        externalDomainId:
           type: string
-        fromEmail:
+        type:
           type: string
-        fromEmailedName:
+        host:
           type: string
-        replyTo:
+        data:
           type: string
-        replyToName:
-          type: string
-      required:
-      - emailHandler
     DomainValidateDnsResDto:
       type: object
       properties:
@@ -146,17 +129,34 @@ components:
             $ref: '#/components/schemas/DomainAuthenticateDnsResDto'
         active:
           type: boolean
-    DomainAuthenticateDnsResDto:
+    EmailSettingsCreateRequestDTO:
       type: object
       properties:
+        emailHandler:
+          $ref: '#/components/schemas/EmailHandler'
+        externalDomainId:
+          type: string
+        fromEmail:
+          type: string
+        fromEmailedName:
+          type: string
+        replyTo:
+          type: string
+        replyToName:
+          type: string
+      required:
+      - emailHandler
+    DomainValidateResDto:
+      type: object
+      properties:
+        id:
+          type: string
         valid:
-          type: string
-        type:
-          type: string
-        host:
-          type: string
-        data:
-          type: string
+          type: boolean
+        validation_results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DomainValidateDnsResDto'
     EmailSettingBasicInfoResponseDTO:
       type: object
       properties:

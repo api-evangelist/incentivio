@@ -293,60 +293,32 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ChargeType:
+    MerchantDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        title:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        clientId:
+          type: string
+        messageFromEmail:
+          type: string
+        timezone:
+          type: string
+    OrderProcessingStrategy:
       type: string
       enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
-    TaxDTO:
-      type: object
-      properties:
-        taxId:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-    AddressDTO:
-      type: object
-      properties:
-        city:
-          type: string
-        country:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-    FindMerchantsResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-        merchants:
-          type: array
-          items:
-            $ref: '#/components/schemas/MerchantDTO'
-    FindMerchantsByIdsResponseDTO:
-      type: object
-      properties:
-        merchantsMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/MerchantDTO'
+      - ONE_STEP
+      - TWO_STEP
+      - INCENTIVIO_ORDER
+      - INC_PAYMENTS
     OrderProcessingConfigDTO:
       type: object
       properties:
@@ -368,6 +340,50 @@ components:
           type: boolean
         realTimeLoyaltyProcessing:
           type: boolean
+    UpdateMerchantRequestDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxDTO'
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeDTO'
+        orderProcessingConfig:
+          $ref: '#/components/schemas/OrderProcessingConfigDTO'
+        paymentGatewayConfig:
+          $ref: '#/components/schemas/PaymentGatewayConfig'
+        pickupOrderProcessingTime:
+          type: integer
+          format: int64
+        deliveryOrderProcessingTime:
+          type: integer
+          format: int64
+        timeZone:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
     ExternalDeliverySettings:
       type: object
       properties:
@@ -385,30 +401,29 @@ components:
           type: string
         contactPhone:
           type: string
-    IDGenerationStrategy:
+    RoundingMode:
       type: string
       enum:
-      - UUID
-      - AUTO_INCREMENT
-    MerchantDTO:
+      - HALF_EVEN
+      - HALF_UP
+      - TRUNCATE
+    TaxDTO:
       type: object
       properties:
-        merchantId:
+        taxId:
           type: string
-        shortDescription:
+        extTaxId:
           type: string
-        longDescription:
+        taxDescription:
           type: string
-        title:
-          type: string
-        address:
-          $ref: '#/components/schemas/AddressDTO'
-        clientId:
-          type: string
-        messageFromEmail:
-          type: string
-        timezone:
-          type: string
+        taxType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
     CreateMerchantRequestDTO:
       type: object
       properties:
@@ -440,27 +455,78 @@ components:
           type: object
           additionalProperties:
             type: string
+    ChargeType:
+      type: string
+      enum:
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    FindMerchantsByIdsResponseDTO:
+      type: object
+      properties:
+        merchantsMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MerchantDTO'
     ExternalDeliveryFeeStrategy:
       type: string
       enum:
       - ADD
       - IGNORE
+    IDGenerationStrategy:
+      type: string
+      enum:
+      - UUID
+      - AUTO_INCREMENT
     Direction:
       type: string
       enum:
       - ASC
       - DESC
-    RoundingMode:
-      type: string
-      enum:
-      - HALF_EVEN
-      - HALF_UP
-      - TRUNCATE
     CreateMerchantResponseDTO:
       type: object
       properties:
         merchantId:
           type: string
+    TotalCalculationStrategy:
+      type: string
+      enum:
+      - TOAST
+      - SILVERWARE
+      - NCC
+      - LIGHTSPEED
+      - EXTERNAL
+    AddressDTO:
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+    FindMerchantsResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        merchants:
+          type: array
+          items:
+            $ref: '#/components/schemas/MerchantDTO'
+    PaymentGatewayConfig:
+      type: object
+      properties:
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
     Address:
       type: object
       properties:
@@ -484,49 +550,6 @@ components:
           format: double
         aptSuite:
           type: string
-    UpdateMerchantRequestDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxDTO'
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeDTO'
-        orderProcessingConfig:
-          $ref: '#/components/schemas/OrderProcessingConfigDTO'
-        paymentGatewayConfig:
-          $ref: '#/components/schemas/PaymentGatewayConfig'
-        pickupOrderProcessingTime:
-          type: integer
-          format: int64
-        deliveryOrderProcessingTime:
-          type: integer
-          format: int64
-        timeZone:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    PaymentGatewayConfig:
-      type: object
-      properties:
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    OrderProcessingStrategy:
-      type: string
-      enum:
-      - ONE_STEP
-      - TWO_STEP
-      - INCENTIVIO_ORDER
-      - INC_PAYMENTS
     ChargeDTO:
       type: object
       properties:
@@ -553,26 +576,3 @@ components:
         orderApplied:
           type: integer
           format: int32
-    TotalCalculationStrategy:
-      type: string
-      enum:
-      - TOAST
-      - SILVERWARE
-      - NCC
-      - LIGHTSPEED
-      - EXTERNAL
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64

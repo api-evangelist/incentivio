@@ -148,69 +148,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    OrderAvailabilityRequestDTO:
-      type: object
-      properties:
-        presetOrderId:
-          type: string
-        orderId:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
-        selectedDay:
-          type: string
-          format: date
-    Address:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-        aptSuite:
-          type: string
-    CalculateAsapDurationRequestDTO:
-      type: object
-      properties:
-        orderId:
-          type: string
-        orderType:
-          type: string
-          enum:
-          - DELIVERY
-          - PICKUP
-          - DINEIN
-        address:
-          $ref: '#/components/schemas/Address'
-    CalculateAsapDurationResponseDTO:
-      type: object
-      properties:
-        orderType:
-          type: string
-          enum:
-          - DELIVERY
-          - PICKUP
-          - DINEIN
-        asapAvailable:
-          type: boolean
-        asapDuration:
-          type: integer
-          format: int32
-    ValidatedTimeSlot:
-      type: object
-      properties:
-        time:
-          type: string
-        valid:
-          type: boolean
     OrderAvailabilityResponseDTO:
       type: object
       properties:
@@ -269,3 +206,66 @@ components:
         maxOrderingDate:
           type: string
           format: date
+    CalculateAsapDurationRequestDTO:
+      type: object
+      properties:
+        orderId:
+          type: string
+        orderType:
+          type: string
+          enum:
+          - DELIVERY
+          - PICKUP
+          - DINEIN
+        address:
+          $ref: '#/components/schemas/Address'
+    OrderAvailabilityRequestDTO:
+      type: object
+      properties:
+        presetOrderId:
+          type: string
+        orderId:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        selectedDay:
+          type: string
+          format: date
+    ValidatedTimeSlot:
+      type: object
+      properties:
+        time:
+          type: string
+        valid:
+          type: boolean
+    CalculateAsapDurationResponseDTO:
+      type: object
+      properties:
+        orderType:
+          type: string
+          enum:
+          - DELIVERY
+          - PICKUP
+          - DINEIN
+        asapAvailable:
+          type: boolean
+        asapDuration:
+          type: integer
+          format: int32
+    Address:
+      type: object
+      properties:
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string

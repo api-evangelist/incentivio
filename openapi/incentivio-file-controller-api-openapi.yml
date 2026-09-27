@@ -96,7 +96,7 @@ paths:
     post:
       tags:
       - file-controller
-      operationId: uploadFile
+      operationId: postClientsByClientidMedia
       parameters:
       - name: clientid
         in: path
@@ -129,6 +129,8 @@ paths:
                 $ref: '#/components/schemas/MobileFileUploadResponseDTO'
       summary: Upload file
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: uploadFile
     servers:
     - url: https://mobile.incentivio.com/incentivio-mobile-api
       description: Generated server url

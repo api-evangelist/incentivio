@@ -151,19 +151,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AmountByLocationDTO:
-      type: object
-      properties:
-        locationId:
-          type: string
-        locationName:
-          type: string
-        amount:
-          type: number
-        noOfRecords:
-          type: integer
-          format: int32
-    AmountByBonusAccountDTO:
+    AmountByPoolAccountDTO:
       type: object
       properties:
         amount:
@@ -182,7 +170,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AmountByLocationDTO'
-    AmountByPoolAccountDTO:
+    AmountByLocationDTO:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        amount:
+          type: number
+        noOfRecords:
+          type: integer
+          format: int32
+    AmountByBonusAccountDTO:
       type: object
       properties:
         amount:

@@ -415,133 +415,6 @@ paths:
       description: Generated server url
 components:
   schemas:
-    AppHomeConfigDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        version:
-          type: integer
-          format: int32
-        background:
-          $ref: '#/components/schemas/HomeBackgroundDTO'
-        blocks:
-          type: array
-          items: {}
-        previewScheduleId:
-          type: string
-        previewType:
-          type: string
-        hasStagedDefault:
-          type: boolean
-    BackgroundScheduleDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        label:
-          type: string
-        imageUrlAndroid:
-          type: string
-        imageUrlIos:
-          type: string
-        videoUrlAndroid:
-          type: string
-        videoUrlIos:
-          type: string
-        videoImageUrl:
-          type: string
-        startDate:
-          type: string
-        endDate:
-          type: string
-        startTime:
-          type: string
-        endTime:
-          type: string
-        daysOfWeek:
-          type: array
-          items:
-            type: string
-        enabled:
-          type: boolean
-    PreviewRequestDTO:
-      type: object
-      properties:
-        userId:
-          type: string
-        type:
-          type: string
-        scheduleId:
-          type: string
-      required:
-      - type
-      - userId
-    BackgroundPreviewDTO:
-      type: object
-      properties:
-        type:
-          type: string
-        scheduleId:
-          type: string
-    AppHomeConfigAuditDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        adminId:
-          type: string
-        action:
-          type: string
-        detail:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-    DefaultBackgroundRequestDTO:
-      type: object
-      properties:
-        imageUrlAndroid:
-          type: string
-        imageUrlIos:
-          type: string
-        videoUrlAndroid:
-          type: string
-        videoUrlIos:
-          type: string
-        videoImageUrl:
-          type: string
-    HomeBackgroundDTO:
-      type: object
-      properties:
-        defaultImageUrlAndroid:
-          type: string
-        defaultImageUrlIos:
-          type: string
-        defaultVideoUrlAndroid:
-          type: string
-        defaultVideoUrlIos:
-          type: string
-        defaultVideoImageUrl:
-          type: string
-        schedules:
-          type: array
-          items:
-            $ref: '#/components/schemas/BackgroundScheduleDTO'
-        stagedDefaultImageUrlAndroid:
-          type: string
-        stagedDefaultImageUrlIos:
-          type: string
-        stagedDefaultVideoUrlAndroid:
-          type: string
-        stagedDefaultVideoUrlIos:
-          type: string
-        stagedDefaultVideoImageUrl:
-          type: string
-        previewUsers:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/BackgroundPreviewDTO'
     BackgroundScheduleRequestDTO:
       type: object
       properties:
@@ -577,6 +450,133 @@ components:
       - endTime
       - startDate
       - startTime
+    AppHomeConfigAuditDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        adminId:
+          type: string
+        action:
+          type: string
+        detail:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    DefaultBackgroundRequestDTO:
+      type: object
+      properties:
+        imageUrlAndroid:
+          type: string
+        imageUrlIos:
+          type: string
+        videoUrlAndroid:
+          type: string
+        videoUrlIos:
+          type: string
+        videoImageUrl:
+          type: string
+    PreviewRequestDTO:
+      type: object
+      properties:
+        userId:
+          type: string
+        type:
+          type: string
+        scheduleId:
+          type: string
+      required:
+      - type
+      - userId
+    BackgroundScheduleDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        imageUrlAndroid:
+          type: string
+        imageUrlIos:
+          type: string
+        videoUrlAndroid:
+          type: string
+        videoUrlIos:
+          type: string
+        videoImageUrl:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+        daysOfWeek:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+    HomeBackgroundDTO:
+      type: object
+      properties:
+        defaultImageUrlAndroid:
+          type: string
+        defaultImageUrlIos:
+          type: string
+        defaultVideoUrlAndroid:
+          type: string
+        defaultVideoUrlIos:
+          type: string
+        defaultVideoImageUrl:
+          type: string
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/BackgroundScheduleDTO'
+        stagedDefaultImageUrlAndroid:
+          type: string
+        stagedDefaultImageUrlIos:
+          type: string
+        stagedDefaultVideoUrlAndroid:
+          type: string
+        stagedDefaultVideoUrlIos:
+          type: string
+        stagedDefaultVideoImageUrl:
+          type: string
+        previewUsers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BackgroundPreviewDTO'
+    AppHomeConfigDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        version:
+          type: integer
+          format: int32
+        background:
+          $ref: '#/components/schemas/HomeBackgroundDTO'
+        blocks:
+          type: array
+          items: {}
+        previewScheduleId:
+          type: string
+        previewType:
+          type: string
+        hasStagedDefault:
+          type: boolean
+    BackgroundPreviewDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        scheduleId:
+          type: string
     AppHomeConfigDTO_2:
       type: object
       properties:

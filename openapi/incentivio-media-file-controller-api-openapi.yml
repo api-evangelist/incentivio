@@ -30,6 +30,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PresignedUrlsClientResponse:
+      type: object
+      properties:
+        presignedUrls:
+          type: array
+          items:
+            $ref: '#/components/schemas/PresignedUrlClient'
     PresignedUrlsClientRequest:
       type: object
       properties:
@@ -46,10 +53,3 @@ components:
           type: string
         presignedUrl:
           type: string
-    PresignedUrlsClientResponse:
-      type: object
-      properties:
-        presignedUrls:
-          type: array
-          items:
-            $ref: '#/components/schemas/PresignedUrlClient'
