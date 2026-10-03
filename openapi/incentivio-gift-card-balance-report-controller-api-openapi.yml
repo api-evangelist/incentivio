@@ -72,26 +72,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GiftCardBalanceReportDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/GiftCardBalanceRecord'
-        releaseDate:
-          type: string
-    GiftCardBalanceExportReportResponse:
-      type: object
-      properties:
-        requestId:
-          type: string
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        message:
-          type: string
     PagingDTO:
       type: object
       properties:
@@ -107,6 +87,16 @@ components:
         currentPage:
           type: integer
           format: int32
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
     GiftCardBalanceRecord:
       type: object
       properties:
@@ -139,13 +129,23 @@ components:
           type: string
         initialPurchaseLocation:
           type: string
-    StatusEnum:
-      type: string
-      enum:
-      - INPROGRESS
-      - SUCCESS
-      - FAILED
-      - EMAILED
-      - RETRYING
-      - DOWNLOADED
-      - NODATA
+    GiftCardBalanceExportReportResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        message:
+          type: string
+    GiftCardBalanceReportDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCardBalanceRecord'
+        releaseDate:
+          type: string

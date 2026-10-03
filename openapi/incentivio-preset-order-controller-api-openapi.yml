@@ -200,114 +200,11 @@ paths:
       description: Generated server url
 components:
   schemas:
-    DeliveryInfo:
-      type: object
-      properties:
-        deliveryAddress:
-          $ref: '#/components/schemas/Address'
-        deliveryInstructions:
-          type: string
-    OrderEntity:
+    OrderType:
       type: string
       enum:
-      - ORDER
-      - ITEM
-    ListPresetOrderResponseWithPagingForAdminDTO:
-      type: object
-      properties:
-        presetOrderConfigResponseDTOs:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetPresetOrderConfigResponseDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    OrderConfigDisplayInfo:
-      type: object
-      properties:
-        languageCode:
-          type: string
-        description:
-          type: string
-        notEnoughPrepTimeErrorMessage:
-          type: string
-    AddOrderItemReqDTO:
-      type: object
-      properties:
-        itemId:
-          type: string
-          minLength: 1
-        quantity:
-          type: integer
-          format: int32
-        note:
-          type: string
-        groupId:
-          type: string
-        discountIds:
-          type: array
-          items:
-            type: string
-        externalId:
-          type: string
-        itemInstructions:
-          type: string
-        catalogId:
-          type: string
-      required:
-      - groupId
-      - itemId
-      - quantity
-    Charge:
-      type: object
-      properties:
-        chargeId:
-          type: string
-        chargeName:
-          type: string
-        chargeDescription:
-          type: string
-        chargeType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
-        orderApplied:
-          type: integer
-          format: int32
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tax'
-    OrderRestrictionType:
-      type: string
-      enum:
-      - RESTRICTED_ORDER
-      - REGULAR_ORDER
-    ItemValidationMode:
-      type: string
-      enum:
-      - NONE
-      - BASE_ITEM
-      - BASE_WITH_MODIFIERS
-    ChargeType:
-      type: string
-      enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
+      - DELIVERY
+      - PICKUP
     GetPresetOrderConfigResponseDTO:
       type: object
       properties:
@@ -370,66 +267,12 @@ components:
         currentPage:
           type: integer
           format: int32
-    TimeSelectionMode:
+    ChargeType:
       type: string
       enum:
-      - ASAP
-      - FIXED
-      - USER_SELECT
-    ChargeRule:
-      type: object
-      properties:
-        amount:
-          type: integer
-          format: int32
-        operator:
-          $ref: '#/components/schemas/Operator'
-    OrderType:
-      type: string
-      enum:
-      - DELIVERY
-      - PICKUP
-    Tax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        applicableEntity:
-          $ref: '#/components/schemas/OrderEntity'
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeRule'
-    Operator:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - LTEQ
-      - GT
-      - GTE
-    DateSelectionMode:
-      type: string
-      enum:
-      - FIXED
-      - TODAY
-      - USER_SELECT
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
     UpdatePresetOrderConfigRequestDTO:
       type: object
       properties:
@@ -475,29 +318,156 @@ components:
           type: string
       required:
       - code
-    Address:
+    DateSelectionMode:
+      type: string
+      enum:
+      - FIXED
+      - TODAY
+      - USER_SELECT
+    OrderEntity:
+      type: string
+      enum:
+      - ORDER
+      - ITEM
+    ItemValidationMode:
+      type: string
+      enum:
+      - NONE
+      - BASE_ITEM
+      - BASE_WITH_MODIFIERS
+    OrderConfigDisplayInfo:
       type: object
       properties:
-        street1:
+        languageCode:
           type: string
-        street2:
+        description:
           type: string
-        city:
+        notEnoughPrepTimeErrorMessage:
           type: string
-        state:
+    Operator:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - LTEQ
+      - GT
+      - GTE
+    Tax:
+      type: object
+      properties:
+        taxId:
           type: string
-        postalCode:
+        extTaxId:
           type: string
-        country:
+        taxDescription:
           type: string
-        lat:
+        taxType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
           type: number
-          format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
+          format: float
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        applicableEntity:
+          $ref: '#/components/schemas/OrderEntity'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeRule'
+    OrderRestrictionType:
+      type: string
+      enum:
+      - RESTRICTED_ORDER
+      - REGULAR_ORDER
+    TimeSelectionMode:
+      type: string
+      enum:
+      - ASAP
+      - FIXED
+      - USER_SELECT
+    ListPresetOrderResponseWithPagingForAdminDTO:
+      type: object
+      properties:
+        presetOrderConfigResponseDTOs:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetPresetOrderConfigResponseDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    AddOrderItemReqDTO:
+      type: object
+      properties:
+        itemId:
           type: string
+          minLength: 1
+        quantity:
+          type: integer
+          format: int32
+        note:
+          type: string
+        groupId:
+          type: string
+        discountIds:
+          type: array
+          items:
+            type: string
+        externalId:
+          type: string
+        itemInstructions:
+          type: string
+        catalogId:
+          type: string
+      required:
+      - groupId
+      - itemId
+      - quantity
+    ChargeRule:
+      type: object
+      properties:
+        amount:
+          type: integer
+          format: int32
+        operator:
+          $ref: '#/components/schemas/Operator'
+    Charge:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        chargeName:
+          type: string
+        chargeDescription:
+          type: string
+        chargeType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        orderApplied:
+          type: integer
+          format: int32
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tax'
     CreatePresetOrderConfigRequestDTO:
       type: object
       properties:
@@ -544,6 +514,61 @@ components:
           type: string
       required:
       - code
+    DeliveryInfo:
+      type: object
+      properties:
+        deliveryAddress:
+          $ref: '#/components/schemas/Address'
+        deliveryInstructions:
+          type: string
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    Charge_2:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        chargeDescription:
+          type: string
+        chargeType:
+          type: string
+          enum:
+          - OPEN
+          - AMOUNT
+          - PERCENTAGE
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
     PresetOrderResponseDTO:
       type: object
       properties:
@@ -612,38 +637,6 @@ components:
             $ref: '#/components/schemas/AddOrderItemReqDTO_2'
         orderInstructions:
           type: string
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
-    Address_2:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-        aptSuite:
-          type: string
     AddOrderItemReqDTO_2:
       required:
       - itemId
@@ -673,31 +666,38 @@ components:
         quantity:
           type: integer
           format: int32
-    Charge_2:
+    Address_2:
       type: object
       properties:
-        chargeId:
+        streetAddress1:
           type: string
-        chargeDescription:
+        streetAddress2:
           type: string
-        chargeType:
+        city:
           type: string
-          enum:
-          - OPEN
-          - AMOUNT
-          - PERCENTAGE
-        amount:
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string
+    LocalTime:
+      type: object
+      properties:
+        hour:
           type: integer
           format: int32
-        percentage:
-          type: number
-          format: float
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

@@ -219,16 +219,181 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Status:
+    ConnectorErrorStatus:
       type: string
       enum:
-      - ACTIVE
-      - INACTIVE
+      - REQUEST_ID_NOT_FOUND
+    OrderType:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
     GroupType:
       type: string
       enum:
       - OPTION_GROUP
       - CATALOG_GROUP
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    HttpStatus:
+      type: string
+      enum:
+      - CONTINUE
+      - SWITCHING_PROTOCOLS
+      - PROCESSING
+      - EARLY_HINTS
+      - CHECKPOINT
+      - OK
+      - CREATED
+      - ACCEPTED
+      - NON_AUTHORITATIVE_INFORMATION
+      - NO_CONTENT
+      - RESET_CONTENT
+      - PARTIAL_CONTENT
+      - MULTI_STATUS
+      - ALREADY_REPORTED
+      - IM_USED
+      - MULTIPLE_CHOICES
+      - MOVED_PERMANENTLY
+      - FOUND
+      - MOVED_TEMPORARILY
+      - SEE_OTHER
+      - NOT_MODIFIED
+      - USE_PROXY
+      - TEMPORARY_REDIRECT
+      - PERMANENT_REDIRECT
+      - BAD_REQUEST
+      - UNAUTHORIZED
+      - PAYMENT_REQUIRED
+      - FORBIDDEN
+      - NOT_FOUND
+      - METHOD_NOT_ALLOWED
+      - NOT_ACCEPTABLE
+      - PROXY_AUTHENTICATION_REQUIRED
+      - REQUEST_TIMEOUT
+      - CONFLICT
+      - GONE
+      - LENGTH_REQUIRED
+      - PRECONDITION_FAILED
+      - PAYLOAD_TOO_LARGE
+      - REQUEST_ENTITY_TOO_LARGE
+      - URI_TOO_LONG
+      - REQUEST_URI_TOO_LONG
+      - UNSUPPORTED_MEDIA_TYPE
+      - REQUESTED_RANGE_NOT_SATISFIABLE
+      - EXPECTATION_FAILED
+      - I_AM_A_TEAPOT
+      - INSUFFICIENT_SPACE_ON_RESOURCE
+      - METHOD_FAILURE
+      - DESTINATION_LOCKED
+      - UNPROCESSABLE_ENTITY
+      - LOCKED
+      - FAILED_DEPENDENCY
+      - TOO_EARLY
+      - UPGRADE_REQUIRED
+      - PRECONDITION_REQUIRED
+      - TOO_MANY_REQUESTS
+      - REQUEST_HEADER_FIELDS_TOO_LARGE
+      - UNAVAILABLE_FOR_LEGAL_REASONS
+      - INTERNAL_SERVER_ERROR
+      - NOT_IMPLEMENTED
+      - BAD_GATEWAY
+      - SERVICE_UNAVAILABLE
+      - GATEWAY_TIMEOUT
+      - HTTP_VERSION_NOT_SUPPORTED
+      - VARIANT_ALSO_NEGOTIATES
+      - INSUFFICIENT_STORAGE
+      - LOOP_DETECTED
+      - BANDWIDTH_LIMIT_EXCEEDED
+      - NOT_EXTENDED
+      - NETWORK_AUTHENTICATION_REQUIRED
+    LocationMenuImportSummaryDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        failureDescription:
+          type: string
+        locationExternalId:
+          type: string
+        locationId:
+          type: string
+        locationTitle:
+          type: string
+        menuDownloadStartedTime:
+          type: string
+        menuImportCompletedTime:
+          type: string
+        menuImportStatus:
+          $ref: '#/components/schemas/MenuImportProgressStatus'
+        merchantId:
+          type: string
+        requestId:
+          type: string
+        userId:
+          type: string
+    ItemType:
+      type: string
+      enum:
+      - MAIN
+      - MODIFIER
+    OrderingChannels:
+      type: string
+      enum:
+      - MOBILE
+      - FACEBOOK
+      - NONE
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    GroupItemSetting:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemGuid:
+          type: string
+        maxItemSelections:
+          type: integer
+          format: int32
+        price:
+          type: integer
+          format: int32
+        isDefault:
+          type: boolean
+        displayRank:
+          type: integer
+          format: int32
+    SelectionType:
+      type: string
+      enum:
+      - MULTI_SELECT
+      - SINGLE_SELECT
     OptionGroupSetting:
       type: object
       properties:
@@ -267,6 +432,47 @@ components:
           type: boolean
         selectionType:
           $ref: '#/components/schemas/SelectionType'
+    TaxType:
+      type: string
+      enum:
+      - AMOUNT
+      - OPEN
+      - PERCENTAGE
+    ExternalLocationCatalogDTO:
+      type: object
+      properties:
+        catalogId:
+          type: string
+        title:
+          type: string
+    MarkMenuImportFailedRequest:
+      type: object
+      properties:
+        requestId:
+          type: string
+        user:
+          type: string
+      required:
+      - requestId
+      - user
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    ConnectorViewExternalLocationCatalogsResponseDTO:
+      type: object
+      properties:
+        externalLocationId:
+          type: string
+        catalogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLocationCatalogDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        message:
+          type: string
     TaxInfo:
       type: object
       properties:
@@ -288,6 +494,65 @@ components:
           type: string
         taxType:
           $ref: '#/components/schemas/TaxType'
+    PriceSubstitutionType:
+      type: string
+      enum:
+      - DIFFERENCE_ANY
+      - DIFFERENCE_DECREASE
+      - DIFFERENCE_INCREASE
+      - EXTERNAL
+      - FULL_PRICE
+      - NO_CHARGE
+    Discount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          $ref: '#/components/schemas/DiscountType'
+        discountValueType:
+          $ref: '#/components/schemas/DiscountValueType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        name:
+          type: string
+    TimeSlot:
+      type: object
+      properties:
+        startTime:
+          type: string
+        endTime:
+          type: string
+      required:
+      - endTime
+      - startTime
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
     ItemDTO:
       type: object
       properties:
@@ -398,170 +663,6 @@ components:
         updatedDate:
           type: string
           deprecated: true
-    TaxType:
-      type: string
-      enum:
-      - AMOUNT
-      - OPEN
-      - PERCENTAGE
-    ExternalLocationCatalogDTO:
-      type: object
-      properties:
-        catalogId:
-          type: string
-        title:
-          type: string
-    ItemType:
-      type: string
-      enum:
-      - MAIN
-      - MODIFIER
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
-    ConnectorErrorStatus:
-      type: string
-      enum:
-      - REQUEST_ID_NOT_FOUND
-    OrderingChannels:
-      type: string
-      enum:
-      - MOBILE
-      - FACEBOOK
-      - NONE
-    LocationMenuImportSummaryDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        failureDescription:
-          type: string
-        locationExternalId:
-          type: string
-        locationId:
-          type: string
-        locationTitle:
-          type: string
-        menuDownloadStartedTime:
-          type: string
-        menuImportCompletedTime:
-          type: string
-        menuImportStatus:
-          $ref: '#/components/schemas/MenuImportProgressStatus'
-        merchantId:
-          type: string
-        requestId:
-          type: string
-        userId:
-          type: string
-    HttpStatus:
-      type: string
-      enum:
-      - CONTINUE
-      - SWITCHING_PROTOCOLS
-      - PROCESSING
-      - EARLY_HINTS
-      - CHECKPOINT
-      - OK
-      - CREATED
-      - ACCEPTED
-      - NON_AUTHORITATIVE_INFORMATION
-      - NO_CONTENT
-      - RESET_CONTENT
-      - PARTIAL_CONTENT
-      - MULTI_STATUS
-      - ALREADY_REPORTED
-      - IM_USED
-      - MULTIPLE_CHOICES
-      - MOVED_PERMANENTLY
-      - FOUND
-      - MOVED_TEMPORARILY
-      - SEE_OTHER
-      - NOT_MODIFIED
-      - USE_PROXY
-      - TEMPORARY_REDIRECT
-      - PERMANENT_REDIRECT
-      - BAD_REQUEST
-      - UNAUTHORIZED
-      - PAYMENT_REQUIRED
-      - FORBIDDEN
-      - NOT_FOUND
-      - METHOD_NOT_ALLOWED
-      - NOT_ACCEPTABLE
-      - PROXY_AUTHENTICATION_REQUIRED
-      - REQUEST_TIMEOUT
-      - CONFLICT
-      - GONE
-      - LENGTH_REQUIRED
-      - PRECONDITION_FAILED
-      - PAYLOAD_TOO_LARGE
-      - REQUEST_ENTITY_TOO_LARGE
-      - URI_TOO_LONG
-      - REQUEST_URI_TOO_LONG
-      - UNSUPPORTED_MEDIA_TYPE
-      - REQUESTED_RANGE_NOT_SATISFIABLE
-      - EXPECTATION_FAILED
-      - I_AM_A_TEAPOT
-      - INSUFFICIENT_SPACE_ON_RESOURCE
-      - METHOD_FAILURE
-      - DESTINATION_LOCKED
-      - UNPROCESSABLE_ENTITY
-      - LOCKED
-      - FAILED_DEPENDENCY
-      - TOO_EARLY
-      - UPGRADE_REQUIRED
-      - PRECONDITION_REQUIRED
-      - TOO_MANY_REQUESTS
-      - REQUEST_HEADER_FIELDS_TOO_LARGE
-      - UNAVAILABLE_FOR_LEGAL_REASONS
-      - INTERNAL_SERVER_ERROR
-      - NOT_IMPLEMENTED
-      - BAD_GATEWAY
-      - SERVICE_UNAVAILABLE
-      - GATEWAY_TIMEOUT
-      - HTTP_VERSION_NOT_SUPPORTED
-      - VARIANT_ALSO_NEGOTIATES
-      - INSUFFICIENT_STORAGE
-      - LOOP_DETECTED
-      - BANDWIDTH_LIMIT_EXCEEDED
-      - NOT_EXTENDED
-      - NETWORK_AUTHENTICATION_REQUIRED
-    DiscountValueType:
-      type: string
-      enum:
-      - AMOUNT
-      - PERCENTAGE
     CatalogDTO:
       type: object
       properties:
@@ -609,24 +710,25 @@ components:
         updatedDate:
           type: string
           deprecated: true
-    GroupItemSetting:
+    MenuOverride:
       type: object
       properties:
-        itemId:
+        catalogId:
           type: string
-        itemGuid:
+        groupId:
           type: string
-        maxItemSelections:
-          type: integer
-          format: int32
-        price:
-          type: integer
-          format: int32
-        isDefault:
-          type: boolean
-        displayRank:
-          type: integer
-          format: int32
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+          uniqueItems: true
+        override:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/TimeSlot'
+            uniqueItems: true
     GroupDTO:
       type: object
       properties:
@@ -722,52 +824,30 @@ components:
         updatedDate:
           type: string
           deprecated: true
-    TimeSlot:
+    MenuImportHistoryWithPagingDTO:
       type: object
       properties:
-        startTime:
-          type: string
-        endTime:
-          type: string
-      required:
-      - endTime
-      - startTime
-    PagingDTO:
+        locationMenuImportSummaryDTOList:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationMenuImportSummaryDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+    ConnectorMenuResponse:
       type: object
       properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-    Discount:
-      type: object
-      properties:
-        discountId:
-          type: string
-        extDiscountId:
-          type: string
-        description:
-          type: string
-        discountType:
-          $ref: '#/components/schemas/DiscountType'
-        discountValueType:
-          $ref: '#/components/schemas/DiscountValueType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        name:
-          type: string
+        connectorCatalogDTOMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CatalogDTO'
+        connectorGroupDTOMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GroupDTO'
+        connectorItemDTOMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ItemDTO'
     DiscountType:
       type: string
       enum:
@@ -804,11 +884,6 @@ components:
           type: string
         requestId:
           type: string
-    SelectionType:
-      type: string
-      enum:
-      - MULTI_SELECT
-      - SINGLE_SELECT
     MenuImportProgressStatus:
       type: string
       enum:
@@ -817,83 +892,8 @@ components:
       - IN_PROGRESS
       - NEW
       - PUBLISHING_FAILED
-    OrderType:
+    DiscountValueType:
       type: string
       enum:
-      - DELIVERY
-      - PICKUP
-    MenuImportHistoryWithPagingDTO:
-      type: object
-      properties:
-        locationMenuImportSummaryDTOList:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationMenuImportSummaryDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-    ConnectorViewExternalLocationCatalogsResponseDTO:
-      type: object
-      properties:
-        externalLocationId:
-          type: string
-        catalogs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalLocationCatalogDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-        message:
-          type: string
-    ConnectorMenuResponse:
-      type: object
-      properties:
-        connectorCatalogDTOMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/CatalogDTO'
-        connectorGroupDTOMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/GroupDTO'
-        connectorItemDTOMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ItemDTO'
-    MenuOverride:
-      type: object
-      properties:
-        catalogId:
-          type: string
-        groupId:
-          type: string
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-          uniqueItems: true
-        override:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/TimeSlot'
-            uniqueItems: true
-    PriceSubstitutionType:
-      type: string
-      enum:
-      - DIFFERENCE_ANY
-      - DIFFERENCE_DECREASE
-      - DIFFERENCE_INCREASE
-      - EXTERNAL
-      - FULL_PRICE
-      - NO_CHARGE
-    MarkMenuImportFailedRequest:
-      type: object
-      properties:
-        requestId:
-          type: string
-        user:
-          type: string
-      required:
-      - requestId
-      - user
+      - AMOUNT
+      - PERCENTAGE

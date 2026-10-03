@@ -168,6 +168,51 @@ components:
           format: double
         aptSuite:
           type: string
+    FindStoresResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDTO'
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    FindClientResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        alias:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        logoImage:
+          type: string
+          format: byte
+        medLogo:
+          type: string
+          format: byte
     StoreDTO:
       type: object
       properties:
@@ -208,51 +253,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StoreDisplayInfo'
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-    FindStoresResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-        stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreDTO'
-    FindClientResponseDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        alias:
-          type: string
-        address:
-          $ref: '#/components/schemas/AddressDTO'
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        logoImage:
-          type: string
-          format: byte
-        medLogo:
-          type: string
-          format: byte
     Address:
       type: object
       properties:

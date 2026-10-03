@@ -362,50 +362,17 @@ paths:
       description: Generated server url
 components:
   schemas:
-    StoreDisplayInfo:
-      type: object
-      properties:
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
+    IDGenerationStrategy:
+      type: string
+      enum:
+      - UUID
+      - AUTO_INCREMENT
     PaymentMode:
       type: string
       enum:
       - PAYMENT_MANDATORY
       - PAYMENT_OPTIONAL
       - NO_PAYMENT
-    OrderValueLimits:
-      type: object
-      properties:
-        minOrderValue:
-          type: number
-          format: double
-        maxOrderValue:
-          type: number
-          format: double
-        displayMessage:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderValueDisplayInfoDTO'
-    ImportTypeDTO:
-      type: string
-      enum:
-      - SHARED_MENU_IMPORT
-      - INDEPENDANT_MENU_IMPORT
-    OrderEntity:
-      type: string
-      enum:
-      - ORDER
-      - ITEM
     PatchRequestDTO:
       type: object
       properties:
@@ -415,29 +382,124 @@ components:
           type: string
         value:
           type: string
-    OrderOptionsDisplayInfo:
+    OrderType:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
+    MenuImportConfig:
+      type: object
+      properties:
+        connectorGatewayName:
+          type: string
+        extStoreId:
+          type: string
+        defaultLanguage:
+          type: string
+        connectorName:
+          type: string
+        overrideExistingImages:
+          type: boolean
+        importType:
+          $ref: '#/components/schemas/ImportTypeDTO'
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    OrderThrottleConfig:
+      type: object
+      properties:
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+          uniqueItems: true
+        throttleSettings:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/ThrottleSettingSlot'
+            uniqueItems: true
+    RoundingMode:
+      type: string
+      enum:
+      - HALF_EVEN
+      - HALF_UP
+      - TRUNCATE
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    ChargeType:
+      type: string
+      enum:
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    ThrottleSettingSlot:
+      type: object
+      properties:
+        timeSlot:
+          $ref: '#/components/schemas/TimeSlot'
+        throttleSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ThrottleSetting'
+          uniqueItems: true
+    Operation:
+      type: string
+      enum:
+      - TEST
+      - REMOVE
+      - ADD
+      - REPLACE
+      - MOVE
+      - COPY
+    OrderValueDisplayInfoDTO:
       type: object
       properties:
         langCode:
           type: string
-        title:
+        shortMessage:
           type: string
-        informationField:
+        longMessage:
           type: string
-        imHereResponseMessage:
-          type: string
-        errorMessageIfInformationFieldIsEmpty:
-          type: string
-        instructions:
-          type: string
-        orderConfirmationMessage:
-          type: string
-        orderClosedMessage:
-          type: string
-        smsOrderConfirmationMessage:
-          type: string
-        smsOrderClosedMessage:
-          type: string
+    PaymentConfig:
+      type: object
+      properties:
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        paymentModes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMode'
+        placePOSOrdersAsOpen:
+          type: boolean
+        guestCheckoutSupported:
+          type: boolean
+    KitchenThrottleSetting:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        value:
+          type: integer
+          format: int32
+        throttlingEnabled:
+          type: boolean
     RelatedStore:
       type: object
       properties:
@@ -486,6 +548,662 @@ components:
           type: boolean
         isTest:
           type: boolean
+    OrderOptions:
+      type: object
+      properties:
+        optionName:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        enableInformationField:
+          type: boolean
+        makeInformationFieldMandatory:
+          type: boolean
+        enableInstructions:
+          type: boolean
+        enableImHere:
+          type: boolean
+        channelsForOrderReceivedNotification:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        channelsForOrderCompleteNotification:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        displayMessage:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderOptionsDisplayInfo'
+    OrderEntity:
+      type: string
+      enum:
+      - ORDER
+      - ITEM
+    OrderProcessingStrategy:
+      type: string
+      enum:
+      - ONE_STEP
+      - TWO_STEP
+      - INCENTIVIO_ORDER
+      - INC_PAYMENTS
+    ExternalDeliveryFeeStrategy:
+      type: string
+      enum:
+      - ADD
+      - IGNORE
+    ChargeDeliveryTier:
+      type: object
+      properties:
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        extChargeId:
+          type: string
+        minDistance:
+          type: number
+          format: float
+    TaxDTO:
+      type: object
+      properties:
+        taxId:
+          type: string
+        extTaxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+    FindLocationResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDTO'
+          uniqueItems: true
+    DeliveryArea:
+      type: object
+      properties:
+        deliveryAreaType:
+          $ref: '#/components/schemas/DeliveryAreaType'
+        deliveryAreaPolygon:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryPoint'
+    CreateLocationResponseDTO:
+      type: object
+      properties:
+        locationId:
+          type: string
+    Operator:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - LTEQ
+      - GT
+      - GTE
+    DayOfWeek:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    Tax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        extTaxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        applicableEntity:
+          $ref: '#/components/schemas/OrderEntity'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeRule'
+    TimeSlot:
+      type: object
+      properties:
+        startTime:
+          type: string
+        endTime:
+          type: string
+      required:
+      - endTime
+      - startTime
+    TotalCalculationStrategy:
+      type: string
+      enum:
+      - TOAST
+      - SILVERWARE
+      - NCC
+      - LIGHTSPEED
+      - EXTERNAL
+    ImportTypeDTO:
+      type: string
+      enum:
+      - SHARED_MENU_IMPORT
+      - INDEPENDANT_MENU_IMPORT
+    PatchLocationRequestDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+        patchData:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatchRequestDTO'
+    ThrottleSetting:
+      type: object
+      properties:
+        orderAmount:
+          type: integer
+          format: int32
+        processingTime:
+          type: integer
+          format: int32
+        displayMessage:
+          type: object
+          additionalProperties:
+            type: string
+    OrderOptionsDTO:
+      type: object
+      properties:
+        optionName:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        title:
+          type: string
+        informationField:
+          type: string
+        errorMessageIfInformationFieldIsEmpty:
+          type: string
+        instructions:
+          type: string
+    PatchLocationOrderSettingsRequestDTO:
+      type: object
+      properties:
+        locationOrderingSettingsType:
+          type: string
+        updateLocationRequestDTO:
+          $ref: '#/components/schemas/UpdateLocationRequestDTO'
+    ChargeRule:
+      type: object
+      properties:
+        amount:
+          type: integer
+          format: int32
+        operator:
+          $ref: '#/components/schemas/Operator'
+    OrderValueLimits:
+      type: object
+      properties:
+        minOrderValue:
+          type: number
+          format: double
+        maxOrderValue:
+          type: number
+          format: double
+        displayMessage:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderValueDisplayInfoDTO'
+    CreateLocationRequestDTO:
+      type: object
+      properties:
+        catalogOverrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuOverride'
+          uniqueItems: true
+        catering:
+          type: boolean
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        locationId:
+          type: string
+        paymentConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentConfig'
+        orderProcessingConfig:
+          $ref: '#/components/schemas/OrderProcessingConfigDTO'
+        paymentGatewayConfig:
+          $ref: '#/components/schemas/PaymentGatewayConfig'
+        pickupOrderProcessingTime:
+          type: integer
+          format: int64
+        deliveryOrderProcessingTime:
+          type: integer
+          format: int64
+        pickupOrderNoticePeriod:
+          type: integer
+          format: int64
+        deliveryOrderNoticePeriod:
+          type: integer
+          format: int64
+        timeZone:
+          type: string
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxDTO'
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeDTO'
+        pickupOrdersAccepted:
+          type: boolean
+        deliveryOrdersAccepted:
+          type: boolean
+        pickupOrderHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkingHours'
+          uniqueItems: true
+        deliveryOrderHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkingHours'
+          uniqueItems: true
+        deliveryOffDays:
+          type: array
+          items:
+            type: string
+        pickupOffDays:
+          type: array
+          items:
+            type: string
+        deliveryRadius:
+          type: number
+          format: double
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        deliveryAvailabilityInterval:
+          type: integer
+          format: int32
+        pickupAvailabilityInterval:
+          type: integer
+          format: int32
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        locationName:
+          type: string
+        showPickupTimeSlots:
+          type: boolean
+        showDeliveryTimeSlots:
+          type: boolean
+        pickupAsapSupported:
+          type: boolean
+        deliveryAsapSupported:
+          type: boolean
+        countryCode:
+          type: string
+        currencyCode:
+          type: string
+        menuImportConfig:
+          $ref: '#/components/schemas/MenuImportConfig'
+        orderThrottleConfig:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderThrottleConfig'
+          uniqueItems: true
+        kitchenThrottleConfig:
+          $ref: '#/components/schemas/KitchenThrottleConfigDTO'
+        pickupOrderValueLimits:
+          $ref: '#/components/schemas/OrderValueLimits'
+        deliveryOrderValueLimits:
+          $ref: '#/components/schemas/OrderValueLimits'
+        groupOverrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuOverride'
+          uniqueItems: true
+        orderNotificationRecipientEmailList:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        failureNotificationRecipientEmailList:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        extPosLocationId:
+          type: string
+        primaryLocation:
+          type: boolean
+        primaryLocationId:
+          type: string
+        qalocation:
+          type: boolean
+        test:
+          type: boolean
+        deliveryOrderOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderOptions'
+          uniqueItems: true
+        enableFulFillTextForToast:
+          type: boolean
+        fulFillTextForToast:
+          type: string
+        pickupOrderOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderOptions'
+          uniqueItems: true
+      required:
+      - locationId
+    MenuOverride:
+      type: object
+      properties:
+        catalogId:
+          type: string
+        groupId:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+          uniqueItems: true
+        override:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/TimeSlot'
+            uniqueItems: true
+    DeliveryPoint:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
+      required:
+      - latitude
+      - longitude
+    LocationDTO:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/OrderingServiceAddressDTO'
+        beaconId:
+          type: string
+        beaconName:
+          type: string
+        catering:
+          type: boolean
+        clientId:
+          type: string
+        currencyCode:
+          type: string
+        deliveryAsapSupported:
+          type: boolean
+        deliveryAvailabilityInterval:
+          type: integer
+          format: int32
+        deliveryMaxDaysOut:
+          type: integer
+          format: int32
+        deliveryMaxOrderingDate:
+          type: string
+        deliveryNoticePeriod:
+          type: integer
+          format: int64
+        deliveryOffDays:
+          type: array
+          items:
+            type: string
+        deliveryOrderHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkingHours'
+          uniqueItems: true
+        deliveryOrderOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderOptionsDTO'
+          uniqueItems: true
+        deliveryOrdersAccepted:
+          type: boolean
+        deliveryOrderValueLimits:
+          $ref: '#/components/schemas/OrderValueLimits'
+        deliveryProcessingTime:
+          type: integer
+          format: int64
+        deliverySevenPlusDaysOrdering:
+          type: boolean
+        deliveryTemporaryHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemporaryHours'
+        disableTipping:
+          type: boolean
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDisplayInfo'
+          uniqueItems: true
+        enableFulFillTextForToast:
+          type: boolean
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalOrderingEnabled:
+          type: boolean
+        externalOrderingText:
+          type: string
+        extPosLocationId:
+          type: string
+        fulFillTextForToast:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longDescription:
+          type: string
+        longitude:
+          type: number
+          format: double
+        mediumImage:
+          type: string
+        menuImportConfig:
+          $ref: '#/components/schemas/MenuImportConfig'
+        merchantId:
+          type: string
+        orderGateway:
+          type: string
+        paymentGateway:
+          type: string
+        phoneNumber:
+          type: string
+        pickupAsapSupported:
+          type: boolean
+        pickupAvailabilityInterval:
+          type: integer
+          format: int32
+        pickupMaxDaysOut:
+          type: integer
+          format: int32
+        pickupMaxOrderingDate:
+          type: string
+        pickupNoticePeriod:
+          type: integer
+          format: int64
+        pickupOffDays:
+          type: array
+          items:
+            type: string
+        pickupOrderHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkingHours'
+          uniqueItems: true
+        pickupOrderOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderOptionsDTO'
+          uniqueItems: true
+        pickupOrdersAccepted:
+          type: boolean
+        pickupOrderValueLimits:
+          $ref: '#/components/schemas/OrderValueLimits'
+        pickupProcessingTime:
+          type: integer
+          format: int64
+        pickupSevenPlusDaysOrdering:
+          type: boolean
+        pickupTemporaryHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemporaryHours'
+        primaryLocation:
+          type: boolean
+        primaryLocationId:
+          type: string
+        qalocation:
+          type: boolean
+        regionId:
+          type: string
+        shortDescription:
+          type: string
+        showDeliveryTimeSlots:
+          type: boolean
+        showPickupTimeSlots:
+          type: boolean
+        smallImage:
+          type: string
+        storeCode:
+          type: string
+        storeId:
+          type: string
+        storeType:
+          type: string
+        timeZone:
+          type: string
+        title:
+          type: string
+        viewOnlyLocationEnabled:
+          type: boolean
+        withInDeliveryRadius:
+          type: boolean
+    OrderingServiceAddressDTO:
+      type: object
+      properties:
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+    ExternalDeliverySettings:
+      type: object
+      properties:
+        deliveryStrategy:
+          type: string
+        externalDeliveryFeeStrategy:
+          $ref: '#/components/schemas/ExternalDeliveryFeeStrategy'
+        externalDeliveryChargeId:
+          type: string
+        pickupBusinessName:
+          type: string
+        pickupAddress:
+          $ref: '#/components/schemas/Address'
+        pickupInstructions:
+          type: string
+        contactPhone:
+          type: string
+    OrderProcessingConfigDTO:
+      type: object
+      properties:
+        orderProcessingStrategy:
+          $ref: '#/components/schemas/OrderProcessingStrategy'
+        paymentIDGenerationStrategy:
+          $ref: '#/components/schemas/IDGenerationStrategy'
+        paymentGatewayName:
+          type: string
+        orderGatewayName:
+          type: string
+        externalDeliverySettings:
+          $ref: '#/components/schemas/ExternalDeliverySettings'
+        roundingMode:
+          $ref: '#/components/schemas/RoundingMode'
+        calculationStrategy:
+          $ref: '#/components/schemas/TotalCalculationStrategy'
+        consolidateMultipleDiscounts:
+          type: boolean
+        realTimeLoyaltyProcessing:
+          type: boolean
+    StoreDisplayInfo:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
     KitchenThrottleConfigDTO:
       type: object
       properties:
@@ -505,18 +1223,77 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/KitchenThrottleSetting'
-    CreateLocationResponseDTO:
+    WorkingHours:
       type: object
       properties:
-        locationId:
+        dayOfWeek:
+          $ref: '#/components/schemas/DayOfWeek'
+        startTime:
           type: string
-    OrderProcessingStrategy:
-      type: string
-      enum:
-      - ONE_STEP
-      - TWO_STEP
-      - INCENTIVIO_ORDER
-      - INC_PAYMENTS
+        endTime:
+          type: string
+        timeSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSlot'
+      required:
+      - dayOfWeek
+      - endTime
+      - startTime
+      - timeSlots
+    DynamicDeliveryCharge:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        dynamicDelivery:
+          type: boolean
+        extChargeId:
+          type: string
+        chargeName:
+          type: string
+        chargeDescription:
+          type: string
+        chargeType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        orderApplied:
+          type: integer
+          format: int32
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        extTaxId:
+          type: string
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tax'
+        applicableEntity:
+          $ref: '#/components/schemas/OrderEntity'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeRule'
+        chargeApplied:
+          type: integer
+          format: int32
+        chargeTiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeDeliveryTier'
     LocationResponseDTO:
       type: object
       properties:
@@ -712,716 +1489,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LocationResponseDTO'
-    OrderProcessingConfigDTO:
-      type: object
-      properties:
-        orderProcessingStrategy:
-          $ref: '#/components/schemas/OrderProcessingStrategy'
-        paymentIDGenerationStrategy:
-          $ref: '#/components/schemas/IDGenerationStrategy'
-        paymentGatewayName:
-          type: string
-        orderGatewayName:
-          type: string
-        externalDeliverySettings:
-          $ref: '#/components/schemas/ExternalDeliverySettings'
-        roundingMode:
-          $ref: '#/components/schemas/RoundingMode'
-        calculationStrategy:
-          $ref: '#/components/schemas/TotalCalculationStrategy'
-        consolidateMultipleDiscounts:
-          type: boolean
-        realTimeLoyaltyProcessing:
-          type: boolean
-    DeliveryAreaType:
-      type: string
-      enum:
-      - CIRCLE
-      - POLYGON
-    KitchenThrottleSetting:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        value:
-          type: integer
-          format: int32
-        throttlingEnabled:
-          type: boolean
-    PaymentConfig:
-      type: object
-      properties:
-        orderType:
-          $ref: '#/components/schemas/OrderType'
-        paymentModes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentMode'
-        placePOSOrdersAsOpen:
-          type: boolean
-        guestCheckoutSupported:
-          type: boolean
-    DynamicDeliveryCharge:
-      type: object
-      properties:
-        chargeId:
-          type: string
-        dynamicDelivery:
-          type: boolean
-        extChargeId:
-          type: string
-        chargeName:
-          type: string
-        chargeDescription:
-          type: string
-        chargeType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
-        orderApplied:
-          type: integer
-          format: int32
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        extTaxId:
-          type: string
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tax'
-        applicableEntity:
-          $ref: '#/components/schemas/OrderEntity'
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeRule'
-        chargeApplied:
-          type: integer
-          format: int32
-        chargeTiers:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeDeliveryTier'
-    ExternalDeliverySettings:
-      type: object
-      properties:
-        deliveryStrategy:
-          type: string
-        externalDeliveryFeeStrategy:
-          $ref: '#/components/schemas/ExternalDeliveryFeeStrategy'
-        externalDeliveryChargeId:
-          type: string
-        pickupBusinessName:
-          type: string
-        pickupAddress:
-          $ref: '#/components/schemas/Address'
-        pickupInstructions:
-          type: string
-        contactPhone:
-          type: string
-    RoundingMode:
-      type: string
-      enum:
-      - HALF_EVEN
-      - HALF_UP
-      - TRUNCATE
-    TaxDTO:
-      type: object
-      properties:
-        taxId:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-    ChargeType:
-      type: string
-      enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
-    ChargeDeliveryTier:
-      type: object
-      properties:
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        extChargeId:
-          type: string
-        minDistance:
-          type: number
-          format: float
-    ExternalDeliveryFeeStrategy:
-      type: string
-      enum:
-      - ADD
-      - IGNORE
-    IDGenerationStrategy:
-      type: string
-      enum:
-      - UUID
-      - AUTO_INCREMENT
-    OrderingServiceAddressDTO:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-    TimeSlot:
-      type: object
-      properties:
-        startTime:
-          type: string
-        endTime:
-          type: string
-      required:
-      - endTime
-      - startTime
-    ThrottleSetting:
-      type: object
-      properties:
-        orderAmount:
-          type: integer
-          format: int32
-        processingTime:
-          type: integer
-          format: int32
-        displayMessage:
-          type: object
-          additionalProperties:
-            type: string
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-    OrderOptionsDTO:
-      type: object
-      properties:
-        optionName:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        title:
-          type: string
-        informationField:
-          type: string
-        errorMessageIfInformationFieldIsEmpty:
-          type: string
-        instructions:
-          type: string
-    LocationDTO:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/OrderingServiceAddressDTO'
-        beaconId:
-          type: string
-        beaconName:
-          type: string
-        catering:
-          type: boolean
-        clientId:
-          type: string
-        currencyCode:
-          type: string
-        deliveryAsapSupported:
-          type: boolean
-        deliveryAvailabilityInterval:
-          type: integer
-          format: int32
-        deliveryMaxDaysOut:
-          type: integer
-          format: int32
-        deliveryMaxOrderingDate:
-          type: string
-        deliveryNoticePeriod:
-          type: integer
-          format: int64
-        deliveryOffDays:
-          type: array
-          items:
-            type: string
-        deliveryOrderHours:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkingHours'
-          uniqueItems: true
-        deliveryOrderOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderOptionsDTO'
-          uniqueItems: true
-        deliveryOrdersAccepted:
-          type: boolean
-        deliveryOrderValueLimits:
-          $ref: '#/components/schemas/OrderValueLimits'
-        deliveryProcessingTime:
-          type: integer
-          format: int64
-        deliverySevenPlusDaysOrdering:
-          type: boolean
-        deliveryTemporaryHours:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemporaryHours'
-        disableTipping:
-          type: boolean
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreDisplayInfo'
-          uniqueItems: true
-        enableFulFillTextForToast:
-          type: boolean
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        externalOrderingEnabled:
-          type: boolean
-        externalOrderingText:
-          type: string
-        extPosLocationId:
-          type: string
-        fulFillTextForToast:
-          type: string
-        latitude:
-          type: number
-          format: double
-        longDescription:
-          type: string
-        longitude:
-          type: number
-          format: double
-        mediumImage:
-          type: string
-        menuImportConfig:
-          $ref: '#/components/schemas/MenuImportConfig'
-        merchantId:
-          type: string
-        orderGateway:
-          type: string
-        paymentGateway:
-          type: string
-        phoneNumber:
-          type: string
-        pickupAsapSupported:
-          type: boolean
-        pickupAvailabilityInterval:
-          type: integer
-          format: int32
-        pickupMaxDaysOut:
-          type: integer
-          format: int32
-        pickupMaxOrderingDate:
-          type: string
-        pickupNoticePeriod:
-          type: integer
-          format: int64
-        pickupOffDays:
-          type: array
-          items:
-            type: string
-        pickupOrderHours:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkingHours'
-          uniqueItems: true
-        pickupOrderOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderOptionsDTO'
-          uniqueItems: true
-        pickupOrdersAccepted:
-          type: boolean
-        pickupOrderValueLimits:
-          $ref: '#/components/schemas/OrderValueLimits'
-        pickupProcessingTime:
-          type: integer
-          format: int64
-        pickupSevenPlusDaysOrdering:
-          type: boolean
-        pickupTemporaryHours:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemporaryHours'
-        primaryLocation:
-          type: boolean
-        primaryLocationId:
-          type: string
-        qalocation:
-          type: boolean
-        regionId:
-          type: string
-        shortDescription:
-          type: string
-        showDeliveryTimeSlots:
-          type: boolean
-        showPickupTimeSlots:
-          type: boolean
-        smallImage:
-          type: string
-        storeCode:
-          type: string
-        storeId:
-          type: string
-        storeType:
-          type: string
-        timeZone:
-          type: string
-        title:
-          type: string
-        viewOnlyLocationEnabled:
-          type: boolean
-        withInDeliveryRadius:
-          type: boolean
-    DeliveryArea:
-      type: object
-      properties:
-        deliveryAreaType:
-          $ref: '#/components/schemas/DeliveryAreaType'
-        deliveryAreaPolygon:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryPoint'
-    TotalCalculationStrategy:
-      type: string
-      enum:
-      - TOAST
-      - SILVERWARE
-      - NCC
-      - LIGHTSPEED
-      - EXTERNAL
-    MenuImportConfig:
-      type: object
-      properties:
-        connectorGatewayName:
-          type: string
-        extStoreId:
-          type: string
-        defaultLanguage:
-          type: string
-        connectorName:
-          type: string
-        overrideExistingImages:
-          type: boolean
-        importType:
-          $ref: '#/components/schemas/ImportTypeDTO'
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    OrderOptions:
-      type: object
-      properties:
-        optionName:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        enableInformationField:
-          type: boolean
-        makeInformationFieldMandatory:
-          type: boolean
-        enableInstructions:
-          type: boolean
-        enableImHere:
-          type: boolean
-        channelsForOrderReceivedNotification:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        channelsForOrderCompleteNotification:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        displayMessage:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderOptionsDisplayInfo'
-    PatchLocationOrderSettingsRequestDTO:
-      type: object
-      properties:
-        locationOrderingSettingsType:
-          type: string
-        updateLocationRequestDTO:
-          $ref: '#/components/schemas/UpdateLocationRequestDTO'
-    OrderThrottleConfig:
-      type: object
-      properties:
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-          uniqueItems: true
-        throttleSettings:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/ThrottleSettingSlot'
-            uniqueItems: true
-    FindLocationResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-        stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationDTO'
-          uniqueItems: true
-    CreateLocationRequestDTO:
-      type: object
-      properties:
-        catalogOverrides:
-          type: array
-          items:
-            $ref: '#/components/schemas/MenuOverride'
-          uniqueItems: true
-        catering:
-          type: boolean
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        locationId:
-          type: string
-        paymentConfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentConfig'
-        orderProcessingConfig:
-          $ref: '#/components/schemas/OrderProcessingConfigDTO'
-        paymentGatewayConfig:
-          $ref: '#/components/schemas/PaymentGatewayConfig'
-        pickupOrderProcessingTime:
-          type: integer
-          format: int64
-        deliveryOrderProcessingTime:
-          type: integer
-          format: int64
-        pickupOrderNoticePeriod:
-          type: integer
-          format: int64
-        deliveryOrderNoticePeriod:
-          type: integer
-          format: int64
-        timeZone:
-          type: string
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxDTO'
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeDTO'
-        pickupOrdersAccepted:
-          type: boolean
-        deliveryOrdersAccepted:
-          type: boolean
-        pickupOrderHours:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkingHours'
-          uniqueItems: true
-        deliveryOrderHours:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkingHours'
-          uniqueItems: true
-        deliveryOffDays:
-          type: array
-          items:
-            type: string
-        pickupOffDays:
-          type: array
-          items:
-            type: string
-        deliveryRadius:
-          type: number
-          format: double
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        deliveryAvailabilityInterval:
-          type: integer
-          format: int32
-        pickupAvailabilityInterval:
-          type: integer
-          format: int32
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        locationName:
-          type: string
-        showPickupTimeSlots:
-          type: boolean
-        showDeliveryTimeSlots:
-          type: boolean
-        pickupAsapSupported:
-          type: boolean
-        deliveryAsapSupported:
-          type: boolean
-        countryCode:
-          type: string
-        currencyCode:
-          type: string
-        menuImportConfig:
-          $ref: '#/components/schemas/MenuImportConfig'
-        orderThrottleConfig:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderThrottleConfig'
-          uniqueItems: true
-        kitchenThrottleConfig:
-          $ref: '#/components/schemas/KitchenThrottleConfigDTO'
-        pickupOrderValueLimits:
-          $ref: '#/components/schemas/OrderValueLimits'
-        deliveryOrderValueLimits:
-          $ref: '#/components/schemas/OrderValueLimits'
-        groupOverrides:
-          type: array
-          items:
-            $ref: '#/components/schemas/MenuOverride'
-          uniqueItems: true
-        orderNotificationRecipientEmailList:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        failureNotificationRecipientEmailList:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        extPosLocationId:
-          type: string
-        primaryLocation:
-          type: boolean
-        primaryLocationId:
-          type: string
-        qalocation:
-          type: boolean
-        test:
-          type: boolean
-        deliveryOrderOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderOptions'
-          uniqueItems: true
-        enableFulFillTextForToast:
-          type: boolean
-        fulFillTextForToast:
-          type: string
-        pickupOrderOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderOptions'
-          uniqueItems: true
-      required:
-      - locationId
-    OrderType:
-      type: string
-      enum:
-      - DELIVERY
-      - PICKUP
-    ChargeRule:
-      type: object
-      properties:
-        amount:
-          type: integer
-          format: int32
-        operator:
-          $ref: '#/components/schemas/Operator'
-    Tax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        applicableEntity:
-          $ref: '#/components/schemas/OrderEntity'
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeRule'
-    Operation:
-      type: string
-      enum:
-      - TEST
-      - REMOVE
-      - ADD
-      - REPLACE
-      - MOVE
-      - COPY
     TemporaryHours:
       type: object
       properties:
@@ -1438,28 +1505,13 @@ components:
       required:
       - endDate
       - startDate
-    ThrottleSettingSlot:
+    PaymentGatewayConfig:
       type: object
       properties:
-        timeSlot:
-          $ref: '#/components/schemas/TimeSlot'
-        throttleSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ThrottleSetting'
-          uniqueItems: true
-    DeliveryPoint:
-      type: object
-      properties:
-        latitude:
-          type: number
-          format: float
-        longitude:
-          type: number
-          format: float
-      required:
-      - latitude
-      - longitude
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
     UpdateLocationRequestDTO:
       type: object
       properties:
@@ -1639,59 +1691,6 @@ components:
           type: boolean
         timeZone:
           type: string
-    Operator:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - LTEQ
-      - GT
-      - GTE
-    PaymentGatewayConfig:
-      type: object
-      properties:
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    PatchLocationRequestDTO:
-      type: object
-      properties:
-        merchantId:
-          type: string
-        patchData:
-          type: array
-          items:
-            $ref: '#/components/schemas/PatchRequestDTO'
-    DayOfWeek:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
-    MenuOverride:
-      type: object
-      properties:
-        catalogId:
-          type: string
-        groupId:
-          type: string
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-          uniqueItems: true
-        override:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/TimeSlot'
-            uniqueItems: true
     Address:
       type: object
       properties:
@@ -1715,33 +1714,29 @@ components:
           format: double
         aptSuite:
           type: string
-    OrderValueDisplayInfoDTO:
+    OrderOptionsDisplayInfo:
       type: object
       properties:
         langCode:
           type: string
-        shortMessage:
+        title:
           type: string
-        longMessage:
+        informationField:
           type: string
-    WorkingHours:
-      type: object
-      properties:
-        dayOfWeek:
-          $ref: '#/components/schemas/DayOfWeek'
-        startTime:
+        imHereResponseMessage:
           type: string
-        endTime:
+        errorMessageIfInformationFieldIsEmpty:
           type: string
-        timeSlots:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeSlot'
-      required:
-      - dayOfWeek
-      - endTime
-      - startTime
-      - timeSlots
+        instructions:
+          type: string
+        orderConfirmationMessage:
+          type: string
+        orderClosedMessage:
+          type: string
+        smsOrderConfirmationMessage:
+          type: string
+        smsOrderClosedMessage:
+          type: string
     ChargeDTO:
       type: object
       properties:
@@ -1768,6 +1763,18 @@ components:
         orderApplied:
           type: integer
           format: int32
+    DeliveryAreaType:
+      type: string
+      enum:
+      - CIRCLE
+      - POLYGON
+    TimeSlot_2:
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/LocalTime'
+        endTime:
+          $ref: '#/components/schemas/LocalTime'
     LocalTime:
       type: object
       properties:
@@ -1781,6 +1788,42 @@ components:
           type: integer
           format: int32
         nano:
+          type: integer
+          format: int32
+    WorkingHours_2:
+      type: object
+      properties:
+        dayOfWeek:
+          type: string
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+        startTime:
+          $ref: '#/components/schemas/LocalTime'
+        endTime:
+          $ref: '#/components/schemas/LocalTime'
+        timeSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSlot_2'
+    PagingDTO_2:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
           type: integer
           format: int32
     AddressDTO:
@@ -1816,6 +1859,15 @@ components:
           format: double
         aptSuite:
           type: string
+    FindLocationResponseDTO_2:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDTO_2'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDTO_2'
     TemporaryHours_2:
       type: object
       properties:
@@ -1829,28 +1881,6 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/WorkingHours_2'
-    TimeSlot_2:
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/LocalTime'
-        endTime:
-          $ref: '#/components/schemas/LocalTime'
-    PagingDTO_2:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
     LocationDTO_2:
       type: object
       properties:
@@ -1989,36 +2019,6 @@ components:
           type: boolean
         viewOnlyLocationEnabled:
           type: boolean
-    FindLocationResponseDTO_2:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDTO_2'
-        stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationDTO_2'
-    WorkingHours_2:
-      type: object
-      properties:
-        dayOfWeek:
-          type: string
-          enum:
-          - MONDAY
-          - TUESDAY
-          - WEDNESDAY
-          - THURSDAY
-          - FRIDAY
-          - SATURDAY
-          - SUNDAY
-        startTime:
-          $ref: '#/components/schemas/LocalTime'
-        endTime:
-          $ref: '#/components/schemas/LocalTime'
-        timeSlots:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeSlot_2'
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

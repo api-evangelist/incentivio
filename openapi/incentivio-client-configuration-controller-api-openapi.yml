@@ -83,29 +83,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DomainAuthenticateDnsResDto:
-      type: object
-      properties:
-        valid:
-          type: string
-        type:
-          type: string
-        host:
-          type: string
-        data:
-          type: string
-    DomainValidateDnsResDto:
-      type: object
-      properties:
-        valid:
-          type: string
-        reason:
-          type: string
-    EmailHandler:
-      type: string
-      enum:
-      - AWS
-      - SENDGRID
     DomainBasicInfoResponseDTO:
       type: object
       properties:
@@ -129,6 +106,29 @@ components:
             $ref: '#/components/schemas/DomainAuthenticateDnsResDto'
         active:
           type: boolean
+    EmailHandler:
+      type: string
+      enum:
+      - AWS
+      - SENDGRID
+    DomainValidateDnsResDto:
+      type: object
+      properties:
+        valid:
+          type: string
+        reason:
+          type: string
+    DomainValidateResDto:
+      type: object
+      properties:
+        id:
+          type: string
+        valid:
+          type: boolean
+        validation_results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DomainValidateDnsResDto'
     EmailSettingsCreateRequestDTO:
       type: object
       properties:
@@ -146,17 +146,6 @@ components:
           type: string
       required:
       - emailHandler
-    DomainValidateResDto:
-      type: object
-      properties:
-        id:
-          type: string
-        valid:
-          type: boolean
-        validation_results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DomainValidateDnsResDto'
     EmailSettingBasicInfoResponseDTO:
       type: object
       properties:
@@ -186,3 +175,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DomainBasicInfoResponseDTO'
+    DomainAuthenticateDnsResDto:
+      type: object
+      properties:
+        valid:
+          type: string
+        type:
+          type: string
+        host:
+          type: string
+        data:
+          type: string

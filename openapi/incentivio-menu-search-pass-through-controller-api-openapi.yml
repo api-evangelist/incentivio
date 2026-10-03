@@ -55,48 +55,26 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Status:
-      type: string
-      enum:
-      - ACTIVE
-      - INACTIVE
-    ProductSearchResponse:
+    SearchTargetingParams:
       type: object
       properties:
-        results:
+        query:
+          type: string
+        productType:
+          $ref: '#/components/schemas/ProductType'
+        status:
+          $ref: '#/components/schemas/Status'
+        itemType:
+          $ref: '#/components/schemas/ItemType'
+        locationIds:
           type: array
           items:
-            $ref: '#/components/schemas/ProductSearchResult'
-        nextCursor:
+            type: string
+        limit:
+          type: integer
+          format: int32
+        cursor:
           type: string
-        hasMoreResults:
-          type: boolean
-    TargetingLocationVariant:
-      type: object
-      properties:
-        productTitle:
-          type: string
-        incentivioId:
-          type: string
-        externalId:
-          type: string
-        locationId:
-          type: string
-        locationName:
-          type: string
-        price:
-          type: string
-        status:
-          type: string
-        itemType:
-          type: string
-        productId:
-          type: string
-    ItemType:
-      type: string
-      enum:
-      - MAIN
-      - MODIFIER
     ProductSearchResult:
       type: object
       properties:
@@ -122,26 +100,6 @@ components:
       - ITEM
       - GROUP
       - MENU
-    SearchTargetingParams:
-      type: object
-      properties:
-        query:
-          type: string
-        productType:
-          $ref: '#/components/schemas/ProductType'
-        status:
-          $ref: '#/components/schemas/Status'
-        itemType:
-          $ref: '#/components/schemas/ItemType'
-        locationIds:
-          type: array
-          items:
-            type: string
-        limit:
-          type: integer
-          format: int32
-        cursor:
-          type: string
     LocationDetailResponse:
       type: object
       properties:
@@ -153,3 +111,45 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TargetingLocationVariant'
+    ItemType:
+      type: string
+      enum:
+      - MAIN
+      - MODIFIER
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    TargetingLocationVariant:
+      type: object
+      properties:
+        productTitle:
+          type: string
+        incentivioId:
+          type: string
+        externalId:
+          type: string
+        locationId:
+          type: string
+        locationName:
+          type: string
+        price:
+          type: string
+        status:
+          type: string
+        itemType:
+          type: string
+        productId:
+          type: string
+    ProductSearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSearchResult'
+        nextCursor:
+          type: string
+        hasMoreResults:
+          type: boolean

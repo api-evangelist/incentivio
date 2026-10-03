@@ -211,17 +211,6 @@ paths:
       description: Generated server url
 components:
   schemas:
-    SubCategoryEnum:
-      type: string
-      enum:
-      - LIFETIME
-      - LAST_NO_OF_DAYS
-      - NO_OF_ORDERS
-    RuleTypeEnum:
-      type: string
-      enum:
-      - EXPRESSION
-      - LOGIC
     FindSegmentsResponseDTO:
       type: object
       properties:
@@ -231,31 +220,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SegmentResponseDTO'
-    RuleDescriptor:
-      type: object
-      properties:
-        ruleType:
-          $ref: '#/components/schemas/RuleTypeEnum'
-        operator:
-          $ref: '#/components/schemas/OperatorEnum'
-        expressionValue:
-          type: string
-        expressionValueNew:
-          $ref: '#/components/schemas/ExpressionValueNew'
-        expressionName:
-          type: string
-        expressoinFormat:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        logicType:
-          $ref: '#/components/schemas/LogicTypeEnum'
-        childNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleDescriptor'
+    RelationalOperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    SubCategoryEnum:
+      type: string
+      enum:
+      - LIFETIME
+      - LAST_NO_OF_DAYS
+      - NO_OF_ORDERS
     CreateSegmentResponseDTO:
       type: object
       properties:
@@ -263,66 +244,17 @@ components:
           type: string
         segmentName:
           type: string
-    LogicTypeEnum:
+    OperatorEnum:
       type: string
       enum:
-      - AND
-      - OR
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
       - NOT
-    SegmentRequestDTO:
-      type: object
-      properties:
-        segmentName:
-          type: string
-        segmentDescription:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/SegmentTypeEnum'
-        segmentTag:
-          type: string
-        segmentIcon:
-          type: string
-        visibleToCustomer:
-          type: boolean
-        languageCode:
-          type: string
-        segmentRules:
-          $ref: '#/components/schemas/RuleDescriptor'
-        adminId:
-          type: string
-        adminEmail:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        createdDate:
-          type: string
-          format: date-time
-        updateDate:
-          type: string
-          format: date-time
-        lastProcessedDate:
-          type: string
-          format: date-time
-        timeZone:
-          type: string
-        expiredStatus:
-          type: boolean
-        deletedStatus:
-          type: boolean
-        segmentDistribution:
-          type: string
-        advancedSettings:
-          type: object
-          additionalProperties: {}
-      required:
-      - adminEmail
-      - adminId
-      - segmentName
-      - segmentRules
-      - segmentType
-      - startDate
-      - timeZone
+      - WITHIN
+      - NOTEXISTS
     SegmentResponseDTO:
       type: object
       properties:
@@ -377,32 +309,6 @@ components:
           format: int32
         calculationInProgressStatus:
           type: boolean
-    OperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    SegmentTypeEnum:
-      type: string
-      enum:
-      - LOYALTY
-      - NORMAL
-    DaysOfWeekEnum:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
     ProductDTO:
       type: object
       properties:
@@ -416,6 +322,60 @@ components:
           type: array
           items:
             type: string
+    SegmentRequestDTO:
+      type: object
+      properties:
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/SegmentTypeEnum'
+        segmentTag:
+          type: string
+        segmentIcon:
+          type: string
+        visibleToCustomer:
+          type: boolean
+        languageCode:
+          type: string
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor'
+        adminId:
+          type: string
+        adminEmail:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+        updateDate:
+          type: string
+          format: date-time
+        lastProcessedDate:
+          type: string
+          format: date-time
+        timeZone:
+          type: string
+        expiredStatus:
+          type: boolean
+        deletedStatus:
+          type: boolean
+        segmentDistribution:
+          type: string
+        advancedSettings:
+          type: object
+          additionalProperties: {}
+      required:
+      - adminEmail
+      - adminId
+      - segmentName
+      - segmentRules
+      - segmentType
+      - startDate
+      - timeZone
     ResultsPagingDTO:
       type: object
       properties:
@@ -431,6 +391,32 @@ components:
         currentPage:
           type: integer
           format: int32
+    RuleTypeEnum:
+      type: string
+      enum:
+      - EXPRESSION
+      - LOGIC
+    SegmentTypeEnum:
+      type: string
+      enum:
+      - LOYALTY
+      - NORMAL
+    DaysOfWeekEnum:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    LogicTypeEnum:
+      type: string
+      enum:
+      - AND
+      - OR
+      - NOT
     ExpressionValueNew:
       type: object
       properties:
@@ -466,17 +452,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DaysOfWeekEnum'
-    RelationalOperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
+    RuleDescriptor:
+      type: object
+      properties:
+        ruleType:
+          $ref: '#/components/schemas/RuleTypeEnum'
+        operator:
+          $ref: '#/components/schemas/OperatorEnum'
+        expressionValue:
+          type: string
+        expressionValueNew:
+          $ref: '#/components/schemas/ExpressionValueNew'
+        expressionName:
+          type: string
+        expressoinFormat:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        logicType:
+          $ref: '#/components/schemas/LogicTypeEnum'
+        childNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleDescriptor'
     LocalTime:
       type: object
       properties:
@@ -507,60 +507,6 @@ components:
           $ref: '#/components/schemas/RuleDescriptor_2'
         deletedStatus:
           type: boolean
-    RuleDescriptor_2:
-      type: object
-      properties:
-        ruleType:
-          type: string
-          enum:
-          - EXPRESSION
-          - LOGIC
-        operator:
-          type: string
-          enum:
-          - EQ
-          - LT
-          - GT
-          - LT_EQ
-          - GT_EQ
-          - NOT
-          - WITHIN
-          - NOTEXISTS
-        expressionValue:
-          type: string
-        expressionValueNew:
-          $ref: '#/components/schemas/ExpressionValueNew_2'
-        expressionName:
-          type: string
-        expressoinFormat:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        logicType:
-          type: string
-          enum:
-          - AND
-          - OR
-          - NOT
-        childNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleDescriptor_2'
-    FindCustomerSegmentsResponseDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        customerId:
-          type: string
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentLightResponseDTO'
     ExpressionValueNew_2:
       type: object
       properties:
@@ -618,6 +564,60 @@ components:
             - FRIDAY
             - SATURDAY
             - SUNDAY
+    RuleDescriptor_2:
+      type: object
+      properties:
+        ruleType:
+          type: string
+          enum:
+          - EXPRESSION
+          - LOGIC
+        operator:
+          type: string
+          enum:
+          - EQ
+          - LT
+          - GT
+          - LT_EQ
+          - GT_EQ
+          - NOT
+          - WITHIN
+          - NOTEXISTS
+        expressionValue:
+          type: string
+        expressionValueNew:
+          $ref: '#/components/schemas/ExpressionValueNew_2'
+        expressionName:
+          type: string
+        expressoinFormat:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        logicType:
+          type: string
+          enum:
+          - AND
+          - OR
+          - NOT
+        childNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleDescriptor_2'
+    FindCustomerSegmentsResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        customerId:
+          type: string
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentLightResponseDTO'
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

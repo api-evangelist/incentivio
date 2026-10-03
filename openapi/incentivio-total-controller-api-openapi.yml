@@ -58,38 +58,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    OrderCharge:
-      type: object
-      properties:
-        chargeId:
-          type: string
-        chargeName:
-          type: string
-        chargeDescription:
-          type: string
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
-        chargeApplied:
-          type: integer
-          format: int32
-        displayChargeApplied:
-          type: string
-    OrderTax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        taxDescription:
-          type: string
-        taxAmountApplied:
-          type: integer
-          format: int32
-        displayTaxAmountApplied:
-          type: string
     OrderTotalDTO:
       type: object
       properties:
@@ -113,35 +81,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    AddOrderItemReqDTO:
-      required:
-      - itemId
-      - quantity
-      type: object
-      properties:
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        catalogId:
-          type: string
-        discountIds:
-          type: array
-          items:
-            type: string
-        externalId:
-          type: string
-        groupId:
-          type: string
-        itemId:
-          type: string
-        itemInstructions:
-          type: string
-        note:
-          type: string
-        quantity:
-          type: integer
-          format: int32
     ChargeSummary:
       type: object
       properties:
@@ -175,4 +114,65 @@ components:
           items:
             $ref: '#/components/schemas/OrderTax'
         displayTotalTaxes:
+          type: string
+    OrderTax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        taxDescription:
+          type: string
+        taxAmountApplied:
+          type: integer
+          format: int32
+        displayTaxAmountApplied:
+          type: string
+    AddOrderItemReqDTO:
+      required:
+      - itemId
+      - quantity
+      type: object
+      properties:
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        catalogId:
+          type: string
+        discountIds:
+          type: array
+          items:
+            type: string
+        externalId:
+          type: string
+        groupId:
+          type: string
+        itemId:
+          type: string
+        itemInstructions:
+          type: string
+        note:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    OrderCharge:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        chargeName:
+          type: string
+        chargeDescription:
+          type: string
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        chargeApplied:
+          type: integer
+          format: int32
+        displayChargeApplied:
           type: string

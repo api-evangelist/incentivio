@@ -47,76 +47,23 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    RelationalOperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
     SubCategoryEnum:
       type: string
       enum:
       - LIFETIME
       - LAST_NO_OF_DAYS
       - NO_OF_ORDERS
-    RuleTypeEnum:
-      type: string
-      enum:
-      - EXPRESSION
-      - LOGIC
-    SegmentLightResponseDTO:
-      type: object
-      properties:
-        segmentId:
-          type: string
-        segmentName:
-          type: string
-        segmentDescription:
-          type: string
-        segmentIcon:
-          type: string
-        segmentRules:
-          $ref: '#/components/schemas/RuleDescriptor'
-        deletedStatus:
-          type: boolean
-    RuleDescriptor:
-      type: object
-      properties:
-        ruleType:
-          $ref: '#/components/schemas/RuleTypeEnum'
-        operator:
-          $ref: '#/components/schemas/OperatorEnum'
-        expressionValue:
-          type: string
-        expressionValueNew:
-          $ref: '#/components/schemas/ExpressionValueNew'
-        expressionName:
-          type: string
-        expressoinFormat:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        logicType:
-          $ref: '#/components/schemas/LogicTypeEnum'
-        childNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleDescriptor'
-    LogicTypeEnum:
-      type: string
-      enum:
-      - AND
-      - OR
-      - NOT
-    FindCustomerSegmentsResponseDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        customerId:
-          type: string
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentLightResponseDTO'
     OperatorEnum:
       type: string
       enum:
@@ -128,16 +75,6 @@ components:
       - NOT
       - WITHIN
       - NOTEXISTS
-    DaysOfWeekEnum:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
     ProductDTO:
       type: object
       properties:
@@ -166,6 +103,42 @@ components:
         currentPage:
           type: integer
           format: int32
+    SegmentLightResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentIcon:
+          type: string
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor'
+        deletedStatus:
+          type: boolean
+    RuleTypeEnum:
+      type: string
+      enum:
+      - EXPRESSION
+      - LOGIC
+    DaysOfWeekEnum:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    LogicTypeEnum:
+      type: string
+      enum:
+      - AND
+      - OR
+      - NOT
     ExpressionValueNew:
       type: object
       properties:
@@ -201,14 +174,41 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DaysOfWeekEnum'
-    RelationalOperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
+    RuleDescriptor:
+      type: object
+      properties:
+        ruleType:
+          $ref: '#/components/schemas/RuleTypeEnum'
+        operator:
+          $ref: '#/components/schemas/OperatorEnum'
+        expressionValue:
+          type: string
+        expressionValueNew:
+          $ref: '#/components/schemas/ExpressionValueNew'
+        expressionName:
+          type: string
+        expressoinFormat:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        logicType:
+          $ref: '#/components/schemas/LogicTypeEnum'
+        childNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleDescriptor'
+    FindCustomerSegmentsResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        customerId:
+          type: string
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentLightResponseDTO'

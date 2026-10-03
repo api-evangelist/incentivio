@@ -241,47 +241,6 @@ components:
           type: string
         adminId:
           type: string
-    GiftCardRecipient:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        message:
-          type: string
-    GiftCardTransactionResponseDTO:
-      type: object
-      properties:
-        transactionType:
-          type: string
-        cardIdentifier:
-          type: string
-        securityCode:
-          type: string
-        cardAccountBalance:
-          type: number
-          format: double
-        transactionValue:
-          type: number
-          format: double
-        cardStatus:
-          type: string
-          enum:
-          - ACTIVE
-          - INACTIVE
-        paymentStatus:
-          type: string
-        transactionStatus:
-          type: string
-        rootErrors:
-          type: object
-          additionalProperties:
-            type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
     AddValueRequestDTO:
       required:
       - amount
@@ -347,6 +306,47 @@ components:
           format: int32
         oneTimeTransaction:
           type: boolean
+    GiftCardTransactionResponseDTO:
+      type: object
+      properties:
+        transactionType:
+          type: string
+        cardIdentifier:
+          type: string
+        securityCode:
+          type: string
+        cardAccountBalance:
+          type: number
+          format: double
+        transactionValue:
+          type: number
+          format: double
+        cardStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+        paymentStatus:
+          type: string
+        transactionStatus:
+          type: string
+        rootErrors:
+          type: object
+          additionalProperties:
+            type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    GiftCardRecipient:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        message:
+          type: string
     PreparePaymentResponseDTO:
       type: object
       properties:

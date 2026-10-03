@@ -42,12 +42,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SuffixMode:
-      type: string
-      enum:
-      - NONE
-      - FIXED
-      - VARIABLE
     ToastSettings:
       type: object
       properties:
@@ -57,3 +51,9 @@ components:
           type: string
         suffixMode:
           $ref: '#/components/schemas/SuffixMode'
+    SuffixMode:
+      type: string
+      enum:
+      - NONE
+      - FIXED
+      - VARIABLE

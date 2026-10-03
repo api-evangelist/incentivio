@@ -118,26 +118,286 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    OrderCharge:
+    ApplyOfferOnNextVisitRequestDTO:
       type: object
       properties:
-        chargeId:
+        distributedOfferId:
           type: string
-        chargeName:
-          type: string
-        chargeDescription:
-          type: string
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
-        chargeApplied:
+    ChargeSummary:
+      type: object
+      properties:
+        taxableCharges:
           type: integer
           format: int32
-        displayChargeApplied:
+        nonTaxableCharges:
+          type: integer
+          format: int32
+        totalCharges:
+          type: integer
+          format: int32
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderCharge'
+        displayTaxableCharges:
           type: string
+        displayNonTaxableCharges:
+          type: string
+        displayTotalCharges:
+          type: string
+    ItemQualifier:
+      type: object
+      properties:
+        qualifierItemAttribute:
+          type: string
+          enum:
+          - CATALOG
+          - GROUP
+          - ITEM
+          - BRAND
+          - CATEGORY
+        qualifierItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/QualifyingItem'
+        qualifierSelectionMode:
+          type: string
+          enum:
+          - ONE
+          - ALL
+    Payment:
+      type: object
+      properties:
+        paymentTxId:
+          type: string
+        externalTxId:
+          type: string
+        paidDate:
+          type: string
+        paymentType:
+          type: string
+          enum:
+          - CARD_NOT_PRESENT
+          - CARD_PRESENT
+          - CASH
+          - THIRD_PARTY
+          - APPLE_PAY
+          - ANDROID_PAY
+          - SAMSUNG_PAY
+          - NO_PAYMENT
+          - GOOGLE_PAY
+          - ONE_TIME_TOKEN
+          - PERMANENT_TOKEN
+          - GIFT_CARD
+          - PAYMENT_SKIPPED
+        cardType:
+          type: string
+        lastFour:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        tipAmount:
+          type: integer
+          format: int32
+        amountTendered:
+          type: integer
+          format: int32
+    TaxSummary:
+      type: object
+      properties:
+        totalTaxes:
+          type: integer
+          format: int32
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTax'
+        displayTotalTaxes:
+          type: string
+    GetOrderOffersRequestDTO:
+      required:
+      - localDateTime
+      type: object
+      properties:
+        orderId:
+          type: string
+        incentivioOrderId:
+          type: string
+        languageCode:
+          type: string
+        merchantId:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        localDateTime:
+          type: string
+        locationId:
+          type: string
+        orderItems:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferOrderItem'
+        orderType:
+          type: string
+        orderOptionType:
+          type: string
+        subTotal:
+          type: integer
+          format: int32
+        evaluateOnlyUserOffers:
+          type: boolean
+    OrderOfferDTO:
+      type: object
+      properties:
+        distributedOfferId:
+          type: string
+        offerId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        offerCode:
+          type: string
+        codeFormat:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - SAVED
+          - READ
+          - EXPIRED
+          - DELETED
+          - SYSTEM_REDEEMED
+          - USER_REDEEMED
+        redemptionEndDate:
+          type: string
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        pointsCost:
+          type: integer
+          format: int32
+        availablePoints:
+          type: integer
+          format: int32
+        availableBalance:
+          type: number
+          format: float
+        discountType:
+          type: string
+          enum:
+          - AMOUNT
+          - PERCENTAGE
+        discountPercentage:
+          type: number
+          format: float
+        discountAmount:
+          type: integer
+          format: int32
+        variablePoints:
+          type: boolean
+        variableAmount:
+          type: boolean
+        requiredItems:
+          $ref: '#/components/schemas/ItemQualifier'
+        applyOfferOnNextVisit:
+          type: boolean
+    Customer:
+      type: object
+      properties:
+        customerId:
+          type: string
+        extCustomerId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    OrderTotal:
+      type: object
+      properties:
+        preDiscountSubtotal:
+          type: integer
+          format: int32
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary'
+        totalDiscountApplied:
+          type: integer
+          format: int32
+        subtotal:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        displayTotal:
+          type: string
+        displaySubtotal:
+          type: string
+        displayTotalDiscountApplied:
+          type: string
+        displayGratuity:
+          type: string
+        displayPreDiscountSubtotal:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    RemoveOfferRequestDTO:
+      type: object
+      properties:
+        offerId:
+          type: string
+        userId:
+          type: string
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
     QualifyingItem:
       type: object
       properties:
@@ -156,25 +416,157 @@ components:
         count:
           type: integer
           format: int32
-    Check:
+    OrderTax:
       type: object
       properties:
-        checkId:
+        taxId:
           type: string
-        extCheckId:
+        taxDescription:
           type: string
-        customer:
-          $ref: '#/components/schemas/Customer'
-        amount:
+        taxAmountApplied:
           type: integer
           format: int32
-        gratuity:
+        displayTaxAmountApplied:
+          type: string
+    ApplyOfferOnNextVisitResponseDTO:
+      type: object
+      properties:
+        appliedOfferDistributionId:
+          type: string
+    Address:
+      type: object
+      properties:
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string
+    ItemTotal:
+      type: object
+      properties:
+        preDiscountSubtotal:
           type: integer
           format: int32
-        payments:
+        taxSummary:
+          $ref: '#/components/schemas/TaxSummary'
+        chargeSummary:
+          $ref: '#/components/schemas/ChargeSummary'
+        appliedDiscount:
+          type: integer
+          format: int32
+        subtotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        displayPreDiscountSubtotal:
+          type: string
+        displayAppliedDiscount:
+          type: string
+        displaySubtotal:
+          type: string
+        displayTotal:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    OrderOfferListResponseDTO:
+      type: object
+      properties:
+        applicableOffers:
           type: array
           items:
-            $ref: '#/components/schemas/Payment'
+            $ref: '#/components/schemas/OrderOfferDTO'
+        itemRequiredOffers:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderOfferDTO'
+    OrderItemGroup:
+      type: object
+      properties:
+        groupId:
+          type: string
+        groupExtId:
+          type: string
+        groupType:
+          type: string
+          enum:
+          - CATALOG_GROUP
+          - OPTION_GROUP
+        groupName:
+          type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    OrderDiscount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        amountOfDiscount:
+          type: integer
+          format: int32
+        distributedOfferId:
+          type: string
+        discountType:
+          type: string
+        pointsCost:
+          type: integer
+          format: int32
+        discountAmount:
+          type: integer
+          format: int32
+        discountPercentage:
+          type: number
+          format: float
+        appliedDiscount:
+          type: integer
+          format: int32
+        displayAppliedDiscount:
+          type: string
+    ApplyOfferRequestDTO:
+      required:
+      - localDateTime
+      type: object
+      properties:
+        distributedOfferId:
+          type: string
+        offerId:
+          type: string
+        pointsToSpend:
+          type: integer
+          format: int32
+        amountToRedeem:
+          type: number
+          format: float
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        localDateTime:
+          type: string
+        userId:
+          type: string
+        orderOptionType:
+          type: string
     ViewOrderResponseDTO:
       type: object
       properties:
@@ -255,144 +647,42 @@ components:
           - GOOGLE_ORDERING
         guestOrderVerified:
           type: boolean
-    OrderTotal:
+    ItemsCountDTO:
       type: object
       properties:
-        preDiscountSubtotal:
+        totalItemsCount:
           type: integer
           format: int32
-        taxSummary:
-          $ref: '#/components/schemas/TaxSummary'
-        chargeSummary:
-          $ref: '#/components/schemas/ChargeSummary'
-        totalDiscountApplied:
-          type: integer
-          format: int32
-        subtotal:
+        itemsCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+    Check:
+      type: object
+      properties:
+        checkId:
+          type: string
+        extCheckId:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        amount:
           type: integer
           format: int32
         gratuity:
           type: integer
           format: int32
-        total:
-          type: integer
-          format: int32
-        displayTotal:
-          type: string
-        displaySubtotal:
-          type: string
-        displayTotalDiscountApplied:
-          type: string
-        displayGratuity:
-          type: string
-        displayPreDiscountSubtotal:
-          type: string
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    ItemQualifier:
-      type: object
-      properties:
-        qualifierItemAttribute:
-          type: string
-          enum:
-          - CATALOG
-          - GROUP
-          - ITEM
-          - BRAND
-          - CATEGORY
-        qualifierItems:
+        payments:
           type: array
           items:
-            $ref: '#/components/schemas/QualifyingItem'
-        qualifierSelectionMode:
-          type: string
-          enum:
-          - ONE
-          - ALL
-    ApplyOfferOnNextVisitResponseDTO:
+            $ref: '#/components/schemas/Payment'
+    Delivery:
       type: object
       properties:
-        appliedOfferDistributionId:
-          type: string
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
-    OfferOrderItem:
-      type: object
-      properties:
-        orderItemId:
-          type: string
-        itemId:
-          type: string
-        externalId:
-          type: string
-        group:
-          $ref: '#/components/schemas/OrderItemGroup'
-        groupId:
-          type: string
-        sku:
-          type: string
-        upc:
-          type: string
-        catalogId:
-          type: string
-        extCatalogId:
-          type: string
-        brandId:
-          type: string
-        categoryId:
-          type: string
-        quantity:
-          type: integer
-          format: int32
-        options:
-          type: array
-          items:
-            $ref: '#/components/schemas/OfferOrderItem'
-    ApplyOfferOnNextVisitRequestDTO:
-      type: object
-      properties:
-        distributedOfferId:
-          type: string
-    ChargeSummary:
-      type: object
-      properties:
-        taxableCharges:
-          type: integer
-          format: int32
-        nonTaxableCharges:
-          type: integer
-          format: int32
-        totalCharges:
-          type: integer
-          format: int32
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderCharge'
-        displayTaxableCharges:
-          type: string
-        displayNonTaxableCharges:
-          type: string
-        displayTotalCharges:
+        deliveryAddress:
+          $ref: '#/components/schemas/Address'
+        deliveryInstructions:
           type: string
     OrderItem:
       type: object
@@ -458,345 +748,55 @@ components:
           type: string
         taxable:
           type: boolean
-    ApplyOfferRequestDTO:
-      required:
-      - localDateTime
+    OfferOrderItem:
       type: object
       properties:
-        distributedOfferId:
+        orderItemId:
           type: string
-        offerId:
+        itemId:
           type: string
-        pointsToSpend:
+        externalId:
+          type: string
+        group:
+          $ref: '#/components/schemas/OrderItemGroup'
+        groupId:
+          type: string
+        sku:
+          type: string
+        upc:
+          type: string
+        catalogId:
+          type: string
+        extCatalogId:
+          type: string
+        brandId:
+          type: string
+        categoryId:
+          type: string
+        quantity:
           type: integer
           format: int32
-        amountToRedeem:
-          type: number
-          format: float
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        localDateTime:
-          type: string
-        userId:
-          type: string
-        orderOptionType:
-          type: string
-    OrderTax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        taxDescription:
-          type: string
-        taxAmountApplied:
-          type: integer
-          format: int32
-        displayTaxAmountApplied:
-          type: string
-    OrderOfferListResponseDTO:
-      type: object
-      properties:
-        applicableOffers:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderOfferDTO'
-        itemRequiredOffers:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderOfferDTO'
-    Delivery:
-      type: object
-      properties:
-        deliveryAddress:
-          $ref: '#/components/schemas/Address'
-        deliveryInstructions:
-          type: string
-    OrderOfferDTO:
-      type: object
-      properties:
-        distributedOfferId:
-          type: string
-        offerId:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        offerCode:
-          type: string
-        codeFormat:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - SAVED
-          - READ
-          - EXPIRED
-          - DELETED
-          - SYSTEM_REDEEMED
-          - USER_REDEEMED
-        redemptionEndDate:
-          type: string
-        distributedDate:
-          type: string
-        updatedDate:
-          type: string
-        pointsCost:
-          type: integer
-          format: int32
-        availablePoints:
-          type: integer
-          format: int32
-        availableBalance:
-          type: number
-          format: float
-        discountType:
-          type: string
-          enum:
-          - AMOUNT
-          - PERCENTAGE
-        discountPercentage:
-          type: number
-          format: float
-        discountAmount:
-          type: integer
-          format: int32
-        variablePoints:
-          type: boolean
-        variableAmount:
-          type: boolean
-        requiredItems:
-          $ref: '#/components/schemas/ItemQualifier'
-        applyOfferOnNextVisit:
-          type: boolean
-    OrderDiscount:
-      type: object
-      properties:
-        discountId:
-          type: string
-        extDiscountId:
-          type: string
-        description:
-          type: string
-        amountOfDiscount:
-          type: integer
-          format: int32
-        distributedOfferId:
-          type: string
-        discountType:
-          type: string
-        pointsCost:
-          type: integer
-          format: int32
-        discountAmount:
-          type: integer
-          format: int32
-        discountPercentage:
-          type: number
-          format: float
-        appliedDiscount:
-          type: integer
-          format: int32
-        displayAppliedDiscount:
-          type: string
-    TaxSummary:
-      type: object
-      properties:
-        totalTaxes:
-          type: integer
-          format: int32
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderTax'
-        displayTotalTaxes:
-          type: string
-    GetOrderOffersRequestDTO:
-      required:
-      - localDateTime
-      type: object
-      properties:
-        orderId:
-          type: string
-        incentivioOrderId:
-          type: string
-        languageCode:
-          type: string
-        merchantId:
-          type: string
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        localDateTime:
-          type: string
-        locationId:
-          type: string
-        orderItems:
-          uniqueItems: true
+        options:
           type: array
           items:
             $ref: '#/components/schemas/OfferOrderItem'
-        orderType:
+    OrderCharge:
+      type: object
+      properties:
+        chargeId:
           type: string
-        orderOptionType:
+        chargeName:
           type: string
-        subTotal:
-          type: integer
-          format: int32
-        evaluateOnlyUserOffers:
+        chargeDescription:
+          type: string
+        taxable:
           type: boolean
-    ItemTotal:
-      type: object
-      properties:
-        preDiscountSubtotal:
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
+        chargeApplied:
           type: integer
           format: int32
-        taxSummary:
-          $ref: '#/components/schemas/TaxSummary'
-        chargeSummary:
-          $ref: '#/components/schemas/ChargeSummary'
-        appliedDiscount:
-          type: integer
-          format: int32
-        subtotal:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        displayPreDiscountSubtotal:
-          type: string
-        displayAppliedDiscount:
-          type: string
-        displaySubtotal:
-          type: string
-        displayTotal:
-          type: string
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    Customer:
-      type: object
-      properties:
-        customerId:
-          type: string
-        extCustomerId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-    ItemsCountDTO:
-      type: object
-      properties:
-        totalItemsCount:
-          type: integer
-          format: int32
-        itemsCount:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int32
-    Payment:
-      type: object
-      properties:
-        paymentTxId:
-          type: string
-        externalTxId:
-          type: string
-        paidDate:
-          type: string
-        paymentType:
-          type: string
-          enum:
-          - CARD_NOT_PRESENT
-          - CARD_PRESENT
-          - CASH
-          - THIRD_PARTY
-          - APPLE_PAY
-          - ANDROID_PAY
-          - SAMSUNG_PAY
-          - NO_PAYMENT
-          - GOOGLE_PAY
-          - ONE_TIME_TOKEN
-          - PERMANENT_TOKEN
-          - GIFT_CARD
-          - PAYMENT_SKIPPED
-        cardType:
-          type: string
-        lastFour:
-          type: string
-        amount:
-          type: integer
-          format: int32
-        tipAmount:
-          type: integer
-          format: int32
-        amountTendered:
-          type: integer
-          format: int32
-    OrderItemGroup:
-      type: object
-      properties:
-        groupId:
-          type: string
-        groupExtId:
-          type: string
-        groupType:
-          type: string
-          enum:
-          - CATALOG_GROUP
-          - OPTION_GROUP
-        groupName:
-          type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    Address:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-        aptSuite:
-          type: string
-    RemoveOfferRequestDTO:
-      type: object
-      properties:
-        offerId:
-          type: string
-        userId:
+        displayChargeApplied:
           type: string

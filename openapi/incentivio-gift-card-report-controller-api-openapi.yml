@@ -151,14 +151,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AmountByPoolAccountDTO:
-      type: object
-      properties:
-        amount:
-          type: number
-        noOfRecords:
-          type: integer
-          format: int32
     GiftCardPoolSummaryReportDTO:
       type: object
       properties:
@@ -183,6 +175,14 @@ components:
           type: integer
           format: int32
     AmountByBonusAccountDTO:
+      type: object
+      properties:
+        amount:
+          type: number
+        noOfRecords:
+          type: integer
+          format: int32
+    AmountByPoolAccountDTO:
       type: object
       properties:
         amount:

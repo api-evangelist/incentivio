@@ -304,6 +304,15 @@ paths:
       description: Generated server url
 components:
   schemas:
+    FindLoyaltyHistoryResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        loyaltyHistories:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyTransactionDTO'
     Direction:
       type: string
       enum:
@@ -315,15 +324,21 @@ components:
       - PENDING
       - CONFIRMED
       - EXPIRED
-    FindLoyaltyHistoryResponseDTO:
+    ResultsPagingDTO:
       type: object
       properties:
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        loyaltyHistories:
-          type: array
-          items:
-            $ref: '#/components/schemas/LoyaltyTransactionDTO'
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
     LoyaltyTransactionDTO:
       type: object
       properties:
@@ -353,21 +368,25 @@ components:
           $ref: '#/components/schemas/LoyaltyTransactionStatus'
         confirmationDate:
           type: string
-    ResultsPagingDTO:
+    UpsertLoyaltyCardRequestDTO:
       type: object
       properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
+        loyaltyCardId:
+          type: string
+    ExpiringLoyaltyPointsResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        expiringLoyaltyPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyTransactionDTO_2'
+    UpsertLoyaltyAccountExternalIdDTO:
+      type: object
+      properties:
+        externalId:
+          type: string
     LoyaltyPointsSummaryDTO:
       type: object
       properties:
@@ -381,15 +400,14 @@ components:
           format: int32
         timeSummarized:
           type: string
-    ExpiringLoyaltyPointsResponseDTO:
+    NextExpiringLoyaltyPointsResponseDTO:
       type: object
       properties:
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        expiringLoyaltyPoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/LoyaltyTransactionDTO_2'
+        nextExpiringPoints:
+          type: integer
+          format: int32
+        expiryDate:
+          type: string
     TierDetailsDTO:
       type: object
       properties:
@@ -401,19 +419,46 @@ components:
         upperBoundary:
           type: number
           format: double
-    NextExpiringLoyaltyPointsResponseDTO:
+    ViewLoyaltyAccountResponseDTO:
       type: object
       properties:
-        nextExpiringPoints:
-          type: integer
-          format: int32
-        expiryDate:
+        loyaltyAccountId:
           type: string
-    UpsertLoyaltyCardRequestDTO:
-      type: object
-      properties:
+        loyaltyTierId:
+          type: string
+        externalId:
+          type: string
         loyaltyCardId:
           type: string
+        confirmedPoints:
+          type: integer
+          format: int32
+        pendingPoints:
+          type: integer
+          format: int32
+        confirmedBalance:
+          type: number
+          format: float
+        pendingBalance:
+          type: number
+          format: float
+        createdDate:
+          type: string
+        currentLoyaltyTier:
+          $ref: '#/components/schemas/TierDetailsDTO'
+        nextLoyaltyTier:
+          $ref: '#/components/schemas/TierDetailsDTO'
+        numOfTypeRequiredForNextTier:
+          type: number
+          format: double
+        tierBasedOnType:
+          type: string
+        currentLoyaltyTierBasedValue:
+          type: number
+          format: double
+        createdDateString:
+          type: string
+          format: date-time
     LoyaltyTransactionDTO_2:
       type: object
       properties:
@@ -465,51 +510,6 @@ components:
           type: string
         expiryDate:
           type: string
-    UpsertLoyaltyAccountExternalIdDTO:
-      type: object
-      properties:
-        externalId:
-          type: string
-    ViewLoyaltyAccountResponseDTO:
-      type: object
-      properties:
-        loyaltyAccountId:
-          type: string
-        loyaltyTierId:
-          type: string
-        externalId:
-          type: string
-        loyaltyCardId:
-          type: string
-        confirmedPoints:
-          type: integer
-          format: int32
-        pendingPoints:
-          type: integer
-          format: int32
-        confirmedBalance:
-          type: number
-          format: float
-        pendingBalance:
-          type: number
-          format: float
-        createdDate:
-          type: string
-        currentLoyaltyTier:
-          $ref: '#/components/schemas/TierDetailsDTO'
-        nextLoyaltyTier:
-          $ref: '#/components/schemas/TierDetailsDTO'
-        numOfTypeRequiredForNextTier:
-          type: number
-          format: double
-        tierBasedOnType:
-          type: string
-        currentLoyaltyTierBasedValue:
-          type: number
-          format: double
-        createdDateString:
-          type: string
-          format: date-time
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

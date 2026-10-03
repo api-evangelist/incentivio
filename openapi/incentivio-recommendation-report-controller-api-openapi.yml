@@ -158,6 +158,24 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    RecommendationSummaryDTO:
+      type: object
+      properties:
+        percentageOfTxWithDisplayedRecommendation:
+          type: number
+          format: float
+        txWithPurchasedRecommendation:
+          $ref: '#/components/schemas/MonthlyTileData'
+        percentageOfTxWherePurchasedRecommendation:
+          type: number
+          format: float
+        percentageOfRevenueLiftForTxWithPurchasedRecommendation:
+          type: number
+          format: float
+        revenueAddedThroughRecommendations:
+          $ref: '#/components/schemas/MonthlyTileData'
+        revenueAddedAfterShowingRecommendations:
+          $ref: '#/components/schemas/MonthlyTileData'
     TopRecommendedItemsDTO:
       type: object
       properties:
@@ -177,33 +195,6 @@ components:
           format: float
         imageUrl:
           type: string
-    RecommendationSummaryDTO:
-      type: object
-      properties:
-        percentageOfTxWithDisplayedRecommendation:
-          type: number
-          format: float
-        txWithPurchasedRecommendation:
-          $ref: '#/components/schemas/MonthlyTileData'
-        percentageOfTxWherePurchasedRecommendation:
-          type: number
-          format: float
-        percentageOfRevenueLiftForTxWithPurchasedRecommendation:
-          type: number
-          format: float
-        revenueAddedThroughRecommendations:
-          $ref: '#/components/schemas/MonthlyTileData'
-        revenueAddedAfterShowingRecommendations:
-          $ref: '#/components/schemas/MonthlyTileData'
-    MonthlyTileData:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        comparedToPreviousMonthPercentage:
-          type: number
-          format: float
     RecommendedAverageBasketValueDTO:
       type: object
       properties:
@@ -217,5 +208,14 @@ components:
           type: number
           format: float
         txWithRecommendationsPresentedButNotPurchased:
+          type: number
+          format: float
+    MonthlyTileData:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        comparedToPreviousMonthPercentage:
           type: number
           format: float

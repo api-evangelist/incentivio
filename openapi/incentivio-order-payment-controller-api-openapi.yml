@@ -180,6 +180,112 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    InitOrderRequestDTO:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        cardType:
+          type: string
+        lastFour:
+          type: string
+        locationId:
+          type: string
+        merchantId:
+          type: string
+        orderId:
+          type: string
+        otherData:
+          type: string
+        paymentToken:
+          type: string
+    PaymentResponseDTO:
+      type: object
+      properties:
+        orderStatus:
+          type: string
+          enum:
+          - ORDER_SUCCESS
+          - ORDER_PENDING
+          - ORDER_REVERSAL_SUCCESS
+          - ORDER_REVERSAL_FAILED
+          - ORDER_REVERSAL_NOT_SUPPORTED
+          - ORDER_PROCESSOR_TIMEOUT
+          - ORDER_PROCESSING_ERROR
+          - PAYMENT_SUCCESS
+          - PAYMENT_3DS2_AUTHENTICATION_PENDING
+          - PAYMENT_SKIPPED
+          - PAYMENT_DECLINED
+          - PAYMENT_PENDING
+          - PAYMENT_PROCESSOR_TIMEOUT
+          - PAYMENT_GATEWAY_ERROR
+          - INSUFFICIENT_FUNDS
+          - INSUFFICIENT_GIFT_CARD_FUNDS
+          - INVALID_PAYMENT_DETAILS
+          - PAYMENT_PROCESSING_ERROR
+          - PAYMENT_REVERSAL_SUCCESS
+          - PAYMENT_REVERSAL_FAILED
+          - CARD_VERFICATION_SUCCESS
+          - CARD_VERFICATION_FAILED
+          - CARD_VERFICATION_ISSUER_DECLINE
+          - CARD_AVS_VERFICATION_FAILED
+          - CARD_VERIFICATION_AVS_ZIP_CODE_MISMATCH
+          - CARD_3DS_VERIFICATION_FAILED
+          - PAYMENT_ISSUER_TIMEOUT
+          - CARD_EXPIRED
+          - PAYMENT_TX_NOT_FOUND
+          - INVALID_INPUTS
+          - CARD_NOT_SUPPORTED
+          - PAYMENT_METHOD_ERROR
+          - REDEMPTION_ERROR
+          - INTERNAL_SERVER_ERROR
+          - CONFIGURATION_ERROR
+          - PRICE_CALCULATION_SUCCESS
+          - PRICE_CALCULATION_FAILED
+          - PRICE_CALCULATION_TIMEOUT
+          - CVV2_MISMATCH
+          - CVV_REJECTED
+          - DUPLICATE_TRANSACTION
+        orderCreatedDate:
+          type: string
+        externalOrderId:
+          type: string
+        orderId:
+          type: string
+        orderNumber:
+          type: string
+        amountTendered:
+          type: integer
+          format: int32
+        orderFulfillTime:
+          type: string
+        trackingUrl:
+          type: string
+        externalStatuses:
+          type: object
+          additionalProperties:
+            type: string
+    BillingAddress:
+      type: object
+      properties:
+        name:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+        phoneNumber:
+          type: string
     PaymentConfig:
       type: object
       properties:
@@ -201,25 +307,6 @@ components:
           type: boolean
         guestCheckoutSupported:
           type: boolean
-    BillingAddress:
-      type: object
-      properties:
-        name:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        zip:
-          type: string
-        country:
-          type: string
-        phoneNumber:
-          type: string
     PaymentRequestDTO:
       required:
       - email
@@ -300,72 +387,15 @@ components:
           type: boolean
         billingAddress:
           $ref: '#/components/schemas/BillingAddress'
-    PaymentResponseDTO:
+    OrderOptionInfo:
       type: object
       properties:
-        orderStatus:
+        optionName:
           type: string
-          enum:
-          - ORDER_SUCCESS
-          - ORDER_PENDING
-          - ORDER_REVERSAL_SUCCESS
-          - ORDER_REVERSAL_FAILED
-          - ORDER_REVERSAL_NOT_SUPPORTED
-          - ORDER_PROCESSOR_TIMEOUT
-          - ORDER_PROCESSING_ERROR
-          - PAYMENT_SUCCESS
-          - PAYMENT_3DS2_AUTHENTICATION_PENDING
-          - PAYMENT_SKIPPED
-          - PAYMENT_DECLINED
-          - PAYMENT_PENDING
-          - PAYMENT_PROCESSOR_TIMEOUT
-          - PAYMENT_GATEWAY_ERROR
-          - INSUFFICIENT_FUNDS
-          - INSUFFICIENT_GIFT_CARD_FUNDS
-          - INVALID_PAYMENT_DETAILS
-          - PAYMENT_PROCESSING_ERROR
-          - PAYMENT_REVERSAL_SUCCESS
-          - PAYMENT_REVERSAL_FAILED
-          - CARD_VERFICATION_SUCCESS
-          - CARD_VERFICATION_FAILED
-          - CARD_VERFICATION_ISSUER_DECLINE
-          - CARD_AVS_VERFICATION_FAILED
-          - CARD_VERIFICATION_AVS_ZIP_CODE_MISMATCH
-          - CARD_3DS_VERIFICATION_FAILED
-          - PAYMENT_ISSUER_TIMEOUT
-          - CARD_EXPIRED
-          - PAYMENT_TX_NOT_FOUND
-          - INVALID_INPUTS
-          - CARD_NOT_SUPPORTED
-          - PAYMENT_METHOD_ERROR
-          - REDEMPTION_ERROR
-          - INTERNAL_SERVER_ERROR
-          - CONFIGURATION_ERROR
-          - PRICE_CALCULATION_SUCCESS
-          - PRICE_CALCULATION_FAILED
-          - PRICE_CALCULATION_TIMEOUT
-          - CVV2_MISMATCH
-          - CVV_REJECTED
-          - DUPLICATE_TRANSACTION
-        orderCreatedDate:
+        information:
           type: string
-        externalOrderId:
+        optionDescription:
           type: string
-        orderId:
-          type: string
-        orderNumber:
-          type: string
-        amountTendered:
-          type: integer
-          format: int32
-        orderFulfillTime:
-          type: string
-        trackingUrl:
-          type: string
-        externalStatuses:
-          type: object
-          additionalProperties:
-            type: string
     InitOrderResponseDTO:
       type: object
       properties:
@@ -379,33 +409,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PaymentConfig'
-    InitOrderRequestDTO:
-      type: object
-      properties:
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
-        cardType:
-          type: string
-        lastFour:
-          type: string
-        locationId:
-          type: string
-        merchantId:
-          type: string
-        orderId:
-          type: string
-        otherData:
-          type: string
-        paymentToken:
-          type: string
-    OrderOptionInfo:
-      type: object
-      properties:
-        optionName:
-          type: string
-        information:
-          type: string
-        optionDescription:
-          type: string

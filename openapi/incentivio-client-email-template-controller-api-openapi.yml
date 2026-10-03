@@ -215,64 +215,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    UpdateClientTemplateRequestDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        jsonTemplate:
-          type: string
-        htmlTemplate:
-          type: string
-        fromAddress:
-          type: string
-        bcc:
-          type: string
-        subject:
-          type: string
-        eventType:
-          $ref: '#/components/schemas/EventType'
-        emailTemplateType:
-          $ref: '#/components/schemas/ClientEmailTemplateType'
-        reusable:
-          type: boolean
-    TemplateTagResponseDTO:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ClientEmailTemplateType'
-        eventType:
-          $ref: '#/components/schemas/EventType'
-        tag:
-          type: string
-        required:
-          type: boolean
-        specialLink:
-          type: boolean
-    ClientTemplatesResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientTemplate'
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
+    ClientEmailTemplateType:
+      type: string
+      enum:
+      - OFFER
+      - LOYALTY_OFFER
+      - MESSAGE
+      - EVENT
     ClientTemplate:
       type: object
       properties:
@@ -353,10 +302,61 @@ components:
       - ORDER_CUSTOMER_NOTIFICATION
       - GUEST_CHECKOUT_VERIFICATION
       - PASSWORDLESS_AUTH
-    ClientEmailTemplateType:
-      type: string
-      enum:
-      - OFFER
-      - LOYALTY_OFFER
-      - MESSAGE
-      - EVENT
+    TemplateTagResponseDTO:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        tag:
+          type: string
+        required:
+          type: boolean
+        specialLink:
+          type: boolean
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    ClientTemplatesResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientTemplate'
+    UpdateClientTemplateRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        jsonTemplate:
+          type: string
+        htmlTemplate:
+          type: string
+        fromAddress:
+          type: string
+        bcc:
+          type: string
+        subject:
+          type: string
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        emailTemplateType:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+        reusable:
+          type: boolean

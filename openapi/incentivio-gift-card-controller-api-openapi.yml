@@ -644,6 +644,43 @@ paths:
       description: Generated server url
 components:
   schemas:
+    CreateCardResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        cardIdentifier:
+          type: string
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
     RemoveCardResponse:
       type: object
       properties:
@@ -657,38 +694,78 @@ components:
           type: object
           additionalProperties:
             type: string
-    SourceTypeEnum:
-      type: string
-      enum:
-      - POS
-      - MOBILE
-      - WEB
-      - ADMIN_PORTAL
-      - EMAIL_EVENT
-    GiftCardSender:
+    GiftCardTransactionRequest:
       type: object
       properties:
-        firstName:
+        sourceType:
           type: string
-        lastName:
+        incentivioUserId:
           type: string
-        email:
+        incentivioLocationId:
           type: string
-        phone:
+        incentivioLocationName:
           type: string
-        customerId:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        cardIdentifier:
+          type: string
+        transactionType:
+          type: string
+        description:
+          type: string
+        amount:
+          type: number
+          format: double
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    CreateCardRequest:
+      type: object
+      properties:
+        sourceType:
+          $ref: '#/components/schemas/SourceType'
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        incentivioLocationId:
           type: string
         adminId:
           type: string
-    GiftCardRecipient:
+        amount:
+          type: integer
+          format: int32
+        from:
+          type: string
+        recipient:
+          $ref: '#/components/schemas/GiftCardRecipient'
+    ImportCardRequest:
       type: object
       properties:
-        name:
+        sourceType:
+          $ref: '#/components/schemas/SourceType'
+        adminId:
           type: string
-        email:
+        file:
           type: string
-        message:
+          format: binary
+        cardStatus:
           type: string
+        isUpdateCards:
+          type: boolean
+        isCompBalance:
+          type: boolean
+      required:
+      - cardStatus
+      - file
+    SortDirectionEnum:
+      type: string
+      enum:
+      - ASC
+      - DESC
     GiftCardTransactionViewDTO:
       type: object
       properties:
@@ -713,6 +790,153 @@ components:
           format: date-time
         status:
           type: string
+    GiftCardEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        cardIdentifier:
+          type: string
+        eventName:
+          type: string
+        traceId:
+          type: string
+        transactionId:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        description:
+          type: string
+        interventionRequired:
+          type: boolean
+        resolved:
+          type: boolean
+        resolutionTime:
+          type: string
+          format: date-time
+        resolutionComment:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalStatuses:
+          type: object
+          additionalProperties:
+            type: string
+        additionalDetails:
+          type: string
+    GiftCardServiceProvider:
+      type: string
+      enum:
+      - INCENTIVIO_GIFTCARD_SERVICE
+      - WORLDPAY
+      - WORLDPAY_VALUETEC
+      - GIVEX
+      - SQUARE
+      - VALUTEC
+      - E_CARD_SYSTEMS
+    AdminViewGiftCardResponseDTO:
+      type: object
+      properties:
+        cardIdentifier:
+          type: string
+        cardAccountBalance:
+          type: number
+          format: double
+        cardStatus:
+          type: string
+        activatedDate:
+          type: string
+        customerList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerViewDTO'
+        from:
+          type: string
+        recipient:
+          $ref: '#/components/schemas/GiftCardRecipient'
+        sender:
+          $ref: '#/components/schemas/GiftCardSender'
+        token:
+          type: string
+        provider:
+          type: string
+        securityCode:
+          type: string
+    GiftCardAccountViewDTO:
+      type: object
+      properties:
+        cardIdentifier:
+          type: string
+        cardAccountBalance:
+          type: number
+          format: double
+        cardStatus:
+          type: string
+        activatedDate:
+          type: string
+        ownerEmail:
+          type: string
+        sender:
+          $ref: '#/components/schemas/GiftCardSender'
+        recipient:
+          $ref: '#/components/schemas/GiftCardRecipient'
+        token:
+          type: string
+    GiftCardRecipient:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        message:
+          type: string
+    SourceType:
+      type: string
+      enum:
+      - POS
+      - MOBILE
+      - WEB
+      - ADMIN_PORTAL
+    GiftCardTransactionResponse:
+      type: object
+      properties:
+        transactionType:
+          type: string
+        cardIdentifier:
+          type: string
+        cardAccountBalance:
+          type: number
+          format: double
+        transactionValue:
+          type: number
+          format: double
+        cardStatus:
+          type: string
+        transactionStatus:
+          type: string
+        rootErrors:
+          type: object
+          additionalProperties:
+            type: string
+    CustomerViewDTO:
+      type: object
+      properties:
+        userId:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        externalId:
+          type: string
+        accountAliasId:
+          type: string
     TypeEnum:
       type: string
       enum:
@@ -720,25 +944,6 @@ components:
       - LICENSE
       - ID_CARD
       - OTHER
-    SearchGiftCardAccountBatchSummaryResponseDTO:
-      type: object
-      properties:
-        batchSummaries:
-          type: array
-          items:
-            $ref: '#/components/schemas/GiftCardAccountBatchSummaryDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    StatusEnum:
-      type: string
-      enum:
-      - INPROGRESS
-      - SUCCESS
-      - FAILED
-      - EMAILED
-      - RETRYING
-      - DOWNLOADED
-      - NODATA
     GiftCardAccountBatchSummaryDTO:
       type: object
       properties:
@@ -801,6 +1006,82 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GiftCardAccountBatchSummaryDTO'
+    AdminSearchForGiftCardResponseDTO:
+      type: object
+      properties:
+        giftCards:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCardAccountViewDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    GiftCardSender:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        customerId:
+          type: string
+        adminId:
+          type: string
+    AdminViewTransactionForGiftCardResponseDTO:
+      type: object
+      properties:
+        giftCardTransactionList:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCardTransactionViewDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    SourceTypeEnum:
+      type: string
+      enum:
+      - POS
+      - MOBILE
+      - WEB
+      - ADMIN_PORTAL
+      - EMAIL_EVENT
+    ResendEmailRequest:
+      type: object
+      properties:
+        cardIdentifier:
+          type: string
+        adminId:
+          type: string
+        recipientEmail:
+          type: string
+        fieldsAsMap:
+          type: object
+          additionalProperties: {}
+    AdminViewEventsForGiftCardResponseDTO:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCardEvent'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+        status:
+          type: string
+    ResendEmailResponse:
+      type: object
+      properties:
+        recipientEmail:
+          type: string
+        status:
+          type: string
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
     AdminGiftCardSearchRequestDTO:
       type: object
       properties:
@@ -830,32 +1111,26 @@ components:
         page:
           type: integer
           format: int32
-    ImportCardRequest:
+    ImportCardResponse:
       type: object
       properties:
-        sourceType:
-          $ref: '#/components/schemas/SourceType'
-        adminId:
+        batchId:
           type: string
-        file:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        description:
           type: string
-          format: binary
-        cardStatus:
-          type: string
-        isUpdateCards:
-          type: boolean
-        isCompBalance:
-          type: boolean
-      required:
-      - cardStatus
-      - file
-    AdminViewTransactionForGiftCardResponseDTO:
+        rootErrors:
+          type: object
+          additionalProperties:
+            type: string
+    SearchGiftCardAccountBatchSummaryResponseDTO:
       type: object
       properties:
-        giftCardTransactionList:
+        batchSummaries:
           type: array
           items:
-            $ref: '#/components/schemas/GiftCardTransactionViewDTO'
+            $ref: '#/components/schemas/GiftCardAccountBatchSummaryDTO'
         paging:
           $ref: '#/components/schemas/PagingDTO'
     SearchGiftCardAccountBatchSummaryRequestDTO:
@@ -883,313 +1158,6 @@ components:
           type: string
         sortDirection:
           $ref: '#/components/schemas/SortDirectionEnum'
-    GiftCardServiceProvider:
-      type: string
-      enum:
-      - INCENTIVIO_GIFTCARD_SERVICE
-      - WORLDPAY
-      - WORLDPAY_VALUETEC
-      - GIVEX
-      - SQUARE
-      - VALUTEC
-      - E_CARD_SYSTEMS
-    AdminSearchForGiftCardResponseDTO:
-      type: object
-      properties:
-        giftCards:
-          type: array
-          items:
-            $ref: '#/components/schemas/GiftCardAccountViewDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    CreateCardResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        cardIdentifier:
-          type: string
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-    CustomerViewDTO:
-      type: object
-      properties:
-        userId:
-          type: string
-        email:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        externalId:
-          type: string
-        accountAliasId:
-          type: string
-    GiftCardTransactionRequest:
-      type: object
-      properties:
-        sourceType:
-          type: string
-        incentivioUserId:
-          type: string
-        incentivioLocationId:
-          type: string
-        incentivioLocationName:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        cardIdentifier:
-          type: string
-        transactionType:
-          type: string
-        description:
-          type: string
-        amount:
-          type: number
-          format: double
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    GiftCardEvent:
-      type: object
-      properties:
-        id:
-          type: string
-        cardIdentifier:
-          type: string
-        eventName:
-          type: string
-        traceId:
-          type: string
-        transactionId:
-          type: string
-        eventTime:
-          type: string
-          format: date-time
-        description:
-          type: string
-        interventionRequired:
-          type: boolean
-        resolved:
-          type: boolean
-        resolutionTime:
-          type: string
-          format: date-time
-        resolutionComment:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        externalStatuses:
-          type: object
-          additionalProperties:
-            type: string
-        additionalDetails:
-          type: string
-    ImportCardResponse:
-      type: object
-      properties:
-        batchId:
-          type: string
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        description:
-          type: string
-        rootErrors:
-          type: object
-          additionalProperties:
-            type: string
-    AdminViewGiftCardResponseDTO:
-      type: object
-      properties:
-        cardIdentifier:
-          type: string
-        cardAccountBalance:
-          type: number
-          format: double
-        cardStatus:
-          type: string
-        activatedDate:
-          type: string
-        customerList:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerViewDTO'
-        from:
-          type: string
-        recipient:
-          $ref: '#/components/schemas/GiftCardRecipient'
-        sender:
-          $ref: '#/components/schemas/GiftCardSender'
-        token:
-          type: string
-        provider:
-          type: string
-        securityCode:
-          type: string
-    SourceType:
-      type: string
-      enum:
-      - POS
-      - MOBILE
-      - WEB
-      - ADMIN_PORTAL
-    CreateCardRequest:
-      type: object
-      properties:
-        sourceType:
-          $ref: '#/components/schemas/SourceType'
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        incentivioLocationId:
-          type: string
-        adminId:
-          type: string
-        amount:
-          type: integer
-          format: int32
-        from:
-          type: string
-        recipient:
-          $ref: '#/components/schemas/GiftCardRecipient'
-    ResendEmailRequest:
-      type: object
-      properties:
-        cardIdentifier:
-          type: string
-        adminId:
-          type: string
-        recipientEmail:
-          type: string
-        fieldsAsMap:
-          type: object
-          additionalProperties: {}
-    GiftCardTransactionResponse:
-      type: object
-      properties:
-        transactionType:
-          type: string
-        cardIdentifier:
-          type: string
-        cardAccountBalance:
-          type: number
-          format: double
-        transactionValue:
-          type: number
-          format: double
-        cardStatus:
-          type: string
-        transactionStatus:
-          type: string
-        rootErrors:
-          type: object
-          additionalProperties:
-            type: string
-    ResendEmailResponse:
-      type: object
-      properties:
-        recipientEmail:
-          type: string
-        status:
-          type: string
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    GiftCardAccountViewDTO:
-      type: object
-      properties:
-        cardIdentifier:
-          type: string
-        cardAccountBalance:
-          type: number
-          format: double
-        cardStatus:
-          type: string
-        activatedDate:
-          type: string
-        ownerEmail:
-          type: string
-        sender:
-          $ref: '#/components/schemas/GiftCardSender'
-        recipient:
-          $ref: '#/components/schemas/GiftCardRecipient'
-        token:
-          type: string
-    SortDirectionEnum:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    AdminViewEventsForGiftCardResponseDTO:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/GiftCardEvent'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-        status:
-          type: string
-    GiftCardNumberLookupResponse:
-      type: object
-      properties:
-        token:
-          type: string
-    PurchaseECardResponseDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        userId:
-          type: string
-        cardIdentifier:
-          type: string
-        cardAccountBalance:
-          type: number
-          format: double
-        cardStatus:
-          type: string
-          enum:
-          - ACTIVE
-          - INACTIVE
-        status:
-          type: string
-        cardType:
-          type: string
-        image:
-          type: string
-        token:
-          type: string
-        default:
-          type: boolean
     PurchaseECardRequestDTO:
       required:
       - amount
@@ -1252,11 +1220,48 @@ components:
           format: int32
         oneTimeTransaction:
           type: boolean
-    AddPaymentInstrumentResponseDTO:
+    SecureGiftCardLookupResponse:
       type: object
       properties:
-        paymentInstrumentId:
+        maskedCardIdentifier:
           type: string
+        securityCodeEnabled:
+          type: boolean
+        cardAccountBalance:
+          type: number
+          format: double
+        cardStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+    PurchaseECardResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        userId:
+          type: string
+        cardIdentifier:
+          type: string
+        cardAccountBalance:
+          type: number
+          format: double
+        cardStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+        status:
+          type: string
+        cardType:
+          type: string
+        image:
+          type: string
+        token:
+          type: string
+        default:
+          type: boolean
     AddPaymentInstrumentRequestDTO:
       type: object
       properties:
@@ -1389,61 +1394,11 @@ components:
           type: string
         default:
           type: boolean
-    MyGiftCardResponseDTO:
+    GiftCardNumberLookupResponse:
       type: object
       properties:
-        clientId:
-          type: string
-        userId:
-          type: string
-        cardIdentifier:
-          type: string
-        securityCode:
-          type: string
-        cardAccountBalance:
-          type: number
-          format: double
-        cardStatus:
-          type: string
-          enum:
-          - ACTIVE
-          - INACTIVE
-        cardType:
-          type: string
-        image:
-          type: string
         token:
           type: string
-        paymentInstrumentId:
-          type: string
-        default:
-          type: boolean
-    GiftCardLookupRequest:
-      type: object
-      properties:
-        clientId:
-          type: string
-        cardNumber:
-          type: string
-        securityCode:
-          type: string
-        errorOnAssigned:
-          type: boolean
-    SecureGiftCardLookupResponse:
-      type: object
-      properties:
-        maskedCardIdentifier:
-          type: string
-        securityCodeEnabled:
-          type: boolean
-        cardAccountBalance:
-          type: number
-          format: double
-        cardStatus:
-          type: string
-          enum:
-          - ACTIVE
-          - INACTIVE
     AddValueRequestDTO:
       required:
       - amount
@@ -1527,6 +1482,51 @@ components:
           - ACTIVE
           - INACTIVE
         token:
+          type: string
+    MyGiftCardResponseDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        userId:
+          type: string
+        cardIdentifier:
+          type: string
+        securityCode:
+          type: string
+        cardAccountBalance:
+          type: number
+          format: double
+        cardStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+        cardType:
+          type: string
+        image:
+          type: string
+        token:
+          type: string
+        paymentInstrumentId:
+          type: string
+        default:
+          type: boolean
+    GiftCardLookupRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        cardNumber:
+          type: string
+        securityCode:
+          type: string
+        errorOnAssigned:
+          type: boolean
+    AddPaymentInstrumentResponseDTO:
+      type: object
+      properties:
+        paymentInstrumentId:
           type: string
 x-refined-from:
 - incentivio-admin-api-openapi.json

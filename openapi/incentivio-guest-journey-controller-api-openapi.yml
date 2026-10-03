@@ -198,13 +198,50 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GuestSummaryResponse:
+    GuestCountSummary:
       type: object
       properties:
-        summary:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/GuestSegmentInfo'
+        clientId:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        guestCount:
+          type: integer
+          format: int64
+    GuestSegmentTrend:
+      type: string
+      enum:
+      - UPTREND
+      - DOWNTREND
+      - STAGNANT
+    GuestSegmentType:
+      type: string
+      enum:
+      - STRANGER
+      - ROOKIE
+      - REGULAR
+      - LOYALIST
+      - CHAMPION
+      - WHALE
+      - SLIDER
+      - CHURNED
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
     GuestSegmentOfferInfo:
       type: object
       properties:
@@ -217,6 +254,115 @@ components:
         redemptionPercentage:
           type: number
           format: double
+    GuestCountSummaryResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestCountSummary'
+    ViewGuestJourneyResponse:
+      type: object
+      properties:
+        journey:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuestJourneyStatus'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    GuestRevenueSummary:
+      type: object
+      properties:
+        clientId:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        revenuePercentage:
+          type: number
+          format: double
+        date:
+          type: string
+    GuestCountSummaryByStoreResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestCountSummaryByStore'
+    GuestCountSummaryByStore:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        storeId:
+          type: string
+        storeName:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        guestCount:
+          type: integer
+          format: int64
+    GuestRevenueSummaryByStore:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        storeId:
+          type: string
+        storeName:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        revenuePercentage:
+          type: number
+          format: double
+    GuestSegmentRecoveryInfo:
+      type: object
+      properties:
+        recoveredCount:
+          type: integer
+          format: int64
+        recoveredAnnualSpend:
+          type: number
+          format: double
+    GuestSummaryResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GuestSegmentInfo'
+    GuestRevenueSummaryResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestRevenueSummary'
+    GuestRevenueSummaryByStoreResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestRevenueSummaryByStore'
     GuestSegmentInfo:
       type: object
       properties:
@@ -260,12 +406,6 @@ components:
         updatedDate:
           type: string
           format: date-time
-    GuestSegmentTrend:
-      type: string
-      enum:
-      - UPTREND
-      - DOWNTREND
-      - STAGNANT
     GuestJourneyStatus:
       type: object
       properties:
@@ -276,143 +416,3 @@ components:
           type: string
         modifiedDate:
           type: string
-    GuestCountSummary:
-      type: object
-      properties:
-        clientId:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/GuestSegmentType'
-        date:
-          type: string
-        guestCount:
-          type: integer
-          format: int64
-    GuestRevenueSummaryResponse:
-      type: object
-      properties:
-        summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuestRevenueSummary'
-    GuestSegmentType:
-      type: string
-      enum:
-      - STRANGER
-      - ROOKIE
-      - REGULAR
-      - LOYALIST
-      - CHAMPION
-      - WHALE
-      - SLIDER
-      - CHURNED
-    GuestRevenueSummaryByStoreResponse:
-      type: object
-      properties:
-        summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuestRevenueSummaryByStore'
-    ViewGuestJourneyResponse:
-      type: object
-      properties:
-        journey:
-          type: array
-          items:
-            $ref: '#/components/schemas/GuestJourneyStatus'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    GuestCountSummaryResponse:
-      type: object
-      properties:
-        summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuestCountSummary'
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-    GuestRevenueSummaryByStore:
-      type: object
-      properties:
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        storeId:
-          type: string
-        storeName:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/GuestSegmentType'
-        date:
-          type: string
-        revenuePercentage:
-          type: number
-          format: double
-    GuestSegmentRecoveryInfo:
-      type: object
-      properties:
-        recoveredCount:
-          type: integer
-          format: int64
-        recoveredAnnualSpend:
-          type: number
-          format: double
-    GuestRevenueSummary:
-      type: object
-      properties:
-        clientId:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/GuestSegmentType'
-        revenuePercentage:
-          type: number
-          format: double
-        date:
-          type: string
-    GuestCountSummaryByStore:
-      type: object
-      properties:
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        storeId:
-          type: string
-        storeName:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/GuestSegmentType'
-        date:
-          type: string
-        guestCount:
-          type: integer
-          format: int64
-    GuestCountSummaryByStoreResponse:
-      type: object
-      properties:
-        summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuestCountSummaryByStore'

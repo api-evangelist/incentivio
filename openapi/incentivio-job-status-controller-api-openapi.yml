@@ -24,13 +24,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    JobStatusResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobStatusDTO'
     JobStatusDTO:
       type: object
       properties:
@@ -46,3 +39,10 @@ components:
       - dataAvailableDate
       - jobName
       - updatedDate
+    JobStatusResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobStatusDTO'

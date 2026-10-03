@@ -35,17 +35,61 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    QuestionDisplayInfo:
+    GetSurveyResponseDTO:
       type: object
       properties:
-        languageCode:
+        surveyId:
           type: string
-        title:
+        clientId:
           type: string
-        questionDescription:
+        merchantId:
+          type: string
+        locationId:
+          type: string
+        name:
+          type: string
+        description:
           type: string
         imageUrl:
           type: string
+        questions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/GetQuestionResponseDTO'
+        surveyDisplayInfos:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SurveyDisplayInfo'
+        createdDateTime:
+          type: string
+          format: date-time
+        modifiedDateTime:
+          type: string
+          format: date-time
+    ChoiceDTO:
+      required:
+      - choiceDisplayInfos
+      - choiceTitle
+      type: object
+      properties:
+        choiceId:
+          type: string
+        choiceTitle:
+          type: string
+        imageUrl:
+          type: string
+        isDefault:
+          type: boolean
+        positionIndex:
+          type: integer
+          format: int32
+        choiceDisplayInfos:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ChoiceDisplayInfo'
     GetQuestionResponseDTO:
       type: object
       properties:
@@ -84,45 +128,16 @@ components:
         modifiedDateTime:
           type: string
           format: date-time
-    GetSurveyResponseDTO:
-      type: object
-      properties:
-        surveyId:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        locationId:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        imageUrl:
-          type: string
-        questions:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/GetQuestionResponseDTO'
-        surveyDisplayInfos:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/SurveyDisplayInfo'
-        createdDateTime:
-          type: string
-          format: date-time
-        modifiedDateTime:
-          type: string
-          format: date-time
-    ChoiceDisplayInfo:
+    QuestionDisplayInfo:
       type: object
       properties:
         languageCode:
           type: string
         title:
+          type: string
+        questionDescription:
+          type: string
+        imageUrl:
           type: string
     SurveyDisplayInfo:
       type: object
@@ -137,25 +152,10 @@ components:
           type: string
         imageUrl:
           type: string
-    ChoiceDTO:
-      required:
-      - choiceDisplayInfos
-      - choiceTitle
+    ChoiceDisplayInfo:
       type: object
       properties:
-        choiceId:
+        languageCode:
           type: string
-        choiceTitle:
+        title:
           type: string
-        imageUrl:
-          type: string
-        isDefault:
-          type: boolean
-        positionIndex:
-          type: integer
-          format: int32
-        choiceDisplayInfos:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ChoiceDisplayInfo'

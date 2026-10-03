@@ -218,6 +218,78 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CreateRoleResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+    PermissionDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        permission:
+          type: string
+        description:
+          type: string
+        moduleID:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+    SearchRolesResponseDTO:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+    CreateRoleRequestDTO:
+      type: object
+      properties:
+        role:
+          type: string
+        description:
+          type: string
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDTO'
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+      required:
+      - modules
+      - role
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    RoleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        role:
+          type: string
+        description:
+          type: string
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDTO'
+        active:
+          type: boolean
+        deleted:
+          type: boolean
     ModuleDTO:
       type: object
       properties:
@@ -243,43 +315,21 @@ components:
           type: boolean
         deleted:
           type: boolean
-    CreateRoleResponseDTO:
+    PagingDto:
       type: object
       properties:
-        id:
-          type: string
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    SearchRolesResponseDTO:
-      type: object
-      properties:
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoleDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-    RoleDTO:
-      type: object
-      properties:
-        id:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
           type: integer
           format: int64
-        role:
-          type: string
-        description:
-          type: string
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleDTO'
-        active:
-          type: boolean
-        deleted:
-          type: boolean
+        totalPages:
+          type: integer
+          format: int64
     SearchModulesResponseDTO:
       type: object
       properties:
@@ -307,53 +357,3 @@ components:
           type: boolean
       required:
       - id
-    PermissionDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        permission:
-          type: string
-        description:
-          type: string
-        moduleID:
-          type: integer
-          format: int64
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-    CreateRoleRequestDTO:
-      type: object
-      properties:
-        role:
-          type: string
-        description:
-          type: string
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleDTO'
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-      required:
-      - modules
-      - role

@@ -149,6 +149,52 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CustomerTagAndRulesWithPagingForAdminDTO:
+      type: object
+      properties:
+        tagAndRuleDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAndRuleDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    Source:
+      type: string
+      enum:
+      - SYSTEM
+      - GUEST_INPUT
+      - GENERATED
+      - IMPORTED_MANUAL
+    CustomerTagDataType:
+      type: string
+      enum:
+      - NUMBER
+      - TEXT
+      - DATE
+      - COLLECTION
+      - GEO
+    TagsAndRulesResponseDTO:
+      type: object
+      properties:
+        tagAndRuleDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAndRuleDTO'
     CustomerTagRequestDTO:
       type: object
       properties:
@@ -173,6 +219,11 @@ components:
       - attributeType
       - key
       - title
+    TagType:
+      type: string
+      enum:
+      - CUSTOM
+      - SYSTEM
     TagAndRuleDTO:
       type: object
       properties:
@@ -212,54 +263,3 @@ components:
           type: array
           items:
             type: string
-    CustomerTagAndRulesWithPagingForAdminDTO:
-      type: object
-      properties:
-        tagAndRuleDTOS:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagAndRuleDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    TagsAndRulesResponseDTO:
-      type: object
-      properties:
-        tagAndRuleDTOS:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagAndRuleDTO'
-    Source:
-      type: string
-      enum:
-      - SYSTEM
-      - GUEST_INPUT
-      - GENERATED
-      - IMPORTED_MANUAL
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-    CustomerTagDataType:
-      type: string
-      enum:
-      - NUMBER
-      - TEXT
-      - DATE
-      - COLLECTION
-      - GEO
-    TagType:
-      type: string
-      enum:
-      - CUSTOM
-      - SYSTEM

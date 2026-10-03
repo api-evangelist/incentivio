@@ -134,6 +134,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    NewSignUpsForPreviousMonthReportDTO:
+      type: object
+      properties:
+        totalSignedUp:
+          type: number
+        comparedToPreviousMonthPercentage:
+          type: string
     CustomerReportDownloadRequestStatus:
       type: string
       enum:
@@ -141,6 +148,14 @@ components:
       - FAILED
       - DOWNLOADED
       - EMAILED
+    NewSignUpsReportDTO:
+      type: object
+      properties:
+        signedUpDate:
+          type: string
+          format: date-time
+        totalSignedUp:
+          type: number
     TotalSignUpsReportDTO:
       type: object
       properties:
@@ -179,18 +194,3 @@ components:
           type: array
           items:
             type: string
-    NewSignUpsReportDTO:
-      type: object
-      properties:
-        signedUpDate:
-          type: string
-          format: date-time
-        totalSignedUp:
-          type: number
-    NewSignUpsForPreviousMonthReportDTO:
-      type: object
-      properties:
-        totalSignedUp:
-          type: number
-        comparedToPreviousMonthPercentage:
-          type: string

@@ -247,103 +247,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ViewItemMobileDTO:
-      required:
-      - title
-      type: object
-      properties:
-        title:
-          type: string
-        externalId:
-          type: string
-        createdDate:
-          type: string
-        updatedDate:
-          type: string
-        startDate:
-          type: string
-        endDate:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
-        status:
-          type: string
-        applicableOrderTypes:
-          type: array
-          items:
-            type: string
-            enum:
-            - DELIVERY
-            - PICKUP
-            - DINEIN
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        itemId:
-          type: string
-        price:
-          type: integer
-          format: int32
-        discounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Discount'
-        optionGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupMobileDTO'
-        optionGroupIds:
-          type: array
-          items:
-            type: string
-        uom:
-          type: string
-        sku:
-          type: string
-        upc:
-          type: string
-        brandId:
-          type: string
-        categoryId:
-          type: string
-        maxItemSelections:
-          type: integer
-          format: int32
-        inheritParentOptions:
-          type: boolean
-        orderingChannels:
-          type: array
-          items:
-            type: string
-            enum:
-            - MOBILE
-            - FACEBOOK
-            - NONE
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
     ListCatalogMobileDTO:
       required:
       - title
@@ -421,44 +324,25 @@ components:
         percentage:
           type: number
           format: float
-    OptionGroupSettingDTO:
+    DisplayInfo:
       type: object
       properties:
-        optionGroupId:
+        langCode:
           type: string
-        inheritGroupSettings:
-          type: boolean
-        defaultSelectedItemIds:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        mandatoryItemIds:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        selectionMandatory:
-          type: boolean
-        selectionType:
+        title:
           type: string
-          enum:
-          - MULTI_SELECT
-          - SINGLE_SELECT
-        maxItemSelections:
-          type: integer
-          format: int32
-        minItemSelections:
-          type: integer
-          format: int32
-        applicableOrderTypes:
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
           type: array
           items:
             type: string
-            enum:
-            - DELIVERY
-            - PICKUP
-            - DINEIN
+        mediumImage:
+          type: array
+          items:
+            type: string
     ViewGroupMobileDTO:
       required:
       - title
@@ -545,3 +429,119 @@ components:
         minItemSelections:
           type: integer
           format: int32
+    OptionGroupSettingDTO:
+      type: object
+      properties:
+        optionGroupId:
+          type: string
+        inheritGroupSettings:
+          type: boolean
+        defaultSelectedItemIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        mandatoryItemIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        selectionMandatory:
+          type: boolean
+        selectionType:
+          type: string
+          enum:
+          - MULTI_SELECT
+          - SINGLE_SELECT
+        maxItemSelections:
+          type: integer
+          format: int32
+        minItemSelections:
+          type: integer
+          format: int32
+        applicableOrderTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - DELIVERY
+            - PICKUP
+            - DINEIN
+    ViewItemMobileDTO:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+        externalId:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+        status:
+          type: string
+        applicableOrderTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - DELIVERY
+            - PICKUP
+            - DINEIN
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        itemId:
+          type: string
+        price:
+          type: integer
+          format: int32
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+        optionGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupMobileDTO'
+        optionGroupIds:
+          type: array
+          items:
+            type: string
+        uom:
+          type: string
+        sku:
+          type: string
+        upc:
+          type: string
+        brandId:
+          type: string
+        categoryId:
+          type: string
+        maxItemSelections:
+          type: integer
+          format: int32
+        inheritParentOptions:
+          type: boolean
+        orderingChannels:
+          type: array
+          items:
+            type: string
+            enum:
+            - MOBILE
+            - FACEBOOK
+            - NONE

@@ -30,6 +30,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PresignedUrlClient:
+      type: object
+      properties:
+        key:
+          type: string
+        presignedUrl:
+          type: string
     PresignedUrlsClientResponse:
       type: object
       properties:
@@ -46,10 +53,3 @@ components:
             type: string
       required:
       - keys
-    PresignedUrlClient:
-      type: object
-      properties:
-        key:
-          type: string
-        presignedUrl:
-          type: string

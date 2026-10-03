@@ -148,45 +148,24 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    IntegerMetricDetail:
+    MenuIntelligenceGroup:
       type: object
       properties:
-        all:
+        clientId:
+          type: string
+        jobId:
           type: integer
           format: int32
-        good:
-          type: integer
-          format: int32
-        bad:
-          type: integer
-          format: int32
-    DoubleMetricDetail:
-      type: object
-      properties:
-        all:
-          type: number
-          format: double
-        good:
-          type: number
-          format: double
-        bad:
-          type: number
-          format: double
-    ResultsPagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
+        createdDate:
+          type: string
+          format: date-time
+        groupDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupDetail'
+      required:
+      - createdDate
+      - groupDetails
     MenuIntelligenceLocation:
       type: object
       properties:
@@ -212,11 +191,33 @@ components:
           type: string
         locationName:
           type: string
-    GroupDetail:
+    IntegerMetricDetail:
       type: object
       properties:
-        groupName:
-          type: string
+        all:
+          type: integer
+          format: int32
+        good:
+          type: integer
+          format: int32
+        bad:
+          type: integer
+          format: int32
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
     MenuIntelligenceItemGeneralMetrics:
       type: object
       properties:
@@ -281,24 +282,6 @@ components:
       - itemName
       - itemPrice
       - itemScore
-    MenuIntelligenceGroup:
-      type: object
-      properties:
-        clientId:
-          type: string
-        jobId:
-          type: integer
-          format: int32
-        createdDate:
-          type: string
-          format: date-time
-        groupDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupDetail'
-      required:
-      - createdDate
-      - groupDetails
     MenuIntelligenceItemMetricsResponseDTO:
       type: object
       properties:
@@ -308,3 +291,20 @@ components:
             $ref: '#/components/schemas/MenuIntelligenceItemGeneralMetrics'
         paging:
           $ref: '#/components/schemas/ResultsPagingDTO'
+    GroupDetail:
+      type: object
+      properties:
+        groupName:
+          type: string
+    DoubleMetricDetail:
+      type: object
+      properties:
+        all:
+          type: number
+          format: double
+        good:
+          type: number
+          format: double
+        bad:
+          type: number
+          format: double

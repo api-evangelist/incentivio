@@ -131,57 +131,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AuditEvent:
-      type: object
-      properties:
-        id:
-          type: string
-        eventName:
-          $ref: '#/components/schemas/EventNameEnum'
-        topic:
-          type: string
-        traceId:
-          type: string
-        transferId:
-          type: string
-        eventTime:
-          type: string
-          format: date-time
-        interventionRequired:
-          type: boolean
-        resolved:
-          type: boolean
-        resolutionTime:
-          type: string
-          format: date-time
-        resolutionComment:
-          type: string
-        additionalDetails:
-          type: string
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    EventNameEnum:
-      type: string
-      enum:
-      - CREATED
-      - SUBMITTED_TO_DWOLLA
-      - SUBMITTION_TO_DWOLLA_FAILED
-      - WEBHOOK_UPDATE
-      - WEBHOOK_UPDATE_FAILED
-      - CANCELLATION_STARTED
-      - CANCELLED
-      - CANCELLATION_FAILED
-      - RETRY_TRANSFER_CREATED
-    FundTransferLocationConfig:
-      type: object
-      properties:
-        locationId:
-          type: string
-        active:
-          type: boolean
     FundTransferConfigResponse:
       type: object
       properties:
@@ -201,6 +150,81 @@ components:
           format: date-time
         active:
           type: boolean
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    CreateOrUpdateFundTransferConfigRequest:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransferLocationConfig'
+        active:
+          type: boolean
+    EventNameEnum:
+      type: string
+      enum:
+      - CREATED
+      - SUBMITTED_TO_DWOLLA
+      - SUBMITTION_TO_DWOLLA_FAILED
+      - WEBHOOK_UPDATE
+      - WEBHOOK_UPDATE_FAILED
+      - CANCELLATION_STARTED
+      - CANCELLED
+      - CANCELLATION_FAILED
+      - RETRY_TRANSFER_CREATED
+    RetrieveFundTransferListResponse:
+      type: object
+      properties:
+        transferList:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransfer'
+        pageIndex:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        totalRecordCount:
+          type: integer
+          format: int64
+    FormattedDwollaException:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     FundTransfer:
       type: object
       properties:
@@ -293,53 +317,6 @@ components:
         modifiedDate:
           type: string
           format: date-time
-    CreateOrUpdateFundTransferConfigRequest:
-      type: object
-      properties:
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/FundTransferLocationConfig'
-        active:
-          type: boolean
-    RetrieveFundTransferListResponse:
-      type: object
-      properties:
-        transferList:
-          type: array
-          items:
-            $ref: '#/components/schemas/FundTransfer'
-        pageIndex:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        totalRecordCount:
-          type: integer
-          format: int64
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        path:
-          type: string
-    StatusEnum:
-      type: string
-      enum:
-      - INPROGRESS
-      - SUCCESS
-      - FAILED
-      - EMAILED
-      - RETRYING
-      - DOWNLOADED
-      - NODATA
     FundTransferFailureReason:
       type: object
       properties:
@@ -349,14 +326,37 @@ components:
           type: string
         explanation:
           type: string
-    FormattedDwollaException:
+    FundTransferLocationConfig:
       type: object
       properties:
-        code:
+        locationId:
           type: string
-        message:
+        active:
+          type: boolean
+    AuditEvent:
+      type: object
+      properties:
+        id:
           type: string
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+        eventName:
+          $ref: '#/components/schemas/EventNameEnum'
+        topic:
+          type: string
+        traceId:
+          type: string
+        transferId:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        interventionRequired:
+          type: boolean
+        resolved:
+          type: boolean
+        resolutionTime:
+          type: string
+          format: date-time
+        resolutionComment:
+          type: string
+        additionalDetails:
+          type: string

@@ -206,6 +206,13 @@ components:
         maxOrderingDate:
           type: string
           format: date
+    ValidatedTimeSlot:
+      type: object
+      properties:
+        time:
+          type: string
+        valid:
+          type: boolean
     CalculateAsapDurationRequestDTO:
       type: object
       properties:
@@ -219,25 +226,6 @@ components:
           - DINEIN
         address:
           $ref: '#/components/schemas/Address'
-    OrderAvailabilityRequestDTO:
-      type: object
-      properties:
-        presetOrderId:
-          type: string
-        orderId:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
-        selectedDay:
-          type: string
-          format: date
-    ValidatedTimeSlot:
-      type: object
-      properties:
-        time:
-          type: string
-        valid:
-          type: boolean
     CalculateAsapDurationResponseDTO:
       type: object
       properties:
@@ -252,6 +240,18 @@ components:
         asapDuration:
           type: integer
           format: int32
+    OrderAvailabilityRequestDTO:
+      type: object
+      properties:
+        presetOrderId:
+          type: string
+        orderId:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        selectedDay:
+          type: string
+          format: date
     Address:
       type: object
       properties:

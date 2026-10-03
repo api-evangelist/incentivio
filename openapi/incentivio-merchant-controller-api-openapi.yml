@@ -90,16 +90,57 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ExternalDeliveryFeeStrategy:
+    TotalCalculationStrategy:
       type: string
       enum:
-      - ADD
-      - IGNORE
+      - TOAST
+      - SILVERWARE
+      - NCC
+      - LIGHTSPEED
+      - EXTERNAL
     IDGenerationStrategy:
       type: string
       enum:
       - UUID
       - AUTO_INCREMENT
+    ExternalDeliverySettings:
+      type: object
+      properties:
+        deliveryStrategy:
+          type: string
+        externalDeliveryFeeStrategy:
+          $ref: '#/components/schemas/ExternalDeliveryFeeStrategy'
+        externalDeliveryChargeId:
+          type: string
+        pickupBusinessName:
+          type: string
+        pickupAddress:
+          $ref: '#/components/schemas/Address'
+        pickupInstructions:
+          type: string
+        contactPhone:
+          type: string
+    OrderProcessingConfigDTO:
+      type: object
+      properties:
+        orderProcessingStrategy:
+          $ref: '#/components/schemas/OrderProcessingStrategy'
+        paymentIDGenerationStrategy:
+          $ref: '#/components/schemas/IDGenerationStrategy'
+        paymentGatewayName:
+          type: string
+        orderGatewayName:
+          type: string
+        externalDeliverySettings:
+          $ref: '#/components/schemas/ExternalDeliverySettings'
+        roundingMode:
+          $ref: '#/components/schemas/RoundingMode'
+        calculationStrategy:
+          $ref: '#/components/schemas/TotalCalculationStrategy'
+        consolidateMultipleDiscounts:
+          type: boolean
+        realTimeLoyaltyProcessing:
+          type: boolean
     MerchantResponseDTO:
       type: object
       properties:
@@ -131,16 +172,40 @@ components:
           type: object
           additionalProperties:
             type: string
-    ChargeDTO:
+    OrderProcessingStrategy:
+      type: string
+      enum:
+      - ONE_STEP
+      - TWO_STEP
+      - INCENTIVIO_ORDER
+      - INC_PAYMENTS
+    RoundingMode:
+      type: string
+      enum:
+      - HALF_EVEN
+      - HALF_UP
+      - TRUNCATE
+    ExternalDeliveryFeeStrategy:
+      type: string
+      enum:
+      - ADD
+      - IGNORE
+    ChargeType:
+      type: string
+      enum:
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    TaxDTO:
       type: object
       properties:
-        chargeId:
+        taxId:
           type: string
-        extChargeId:
+        extTaxId:
           type: string
-        chargeDescription:
+        taxDescription:
           type: string
-        chargeType:
+        taxType:
           $ref: '#/components/schemas/ChargeType'
         amount:
           type: integer
@@ -148,15 +213,11 @@ components:
         percentage:
           type: number
           format: float
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
-        orderApplied:
-          type: integer
-          format: int32
+    CreateMerchantResponseDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
     UpdateMerchantRequestDTO:
       type: object
       properties:
@@ -186,29 +247,35 @@ components:
           type: object
           additionalProperties:
             type: string
-    ExternalDeliverySettings:
+    UpdateMerchantResponseDTO:
       type: object
       properties:
-        deliveryStrategy:
+        merchantId:
           type: string
-        externalDeliveryFeeStrategy:
-          $ref: '#/components/schemas/ExternalDeliveryFeeStrategy'
-        externalDeliveryChargeId:
+        clientId:
           type: string
-        pickupBusinessName:
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxDTO'
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeDTO'
+        orderProcessingConfig:
+          $ref: '#/components/schemas/OrderProcessingConfigDTO'
+        pickupOrderProcessingTime:
+          type: integer
+          format: int64
+        deliveryOrderProcessingTime:
+          type: integer
+          format: int64
+        timeZone:
           type: string
-        pickupAddress:
-          $ref: '#/components/schemas/Address'
-        pickupInstructions:
-          type: string
-        contactPhone:
-          type: string
-    RoundingMode:
-      type: string
-      enum:
-      - HALF_EVEN
-      - HALF_UP
-      - TRUNCATE
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
     PaymentGatewayConfig:
       type: object
       properties:
@@ -216,28 +283,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    CreateMerchantResponseDTO:
-      type: object
-      properties:
-        merchantId:
-          type: string
-    TaxDTO:
-      type: object
-      properties:
-        taxId:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
     CreateMerchantRequestDTO:
       type: object
       properties:
@@ -257,41 +302,6 @@ components:
           $ref: '#/components/schemas/OrderProcessingConfigDTO'
         paymentGatewayConfig:
           $ref: '#/components/schemas/PaymentGatewayConfig'
-        pickupOrderProcessingTime:
-          type: integer
-          format: int64
-        deliveryOrderProcessingTime:
-          type: integer
-          format: int64
-        timeZone:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    ChargeType:
-      type: string
-      enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
-    UpdateMerchantResponseDTO:
-      type: object
-      properties:
-        merchantId:
-          type: string
-        clientId:
-          type: string
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxDTO'
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeDTO'
-        orderProcessingConfig:
-          $ref: '#/components/schemas/OrderProcessingConfigDTO'
         pickupOrderProcessingTime:
           type: integer
           format: int64
@@ -327,39 +337,29 @@ components:
           format: double
         aptSuite:
           type: string
-    OrderProcessingStrategy:
-      type: string
-      enum:
-      - ONE_STEP
-      - TWO_STEP
-      - INCENTIVIO_ORDER
-      - INC_PAYMENTS
-    TotalCalculationStrategy:
-      type: string
-      enum:
-      - TOAST
-      - SILVERWARE
-      - NCC
-      - LIGHTSPEED
-      - EXTERNAL
-    OrderProcessingConfigDTO:
+    ChargeDTO:
       type: object
       properties:
-        orderProcessingStrategy:
-          $ref: '#/components/schemas/OrderProcessingStrategy'
-        paymentIDGenerationStrategy:
-          $ref: '#/components/schemas/IDGenerationStrategy'
-        paymentGatewayName:
+        chargeId:
           type: string
-        orderGatewayName:
+        extChargeId:
           type: string
-        externalDeliverySettings:
-          $ref: '#/components/schemas/ExternalDeliverySettings'
-        roundingMode:
-          $ref: '#/components/schemas/RoundingMode'
-        calculationStrategy:
-          $ref: '#/components/schemas/TotalCalculationStrategy'
-        consolidateMultipleDiscounts:
+        chargeDescription:
+          type: string
+        chargeType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        taxable:
           type: boolean
-        realTimeLoyaltyProcessing:
+        gratuity:
           type: boolean
+        delivery:
+          type: boolean
+        orderApplied:
+          type: integer
+          format: int32

@@ -415,37 +415,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    BusinessController:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        dateOfBirth:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
-    UserDetailRequest:
-      type: object
-      properties:
-        userId:
-          type: string
-        userName:
-          type: string
-        email:
-          type: string
-    UpdateLocationRequest:
-      type: object
-      properties:
-        clientId:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationDetailRequest'
     ACHBeneficialOwner:
       type: object
       properties:
@@ -468,48 +437,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ACHDocument'
-    VerificationStatusEnum:
-      type: string
-      enum:
-      - UNVERIFIED
-      - DOCUMENT
-      - VERIFIED
-      - INCOMPLETE
-    TypeEnum:
-      type: string
-      enum:
-      - PASSPORT
-      - LICENSE
-      - ID_CARD
-      - OTHER
-    VerifyMicroDepositsRequest:
-      type: object
-      properties:
-        amount1:
-          type: string
-        amount2:
-          type: string
-    UpdateFundingAccountRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        externalId:
-          type: string
-        externalUrl:
-          type: string
-    RetrieveBeneficalOwnersResponse:
-      type: object
-      properties:
-        beneficialOwners:
-          type: array
-          items:
-            $ref: '#/components/schemas/ACHBeneficialOwner'
     RetrieveIAVTokenResponse:
       type: object
       properties:
         token:
           type: string
+    LocationDetailRequest:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+        locationEnabled:
+          type: boolean
     StatusEnum:
       type: string
       enum:
@@ -520,11 +463,24 @@ components:
       - RETRYING
       - DOWNLOADED
       - NODATA
-    RetrieveClientTokenResponse:
+    RetryCustomerVerificationRequest:
       type: object
       properties:
-        token:
+        dateOfBirth:
           type: string
+        fullSSN:
+          type: string
+        ein:
+          type: string
+    UpdateLocationRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailRequest'
     ACHDocument:
       type: object
       properties:
@@ -545,62 +501,35 @@ components:
             type: object
             additionalProperties:
               type: string
-    CopyCustomerAndAccountRequest:
-      type: object
-      properties:
-        fromLocationId:
-          type: string
-        toLocationIds:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-    ACHFundingAccount:
-      type: object
-      properties:
-        id:
-          type: string
-        externalId:
-          type: string
-        externalURL:
-          type: string
-        bankAccountType:
-          $ref: '#/components/schemas/BankAccountTypeEnum'
-        accountNickName:
-          type: string
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        deleted:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-        fingerprint:
-          type: string
-    RetryCustomerVerificationRequest:
-      type: object
-      properties:
-        dateOfBirth:
-          type: string
-        fullSSN:
-          type: string
-        ein:
-          type: string
-    AdminPortalMetaDataRequest:
-      type: object
-      properties:
-        deviceDetail:
-          $ref: '#/components/schemas/DeviceDetailRequest'
-        userDetail:
-          $ref: '#/components/schemas/UserDetailRequest'
-    BankAccountTypeEnum:
+    VerificationStatusEnum:
       type: string
       enum:
-      - CHECKING
-      - SAVINGS
+      - UNVERIFIED
+      - DOCUMENT
+      - VERIFIED
+      - INCOMPLETE
+    BusinessController:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        dateOfBirth:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    UserDetailRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
     UpdateLocationStatusRequest:
       type: object
       properties:
@@ -615,39 +544,55 @@ components:
           type: string
         browserType:
           type: string
-    LocationDetailRequest:
+    AdminPortalMetaDataRequest:
       type: object
       properties:
-        locationId:
-          type: string
-        locationName:
-          type: string
-        metaData:
-          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
-        locationEnabled:
-          type: boolean
-    Address:
+        deviceDetail:
+          $ref: '#/components/schemas/DeviceDetailRequest'
+        userDetail:
+          $ref: '#/components/schemas/UserDetailRequest'
+    CopyCustomerAndAccountRequest:
       type: object
       properties:
-        street1:
+        fromLocationId:
           type: string
-        street2:
+        toLocationIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    RetrieveClientTokenResponse:
+      type: object
+      properties:
+        token:
           type: string
-        city:
+    RetrieveBeneficalOwnersResponse:
+      type: object
+      properties:
+        beneficialOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHBeneficialOwner'
+    TypeEnum:
+      type: string
+      enum:
+      - PASSPORT
+      - LICENSE
+      - ID_CARD
+      - OTHER
+    RetrieveAchLocationListResponse:
+      type: object
+      properties:
+        locationList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHLocationDTO'
+    VerifyMicroDepositsRequest:
+      type: object
+      properties:
+        amount1:
           type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        lat:
-          type: number
-          format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
+        amount2:
           type: string
     ACHLocationDTO:
       type: object
@@ -718,10 +663,65 @@ components:
           type: boolean
         overallStatus:
           type: string
-    RetrieveAchLocationListResponse:
+    ACHFundingAccount:
       type: object
       properties:
-        locationList:
-          type: array
-          items:
-            $ref: '#/components/schemas/ACHLocationDTO'
+        id:
+          type: string
+        externalId:
+          type: string
+        externalURL:
+          type: string
+        bankAccountType:
+          $ref: '#/components/schemas/BankAccountTypeEnum'
+        accountNickName:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        deleted:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        fingerprint:
+          type: string
+    BankAccountTypeEnum:
+      type: string
+      enum:
+      - CHECKING
+      - SAVINGS
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    UpdateFundingAccountRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        externalUrl:
+          type: string

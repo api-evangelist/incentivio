@@ -163,39 +163,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ImageFile:
-      type: object
-      properties:
-        filename:
-          type: string
-        matches:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImageFileMatch'
-        status:
-          $ref: '#/components/schemas/ImageFileStatus'
-        statusMessage:
-          type: string
-        url:
-          type: string
-      required:
-      - filename
-      - status
-    ImageFileMatch:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-      required:
-      - id
-      - title
-    BulkImageUploadCreateResponse:
-      type: object
-      properties:
-        id:
-          type: string
     BulkImageUploadUpdateRequest:
       type: object
       properties:
@@ -212,6 +179,42 @@ components:
       required:
       - processedFiles
       - status
+    ImageFileMatch:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+      required:
+      - id
+      - title
+    BulkImageUploadCreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+    BulkImageUploadReadResponse:
+      type: object
+      properties:
+        bulkImageUpload:
+          $ref: '#/components/schemas/BulkImageUpload'
+    ImageFileStatus:
+      type: string
+      enum:
+      - ERROR
+      - PROCESSED
+      - QUEUED
+      - UPLOADED
+    BulkImageUploadSearchResponse:
+      type: object
+      properties:
+        bulkImageUploads:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkImageUpload'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
     PagingDto:
       type: object
       properties:
@@ -227,27 +230,6 @@ components:
         totalPages:
           type: integer
           format: int64
-    BulkImageUploadSearchResponse:
-      type: object
-      properties:
-        bulkImageUploads:
-          type: array
-          items:
-            $ref: '#/components/schemas/BulkImageUpload'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-    ImageFileStatus:
-      type: string
-      enum:
-      - ERROR
-      - PROCESSED
-      - QUEUED
-      - UPLOADED
-    BulkImageUploadReadResponse:
-      type: object
-      properties:
-        bulkImageUpload:
-          $ref: '#/components/schemas/BulkImageUpload'
     BulkImageUploadStatus:
       type: string
       enum:
@@ -256,6 +238,12 @@ components:
       - PROCESSING
       - UPLOADED
       - UPLOADING
+    BulkImageUploadType:
+      type: string
+      enum:
+      - CATALOG
+      - GROUP
+      - ITEM
     BulkImageUpload:
       type: object
       properties:
@@ -289,12 +277,24 @@ components:
       - status
       - type
       - uploadId
-    BulkImageUploadType:
-      type: string
-      enum:
-      - CATALOG
-      - GROUP
-      - ITEM
+    ImageFile:
+      type: object
+      properties:
+        filename:
+          type: string
+        matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageFileMatch'
+        status:
+          $ref: '#/components/schemas/ImageFileStatus'
+        statusMessage:
+          type: string
+        url:
+          type: string
+      required:
+      - filename
+      - status
     BulkImageUploadCreateRequest:
       type: object
       properties:

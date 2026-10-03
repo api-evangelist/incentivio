@@ -120,6 +120,15 @@ components:
           format: double
         aptSuite:
           type: string
+    ListDeliveryAddressResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        deliveryAddressList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressDTO'
     CreateDeliveryAddressRequestDTO:
       required:
       - clientId
@@ -132,15 +141,6 @@ components:
         userId:
           type: string
         addresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressDTO'
-    ListDeliveryAddressResponseDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        deliveryAddressList:
           type: array
           items:
             $ref: '#/components/schemas/AddressDTO'

@@ -40,6 +40,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ExternalLinksResponseDTO:
+      type: object
+      properties:
+        externalLinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLinkDTO'
     ExternalLinkDisplayInfoDTO:
       type: object
       properties:
@@ -70,10 +77,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExternalLinkDisplayInfoDTO'
-    ExternalLinksResponseDTO:
-      type: object
-      properties:
-        externalLinks:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalLinkDTO'

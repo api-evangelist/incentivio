@@ -101,162 +101,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Total:
-      type: object
-      properties:
-        itemTotal:
-          type: integer
-          format: int32
-        gratuity:
-          type: integer
-          format: int32
-        tax:
-          type: integer
-          format: int32
-        taxedChargeTotal:
-          type: integer
-          format: int32
-        nonTaxedChargeTotal:
-          type: integer
-          format: int32
-        dicountTotal:
-          type: integer
-          format: int32
-        subTotal:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-        paid:
-          type: integer
-          format: int32
-        due:
-          type: integer
-          format: int32
-        processingFee:
-          type: integer
-          format: int32
-    Refund:
-      type: object
-      properties:
-        refundAmount:
-          type: integer
-          format: int32
-        tipRefundAmount:
-          type: integer
-          format: int32
-        refundDate:
-          type: string
-          format: date-time
-        refundBusinessDate:
-          type: string
-          format: date
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    Check:
-      type: object
-      properties:
-        checkId:
-          type: string
-        openedDate:
-          type: string
-          format: date-time
-        closedDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-        deletedDate:
-          type: string
-          format: date-time
-        deleted:
-          type: boolean
-        displayNumber:
-          type: string
-        orderItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItem'
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payment'
-        appliedCharges:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppliedCharge'
-        appliedDiscounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppliedDiscount'
-        total:
-          $ref: '#/components/schemas/Total'
-        paymentStatus:
-          type: string
-        voided:
-          type: boolean
-        voidInfo:
-          $ref: '#/components/schemas/VoidInfo'
-        customer:
-          $ref: '#/components/schemas/Customer'
-        loyaltyStatus:
-          $ref: '#/components/schemas/LoyaltyStatus'
-        loyaltyStatusModifiedTime:
-          type: string
-          format: date-time
-        loyaltyUnSuccessfulReason:
-          $ref: '#/components/schemas/LoyaltyUnSuccessfulReason'
-        loyaltyUnSuccessfulAdditionalInfo:
-          type: string
-        customerResolved:
-          type: boolean
-    AppliedTax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          type: string
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        appliedTax:
-          type: integer
-          format: int32
-    Customer:
-      type: object
-      properties:
-        incentivioId:
-          type: string
-        extId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phoneNo:
-          type: string
-    FindTransactionsResponseDTO:
-      type: object
-      properties:
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
     AppliedDiscount:
       type: object
       properties:
@@ -387,21 +231,6 @@ components:
         txModifiedDate:
           type: string
           format: date-time
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
     VoidInfo:
       type: object
       properties:
@@ -413,6 +242,13 @@ components:
           format: date
         voidReason:
           type: string
+    LoyaltyStatus:
+      type: string
+      enum:
+      - SUCCESS
+      - FAILED
+      - IGNORED
+      - NOT_PROCESSED
     LoyaltyUnSuccessfulReason:
       type: string
       enum:
@@ -435,6 +271,86 @@ components:
       - EXTUSERID_EMAIL_AND_PHONE_NUMBER_NULL
       - OPEN_CHECK
       - ZERO_SUB_TOTAL_WITHOUT_EXCLUDED_PRODUCTS
+    Refund:
+      type: object
+      properties:
+        refundAmount:
+          type: integer
+          format: int32
+        tipRefundAmount:
+          type: integer
+          format: int32
+        refundDate:
+          type: string
+          format: date-time
+        refundBusinessDate:
+          type: string
+          format: date
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+    Total:
+      type: object
+      properties:
+        itemTotal:
+          type: integer
+          format: int32
+        gratuity:
+          type: integer
+          format: int32
+        tax:
+          type: integer
+          format: int32
+        taxedChargeTotal:
+          type: integer
+          format: int32
+        nonTaxedChargeTotal:
+          type: integer
+          format: int32
+        dicountTotal:
+          type: integer
+          format: int32
+        subTotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        paid:
+          type: integer
+          format: int32
+        due:
+          type: integer
+          format: int32
+        processingFee:
+          type: integer
+          format: int32
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    FindTransactionsResponseDTO:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
     Payment:
       type: object
       properties:
@@ -460,6 +376,64 @@ components:
           type: string
         refund:
           $ref: '#/components/schemas/Refund'
+    Check:
+      type: object
+      properties:
+        checkId:
+          type: string
+        openedDate:
+          type: string
+          format: date-time
+        closedDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        deletedDate:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+        displayNumber:
+          type: string
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+        appliedCharges:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedCharge'
+        appliedDiscounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedDiscount'
+        total:
+          $ref: '#/components/schemas/Total'
+        paymentStatus:
+          type: string
+        voided:
+          type: boolean
+        voidInfo:
+          $ref: '#/components/schemas/VoidInfo'
+        customer:
+          $ref: '#/components/schemas/Customer'
+        loyaltyStatus:
+          $ref: '#/components/schemas/LoyaltyStatus'
+        loyaltyStatusModifiedTime:
+          type: string
+          format: date-time
+        loyaltyUnSuccessfulReason:
+          $ref: '#/components/schemas/LoyaltyUnSuccessfulReason'
+        loyaltyUnSuccessfulAdditionalInfo:
+          type: string
+        customerResolved:
+          type: boolean
     AppliedCharge:
       type: object
       properties:
@@ -487,6 +461,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AppliedTax'
+    Customer:
+      type: object
+      properties:
+        incentivioId:
+          type: string
+        extId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNo:
+          type: string
     OrderItem:
       type: object
       properties:
@@ -562,10 +551,21 @@ components:
           format: date-time
         notes:
           type: string
-    LoyaltyStatus:
-      type: string
-      enum:
-      - SUCCESS
-      - FAILED
-      - IGNORED
-      - NOT_PROCESSED
+    AppliedTax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        appliedTax:
+          type: integer
+          format: int32
