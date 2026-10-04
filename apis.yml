@@ -1865,6 +1865,8 @@ apis:
   humanURL: https://incentivio.com/feature/incentivio-connect/
   baseURL: https://mobile.incentivio.com/incentivio-mobile-api
   tags:
+  - o-auth-2-controller
+  tags_raw:
   - o auth 2 controller
   properties:
   - type: OpenAPI
