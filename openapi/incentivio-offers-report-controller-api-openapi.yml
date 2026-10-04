@@ -112,13 +112,6 @@ components:
           type: string
         generatedCSV:
           type: string
-    OfferPerformanceReportDTO:
-      type: object
-      properties:
-        offerPerformanceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OfferPerformanceDTO'
     StatusEnum:
       type: string
       enum:
@@ -167,3 +160,10 @@ components:
         value:
           type: integer
           format: int32
+    OfferPerformanceReportDTO:
+      type: object
+      properties:
+        offerPerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferPerformanceDTO'

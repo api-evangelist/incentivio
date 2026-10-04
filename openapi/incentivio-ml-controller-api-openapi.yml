@@ -428,34 +428,6 @@ paths:
       description: Generated server url
 components:
   schemas:
-    UserDetailRequest:
-      type: object
-      properties:
-        userId:
-          type: string
-        userName:
-          type: string
-        email:
-          type: string
-    StartTrainingProcessResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    LocationDetailRequest:
-      type: object
-      properties:
-        locationId:
-          type: string
-        locationName:
-          type: string
-        metaData:
-          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
-        locationEnabled:
-          type: boolean
     CreateRuleRequest:
       type: object
       properties:
@@ -465,35 +437,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RuleRequest'
-    DeviceDetailRequest:
-      type: object
-      properties:
-        deviceIpAddress:
-          type: string
-        deviceType:
-          type: string
-        browserType:
-          type: string
-    UpdateLocationResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        updatedLocationsCount:
-          type: integer
-          format: int32
-    UpdateLocationRequest:
-      type: object
-      properties:
-        clientId:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationDetailRequest'
     AdminPortalMetaDataRequest:
       type: object
       properties:
@@ -501,15 +444,30 @@ components:
           $ref: '#/components/schemas/DeviceDetailRequest'
         userDetail:
           $ref: '#/components/schemas/UserDetailRequest'
-    ModelTrainingRequest:
+    CategoryChangedItemResponse:
       type: object
       properties:
         clientId:
           type: string
-        clientName:
+        itemName:
           type: string
-        metaData:
-          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+        category:
+          type: string
+        subCategory:
+          type: string
+        previousCategory:
+          type: string
+        previousSubCategory:
+          type: string
+    UserDetailRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
     UpdateConfigurationRequest:
       type: object
       properties:
@@ -544,73 +502,7 @@ components:
           type: string
         metaData:
           $ref: '#/components/schemas/AdminPortalMetaDataRequest'
-    CreateRuleResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        ruleCount:
-          type: integer
-          format: int32
-    UpdatedConfigurationResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        newSideCount:
-          type: integer
-          format: int32
-        newBeverageCount:
-          type: integer
-          format: int32
-        newDessertCount:
-          type: integer
-          format: int32
-        newMaxRuleRecommendations:
-          type: integer
-          format: int32
-        newMaxRecommendations:
-          type: integer
-          format: int32
-    CategoryChangedItemResponse:
-      type: object
-      properties:
-        clientId:
-          type: string
-        itemName:
-          type: string
-        category:
-          type: string
-        subCategory:
-          type: string
-        previousCategory:
-          type: string
-        previousSubCategory:
-          type: string
-    ItemCategoryChaingingRequest:
-      type: object
-      properties:
-        clientId:
-          type: string
-        itemName:
-          type: string
-        category:
-          type: string
-        subCategory:
-          type: string
-        previousCategory:
-          type: string
-        previousSubCategory:
-          type: string
-        metaData:
-          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
-    DeleteRuleResponse:
+    StartTrainingProcessResponse:
       type: object
       properties:
         code:
@@ -643,6 +535,114 @@ components:
             type: string
         metaData:
           $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    CreateRuleResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        ruleCount:
+          type: integer
+          format: int32
+    UpdateLocationRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailRequest'
+    ItemCategoryChaingingRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        itemName:
+          type: string
+        category:
+          type: string
+        subCategory:
+          type: string
+        previousCategory:
+          type: string
+        previousSubCategory:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    DeleteRuleResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    UpdateLocationResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        updatedLocationsCount:
+          type: integer
+          format: int32
+    ModelTrainingRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientName:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+    DeviceDetailRequest:
+      type: object
+      properties:
+        deviceIpAddress:
+          type: string
+        deviceType:
+          type: string
+        browserType:
+          type: string
+    UpdatedConfigurationResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        newSideCount:
+          type: integer
+          format: int32
+        newBeverageCount:
+          type: integer
+          format: int32
+        newDessertCount:
+          type: integer
+          format: int32
+        newMaxRuleRecommendations:
+          type: integer
+          format: int32
+        newMaxRecommendations:
+          type: integer
+          format: int32
+    LocationDetailRequest:
+      type: object
+      properties:
+        locationId:
+          type: string
+        locationName:
+          type: string
+        metaData:
+          $ref: '#/components/schemas/AdminPortalMetaDataRequest'
+        locationEnabled:
+          type: boolean
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

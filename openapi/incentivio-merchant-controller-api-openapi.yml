@@ -90,57 +90,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    TotalCalculationStrategy:
-      type: string
-      enum:
-      - TOAST
-      - SILVERWARE
-      - NCC
-      - LIGHTSPEED
-      - EXTERNAL
-    IDGenerationStrategy:
-      type: string
-      enum:
-      - UUID
-      - AUTO_INCREMENT
-    ExternalDeliverySettings:
-      type: object
-      properties:
-        deliveryStrategy:
-          type: string
-        externalDeliveryFeeStrategy:
-          $ref: '#/components/schemas/ExternalDeliveryFeeStrategy'
-        externalDeliveryChargeId:
-          type: string
-        pickupBusinessName:
-          type: string
-        pickupAddress:
-          $ref: '#/components/schemas/Address'
-        pickupInstructions:
-          type: string
-        contactPhone:
-          type: string
-    OrderProcessingConfigDTO:
-      type: object
-      properties:
-        orderProcessingStrategy:
-          $ref: '#/components/schemas/OrderProcessingStrategy'
-        paymentIDGenerationStrategy:
-          $ref: '#/components/schemas/IDGenerationStrategy'
-        paymentGatewayName:
-          type: string
-        orderGatewayName:
-          type: string
-        externalDeliverySettings:
-          $ref: '#/components/schemas/ExternalDeliverySettings'
-        roundingMode:
-          $ref: '#/components/schemas/RoundingMode'
-        calculationStrategy:
-          $ref: '#/components/schemas/TotalCalculationStrategy'
-        consolidateMultipleDiscounts:
-          type: boolean
-        realTimeLoyaltyProcessing:
-          type: boolean
     MerchantResponseDTO:
       type: object
       properties:
@@ -172,117 +121,11 @@ components:
           type: object
           additionalProperties:
             type: string
-    OrderProcessingStrategy:
+    IDGenerationStrategy:
       type: string
       enum:
-      - ONE_STEP
-      - TWO_STEP
-      - INCENTIVIO_ORDER
-      - INC_PAYMENTS
-    RoundingMode:
-      type: string
-      enum:
-      - HALF_EVEN
-      - HALF_UP
-      - TRUNCATE
-    ExternalDeliveryFeeStrategy:
-      type: string
-      enum:
-      - ADD
-      - IGNORE
-    ChargeType:
-      type: string
-      enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
-    TaxDTO:
-      type: object
-      properties:
-        taxId:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-    CreateMerchantResponseDTO:
-      type: object
-      properties:
-        merchantId:
-          type: string
-    UpdateMerchantRequestDTO:
-      type: object
-      properties:
-        clientId:
-          type: string
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxDTO'
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeDTO'
-        orderProcessingConfig:
-          $ref: '#/components/schemas/OrderProcessingConfigDTO'
-        paymentGatewayConfig:
-          $ref: '#/components/schemas/PaymentGatewayConfig'
-        pickupOrderProcessingTime:
-          type: integer
-          format: int64
-        deliveryOrderProcessingTime:
-          type: integer
-          format: int64
-        timeZone:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    UpdateMerchantResponseDTO:
-      type: object
-      properties:
-        merchantId:
-          type: string
-        clientId:
-          type: string
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxDTO'
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeDTO'
-        orderProcessingConfig:
-          $ref: '#/components/schemas/OrderProcessingConfigDTO'
-        pickupOrderProcessingTime:
-          type: integer
-          format: int64
-        deliveryOrderProcessingTime:
-          type: integer
-          format: int64
-        timeZone:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-    PaymentGatewayConfig:
-      type: object
-      properties:
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
+      - UUID
+      - AUTO_INCREMENT
     CreateMerchantRequestDTO:
       type: object
       properties:
@@ -314,6 +157,41 @@ components:
           type: object
           additionalProperties:
             type: string
+    UpdateMerchantRequestDTO:
+      type: object
+      properties:
+        clientId:
+          type: string
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxDTO'
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeDTO'
+        orderProcessingConfig:
+          $ref: '#/components/schemas/OrderProcessingConfigDTO'
+        paymentGatewayConfig:
+          $ref: '#/components/schemas/PaymentGatewayConfig'
+        pickupOrderProcessingTime:
+          type: integer
+          format: int64
+        deliveryOrderProcessingTime:
+          type: integer
+          format: int64
+        timeZone:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    RoundingMode:
+      type: string
+      enum:
+      - HALF_EVEN
+      - HALF_UP
+      - TRUNCATE
     Address:
       type: object
       properties:
@@ -337,6 +215,88 @@ components:
           format: double
         aptSuite:
           type: string
+    OrderProcessingStrategy:
+      type: string
+      enum:
+      - ONE_STEP
+      - TWO_STEP
+      - INCENTIVIO_ORDER
+      - INC_PAYMENTS
+    CreateMerchantResponseDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+    ExternalDeliverySettings:
+      type: object
+      properties:
+        deliveryStrategy:
+          type: string
+        externalDeliveryFeeStrategy:
+          $ref: '#/components/schemas/ExternalDeliveryFeeStrategy'
+        externalDeliveryChargeId:
+          type: string
+        pickupBusinessName:
+          type: string
+        pickupAddress:
+          $ref: '#/components/schemas/Address'
+        pickupInstructions:
+          type: string
+        contactPhone:
+          type: string
+    UpdateMerchantResponseDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+        clientId:
+          type: string
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxDTO'
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeDTO'
+        orderProcessingConfig:
+          $ref: '#/components/schemas/OrderProcessingConfigDTO'
+        pickupOrderProcessingTime:
+          type: integer
+          format: int64
+        deliveryOrderProcessingTime:
+          type: integer
+          format: int64
+        timeZone:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    TaxDTO:
+      type: object
+      properties:
+        taxId:
+          type: string
+        extTaxId:
+          type: string
+        taxDescription:
+          type: string
+        taxType:
+          $ref: '#/components/schemas/ChargeType'
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+    PaymentGatewayConfig:
+      type: object
+      properties:
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
     ChargeDTO:
       type: object
       properties:
@@ -363,3 +323,43 @@ components:
         orderApplied:
           type: integer
           format: int32
+    ExternalDeliveryFeeStrategy:
+      type: string
+      enum:
+      - ADD
+      - IGNORE
+    ChargeType:
+      type: string
+      enum:
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    TotalCalculationStrategy:
+      type: string
+      enum:
+      - TOAST
+      - SILVERWARE
+      - NCC
+      - LIGHTSPEED
+      - EXTERNAL
+    OrderProcessingConfigDTO:
+      type: object
+      properties:
+        orderProcessingStrategy:
+          $ref: '#/components/schemas/OrderProcessingStrategy'
+        paymentIDGenerationStrategy:
+          $ref: '#/components/schemas/IDGenerationStrategy'
+        paymentGatewayName:
+          type: string
+        orderGatewayName:
+          type: string
+        externalDeliverySettings:
+          $ref: '#/components/schemas/ExternalDeliverySettings'
+        roundingMode:
+          $ref: '#/components/schemas/RoundingMode'
+        calculationStrategy:
+          $ref: '#/components/schemas/TotalCalculationStrategy'
+        consolidateMultipleDiscounts:
+          type: boolean
+        realTimeLoyaltyProcessing:
+          type: boolean

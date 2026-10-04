@@ -200,11 +200,222 @@ paths:
       description: Generated server url
 components:
   schemas:
+    ItemValidationMode:
+      type: string
+      enum:
+      - NONE
+      - BASE_ITEM
+      - BASE_WITH_MODIFIERS
+    OrderRestrictionType:
+      type: string
+      enum:
+      - RESTRICTED_ORDER
+      - REGULAR_ORDER
+    ChargeRule:
+      type: object
+      properties:
+        amount:
+          type: integer
+          format: int32
+        operator:
+          $ref: '#/components/schemas/Operator'
     OrderType:
       type: string
       enum:
       - DELIVERY
       - PICKUP
+    DateSelectionMode:
+      type: string
+      enum:
+      - FIXED
+      - TODAY
+      - USER_SELECT
+    AddOrderItemReqDTO:
+      type: object
+      properties:
+        itemId:
+          type: string
+          minLength: 1
+        quantity:
+          type: integer
+          format: int32
+        note:
+          type: string
+        groupId:
+          type: string
+        discountIds:
+          type: array
+          items:
+            type: string
+        externalId:
+          type: string
+        itemInstructions:
+          type: string
+        catalogId:
+          type: string
+      required:
+      - groupId
+      - itemId
+      - quantity
+    OrderConfigDisplayInfo:
+      type: object
+      properties:
+        languageCode:
+          type: string
+        description:
+          type: string
+        notEnoughPrepTimeErrorMessage:
+          type: string
+    UpdatePresetOrderConfigRequestDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        locationId:
+          type: string
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderConfigDisplayInfo'
+          uniqueItems: true
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        restrictionType:
+          $ref: '#/components/schemas/OrderRestrictionType'
+        dateSelectionMode:
+          $ref: '#/components/schemas/DateSelectionMode'
+        timeSelectionMode:
+          $ref: '#/components/schemas/TimeSelectionMode'
+        itemValidationMode:
+          $ref: '#/components/schemas/ItemValidationMode'
+        inheritChargesFromLocation:
+          type: boolean
+        displayPresetValueConfirmationPage:
+          type: boolean
+        deliveryInfo:
+          $ref: '#/components/schemas/DeliveryInfo'
+        requestedFulfillDate:
+          type: string
+          format: date
+        requestedFulfillTime:
+          type: string
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOrderItemReqDTO'
+        orderInstructions:
+          type: string
+      required:
+      - code
+    CreatePresetOrderConfigRequestDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          minLength: 1
+        locationId:
+          type: string
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderConfigDisplayInfo'
+          uniqueItems: true
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        restrictionType:
+          $ref: '#/components/schemas/OrderRestrictionType'
+        dateSelectionMode:
+          $ref: '#/components/schemas/DateSelectionMode'
+        timeSelectionMode:
+          $ref: '#/components/schemas/TimeSelectionMode'
+        itemValidationMode:
+          $ref: '#/components/schemas/ItemValidationMode'
+        inheritChargesFromLocation:
+          type: boolean
+        displayPresetValueConfirmationPage:
+          type: boolean
+        deliveryInfo:
+          $ref: '#/components/schemas/DeliveryInfo'
+        requestedFulfillDate:
+          type: string
+          format: date
+        requestedFulfillTime:
+          type: string
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOrderItemReqDTO'
+        orderInstructions:
+          type: string
+      required:
+      - code
+    OrderEntity:
+      type: string
+      enum:
+      - ORDER
+      - ITEM
+    DeliveryInfo:
+      type: object
+      properties:
+        deliveryAddress:
+          $ref: '#/components/schemas/Address'
+        deliveryInstructions:
+          type: string
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    ListPresetOrderResponseWithPagingForAdminDTO:
+      type: object
+      properties:
+        presetOrderConfigResponseDTOs:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetPresetOrderConfigResponseDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    PagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
     GetPresetOrderConfigResponseDTO:
       type: object
       properties:
@@ -252,98 +463,18 @@ components:
             $ref: '#/components/schemas/AddOrderItemReqDTO'
         orderInstructions:
           type: string
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
+    TimeSelectionMode:
+      type: string
+      enum:
+      - ASAP
+      - FIXED
+      - USER_SELECT
     ChargeType:
       type: string
       enum:
       - OPEN
       - AMOUNT
       - PERCENTAGE
-    UpdatePresetOrderConfigRequestDTO:
-      type: object
-      properties:
-        code:
-          type: string
-        locationId:
-          type: string
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderConfigDisplayInfo'
-          uniqueItems: true
-        orderType:
-          $ref: '#/components/schemas/OrderType'
-        restrictionType:
-          $ref: '#/components/schemas/OrderRestrictionType'
-        dateSelectionMode:
-          $ref: '#/components/schemas/DateSelectionMode'
-        timeSelectionMode:
-          $ref: '#/components/schemas/TimeSelectionMode'
-        itemValidationMode:
-          $ref: '#/components/schemas/ItemValidationMode'
-        inheritChargesFromLocation:
-          type: boolean
-        displayPresetValueConfirmationPage:
-          type: boolean
-        deliveryInfo:
-          $ref: '#/components/schemas/DeliveryInfo'
-        requestedFulfillDate:
-          type: string
-          format: date
-        requestedFulfillTime:
-          type: string
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/Charge'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddOrderItemReqDTO'
-        orderInstructions:
-          type: string
-      required:
-      - code
-    DateSelectionMode:
-      type: string
-      enum:
-      - FIXED
-      - TODAY
-      - USER_SELECT
-    OrderEntity:
-      type: string
-      enum:
-      - ORDER
-      - ITEM
-    ItemValidationMode:
-      type: string
-      enum:
-      - NONE
-      - BASE_ITEM
-      - BASE_WITH_MODIFIERS
-    OrderConfigDisplayInfo:
-      type: object
-      properties:
-        languageCode:
-          type: string
-        description:
-          type: string
-        notEnoughPrepTimeErrorMessage:
-          type: string
     Operator:
       type: string
       enum:
@@ -352,88 +483,6 @@ components:
       - LTEQ
       - GT
       - GTE
-    Tax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        extTaxId:
-          type: string
-        taxDescription:
-          type: string
-        taxType:
-          $ref: '#/components/schemas/ChargeType'
-        amount:
-          type: integer
-          format: int32
-        percentage:
-          type: number
-          format: float
-        applicableOrderTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderType'
-        applicableEntity:
-          $ref: '#/components/schemas/OrderEntity'
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChargeRule'
-    OrderRestrictionType:
-      type: string
-      enum:
-      - RESTRICTED_ORDER
-      - REGULAR_ORDER
-    TimeSelectionMode:
-      type: string
-      enum:
-      - ASAP
-      - FIXED
-      - USER_SELECT
-    ListPresetOrderResponseWithPagingForAdminDTO:
-      type: object
-      properties:
-        presetOrderConfigResponseDTOs:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetPresetOrderConfigResponseDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    AddOrderItemReqDTO:
-      type: object
-      properties:
-        itemId:
-          type: string
-          minLength: 1
-        quantity:
-          type: integer
-          format: int32
-        note:
-          type: string
-        groupId:
-          type: string
-        discountIds:
-          type: array
-          items:
-            type: string
-        externalId:
-          type: string
-        itemInstructions:
-          type: string
-        catalogId:
-          type: string
-      required:
-      - groupId
-      - itemId
-      - quantity
-    ChargeRule:
-      type: object
-      properties:
-        amount:
-          type: integer
-          format: int32
-        operator:
-          $ref: '#/components/schemas/Operator'
     Charge:
       type: object
       properties:
@@ -468,107 +517,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tax'
-    CreatePresetOrderConfigRequestDTO:
+    Tax:
       type: object
       properties:
-        code:
+        taxId:
           type: string
-          minLength: 1
-        locationId:
+        extTaxId:
           type: string
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderConfigDisplayInfo'
-          uniqueItems: true
-        orderType:
-          $ref: '#/components/schemas/OrderType'
-        restrictionType:
-          $ref: '#/components/schemas/OrderRestrictionType'
-        dateSelectionMode:
-          $ref: '#/components/schemas/DateSelectionMode'
-        timeSelectionMode:
-          $ref: '#/components/schemas/TimeSelectionMode'
-        itemValidationMode:
-          $ref: '#/components/schemas/ItemValidationMode'
-        inheritChargesFromLocation:
-          type: boolean
-        displayPresetValueConfirmationPage:
-          type: boolean
-        deliveryInfo:
-          $ref: '#/components/schemas/DeliveryInfo'
-        requestedFulfillDate:
+        taxDescription:
           type: string
-          format: date
-        requestedFulfillTime:
-          type: string
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/Charge'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddOrderItemReqDTO'
-        orderInstructions:
-          type: string
-      required:
-      - code
-    DeliveryInfo:
-      type: object
-      properties:
-        deliveryAddress:
-          $ref: '#/components/schemas/Address'
-        deliveryInstructions:
-          type: string
-    Address:
-      type: object
-      properties:
-        street1:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        lat:
-          type: number
-          format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
-          type: string
-    Charge_2:
-      type: object
-      properties:
-        chargeId:
-          type: string
-        chargeDescription:
-          type: string
-        chargeType:
-          type: string
-          enum:
-          - OPEN
-          - AMOUNT
-          - PERCENTAGE
+        taxType:
+          $ref: '#/components/schemas/ChargeType'
         amount:
           type: integer
           format: int32
         percentage:
           type: number
           format: float
-        taxable:
-          type: boolean
-        gratuity:
-          type: boolean
-        delivery:
-          type: boolean
+        applicableOrderTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderType'
+        applicableEntity:
+          $ref: '#/components/schemas/OrderEntity'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargeRule'
     PresetOrderResponseDTO:
       type: object
       properties:
@@ -637,6 +612,48 @@ components:
             $ref: '#/components/schemas/AddOrderItemReqDTO_2'
         orderInstructions:
           type: string
+    Address_2:
+      type: object
+      properties:
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string
+    Charge_2:
+      type: object
+      properties:
+        chargeId:
+          type: string
+        chargeDescription:
+          type: string
+        chargeType:
+          type: string
+          enum:
+          - OPEN
+          - AMOUNT
+          - PERCENTAGE
+        amount:
+          type: integer
+          format: int32
+        percentage:
+          type: number
+          format: float
+        taxable:
+          type: boolean
+        gratuity:
+          type: boolean
+        delivery:
+          type: boolean
     AddOrderItemReqDTO_2:
       required:
       - itemId
@@ -666,23 +683,6 @@ components:
         quantity:
           type: integer
           format: int32
-    Address_2:
-      type: object
-      properties:
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        country:
-          type: string
-        aptSuite:
-          type: string
     LocalTime:
       type: object
       properties:

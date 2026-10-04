@@ -345,33 +345,20 @@ components:
           type: string
       required:
       - transactionDate
-    RedeemOfferAPIRequestDTO_2:
-      required:
-      - transactionDate
+    DistributedOfferDTO:
       type: object
       properties:
-        userId:
-          type: string
-        qrCodeValue:
-          type: string
-        transactionDate:
-          type: string
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
         distributedOfferId:
           type: string
-    ActivityMessageDTO:
-      type: object
-      properties:
-        distributedMessageId:
+        offerId:
+          type: string
+        clientId:
           type: string
         merchantId:
           type: string
-        messageId:
+        offerCode:
+          type: string
+        codeFormat:
           type: string
         languageCode:
           type: string
@@ -389,23 +376,120 @@ components:
           type: string
           enum:
           - NEW
+          - SAVED
           - READ
           - EXPIRED
           - DELETED
+          - SYSTEM_REDEEMED
+          - USER_REDEEMED
+        redemptionEndDate:
+          type: string
         distributedDate:
           type: string
         updatedDate:
           type: string
-        messageType:
+        redeemType:
+          type: string
+        purchaseTypes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        eligible:
+          type: boolean
+        pointsCost:
+          type: integer
+          format: int32
+        loyaltyOffer:
+          type: boolean
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    AppMessageListDTO:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppMessageDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+    UpdateDistributedOfferStatusRequestDTO:
+      required:
+      - redeemStatus
+      type: object
+      properties:
+        distributedOfferId:
+          type: string
+        distributedOfferCode:
+          type: string
+        redeemStatus:
           type: string
           enum:
-          - PRIVATE
-          - SHAREABLE
-          - REFERRAL
-          - SURVEY
-        surveyId:
+          - NEW
+          - SAVED
+          - READ
+          - EXPIRED
+          - DELETED
+          - SYSTEM_REDEEMED
+          - USER_REDEEMED
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
           type: string
-        distributedEndDate:
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    ActivityContentResponseDTO:
+      type: object
+      properties:
+        offerList:
+          $ref: '#/components/schemas/ActivityOfferListDTO'
+        messageList:
+          $ref: '#/components/schemas/ActivityMessageListDTO'
+    ActivityOfferListDTO:
+      type: object
+      properties:
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityOfferDTO'
+    RedeemOfferResponseDTO:
+      type: object
+      properties:
+        pointsRedeemed:
+          type: integer
+          format: int32
+        totalPointsBalance:
+          type: integer
+          format: int32
+        smallImage:
+          type: string
+        mediumImage:
           type: string
     ActivityOfferDTO:
       type: object
@@ -459,87 +543,87 @@ components:
           type: string
         redemptionEndDateType:
           type: string
-    ActivityContentResponseDTO:
+    AppMessageDTO:
       type: object
       properties:
-        offerList:
-          $ref: '#/components/schemas/ActivityOfferListDTO'
-        messageList:
-          $ref: '#/components/schemas/ActivityMessageListDTO'
-    ActivityMessageListDTO:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActivityMessageDTO'
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-    AppOffersResponseDTO:
-      type: object
-      properties:
-        offerList:
-          $ref: '#/components/schemas/AppOfferListDTO'
-    ActivityContentRequestDTO:
-      type: object
-      properties:
-        userId:
-          type: string
-        clientId:
-          type: string
-        languageCode:
+        distributedMessageId:
           type: string
         merchantId:
           type: string
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        events:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        localDateTime:
+        messageId:
           type: string
-    RedeemOfferResponseDTO:
-      type: object
-      properties:
-        pointsRedeemed:
-          type: integer
-          format: int32
-        totalPointsBalance:
-          type: integer
-          format: int32
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
         smallImage:
           type: string
         mediumImage:
           type: string
-    AppMessageListDTO:
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+        surveyId:
+          type: string
+        distributedEndDate:
+          type: string
+    ActivityMessageDTO:
       type: object
       properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppMessageDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
+        distributedMessageId:
+          type: string
+        merchantId:
+          type: string
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+          enum:
+          - PRIVATE
+          - SHAREABLE
+          - REFERRAL
+          - SURVEY
+        surveyId:
+          type: string
+        distributedEndDate:
+          type: string
     AppOfferDTO:
       type: object
       properties:
@@ -599,124 +683,31 @@ components:
           type: boolean
         redemptionEndDateType:
           type: string
-    ActivityOfferListDTO:
+    ActivityContentRequestDTO:
       type: object
       properties:
-        offers:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActivityOfferDTO'
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
-    DistributedOfferDTO:
-      type: object
-      properties:
-        distributedOfferId:
-          type: string
-        offerId:
+        userId:
           type: string
         clientId:
           type: string
-        merchantId:
-          type: string
-        offerCode:
-          type: string
-        codeFormat:
-          type: string
         languageCode:
           type: string
-        title:
+        merchantId:
           type: string
-        shortDescription:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        events:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        localDateTime:
           type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - SAVED
-          - READ
-          - EXPIRED
-          - DELETED
-          - SYSTEM_REDEEMED
-          - USER_REDEEMED
-        redemptionEndDate:
-          type: string
-        distributedDate:
-          type: string
-        updatedDate:
-          type: string
-        redeemType:
-          type: string
-        purchaseTypes:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        eligible:
-          type: boolean
-        pointsCost:
-          type: integer
-          format: int32
-        loyaltyOffer:
-          type: boolean
-    UpdateDistributedOfferStatusRequestDTO:
-      required:
-      - redeemStatus
-      type: object
-      properties:
-        distributedOfferId:
-          type: string
-        distributedOfferCode:
-          type: string
-        redeemStatus:
-          type: string
-          enum:
-          - NEW
-          - SAVED
-          - READ
-          - EXPIRED
-          - DELETED
-          - SYSTEM_REDEEMED
-          - USER_REDEEMED
-    AppContentResponseDTO:
-      type: object
-      properties:
-        offerList:
-          $ref: '#/components/schemas/AppOfferListDTO'
-        messageList:
-          $ref: '#/components/schemas/AppMessageListDTO'
-    AppOfferListDTO:
-      type: object
-      properties:
-        offers:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppOfferDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
     GetOfferResponseDTO:
       type: object
       properties:
@@ -789,44 +780,53 @@ components:
           type: boolean
         offerRedemptionExpired:
           type: boolean
-    AppMessageDTO:
+    AppContentResponseDTO:
       type: object
       properties:
-        distributedMessageId:
+        offerList:
+          $ref: '#/components/schemas/AppOfferListDTO'
+        messageList:
+          $ref: '#/components/schemas/AppMessageListDTO'
+    ActivityMessageListDTO:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityMessageDTO'
+    AppOffersResponseDTO:
+      type: object
+      properties:
+        offerList:
+          $ref: '#/components/schemas/AppOfferListDTO'
+    RedeemOfferAPIRequestDTO_2:
+      required:
+      - transactionDate
+      type: object
+      properties:
+        userId:
           type: string
-        merchantId:
+        qrCodeValue:
           type: string
-        messageId:
+        transactionDate:
           type: string
-        languageCode:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        distributedOfferId:
           type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - READ
-          - EXPIRED
-          - DELETED
-        distributedDate:
-          type: string
-        updatedDate:
-          type: string
-        messageType:
-          type: string
-        surveyId:
-          type: string
-        distributedEndDate:
-          type: string
+    AppOfferListDTO:
+      type: object
+      properties:
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppOfferDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

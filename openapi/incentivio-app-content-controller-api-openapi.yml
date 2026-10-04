@@ -64,30 +64,6 @@ components:
           $ref: '#/components/schemas/AppOfferListDTO'
         messageList:
           $ref: '#/components/schemas/AppMessageListDTO'
-    AppOfferListDTO:
-      type: object
-      properties:
-        offers:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppOfferDTO'
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-    ResultsPagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
     AppMessageListDTO:
       type: object
       properties:
@@ -97,6 +73,54 @@ components:
             $ref: '#/components/schemas/AppMessageDTO'
         paging:
           $ref: '#/components/schemas/ResultsPagingDTO'
+    AppMessageDTO:
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        merchantId:
+          type: string
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          $ref: '#/components/schemas/MessageStatus'
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+        surveyId:
+          type: string
+    MessageStatus:
+      type: string
+      enum:
+      - NEW
+      - READ
+      - EXPIRED
+      - DELETED
+    OfferStatus:
+      type: string
+      enum:
+      - NEW
+      - SAVED
+      - READ
+      - EXPIRED
+      - DELETED
+      - SYSTEM_REDEEMED
+      - USER_REDEEMED
     AppOfferDTO:
       type: object
       properties:
@@ -145,51 +169,27 @@ components:
           type: boolean
         enableGuestCheckout:
           type: boolean
-    MessageStatus:
-      type: string
-      enum:
-      - NEW
-      - READ
-      - EXPIRED
-      - DELETED
-    OfferStatus:
-      type: string
-      enum:
-      - NEW
-      - SAVED
-      - READ
-      - EXPIRED
-      - DELETED
-      - SYSTEM_REDEEMED
-      - USER_REDEEMED
-    AppMessageDTO:
+    ResultsPagingDTO:
       type: object
       properties:
-        distributedMessageId:
-          type: string
-        merchantId:
-          type: string
-        messageId:
-          type: string
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        status:
-          $ref: '#/components/schemas/MessageStatus'
-        distributedDate:
-          type: string
-        updatedDate:
-          type: string
-        messageType:
-          type: string
-        surveyId:
-          type: string
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    AppOfferListDTO:
+      type: object
+      properties:
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppOfferDTO'
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'

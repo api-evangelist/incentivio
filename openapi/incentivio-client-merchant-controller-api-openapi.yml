@@ -293,17 +293,30 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    IDGenerationStrategy:
-      type: string
-      enum:
-      - UUID
-      - AUTO_INCREMENT
-    RoundingMode:
-      type: string
-      enum:
-      - HALF_EVEN
-      - HALF_UP
-      - TRUNCATE
+    FindMerchantsResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        merchants:
+          type: array
+          items:
+            $ref: '#/components/schemas/MerchantDTO'
+    AddressDTO:
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
     UpdateMerchantRequestDTO:
       type: object
       properties:
@@ -333,17 +346,12 @@ components:
           type: object
           additionalProperties:
             type: string
-    ChargeType:
+    RoundingMode:
       type: string
       enum:
-      - OPEN
-      - AMOUNT
-      - PERCENTAGE
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
+      - HALF_EVEN
+      - HALF_UP
+      - TRUNCATE
     PagingDto:
       type: object
       properties:
@@ -359,18 +367,6 @@ components:
         totalPages:
           type: integer
           format: int64
-    OrderProcessingStrategy:
-      type: string
-      enum:
-      - ONE_STEP
-      - TWO_STEP
-      - INCENTIVIO_ORDER
-      - INC_PAYMENTS
-    ExternalDeliveryFeeStrategy:
-      type: string
-      enum:
-      - ADD
-      - IGNORE
     TaxDTO:
       type: object
       properties:
@@ -388,36 +384,6 @@ components:
         percentage:
           type: number
           format: float
-    CreateMerchantResponseDTO:
-      type: object
-      properties:
-        merchantId:
-          type: string
-    TotalCalculationStrategy:
-      type: string
-      enum:
-      - TOAST
-      - SILVERWARE
-      - NCC
-      - LIGHTSPEED
-      - EXTERNAL
-    ExternalDeliverySettings:
-      type: object
-      properties:
-        deliveryStrategy:
-          type: string
-        externalDeliveryFeeStrategy:
-          $ref: '#/components/schemas/ExternalDeliveryFeeStrategy'
-        externalDeliveryChargeId:
-          type: string
-        pickupBusinessName:
-          type: string
-        pickupAddress:
-          $ref: '#/components/schemas/Address'
-        pickupInstructions:
-          type: string
-        contactPhone:
-          type: string
     OrderProcessingConfigDTO:
       type: object
       properties:
@@ -439,54 +405,6 @@ components:
           type: boolean
         realTimeLoyaltyProcessing:
           type: boolean
-    FindMerchantsByIdsResponseDTO:
-      type: object
-      properties:
-        merchantsMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/MerchantDTO'
-    MerchantDTO:
-      type: object
-      properties:
-        merchantId:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        title:
-          type: string
-        address:
-          $ref: '#/components/schemas/AddressDTO'
-        clientId:
-          type: string
-        messageFromEmail:
-          type: string
-        timezone:
-          type: string
-    AddressDTO:
-      type: object
-      properties:
-        city:
-          type: string
-        country:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        streetAddress1:
-          type: string
-        streetAddress2:
-          type: string
-    PaymentGatewayConfig:
-      type: object
-      properties:
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
     CreateMerchantRequestDTO:
       type: object
       properties:
@@ -518,38 +436,18 @@ components:
           type: object
           additionalProperties:
             type: string
-    FindMerchantsResponseDTO:
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    PaymentGatewayConfig:
       type: object
       properties:
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-        merchants:
-          type: array
-          items:
-            $ref: '#/components/schemas/MerchantDTO'
-    Address:
-      type: object
-      properties:
-        street1:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        lat:
-          type: number
-          format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
-          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
     ChargeDTO:
       type: object
       properties:
@@ -576,3 +474,105 @@ components:
         orderApplied:
           type: integer
           format: int32
+    FindMerchantsByIdsResponseDTO:
+      type: object
+      properties:
+        merchantsMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MerchantDTO'
+    TotalCalculationStrategy:
+      type: string
+      enum:
+      - TOAST
+      - SILVERWARE
+      - NCC
+      - LIGHTSPEED
+      - EXTERNAL
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    OrderProcessingStrategy:
+      type: string
+      enum:
+      - ONE_STEP
+      - TWO_STEP
+      - INCENTIVIO_ORDER
+      - INC_PAYMENTS
+    ExternalDeliverySettings:
+      type: object
+      properties:
+        deliveryStrategy:
+          type: string
+        externalDeliveryFeeStrategy:
+          $ref: '#/components/schemas/ExternalDeliveryFeeStrategy'
+        externalDeliveryChargeId:
+          type: string
+        pickupBusinessName:
+          type: string
+        pickupAddress:
+          $ref: '#/components/schemas/Address'
+        pickupInstructions:
+          type: string
+        contactPhone:
+          type: string
+    ChargeType:
+      type: string
+      enum:
+      - OPEN
+      - AMOUNT
+      - PERCENTAGE
+    ExternalDeliveryFeeStrategy:
+      type: string
+      enum:
+      - ADD
+      - IGNORE
+    IDGenerationStrategy:
+      type: string
+      enum:
+      - UUID
+      - AUTO_INCREMENT
+    CreateMerchantResponseDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+    MerchantDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        title:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        clientId:
+          type: string
+        messageFromEmail:
+          type: string
+        timezone:
+          type: string

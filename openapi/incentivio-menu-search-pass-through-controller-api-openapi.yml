@@ -55,6 +55,25 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ProductSearchResult:
+      type: object
+      properties:
+        extTargetingId:
+          type: string
+        incentivioId:
+          type: string
+        externalId:
+          type: string
+        title:
+          type: string
+        productType:
+          $ref: '#/components/schemas/ProductType'
+        locationVariationCount:
+          type: integer
+          format: int32
+        priceVariationCount:
+          type: integer
+          format: int32
     SearchTargetingParams:
       type: object
       properties:
@@ -75,31 +94,6 @@ components:
           format: int32
         cursor:
           type: string
-    ProductSearchResult:
-      type: object
-      properties:
-        extTargetingId:
-          type: string
-        incentivioId:
-          type: string
-        externalId:
-          type: string
-        title:
-          type: string
-        productType:
-          $ref: '#/components/schemas/ProductType'
-        locationVariationCount:
-          type: integer
-          format: int32
-        priceVariationCount:
-          type: integer
-          format: int32
-    ProductType:
-      type: string
-      enum:
-      - ITEM
-      - GROUP
-      - MENU
     LocationDetailResponse:
       type: object
       properties:
@@ -116,11 +110,23 @@ components:
       enum:
       - MAIN
       - MODIFIER
-    Status:
+    ProductSearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSearchResult'
+        nextCursor:
+          type: string
+        hasMoreResults:
+          type: boolean
+    ProductType:
       type: string
       enum:
-      - ACTIVE
-      - INACTIVE
+      - ITEM
+      - GROUP
+      - MENU
     TargetingLocationVariant:
       type: object
       properties:
@@ -142,14 +148,8 @@ components:
           type: string
         productId:
           type: string
-    ProductSearchResponse:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductSearchResult'
-        nextCursor:
-          type: string
-        hasMoreResults:
-          type: boolean
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE

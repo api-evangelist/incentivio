@@ -47,62 +47,36 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    RelationalOperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    SubCategoryEnum:
-      type: string
-      enum:
-      - LIFETIME
-      - LAST_NO_OF_DAYS
-      - NO_OF_ORDERS
-    OperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    ProductDTO:
+    RuleDescriptor:
       type: object
       properties:
-        type:
+        ruleType:
+          $ref: '#/components/schemas/RuleTypeEnum'
+        operator:
+          $ref: '#/components/schemas/OperatorEnum'
+        expressionValue:
           type: string
-        id:
+        expressionValueNew:
+          $ref: '#/components/schemas/ExpressionValueNew'
+        expressionName:
           type: string
-        externalId:
+        expressoinFormat:
           type: string
-        displayInfoTitlesList:
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        logicType:
+          $ref: '#/components/schemas/LogicTypeEnum'
+        childNodes:
           type: array
           items:
-            type: string
-    ResultsPagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
+            $ref: '#/components/schemas/RuleDescriptor'
+    RuleTypeEnum:
+      type: string
+      enum:
+      - EXPRESSION
+      - LOGIC
     SegmentLightResponseDTO:
       type: object
       properties:
@@ -118,27 +92,19 @@ components:
           $ref: '#/components/schemas/RuleDescriptor'
         deletedStatus:
           type: boolean
-    RuleTypeEnum:
-      type: string
-      enum:
-      - EXPRESSION
-      - LOGIC
-    DaysOfWeekEnum:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
-    LogicTypeEnum:
-      type: string
-      enum:
-      - AND
-      - OR
-      - NOT
+    ProductDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        externalId:
+          type: string
+        displayInfoTitlesList:
+          type: array
+          items:
+            type: string
     ExpressionValueNew:
       type: object
       properties:
@@ -174,31 +140,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DaysOfWeekEnum'
-    RuleDescriptor:
-      type: object
-      properties:
-        ruleType:
-          $ref: '#/components/schemas/RuleTypeEnum'
-        operator:
-          $ref: '#/components/schemas/OperatorEnum'
-        expressionValue:
-          type: string
-        expressionValueNew:
-          $ref: '#/components/schemas/ExpressionValueNew'
-        expressionName:
-          type: string
-        expressoinFormat:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        logicType:
-          $ref: '#/components/schemas/LogicTypeEnum'
-        childNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleDescriptor'
     FindCustomerSegmentsResponseDTO:
       type: object
       properties:
@@ -212,3 +153,62 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SegmentLightResponseDTO'
+    RelationalOperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    LogicTypeEnum:
+      type: string
+      enum:
+      - AND
+      - OR
+      - NOT
+    DaysOfWeekEnum:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    SubCategoryEnum:
+      type: string
+      enum:
+      - LIFETIME
+      - LAST_NO_OF_DAYS
+      - NO_OF_ORDERS
+    OperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32

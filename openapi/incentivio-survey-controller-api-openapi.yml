@@ -35,39 +35,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GetSurveyResponseDTO:
-      type: object
-      properties:
-        surveyId:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        locationId:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        imageUrl:
-          type: string
-        questions:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/GetQuestionResponseDTO'
-        surveyDisplayInfos:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/SurveyDisplayInfo'
-        createdDateTime:
-          type: string
-          format: date-time
-        modifiedDateTime:
-          type: string
-          format: date-time
     ChoiceDTO:
       required:
       - choiceDisplayInfos
@@ -122,6 +89,39 @@ components:
             $ref: '#/components/schemas/QuestionDisplayInfo'
         isMandatory:
           type: boolean
+        createdDateTime:
+          type: string
+          format: date-time
+        modifiedDateTime:
+          type: string
+          format: date-time
+    GetSurveyResponseDTO:
+      type: object
+      properties:
+        surveyId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        locationId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        questions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/GetQuestionResponseDTO'
+        surveyDisplayInfos:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SurveyDisplayInfo'
         createdDateTime:
           type: string
           format: date-time

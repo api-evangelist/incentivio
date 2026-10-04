@@ -198,35 +198,52 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GuestCountSummary:
+    GuestSummaryResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GuestSegmentInfo'
+    GuestSegmentOfferInfo:
+      type: object
+      properties:
+        offerTypeCount:
+          type: integer
+          format: int32
+        distributionCount:
+          type: integer
+          format: int32
+        redemptionPercentage:
+          type: number
+          format: double
+    GuestRevenueSummaryByStore:
       type: object
       properties:
         clientId:
+          type: string
+        merchantId:
+          type: string
+        storeId:
+          type: string
+        storeName:
           type: string
         segmentType:
           $ref: '#/components/schemas/GuestSegmentType'
         date:
           type: string
-        guestCount:
-          type: integer
-          format: int64
-    GuestSegmentTrend:
-      type: string
-      enum:
-      - UPTREND
-      - DOWNTREND
-      - STAGNANT
-    GuestSegmentType:
-      type: string
-      enum:
-      - STRANGER
-      - ROOKIE
-      - REGULAR
-      - LOYALIST
-      - CHAMPION
-      - WHALE
-      - SLIDER
-      - CHURNED
+        revenuePercentage:
+          type: number
+          format: double
+    GuestRevenueSummaryByStoreResponse:
+      type: object
+      properties:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestRevenueSummaryByStore'
     PagingDTO:
       type: object
       properties:
@@ -242,18 +259,55 @@ components:
         currentPage:
           type: integer
           format: int32
-    GuestSegmentOfferInfo:
+    GuestRevenueSummaryResponse:
       type: object
       properties:
-        offerTypeCount:
+        summary:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuestRevenueSummary'
+    GuestCountSummaryByStore:
+      type: object
+      properties:
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        storeId:
+          type: string
+        storeName:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        guestCount:
+          type: integer
+          format: int64
+    GuestJourneyStatus:
+      type: object
+      properties:
+        jobId:
           type: integer
           format: int32
-        distributionCount:
+        status:
+          type: string
+        modifiedDate:
+          type: string
+    GuestCountSummary:
+      type: object
+      properties:
+        clientId:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/GuestSegmentType'
+        date:
+          type: string
+        guestCount:
           type: integer
-          format: int32
-        redemptionPercentage:
-          type: number
-          format: double
+          format: int64
     GuestCountSummaryResponse:
       type: object
       properties:
@@ -284,51 +338,12 @@ components:
           format: double
         date:
           type: string
-    GuestCountSummaryByStoreResponse:
-      type: object
-      properties:
-        summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuestCountSummaryByStore'
-    GuestCountSummaryByStore:
-      type: object
-      properties:
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        storeId:
-          type: string
-        storeName:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/GuestSegmentType'
-        date:
-          type: string
-        guestCount:
-          type: integer
-          format: int64
-    GuestRevenueSummaryByStore:
-      type: object
-      properties:
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        storeId:
-          type: string
-        storeName:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/GuestSegmentType'
-        date:
-          type: string
-        revenuePercentage:
-          type: number
-          format: double
+    GuestSegmentTrend:
+      type: string
+      enum:
+      - UPTREND
+      - DOWNTREND
+      - STAGNANT
     GuestSegmentRecoveryInfo:
       type: object
       properties:
@@ -338,14 +353,18 @@ components:
         recoveredAnnualSpend:
           type: number
           format: double
-    GuestSummaryResponse:
-      type: object
-      properties:
-        summary:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/GuestSegmentInfo'
-    GuestRevenueSummaryResponse:
+    GuestSegmentType:
+      type: string
+      enum:
+      - STRANGER
+      - ROOKIE
+      - REGULAR
+      - LOYALIST
+      - CHAMPION
+      - WHALE
+      - SLIDER
+      - CHURNED
+    GuestCountSummaryByStoreResponse:
       type: object
       properties:
         summary:
@@ -353,16 +372,7 @@ components:
           additionalProperties:
             type: array
             items:
-              $ref: '#/components/schemas/GuestRevenueSummary'
-    GuestRevenueSummaryByStoreResponse:
-      type: object
-      properties:
-        summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuestRevenueSummaryByStore'
+              $ref: '#/components/schemas/GuestCountSummaryByStore'
     GuestSegmentInfo:
       type: object
       properties:
@@ -406,13 +416,3 @@ components:
         updatedDate:
           type: string
           format: date-time
-    GuestJourneyStatus:
-      type: object
-      properties:
-        jobId:
-          type: integer
-          format: int32
-        status:
-          type: string
-        modifiedDate:
-          type: string

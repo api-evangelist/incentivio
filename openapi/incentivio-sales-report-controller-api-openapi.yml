@@ -184,15 +184,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SalesByDateDTO'
-    SalesByDateDTO:
-      type: object
-      properties:
-        storeDate:
-          type: string
-          format: date-time
-        sales:
-          type: number
-          format: double
     SalesByLocationReportDTO:
       type: object
       properties:
@@ -211,6 +202,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SalesByDateDTO'
+    SalesByDateDTO:
+      type: object
+      properties:
+        storeDate:
+          type: string
+          format: date-time
+        sales:
+          type: number
+          format: double
     SalesByLocationForPreviousMonthReportDTO:
       type: object
       properties:

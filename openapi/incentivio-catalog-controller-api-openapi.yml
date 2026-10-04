@@ -299,50 +299,6 @@ components:
           type: array
           items:
             type: string
-    Discount:
-      type: object
-      properties:
-        discountId:
-          type: string
-        extDiscountId:
-          type: string
-        description:
-          type: string
-        discountType:
-          type: string
-          enum:
-          - ITEM
-          - ORDER
-        discountValueType:
-          type: string
-          enum:
-          - AMOUNT
-          - PERCENTAGE
-        amount:
-          type: number
-          format: float
-        percentage:
-          type: number
-          format: float
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
     ViewGroupMobileDTO:
       required:
       - title
@@ -429,6 +385,31 @@ components:
         minItemSelections:
           type: integer
           format: int32
+    Discount:
+      type: object
+      properties:
+        discountId:
+          type: string
+        extDiscountId:
+          type: string
+        description:
+          type: string
+        discountType:
+          type: string
+          enum:
+          - ITEM
+          - ORDER
+        discountValueType:
+          type: string
+          enum:
+          - AMOUNT
+          - PERCENTAGE
+        amount:
+          type: number
+          format: float
+        percentage:
+          type: number
+          format: float
     OptionGroupSettingDTO:
       type: object
       properties:
@@ -467,6 +448,25 @@ components:
             - DELIVERY
             - PICKUP
             - DINEIN
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
     ViewItemMobileDTO:
       required:
       - title

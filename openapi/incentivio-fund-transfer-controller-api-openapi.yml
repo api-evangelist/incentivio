@@ -131,34 +131,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    FundTransferConfigResponse:
-      type: object
-      properties:
-        clientId:
-          type: string
-        frequency:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/FundTransferLocationConfig'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-        active:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        path:
-          type: string
     StatusEnum:
       type: string
       enum:
@@ -214,17 +186,33 @@ components:
         totalRecordCount:
           type: integer
           format: int64
-    FormattedDwollaException:
+    AuditEvent:
       type: object
       properties:
-        code:
+        id:
           type: string
-        message:
+        eventName:
+          $ref: '#/components/schemas/EventNameEnum'
+        topic:
           type: string
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+        traceId:
+          type: string
+        transferId:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        interventionRequired:
+          type: boolean
+        resolved:
+          type: boolean
+        resolutionTime:
+          type: string
+          format: date-time
+        resolutionComment:
+          type: string
+        additionalDetails:
+          type: string
     FundTransfer:
       type: object
       properties:
@@ -317,6 +305,45 @@ components:
         modifiedDate:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+    FormattedDwollaException:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    FundTransferConfigResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+        frequency:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundTransferLocationConfig'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        active:
+          type: boolean
     FundTransferFailureReason:
       type: object
       properties:
@@ -333,30 +360,3 @@ components:
           type: string
         active:
           type: boolean
-    AuditEvent:
-      type: object
-      properties:
-        id:
-          type: string
-        eventName:
-          $ref: '#/components/schemas/EventNameEnum'
-        topic:
-          type: string
-        traceId:
-          type: string
-        transferId:
-          type: string
-        eventTime:
-          type: string
-          format: date-time
-        interventionRequired:
-          type: boolean
-        resolved:
-          type: boolean
-        resolutionTime:
-          type: string
-          format: date-time
-        resolutionComment:
-          type: string
-        additionalDetails:
-          type: string

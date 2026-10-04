@@ -50,17 +50,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreatePaymentGatewayRequest:
-      type: object
-      properties:
-        gatewayDescription:
-          type: string
-        spreedlyEnvironmentKey:
-          type: string
-        sandbox:
-          type: boolean
-        type:
-          type: string
     CreateEnvironmentResponse:
       type: object
       properties:
@@ -89,6 +78,17 @@ components:
         iframeEnhancedSecurityEnabled:
           type: boolean
         certificateToken:
+          type: string
+    CreatePaymentGatewayRequest:
+      type: object
+      properties:
+        gatewayDescription:
+          type: string
+        spreedlyEnvironmentKey:
+          type: string
+        sandbox:
+          type: boolean
+        type:
           type: string
     CreatePaymentGatewayResponse:
       type: object

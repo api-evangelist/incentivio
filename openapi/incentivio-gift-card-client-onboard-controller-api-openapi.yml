@@ -171,6 +171,17 @@ components:
       - SQUARE
       - VALUTEC
       - E_CARD_SYSTEMS
+    GiftCardClientConfigResponse:
+      type: object
+      properties:
+        giftCardProvider:
+          $ref: '#/components/schemas/GiftCardServiceProvider'
+        securityCodeEnabled:
+          type: boolean
+        poolAccountSettings:
+          type: object
+          additionalProperties:
+            type: string
     GiftCardLocationConfig:
       type: object
       properties:
@@ -188,17 +199,6 @@ components:
         locationId:
           type: string
         locationSettings:
-          type: object
-          additionalProperties:
-            type: string
-    GiftCardClientConfigResponse:
-      type: object
-      properties:
-        giftCardProvider:
-          $ref: '#/components/schemas/GiftCardServiceProvider'
-        securityCodeEnabled:
-          type: boolean
-        poolAccountSettings:
           type: object
           additionalProperties:
             type: string

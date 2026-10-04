@@ -223,6 +223,11 @@ components:
       properties:
         id:
           type: string
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
     PermissionDTO:
       type: object
       properties:
@@ -236,6 +241,73 @@ components:
         moduleID:
           type: integer
           format: int64
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+    UpdateRoleRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        role:
+          type: string
+        description:
+          type: string
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDTO'
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+      required:
+      - id
+    SearchModulesResponseDTO:
+      type: object
+      properties:
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDTO'
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    ModuleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        order:
+          type: integer
+          format: int32
+        roleModulePermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionDTO'
+        allPermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionDTO'
         active:
           type: boolean
         deleted:
@@ -267,11 +339,6 @@ components:
       required:
       - modules
       - role
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
     RoleDTO:
       type: object
       properties:
@@ -290,70 +357,3 @@ components:
           type: boolean
         deleted:
           type: boolean
-    ModuleDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        description:
-          type: string
-        order:
-          type: integer
-          format: int32
-        roleModulePermissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionDTO'
-        allPermissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionDTO'
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-    SearchModulesResponseDTO:
-      type: object
-      properties:
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleDTO'
-    UpdateRoleRequestDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        role:
-          type: string
-        description:
-          type: string
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleDTO'
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-      required:
-      - id

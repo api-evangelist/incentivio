@@ -610,65 +610,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    StoreDisplayInfo:
-      type: object
-      properties:
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-    UpdateStoreRequestDTO:
-      type: object
-      properties:
-        title:
-          type: string
-        address:
-          $ref: '#/components/schemas/AddressDTO'
-        phoneNumber:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        regionId:
-          type: string
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        storeType:
-          type: string
-        beaconId:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreDisplayInfo'
-          uniqueItems: true
-        isCatering:
-          type: boolean
-        isMenuBrowsing:
-          type: boolean
-        viewOnlyLocationEnabled:
-          type: boolean
-        isTest:
-          type: boolean
-        regionEmpty:
-          type: boolean
     FindAllStoresResponseDTO:
       type: object
       properties:
@@ -676,20 +617,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StoreDTO'
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    StoreTypeDTO:
-      type: object
-      properties:
-        storeTypeId:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
     AddressDTO:
       type: object
       properties:
@@ -705,15 +632,13 @@ components:
           type: string
         streetAddress2:
           type: string
-    FindStoresResponseDTO:
+    FindAdminStoresResponseDTO:
       type: object
       properties:
-        paging:
-          $ref: '#/components/schemas/PagingDto'
         stores:
           type: array
           items:
-            $ref: '#/components/schemas/StoreDTO'
+            $ref: '#/components/schemas/AdminStoreDTO'
     CreateStoreRequestDTO:
       type: object
       properties:
@@ -758,13 +683,90 @@ components:
           type: boolean
       required:
       - title
-    FindAdminStoresResponseDTO:
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    ReachStringDTO:
       type: object
       properties:
+        reach:
+          type: string
+    CreateStoreResponseDTO:
+      type: object
+      properties:
+        storeId:
+          type: string
+    FindStoresResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
         stores:
           type: array
           items:
-            $ref: '#/components/schemas/AdminStoreDTO'
+            $ref: '#/components/schemas/StoreDTO'
+    FindStoreTypesResponseDTO:
+      type: object
+      properties:
+        storeTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreTypeDTO'
+    UpdateStoreRequestDTO:
+      type: object
+      properties:
+        title:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressDTO'
+        phoneNumber:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        regionId:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        storeType:
+          type: string
+        beaconId:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreDisplayInfo'
+          uniqueItems: true
+        isCatering:
+          type: boolean
+        isMenuBrowsing:
+          type: boolean
+        viewOnlyLocationEnabled:
+          type: boolean
+        isTest:
+          type: boolean
+        regionEmpty:
+          type: boolean
+    AdminStoreDTO:
+      type: object
+      properties:
+        storeId:
+          type: string
+        merchantId:
+          type: string
+        title:
+          type: string
     PagingDto:
       type: object
       properties:
@@ -780,15 +782,6 @@ components:
         totalPages:
           type: integer
           format: int64
-    AdminStoreDTO:
-      type: object
-      properties:
-        storeId:
-          type: string
-        merchantId:
-          type: string
-        title:
-          type: string
     StoreDTO:
       type: object
       properties:
@@ -837,20 +830,27 @@ components:
           type: boolean
         isTest:
           type: boolean
-    CreateStoreResponseDTO:
+    StoreDisplayInfo:
       type: object
       properties:
-        storeId:
+        languageCode:
           type: string
-    FindStoreTypesResponseDTO:
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+    StoreTypeDTO:
       type: object
       properties:
-        storeTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreTypeDTO'
-    ReachStringDTO:
-      type: object
-      properties:
-        reach:
+        storeTypeId:
+          type: string
+        type:
+          type: string
+        description:
           type: string

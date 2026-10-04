@@ -52,13 +52,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GuestOrderVerificationRequest:
-      type: object
-      properties:
-        orderId:
-          type: string
-        recipient:
-          type: string
     GuestOrderVerificationResponse:
       type: object
       properties:
@@ -67,3 +60,10 @@ components:
         expirationMinutes:
           type: integer
           format: int64
+    GuestOrderVerificationRequest:
+      type: object
+      properties:
+        orderId:
+          type: string
+        recipient:
+          type: string

@@ -71,491 +71,6 @@ paths:
       description: Generated server url
 components:
   schemas:
-    Colors:
-      type: object
-      properties:
-        primaryColor:
-          type: string
-        secondaryColor:
-          type: string
-        tertiaryColor:
-          type: string
-        headerBgColor:
-          type: string
-        bgColor:
-          type: string
-        tintColor:
-          type: string
-        shadeColor:
-          type: string
-        accentColor:
-          type: string
-        activeBreadcrumbColor:
-          type: string
-        inactiveBreadcrumbColor:
-          type: string
-        cardColor:
-          type: string
-        hoverColor:
-          type: string
-        inactiveButton:
-          type: string
-    LoyaltyPunchConfigs:
-      type: object
-      properties:
-        fullPunchImageUrl:
-          type: string
-        halfPunchImageUrl:
-          type: string
-        punchesToPointsRatio:
-          type: integer
-          format: int32
-    OrderType:
-      type: string
-      enum:
-      - DELIVERY
-      - PICKUP
-    OrderDetails:
-      type: object
-      properties:
-        orderType:
-          type: string
-        total:
-          type: string
-        text:
-          type: array
-          items:
-            type: string
-    OrderHistoryExternalButton:
-      type: object
-      properties:
-        displayExternalContactUsButtonOnOrderHistory:
-          type: boolean
-        orderHistoryContactURL:
-          type: string
-    SignUpNotification:
-      type: object
-      properties:
-        signUpAndLoyaltyExpiryBannerTextColor:
-          type: string
-        signUpAndLoyaltyExpiryBannerBackgroundColor:
-          type: string
-        signUpNotificationBannerMessageText:
-          type: string
-        shouldUsePrimaryFontOnSignUpAndLoyaltyExpiryBanner:
-          type: boolean
-        signUpAndLoyaltyExpiryBannerInfoIconColor:
-          type: string
-        signUpAndLoyaltyExpiryBannerDismissIconColor:
-          type: string
-    WOv2:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-    Segment:
-      type: object
-      properties:
-        workspaceId:
-          type: string
-    Images:
-      type: object
-      properties:
-        logo:
-          type: string
-        bgImage:
-          type: string
-        defaultGroupImage:
-          type: string
-        mapPin:
-          type: string
-        favicon:
-          type: string
-    IosSettings:
-      type: object
-      properties:
-        teamId:
-          type: string
-        bundleId:
-          type: string
-        appleAppSiteAssociationFileUrl:
-          type: string
-    ToastApplePay:
-      type: object
-      properties:
-        id:
-          type: string
-        integrationIdentifier:
-          type: string
-      required:
-      - id
-      - integrationIdentifier
-    AndroidSettings:
-      type: object
-      properties:
-        packageName:
-          type: string
-        fingerPrint1:
-          type: string
-        fingerPrint2:
-          type: string
-        fingerPrint3:
-          type: string
-        assetLinksFileUrl:
-          type: string
-    TipConfiguration:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            type: integer
-            format: int32
-        defaultTip:
-          type: integer
-          format: int32
-    PasswordlessAuthentication:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        deliveryMethod:
-          type: array
-          items:
-            $ref: '#/components/schemas/VerificationDeliveryMethod'
-        magicLinkSettings:
-          $ref: '#/components/schemas/MagicLinkSettings'
-      required:
-      - deliveryMethod
-      - enabled
-    CheckoutTipConfigs:
-      type: object
-      properties:
-        headerEnabled:
-          type: boolean
-        headerTitle:
-          type: string
-        subTitleEnabled:
-          type: boolean
-        deliverySubTitle:
-          type: string
-        pickupSubTitle:
-          type: string
-    Recaptcha:
-      type: object
-      properties:
-        isActive:
-          type: boolean
-        enableFor:
-          $ref: '#/components/schemas/RecaptchaEnableFor'
-    DefaultOrderType:
-      type: object
-      properties:
-        active:
-          type: boolean
-        orderType:
-          $ref: '#/components/schemas/OrderType'
-    UserAccountVerification:
-      type: object
-      properties:
-        method:
-          $ref: '#/components/schemas/UserAccountVerificationMethod'
-      required:
-      - method
-    SignUp:
-      type: object
-      properties:
-        dateOfBirth:
-          $ref: '#/components/schemas/DateOfBirth'
-        enableLegacyUserAccessAccountFlow:
-          type: boolean
-        signUpNotification:
-          $ref: '#/components/schemas/SignUpNotification'
-    RequiredMobileAppVersion:
-      type: object
-      properties:
-        androidVersion:
-          type: object
-          additionalProperties:
-            type: boolean
-        iosVersion:
-          type: object
-          additionalProperties:
-            type: boolean
-      required:
-      - androidVersion
-      - iosVersion
-    UserAccountVerificationMethod:
-      type: string
-      enum:
-      - EMAIL_CODE
-      - EMAIL_LINK
-      - SMS_CODE
-      - SMS_LINK
-    APNSetting:
-      type: object
-      properties:
-        keyId:
-          type: string
-        teamId:
-          type: string
-        bundleId:
-          type: string
-        signingKeyFile:
-          type: string
-        environment:
-          type: string
-        androidPnApiKey:
-          type: string
-        firebaseProjectId:
-          type: string
-        firebasePrivateKeyId:
-          type: string
-        firebasePrivateKey:
-          type: string
-        firebaseClientEmail:
-          type: string
-        firebaseClientId:
-          type: string
-        firebaseClientCertUrl:
-          type: string
-      required:
-      - androidPnApiKey
-      - bundleId
-      - environment
-      - firebaseClientCertUrl
-      - firebaseClientEmail
-      - firebaseClientId
-      - firebasePrivateKey
-      - firebasePrivateKeyId
-      - firebaseProjectId
-      - keyId
-      - signingKeyFile
-      - teamId
-    RecaptchaEnableFor:
-      type: object
-      properties:
-        login:
-          type: boolean
-        createAccount:
-          type: boolean
-        payment:
-          type: boolean
-        addGiftCard:
-          type: boolean
-    OrderTypeLabels:
-      type: object
-      properties:
-        pickup:
-          type: object
-          additionalProperties:
-            type: string
-        delivery:
-          type: object
-          additionalProperties:
-            type: string
-        catering:
-          type: object
-          additionalProperties:
-            type: string
-    ClientConfigShared:
-      type: object
-      properties:
-        dateCreated:
-          type: string
-          format: date-time
-        dateUpdated:
-          type: string
-          format: date-time
-        apnSetting:
-          $ref: '#/components/schemas/APNSetting'
-        giftCard:
-          $ref: '#/components/schemas/GiftCard'
-        guestCheckoutVerification:
-          $ref: '#/components/schemas/GuestCheckoutVerification'
-        guestJourney:
-          $ref: '#/components/schemas/GuestJourney'
-        loyaltyNumberStrategy:
-          $ref: '#/components/schemas/LoyaltyNumberStrategy'
-        loyaltyProvider:
-          $ref: '#/components/schemas/LoyaltyProvider'
-        mobileAppVersion:
-          $ref: '#/components/schemas/MobileAppVersion'
-        passwordlessAuthentication:
-          $ref: '#/components/schemas/PasswordlessAuthentication'
-        recaptcha:
-          type: boolean
-        silverwareExtLoyaltyIdStrategy:
-          $ref: '#/components/schemas/SilverwareExtLoyaltyIdStrategy'
-        sms:
-          $ref: '#/components/schemas/Sms'
-        socialSignIn:
-          $ref: '#/components/schemas/SocialSignIn'
-        toastApplePay:
-          $ref: '#/components/schemas/ToastApplePay'
-        userAccountVerification:
-          $ref: '#/components/schemas/UserAccountVerification'
-        workspaces:
-          $ref: '#/components/schemas/Workspace'
-      required:
-      - dateCreated
-      - dateUpdated
-      - giftCard
-      - loyaltyProvider
-      - sms
-      - socialSignIn
-      - userAccountVerification
-      - workspaces
-    OrderHistoryEmailButton:
-      type: object
-      properties:
-        displayEmailButtonOnOrderHistory:
-          type: boolean
-        orderHistoryContactEmail:
-          type: string
-        orderHistoryContactEmailSubject:
-          type: string
-        includeOrderNumberInSubject:
-          type: boolean
-        includeOrderDateInSubject:
-          type: boolean
-        includeLocationInSubject:
-          type: boolean
-        includeOrderIdInSubject:
-          type: boolean
-        includePaymentCardLastFourDigits:
-          type: boolean
-    GuestJourney:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        enabledMenuIntelligence:
-          type: boolean
-      required:
-      - enabled
-      - enabledMenuIntelligence
-    DateOfBirth:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        required:
-          type: boolean
-    VerificationDeliveryMethod:
-      type: string
-      enum:
-      - SMS
-      - EMAIL
-    PreferenceInfo:
-      type: object
-      properties:
-        preferenceName:
-          type: object
-          additionalProperties:
-            type: string
-        values:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        infoText:
-          type: object
-          additionalProperties:
-            type: string
-        multiSelectOption:
-          type: boolean
-    Loyalty:
-      type: object
-      properties:
-        loyaltyType:
-          type: string
-        loyaltyPointNameSingular:
-          type: string
-        loyaltyPointNamePlural:
-          type: string
-        loyaltyPointsDivisor:
-          type: integer
-          format: int32
-        loyaltyPointImgs:
-          type: array
-          items:
-            type: string
-        loyaltyLogo:
-          type: string
-        loyaltyHeaderRectangle1:
-          type: string
-        loyaltyHeaderRectangle2:
-          type: string
-        loyaltyText:
-          type: array
-          items:
-            type: string
-        loyaltyButtonColor:
-          type: string
-        loyaltyHeadingColor:
-          type: string
-        loyaltyTextColor:
-          type: string
-        loyaltyHeader:
-          type: array
-          items:
-            type: string
-        loyaltyButtons:
-          $ref: '#/components/schemas/LoyaltyButtons'
-        loyaltyPointTermSingular:
-          type: array
-          items:
-            type: string
-        loyaltyPointTermPlural:
-          type: array
-          items:
-            type: string
-        displayLoyaltyPointsExpiration:
-          $ref: '#/components/schemas/DisplayLoyaltyPointsExpiration'
-        loyaltyScreenType:
-          type: string
-        rewardsDescriptionURL:
-          type: string
-        hideLoyaltyScreenOfferDisplayTitleLabel:
-          type: boolean
-        displayAvailableOffersCountLoyaltyScreen:
-          type: boolean
-        loyaltyPointTerminology:
-          type: string
-        loyaltyPointsTerminology:
-          type: string
-        loyaltyCardDisplayTitle:
-          type: string
-        loyaltyWheelConfigs:
-          $ref: '#/components/schemas/LoyaltyWheelConfigs'
-        loyaltyPunchConfigs:
-          $ref: '#/components/schemas/LoyaltyPunchConfigs'
-    CustomCatalog:
-      type: object
-      properties:
-        isActive:
-          type: boolean
-        isOrderingEnabled:
-          type: boolean
-        customCatalogTitle:
-          type: array
-          items:
-            type: string
-        defaultLocation:
-          type: string
-        defaultMerchant:
-          type: string
-        buttonName:
-          type: array
-          items:
-            type: string
-    Workspace:
-      type: object
-      properties:
-        enabled:
-          type: boolean
     Sms:
       type: object
       properties:
@@ -581,68 +96,76 @@ components:
       - enabledAccountVerification
       - enabledMarketing
       - enabledOrdering
-    Fonts:
+    PageUrl:
       type: object
       properties:
-        primaryFont:
-          $ref: '#/components/schemas/Font'
-        secondaryFont:
-          $ref: '#/components/schemas/Font'
-        tertiaryFont:
-          $ref: '#/components/schemas/Font'
-        quaternaryFont:
-          $ref: '#/components/schemas/Font'
-    LoyaltyButtons:
-      type: object
-      properties:
-        button1:
+        title:
           type: array
           items:
             type: string
-        button2:
+        url:
+          type: string
+        image:
+          type: string
+    GiftCard:
+      type: object
+      properties:
+        isActive:
+          type: boolean
+        sendByEmailIsActive:
+          type: boolean
+        giftCardTitle:
           type: array
           items:
             type: string
-    Font:
-      type: object
-      properties:
-        fontFamily:
+        defaultLocation:
           type: string
-        fontSize:
-          type: string
-        fontColor:
-          type: string
-    TipPercentages:
-      type: object
-      properties:
-        pickup:
-          $ref: '#/components/schemas/TipConfiguration'
-        delivery:
-          $ref: '#/components/schemas/TipConfiguration'
-    LoyaltyProviderType:
-      type: string
-      enum:
-      - INCENTIVIO
-      - SQUARE
-    LoyaltyWheelConfigs:
-      type: object
-      properties:
-        hideLoyaltyScreenConfettiAnimation:
-          type: boolean
-        forceConfettiAnimationOnEachTier:
-          type: boolean
-        loyaltyMileStoneValues:
+        cardDetails:
           type: array
           items:
-            type: integer
-            format: int32
-        shouldDisplayCustomLoyaltyTierDetailButton:
+            type: string
+        walletOrder:
+          type: array
+          items:
+            type: string
+        defaultMerchant:
+          type: string
+        minAmount:
+          type: string
+        maxAmount:
+          type: string
+        selectableAmount:
+          type: array
+          items:
+            type: string
+        giftCardHeader:
+          type: array
+          items:
+            type: string
+        hideQrCode:
           type: boolean
-        customLoyaltyTierDetailButtonTitle:
-          type: string
-        pointUntilNextRewardDescriptionLabel:
-          type: string
-        pointsUntilNextRewardDescriptionLabel:
+        purchaseNewGiftCard:
+          type: boolean
+        addGiftCardToWallet:
+          type: boolean
+        reloadGiftCard:
+          type: boolean
+        purchaseWithGiftCard:
+          type: boolean
+        giftCardLookUp:
+          type: boolean
+        securityCodeEnabled:
+          type: boolean
+        guestPurchaseEnabled:
+          type: boolean
+        guestAddGiftCardEnabled:
+          type: boolean
+    OrderHistoryExternalButton:
+      type: object
+      properties:
+        displayExternalContactUsButtonOnOrderHistory:
+          type: boolean
+        orderHistoryContactURL:
           type: string
     WebAppConfigDTO:
       type: object
@@ -875,6 +398,288 @@ components:
           $ref: '#/components/schemas/OrderHistory'
         checkoutTipConfigs:
           $ref: '#/components/schemas/CheckoutTipConfigs'
+    OrderType:
+      type: string
+      enum:
+      - DELIVERY
+      - PICKUP
+    Images:
+      type: object
+      properties:
+        logo:
+          type: string
+        bgImage:
+          type: string
+        defaultGroupImage:
+          type: string
+        mapPin:
+          type: string
+        favicon:
+          type: string
+    Colors:
+      type: object
+      properties:
+        primaryColor:
+          type: string
+        secondaryColor:
+          type: string
+        tertiaryColor:
+          type: string
+        headerBgColor:
+          type: string
+        bgColor:
+          type: string
+        tintColor:
+          type: string
+        shadeColor:
+          type: string
+        accentColor:
+          type: string
+        activeBreadcrumbColor:
+          type: string
+        inactiveBreadcrumbColor:
+          type: string
+        cardColor:
+          type: string
+        hoverColor:
+          type: string
+        inactiveButton:
+          type: string
+    MagicLinkSettings:
+      type: object
+      properties:
+        android:
+          $ref: '#/components/schemas/AndroidSettings'
+        ios:
+          $ref: '#/components/schemas/IosSettings'
+        baseUrl:
+          type: string
+    RecaptchaEnableFor:
+      type: object
+      properties:
+        login:
+          type: boolean
+        createAccount:
+          type: boolean
+        payment:
+          type: boolean
+        addGiftCard:
+          type: boolean
+    LoyaltyPunchConfigs:
+      type: object
+      properties:
+        fullPunchImageUrl:
+          type: string
+        halfPunchImageUrl:
+          type: string
+        punchesToPointsRatio:
+          type: integer
+          format: int32
+    APNSetting:
+      type: object
+      properties:
+        keyId:
+          type: string
+        teamId:
+          type: string
+        bundleId:
+          type: string
+        signingKeyFile:
+          type: string
+        environment:
+          type: string
+        androidPnApiKey:
+          type: string
+        firebaseProjectId:
+          type: string
+        firebasePrivateKeyId:
+          type: string
+        firebasePrivateKey:
+          type: string
+        firebaseClientEmail:
+          type: string
+        firebaseClientId:
+          type: string
+        firebaseClientCertUrl:
+          type: string
+      required:
+      - androidPnApiKey
+      - bundleId
+      - environment
+      - firebaseClientCertUrl
+      - firebaseClientEmail
+      - firebaseClientId
+      - firebasePrivateKey
+      - firebasePrivateKeyId
+      - firebaseProjectId
+      - keyId
+      - signingKeyFile
+      - teamId
+    DateOfBirth:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        required:
+          type: boolean
+    Font:
+      type: object
+      properties:
+        fontFamily:
+          type: string
+        fontSize:
+          type: string
+        fontColor:
+          type: string
+    WebUrls:
+      type: object
+      properties:
+        mainUrl:
+          $ref: '#/components/schemas/PageUrl'
+        fb:
+          $ref: '#/components/schemas/PageUrl'
+        tw:
+          $ref: '#/components/schemas/PageUrl'
+        ig:
+          $ref: '#/components/schemas/PageUrl'
+    LoyaltyProvider:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        type:
+          $ref: '#/components/schemas/LoyaltyProviderType'
+    OrderDetails:
+      type: object
+      properties:
+        orderType:
+          type: string
+        total:
+          type: string
+        text:
+          type: array
+          items:
+            type: string
+    SilverwareExtLoyaltyIdStrategy:
+      type: object
+      properties:
+        appVersion:
+          type: string
+        loyaltyApiMerchantId:
+          type: string
+        loyaltyApiMerchantCred:
+          type: string
+        orderSubmissionCredential:
+          type: string
+        clientPrefix:
+          type: string
+        cardTypePrefix:
+          type: string
+      required:
+      - appVersion
+      - cardTypePrefix
+      - clientPrefix
+      - loyaltyApiMerchantCred
+      - loyaltyApiMerchantId
+    LoyaltyProviderType:
+      type: string
+      enum:
+      - INCENTIVIO
+      - SQUARE
+    Loyalty:
+      type: object
+      properties:
+        loyaltyType:
+          type: string
+        loyaltyPointNameSingular:
+          type: string
+        loyaltyPointNamePlural:
+          type: string
+        loyaltyPointsDivisor:
+          type: integer
+          format: int32
+        loyaltyPointImgs:
+          type: array
+          items:
+            type: string
+        loyaltyLogo:
+          type: string
+        loyaltyHeaderRectangle1:
+          type: string
+        loyaltyHeaderRectangle2:
+          type: string
+        loyaltyText:
+          type: array
+          items:
+            type: string
+        loyaltyButtonColor:
+          type: string
+        loyaltyHeadingColor:
+          type: string
+        loyaltyTextColor:
+          type: string
+        loyaltyHeader:
+          type: array
+          items:
+            type: string
+        loyaltyButtons:
+          $ref: '#/components/schemas/LoyaltyButtons'
+        loyaltyPointTermSingular:
+          type: array
+          items:
+            type: string
+        loyaltyPointTermPlural:
+          type: array
+          items:
+            type: string
+        displayLoyaltyPointsExpiration:
+          $ref: '#/components/schemas/DisplayLoyaltyPointsExpiration'
+        loyaltyScreenType:
+          type: string
+        rewardsDescriptionURL:
+          type: string
+        hideLoyaltyScreenOfferDisplayTitleLabel:
+          type: boolean
+        displayAvailableOffersCountLoyaltyScreen:
+          type: boolean
+        loyaltyPointTerminology:
+          type: string
+        loyaltyPointsTerminology:
+          type: string
+        loyaltyCardDisplayTitle:
+          type: string
+        loyaltyWheelConfigs:
+          $ref: '#/components/schemas/LoyaltyWheelConfigs'
+        loyaltyPunchConfigs:
+          $ref: '#/components/schemas/LoyaltyPunchConfigs'
+    Fonts:
+      type: object
+      properties:
+        primaryFont:
+          $ref: '#/components/schemas/Font'
+        secondaryFont:
+          $ref: '#/components/schemas/Font'
+        tertiaryFont:
+          $ref: '#/components/schemas/Font'
+        quaternaryFont:
+          $ref: '#/components/schemas/Font'
+    GuestCheckoutVerification:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        deliveryMethod:
+          $ref: '#/components/schemas/VerificationDeliveryMethod'
+      required:
+      - deliveryMethod
+      - enabled
+    MobileAppVersion:
+      type: object
+      properties:
+        requiredVersion:
+          $ref: '#/components/schemas/RequiredMobileAppVersion'
+        recommendedVersion:
+          $ref: '#/components/schemas/RecommendedMobileAppVersion'
     ItemModifiers:
       type: object
       properties:
@@ -886,6 +691,95 @@ components:
           type: boolean
         autoExpandMoreCustomizations:
           type: boolean
+    OrderTypeLabels:
+      type: object
+      properties:
+        pickup:
+          type: object
+          additionalProperties:
+            type: string
+        delivery:
+          type: object
+          additionalProperties:
+            type: string
+        catering:
+          type: object
+          additionalProperties:
+            type: string
+    PasswordlessAuthentication:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        deliveryMethod:
+          type: array
+          items:
+            $ref: '#/components/schemas/VerificationDeliveryMethod'
+        magicLinkSettings:
+          $ref: '#/components/schemas/MagicLinkSettings'
+      required:
+      - deliveryMethod
+      - enabled
+    TipPercentages:
+      type: object
+      properties:
+        pickup:
+          $ref: '#/components/schemas/TipConfiguration'
+        delivery:
+          $ref: '#/components/schemas/TipConfiguration'
+    AndroidSettings:
+      type: object
+      properties:
+        packageName:
+          type: string
+        fingerPrint1:
+          type: string
+        fingerPrint2:
+          type: string
+        fingerPrint3:
+          type: string
+        assetLinksFileUrl:
+          type: string
+    UserAccountVerification:
+      type: object
+      properties:
+        method:
+          $ref: '#/components/schemas/UserAccountVerificationMethod'
+      required:
+      - method
+    IosSettings:
+      type: object
+      properties:
+        teamId:
+          type: string
+        bundleId:
+          type: string
+        appleAppSiteAssociationFileUrl:
+          type: string
+    RequiredMobileAppVersion:
+      type: object
+      properties:
+        androidVersion:
+          type: object
+          additionalProperties:
+            type: boolean
+        iosVersion:
+          type: object
+          additionalProperties:
+            type: boolean
+      required:
+      - androidVersion
+      - iosVersion
+    GuestJourney:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        enabledMenuIntelligence:
+          type: boolean
+      required:
+      - enabled
+      - enabledMenuIntelligence
     MenuLogos:
       type: object
       properties:
@@ -940,13 +834,42 @@ components:
         tings:
           $ref: '#/components/schemas/MenuLogos'
           writeOnly: true
-    LoyaltyProvider:
+    VerificationDeliveryMethod:
+      type: string
+      enum:
+      - SMS
+      - EMAIL
+    TipConfiguration:
       type: object
       properties:
-        enabled:
+        values:
+          type: array
+          items:
+            type: integer
+            format: int32
+        defaultTip:
+          type: integer
+          format: int32
+    Recaptcha:
+      type: object
+      properties:
+        isActive:
           type: boolean
-        type:
-          $ref: '#/components/schemas/LoyaltyProviderType'
+        enableFor:
+          $ref: '#/components/schemas/RecaptchaEnableFor'
+    CheckoutTipConfigs:
+      type: object
+      properties:
+        headerEnabled:
+          type: boolean
+        headerTitle:
+          type: string
+        subTitleEnabled:
+          type: boolean
+        deliverySubTitle:
+          type: string
+        pickupSubTitle:
+          type: string
     DisplayLoyaltyPointsExpiration:
       type: object
       properties:
@@ -957,69 +880,221 @@ components:
           format: int32
         displayModal:
           type: boolean
-    GuestCheckoutVerification:
+    OrderHistory:
+      type: object
+      properties:
+        hideOrderHistoryReorderButton:
+          type: boolean
+        hideOrderHistoryCallButton:
+          type: boolean
+        orderHistoryEmailButton:
+          $ref: '#/components/schemas/OrderHistoryEmailButton'
+        orderHistoryExternalButton:
+          $ref: '#/components/schemas/OrderHistoryExternalButton'
+    SignUp:
+      type: object
+      properties:
+        dateOfBirth:
+          $ref: '#/components/schemas/DateOfBirth'
+        enableLegacyUserAccessAccountFlow:
+          type: boolean
+        signUpNotification:
+          $ref: '#/components/schemas/SignUpNotification'
+    LoyaltyWheelConfigs:
+      type: object
+      properties:
+        hideLoyaltyScreenConfettiAnimation:
+          type: boolean
+        forceConfettiAnimationOnEachTier:
+          type: boolean
+        loyaltyMileStoneValues:
+          type: array
+          items:
+            type: integer
+            format: int32
+        shouldDisplayCustomLoyaltyTierDetailButton:
+          type: boolean
+        customLoyaltyTierDetailButtonTitle:
+          type: string
+        pointUntilNextRewardDescriptionLabel:
+          type: string
+        pointsUntilNextRewardDescriptionLabel:
+          type: string
+    Workspace:
       type: object
       properties:
         enabled:
           type: boolean
-        deliveryMethod:
-          $ref: '#/components/schemas/VerificationDeliveryMethod'
+    SignUpNotification:
+      type: object
+      properties:
+        signUpAndLoyaltyExpiryBannerTextColor:
+          type: string
+        signUpAndLoyaltyExpiryBannerBackgroundColor:
+          type: string
+        signUpNotificationBannerMessageText:
+          type: string
+        shouldUsePrimaryFontOnSignUpAndLoyaltyExpiryBanner:
+          type: boolean
+        signUpAndLoyaltyExpiryBannerInfoIconColor:
+          type: string
+        signUpAndLoyaltyExpiryBannerDismissIconColor:
+          type: string
+    OrderHistoryEmailButton:
+      type: object
+      properties:
+        displayEmailButtonOnOrderHistory:
+          type: boolean
+        orderHistoryContactEmail:
+          type: string
+        orderHistoryContactEmailSubject:
+          type: string
+        includeOrderNumberInSubject:
+          type: boolean
+        includeOrderDateInSubject:
+          type: boolean
+        includeLocationInSubject:
+          type: boolean
+        includeOrderIdInSubject:
+          type: boolean
+        includePaymentCardLastFourDigits:
+          type: boolean
+    DefaultOrderType:
+      type: object
+      properties:
+        active:
+          type: boolean
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+    ClientConfigShared:
+      type: object
+      properties:
+        dateCreated:
+          type: string
+          format: date-time
+        dateUpdated:
+          type: string
+          format: date-time
+        apnSetting:
+          $ref: '#/components/schemas/APNSetting'
+        giftCard:
+          $ref: '#/components/schemas/GiftCard'
+        guestCheckoutVerification:
+          $ref: '#/components/schemas/GuestCheckoutVerification'
+        guestJourney:
+          $ref: '#/components/schemas/GuestJourney'
+        loyaltyNumberStrategy:
+          $ref: '#/components/schemas/LoyaltyNumberStrategy'
+        loyaltyProvider:
+          $ref: '#/components/schemas/LoyaltyProvider'
+        mobileAppVersion:
+          $ref: '#/components/schemas/MobileAppVersion'
+        passwordlessAuthentication:
+          $ref: '#/components/schemas/PasswordlessAuthentication'
+        recaptcha:
+          type: boolean
+        silverwareExtLoyaltyIdStrategy:
+          $ref: '#/components/schemas/SilverwareExtLoyaltyIdStrategy'
+        sms:
+          $ref: '#/components/schemas/Sms'
+        socialSignIn:
+          $ref: '#/components/schemas/SocialSignIn'
+        toastApplePay:
+          $ref: '#/components/schemas/ToastApplePay'
+        userAccountVerification:
+          $ref: '#/components/schemas/UserAccountVerification'
+        workspaces:
+          $ref: '#/components/schemas/Workspace'
       required:
-      - deliveryMethod
-      - enabled
-    GiftCard:
+      - dateCreated
+      - dateUpdated
+      - giftCard
+      - loyaltyProvider
+      - sms
+      - socialSignIn
+      - userAccountVerification
+      - workspaces
+    LoyaltyNumberStrategy:
+      type: object
+      properties:
+        strategy:
+          type: string
+        accountNoPrefix:
+          type: string
+        accountNoPostfixStartFrom:
+          type: integer
+          format: int64
+        accountNoPostfixDigitCount:
+          type: integer
+          format: int64
+    WOv2:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    ToastApplePay:
+      type: object
+      properties:
+        id:
+          type: string
+        integrationIdentifier:
+          type: string
+      required:
+      - id
+      - integrationIdentifier
+    LoyaltyButtons:
+      type: object
+      properties:
+        button1:
+          type: array
+          items:
+            type: string
+        button2:
+          type: array
+          items:
+            type: string
+    Segment:
+      type: object
+      properties:
+        workspaceId:
+          type: string
+    CustomCatalog:
       type: object
       properties:
         isActive:
           type: boolean
-        sendByEmailIsActive:
+        isOrderingEnabled:
           type: boolean
-        giftCardTitle:
+        customCatalogTitle:
           type: array
           items:
             type: string
         defaultLocation:
           type: string
-        cardDetails:
-          type: array
-          items:
-            type: string
-        walletOrder:
-          type: array
-          items:
-            type: string
         defaultMerchant:
           type: string
-        minAmount:
-          type: string
-        maxAmount:
-          type: string
-        selectableAmount:
+        buttonName:
           type: array
           items:
             type: string
-        giftCardHeader:
-          type: array
-          items:
-            type: string
-        hideQrCode:
+    SocialSignIn:
+      type: object
+      properties:
+        appleClientId:
+          type: string
+        enabled:
           type: boolean
-        purchaseNewGiftCard:
-          type: boolean
-        addGiftCardToWallet:
-          type: boolean
-        reloadGiftCard:
-          type: boolean
-        purchaseWithGiftCard:
-          type: boolean
-        giftCardLookUp:
-          type: boolean
-        securityCodeEnabled:
-          type: boolean
-        guestPurchaseEnabled:
-          type: boolean
-        guestAddGiftCardEnabled:
-          type: boolean
+        googleClientId:
+          type: string
+        googleClientSecret:
+          type: string
+    UserAccountVerificationMethod:
+      type: string
+      enum:
+      - EMAIL_CODE
+      - EMAIL_LINK
+      - SMS_CODE
+      - SMS_LINK
     RecommendedMobileAppVersion:
       type: object
       properties:
@@ -1034,473 +1109,25 @@ components:
       required:
       - androidVersion
       - iosVersion
-    PageUrl:
+    PreferenceInfo:
       type: object
       properties:
-        title:
-          type: array
-          items:
-            type: string
-        url:
-          type: string
-        image:
-          type: string
-    MagicLinkSettings:
-      type: object
-      properties:
-        android:
-          $ref: '#/components/schemas/AndroidSettings'
-        ios:
-          $ref: '#/components/schemas/IosSettings'
-        baseUrl:
-          type: string
-    SilverwareExtLoyaltyIdStrategy:
-      type: object
-      properties:
-        appVersion:
-          type: string
-        loyaltyApiMerchantId:
-          type: string
-        loyaltyApiMerchantCred:
-          type: string
-        orderSubmissionCredential:
-          type: string
-        clientPrefix:
-          type: string
-        cardTypePrefix:
-          type: string
-      required:
-      - appVersion
-      - cardTypePrefix
-      - clientPrefix
-      - loyaltyApiMerchantCred
-      - loyaltyApiMerchantId
-    SocialSignIn:
-      type: object
-      properties:
-        appleClientId:
-          type: string
-        enabled:
-          type: boolean
-        googleClientId:
-          type: string
-        googleClientSecret:
-          type: string
-    LoyaltyNumberStrategy:
-      type: object
-      properties:
-        strategy:
-          type: string
-        accountNoPrefix:
-          type: string
-        accountNoPostfixStartFrom:
-          type: integer
-          format: int64
-        accountNoPostfixDigitCount:
-          type: integer
-          format: int64
-    OrderHistory:
-      type: object
-      properties:
-        hideOrderHistoryReorderButton:
-          type: boolean
-        hideOrderHistoryCallButton:
-          type: boolean
-        orderHistoryEmailButton:
-          $ref: '#/components/schemas/OrderHistoryEmailButton'
-        orderHistoryExternalButton:
-          $ref: '#/components/schemas/OrderHistoryExternalButton'
-    MobileAppVersion:
-      type: object
-      properties:
-        requiredVersion:
-          $ref: '#/components/schemas/RequiredMobileAppVersion'
-        recommendedVersion:
-          $ref: '#/components/schemas/RecommendedMobileAppVersion'
-    WebUrls:
-      type: object
-      properties:
-        mainUrl:
-          $ref: '#/components/schemas/PageUrl'
-        fb:
-          $ref: '#/components/schemas/PageUrl'
-        tw:
-          $ref: '#/components/schemas/PageUrl'
-        ig:
-          $ref: '#/components/schemas/PageUrl'
-    DomainInfo:
-      type: object
-      properties:
-        subdomain:
-          type: string
-        domain:
-          type: string
-        username:
-          type: string
-        ips:
-          type: array
-          items:
-            type: string
-        legacy:
-          type: boolean
-        valid:
-          type: boolean
-        clientSpecific:
-          type: boolean
-        subusers:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubUserAccountHandleResDto'
-        dns:
+        preferenceName:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/DomainAuthenticateDnsResDto'
-        id:
-          type: string
-        active:
-          type: boolean
-        user_id:
-          type: string
-        custom_spf:
-          type: boolean
-        default:
-          type: boolean
-        automatic_security:
-          type: boolean
-        last_validation_attempt_at:
-          type: boolean
-    RecaptchaDto:
-      type: object
-      properties:
-        isActive:
-          type: boolean
-        enableFor:
-          $ref: '#/components/schemas/RecaptchaEnableForDto'
-        keyId:
-          type: string
-    WebhookInfo:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        url:
-          type: string
-        delivered:
-          type: boolean
-        bounce:
-          type: boolean
-        deferred:
-          type: boolean
-        unsubscribe:
-          type: boolean
-        processed:
-          type: boolean
-        open:
-          type: boolean
-        click:
-          type: boolean
-        dropped:
-          type: boolean
-        id:
-          type: string
-        group_resubscribe:
-          type: boolean
-        group_unsubscribe:
-          type: boolean
-        spam_report:
-          type: boolean
-        friendly_name:
-          type: string
-        oauth_client_id:
-          type: string
-        oauth_token_url:
-          type: string
-        created_date:
-          type: string
-        updated_date:
-          type: string
-    SignUpNotification_2:
-      type: object
-      properties:
-        signUpAndLoyaltyExpiryBannerTextColor:
-          type: string
-        signUpAndLoyaltyExpiryBannerButtonTextColor:
-          type: string
-        signUpAndLoyaltyExpiryBannerButtonBackgroundColor:
-          type: string
-        signUpAndLoyaltyExpiryBannerBackgroundColor:
-          type: string
-        signUpAndLoyaltyExpiryBannerInfoIconColor:
-          type: string
-        signUpAndLoyaltyExpiryBannerDismissIconColor:
-          type: string
-        userLoyaltyPointsExpiringSoonTitle:
-          type: string
-        userLoyaltyPointsExpiringSoonMessage:
-          type: string
-        signUpNotificationBannerMessageText:
-          type: string
-        shouldUsePrimaryFontOnSignUpAndLoyaltyExpiryBanner:
-          type: boolean
-    QuaternaryFont:
-      type: object
-      properties:
-        fontFamily:
-          type: string
-        fontSize:
-          type: string
-        fontColor:
-          type: string
-    PrimaryFont:
-      type: object
-      properties:
-        fontFamily:
-          type: string
-        fontSize:
-          type: string
-        fontColor:
-          type: string
-    SubUserCreditAllocationRepDto:
-      type: object
-      properties:
-        type:
-          type: string
-    DomainAuthenticateDnsResDto:
-      type: object
-      properties:
-        valid:
-          type: string
-        type:
-          type: string
-        host:
-          type: string
-        data:
-          type: string
-    ToastApplePay_2:
-      type: object
-      properties:
-        id:
-          type: string
-        integrationIdentifier:
-          type: string
-    PasswordlessAuthentication_2:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        deliveryMethod:
-          type: array
-          items:
             type: string
-            enum:
-            - SMS
-            - EMAIL
-        magicLinkSettings:
-          $ref: '#/components/schemas/MagicLinkSettings'
-    RecaptchaEnableForDto:
-      type: object
-      properties:
-        login:
-          type: boolean
-        createAccount:
-          type: boolean
-        payment:
-          type: boolean
-        addGiftCard:
-          type: boolean
-    DefaultOrderType_2:
-      type: object
-      properties:
-        active:
-          type: boolean
-        orderType:
-          type: string
-          enum:
-          - CATERING
-          - DELIVERY
-          - PICKUP
-    Webhook:
-      type: object
-      properties:
-        menuUpdated:
-          type: boolean
-    UserAccountVerification_2:
-      type: object
-      properties:
-        method:
-          type: string
-          enum:
-          - EMAIL_CODE
-          - EMAIL_LINK
-          - SMS_CODE
-          - SMS_LINK
-    RequiredMobileAppVersion_2:
-      type: object
-      properties:
-        androidVersion:
+        values:
           type: object
           additionalProperties:
-            type: boolean
-        iosVersion:
+            type: array
+            items:
+              type: string
+        infoText:
           type: object
           additionalProperties:
-            type: boolean
-    ApiKeyInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        api_key:
-          type: string
-        api_key_id:
-          type: string
-        name:
-          type: string
-        scopes:
-          type: array
-          items:
             type: string
-        encrypted-api_key:
-          type: string
-    APNSetting_2:
-      type: object
-      properties:
-        keyId:
-          type: string
-        teamId:
-          type: string
-        bundleId:
-          type: string
-        signingKeyFile:
-          type: string
-        environment:
-          type: string
-        androidPnApiKey:
-          type: string
-        firebaseProjectId:
-          type: string
-        firebasePrivateKeyId:
-          type: string
-        firebasePrivateKey:
-          type: string
-        firebaseClientEmail:
-          type: string
-        firebaseClientId:
-          type: string
-        firebaseClientCertUrl:
-          type: string
-    EmailSetting:
-      type: object
-      properties:
-        emailHandler:
-          type: string
-          enum:
-          - AWS
-          - SENDGRID
-        clientSendgridApiKey:
-          type: string
-        activeFromEmailDomain:
-          type: string
-        fromEmail:
-          type: string
-        dynamicEmailTemplateEnabled:
+        multiSelectOption:
           type: boolean
-        fromEmailedName:
-          type: string
-        replyTo:
-          type: string
-        replyToName:
-          type: string
-        sendGridSubUserInfo:
-          $ref: '#/components/schemas/SendGridSubUserInfo'
-    UpsellRecommendation:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-    GuestJourney_2:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        enabledMenuIntelligence:
-          type: boolean
-    TertiaryFont:
-      type: object
-      properties:
-        fontFamily:
-          type: string
-        fontSize:
-          type: string
-        fontColor:
-          type: string
-    ClientConfig:
-      type: object
-      properties:
-        dateCreated:
-          type: string
-          format: date-time
-        dateUpdated:
-          type: string
-          format: date-time
-        apnSetting:
-          $ref: '#/components/schemas/APNSetting_2'
-        giftCard:
-          $ref: '#/components/schemas/GiftCard'
-        guestCheckoutVerification:
-          $ref: '#/components/schemas/GuestCheckoutVerification_2'
-        guestJourney:
-          $ref: '#/components/schemas/GuestJourney_2'
-        loyaltyNumberStrategy:
-          $ref: '#/components/schemas/LoyaltyNumberStrategy'
-        loyaltyProvider:
-          $ref: '#/components/schemas/LoyaltyProvider_2'
-        mobileAppVersion:
-          $ref: '#/components/schemas/MobileAppVersion'
-        passwordlessAuthentication:
-          $ref: '#/components/schemas/PasswordlessAuthentication_2'
-        recaptcha:
-          type: boolean
-        silverwareExtLoyaltyIdStrategy:
-          $ref: '#/components/schemas/SilverwareExtLoyaltyIdStrategy_2'
-        sms:
-          $ref: '#/components/schemas/Sms_2'
-        socialSignIn:
-          $ref: '#/components/schemas/SocialSignIn'
-        toastApplePay:
-          $ref: '#/components/schemas/ToastApplePay_2'
-        userAccountVerification:
-          $ref: '#/components/schemas/UserAccountVerification_2'
-        workspaces:
-          $ref: '#/components/schemas/Workspace'
-        clientId:
-          type: string
-        downloadCustomerListEnabled:
-          type: boolean
-        emailSetting:
-          $ref: '#/components/schemas/EmailSetting'
-        enableFulFillText:
-          type: boolean
-        guestCheckOutEnabled:
-          type: boolean
-        incentivioPayments:
-          $ref: '#/components/schemas/IncentivioPayments'
-        scanToPay:
-          $ref: '#/components/schemas/ScanToPay'
-        viewOnlyLocationEnabled:
-          type: boolean
-        webhook:
-          $ref: '#/components/schemas/Webhook'
-        upsellRecommendation:
-          $ref: '#/components/schemas/UpsellRecommendation'
-        domainInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainInfo'
-        apiKeyInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiKeyInfo'
     Sms_2:
       type: object
       properties:
@@ -1521,18 +1148,7 @@ components:
           type: string
         twilioUsername:
           type: string
-    Fonts_2:
-      type: object
-      properties:
-        primaryFont:
-          $ref: '#/components/schemas/PrimaryFont'
-        secondaryFont:
-          $ref: '#/components/schemas/SecondaryFont'
-        tertiaryFont:
-          $ref: '#/components/schemas/TertiaryFont'
-        quaternaryFont:
-          $ref: '#/components/schemas/QuaternaryFont'
-    SecondaryFont:
+    PrimaryFont:
       type: object
       properties:
         fontFamily:
@@ -1541,114 +1157,6 @@ components:
           type: string
         fontColor:
           type: string
-    ScanToPay:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        tippingEnabled:
-          type: boolean
-        tipValues:
-          type: array
-          items:
-            type: string
-        defaultTip:
-          type: string
-        tipHeader:
-          type: object
-          additionalProperties:
-            type: string
-        displayTransactionsHistoryScreen:
-          type: boolean
-        displayCombinedOrderHistoryScreen:
-          type: boolean
-        displayScanToPayDummyCardView:
-          type: boolean
-        disableScanToPayHeadsUpPopupView:
-          type: boolean
-        disableScanToPayOffers:
-          type: boolean
-        scanToPayPreloadCardName:
-          type: string
-        scanToPayRewardsCardDescriptionText:
-          type: string
-        scanToPayCustomDummyCardDisplayTitle:
-          type: string
-        scanToPayRefillPromptHeader:
-          type: string
-        scanToPayRefillPromptMessage:
-          type: string
-        scanToPayRefillPresetAmounts:
-          type: array
-          items:
-            type: string
-        scanToPayRefillPromptAmount:
-          type: string
-    IpPoolsResDto:
-      type: object
-      properties:
-        ip:
-          type: string
-        poolNames:
-          type: array
-          items:
-            type: string
-    SendGridSubUserInfo:
-      type: object
-      properties:
-        subUserInfo:
-          $ref: '#/components/schemas/SubUserAccountHandleResDto'
-        apiKeyInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiKeyInfo'
-        domainInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainInfo'
-        webhookInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookInfo'
-    LoyaltyWheelConfigs_2:
-      type: object
-      properties:
-        hideLoyaltyScreenConfettiAnimation:
-          type: boolean
-        forceConfettiAnimationOnEachTier:
-          type: boolean
-        loyaltyMileStoneValues:
-          type: array
-          items:
-            type: integer
-            format: int32
-        shouldDisplayCustomLoyaltyTierDetailButton:
-          type: boolean
-        customLoyaltyTierDetailButtonTitle:
-          type: string
-        pointUntilNextRewardDescriptionLabel:
-          type: string
-        pointsUntilNextRewardDescriptionLabel:
-          type: string
-        loyaltyTierDescriptions:
-          type: array
-          items:
-            type: string
-    ItemModifiers_2:
-      type: object
-      properties:
-        itemModifierStyle:
-          type: string
-        disableAutoExpandedListStyleModifier:
-          type: boolean
-        hideItemModifiersTitle:
-          type: boolean
-        itemModifierMandatorySelectionAlertTitle:
-          type: string
-        autoExpandTileStyleNestedModifier:
-          type: boolean
-        autoExpandMoreCustomizations:
-          type: boolean
     WebAppConfigDTO_2:
       type: object
       properties:
@@ -1880,23 +1388,335 @@ components:
           $ref: '#/components/schemas/CheckoutTipConfigs'
         forceUserToSelectOrderType:
           type: boolean
-    SubUserAccountHandleResDto:
+    DomainAuthenticateDnsResDto:
       type: object
       properties:
-        username:
+        valid:
           type: string
-        email:
+        type:
           type: string
-        region:
+        host:
           type: string
-        ipDetails:
+        data:
+          type: string
+    IncentivioPayments:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        processingRate:
+          type: string
+        paymentFee:
+          type: integer
+          format: int32
+    QuaternaryFont:
+      type: object
+      properties:
+        fontFamily:
+          type: string
+        fontSize:
+          type: string
+        fontColor:
+          type: string
+    TertiaryFont:
+      type: object
+      properties:
+        fontFamily:
+          type: string
+        fontSize:
+          type: string
+        fontColor:
+          type: string
+    RecaptchaEnableForDto:
+      type: object
+      properties:
+        login:
+          type: boolean
+        createAccount:
+          type: boolean
+        payment:
+          type: boolean
+        addGiftCard:
+          type: boolean
+    ApiKeyInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        api_key:
+          type: string
+        api_key_id:
+          type: string
+        name:
+          type: string
+        scopes:
           type: array
           items:
-            $ref: '#/components/schemas/IpPoolsResDto'
-        user_id:
+            type: string
+        encrypted-api_key:
           type: string
-        credit_allocation:
-          $ref: '#/components/schemas/SubUserCreditAllocationRepDto'
+    APNSetting_2:
+      type: object
+      properties:
+        keyId:
+          type: string
+        teamId:
+          type: string
+        bundleId:
+          type: string
+        signingKeyFile:
+          type: string
+        environment:
+          type: string
+        androidPnApiKey:
+          type: string
+        firebaseProjectId:
+          type: string
+        firebasePrivateKeyId:
+          type: string
+        firebasePrivateKey:
+          type: string
+        firebaseClientEmail:
+          type: string
+        firebaseClientId:
+          type: string
+        firebaseClientCertUrl:
+          type: string
+    Webhook:
+      type: object
+      properties:
+        menuUpdated:
+          type: boolean
+    ScanToPay:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        tippingEnabled:
+          type: boolean
+        tipValues:
+          type: array
+          items:
+            type: string
+        defaultTip:
+          type: string
+        tipHeader:
+          type: object
+          additionalProperties:
+            type: string
+        displayTransactionsHistoryScreen:
+          type: boolean
+        displayCombinedOrderHistoryScreen:
+          type: boolean
+        displayScanToPayDummyCardView:
+          type: boolean
+        disableScanToPayHeadsUpPopupView:
+          type: boolean
+        disableScanToPayOffers:
+          type: boolean
+        scanToPayPreloadCardName:
+          type: string
+        scanToPayRewardsCardDescriptionText:
+          type: string
+        scanToPayCustomDummyCardDisplayTitle:
+          type: string
+        scanToPayRefillPromptHeader:
+          type: string
+        scanToPayRefillPromptMessage:
+          type: string
+        scanToPayRefillPresetAmounts:
+          type: array
+          items:
+            type: string
+        scanToPayRefillPromptAmount:
+          type: string
+    LoyaltyProvider_2:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        type:
+          type: string
+          enum:
+          - INCENTIVIO
+          - SQUARE
+    SilverwareExtLoyaltyIdStrategy_2:
+      type: object
+      properties:
+        appVersion:
+          type: string
+        loyaltyApiMerchantId:
+          type: string
+        loyaltyApiMerchantCred:
+          type: string
+        orderSubmissionCredential:
+          type: string
+        clientPrefix:
+          type: string
+        cardTypePrefix:
+          type: string
+    Fonts_2:
+      type: object
+      properties:
+        primaryFont:
+          $ref: '#/components/schemas/PrimaryFont'
+        secondaryFont:
+          $ref: '#/components/schemas/SecondaryFont'
+        tertiaryFont:
+          $ref: '#/components/schemas/TertiaryFont'
+        quaternaryFont:
+          $ref: '#/components/schemas/QuaternaryFont'
+    GuestCheckoutVerification_2:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        deliveryMethod:
+          type: string
+          enum:
+          - SMS
+          - EMAIL
+    ItemModifiers_2:
+      type: object
+      properties:
+        itemModifierStyle:
+          type: string
+        disableAutoExpandedListStyleModifier:
+          type: boolean
+        hideItemModifiersTitle:
+          type: boolean
+        itemModifierMandatorySelectionAlertTitle:
+          type: string
+        autoExpandTileStyleNestedModifier:
+          type: boolean
+        autoExpandMoreCustomizations:
+          type: boolean
+    PasswordlessAuthentication_2:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        deliveryMethod:
+          type: array
+          items:
+            type: string
+            enum:
+            - SMS
+            - EMAIL
+        magicLinkSettings:
+          $ref: '#/components/schemas/MagicLinkSettings'
+    SecondaryFont:
+      type: object
+      properties:
+        fontFamily:
+          type: string
+        fontSize:
+          type: string
+        fontColor:
+          type: string
+    UpsellRecommendation:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    EmailSetting:
+      type: object
+      properties:
+        emailHandler:
+          type: string
+          enum:
+          - AWS
+          - SENDGRID
+        clientSendgridApiKey:
+          type: string
+        activeFromEmailDomain:
+          type: string
+        fromEmail:
+          type: string
+        dynamicEmailTemplateEnabled:
+          type: boolean
+        fromEmailedName:
+          type: string
+        replyTo:
+          type: string
+        replyToName:
+          type: string
+        sendGridSubUserInfo:
+          $ref: '#/components/schemas/SendGridSubUserInfo'
+    WebhookInfo:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        url:
+          type: string
+        delivered:
+          type: boolean
+        bounce:
+          type: boolean
+        deferred:
+          type: boolean
+        unsubscribe:
+          type: boolean
+        processed:
+          type: boolean
+        open:
+          type: boolean
+        click:
+          type: boolean
+        dropped:
+          type: boolean
+        id:
+          type: string
+        group_resubscribe:
+          type: boolean
+        group_unsubscribe:
+          type: boolean
+        spam_report:
+          type: boolean
+        friendly_name:
+          type: string
+        oauth_client_id:
+          type: string
+        oauth_token_url:
+          type: string
+        created_date:
+          type: string
+        updated_date:
+          type: string
+    SubUserCreditAllocationRepDto:
+      type: object
+      properties:
+        type:
+          type: string
+    UserAccountVerification_2:
+      type: object
+      properties:
+        method:
+          type: string
+          enum:
+          - EMAIL_CODE
+          - EMAIL_LINK
+          - SMS_CODE
+          - SMS_LINK
+    GuestJourney_2:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        enabledMenuIntelligence:
+          type: boolean
+    RequiredMobileAppVersion_2:
+      type: object
+      properties:
+        androidVersion:
+          type: object
+          additionalProperties:
+            type: boolean
+        iosVersion:
+          type: object
+          additionalProperties:
+            type: boolean
     MenuLogos_2:
       type: object
       properties:
@@ -1948,62 +1768,40 @@ components:
           type: array
           items:
             type: string
-    LoyaltyProvider_2:
+    SendGridSubUserInfo:
       type: object
       properties:
-        enabled:
-          type: boolean
-        type:
-          type: string
-          enum:
-          - INCENTIVIO
-          - SQUARE
-    GuestCheckoutVerification_2:
+        subUserInfo:
+          $ref: '#/components/schemas/SubUserAccountHandleResDto'
+        apiKeyInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiKeyInfo'
+        domainInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainInfo'
+        webhookInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookInfo'
+    SubUserAccountHandleResDto:
       type: object
       properties:
-        enabled:
-          type: boolean
-        deliveryMethod:
+        username:
           type: string
-          enum:
-          - SMS
-          - EMAIL
-    RecommendedMobileAppVersion_2:
-      type: object
-      properties:
-        androidVersion:
-          type: object
-          additionalProperties:
-            type: boolean
-        iosVersion:
-          type: object
-          additionalProperties:
-            type: boolean
-    IncentivioPayments:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        processingRate:
+        email:
           type: string
-        paymentFee:
-          type: integer
-          format: int32
-    SilverwareExtLoyaltyIdStrategy_2:
-      type: object
-      properties:
-        appVersion:
+        region:
           type: string
-        loyaltyApiMerchantId:
+        ipDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/IpPoolsResDto'
+        user_id:
           type: string
-        loyaltyApiMerchantCred:
-          type: string
-        orderSubmissionCredential:
-          type: string
-        clientPrefix:
-          type: string
-        cardTypePrefix:
-          type: string
+        credit_allocation:
+          $ref: '#/components/schemas/SubUserCreditAllocationRepDto'
     OrderHistory_2:
       type: object
       properties:
@@ -2019,6 +1817,208 @@ components:
           $ref: '#/components/schemas/OrderHistoryEmailButton'
         orderHistoryExternalButton:
           $ref: '#/components/schemas/OrderHistoryExternalButton'
+    DomainInfo:
+      type: object
+      properties:
+        subdomain:
+          type: string
+        domain:
+          type: string
+        username:
+          type: string
+        ips:
+          type: array
+          items:
+            type: string
+        legacy:
+          type: boolean
+        valid:
+          type: boolean
+        clientSpecific:
+          type: boolean
+        subusers:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubUserAccountHandleResDto'
+        dns:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DomainAuthenticateDnsResDto'
+        id:
+          type: string
+        active:
+          type: boolean
+        user_id:
+          type: string
+        custom_spf:
+          type: boolean
+        default:
+          type: boolean
+        automatic_security:
+          type: boolean
+        last_validation_attempt_at:
+          type: boolean
+    RecaptchaDto:
+      type: object
+      properties:
+        isActive:
+          type: boolean
+        enableFor:
+          $ref: '#/components/schemas/RecaptchaEnableForDto'
+        keyId:
+          type: string
+    LoyaltyWheelConfigs_2:
+      type: object
+      properties:
+        hideLoyaltyScreenConfettiAnimation:
+          type: boolean
+        forceConfettiAnimationOnEachTier:
+          type: boolean
+        loyaltyMileStoneValues:
+          type: array
+          items:
+            type: integer
+            format: int32
+        shouldDisplayCustomLoyaltyTierDetailButton:
+          type: boolean
+        customLoyaltyTierDetailButtonTitle:
+          type: string
+        pointUntilNextRewardDescriptionLabel:
+          type: string
+        pointsUntilNextRewardDescriptionLabel:
+          type: string
+        loyaltyTierDescriptions:
+          type: array
+          items:
+            type: string
+    SignUpNotification_2:
+      type: object
+      properties:
+        signUpAndLoyaltyExpiryBannerTextColor:
+          type: string
+        signUpAndLoyaltyExpiryBannerButtonTextColor:
+          type: string
+        signUpAndLoyaltyExpiryBannerButtonBackgroundColor:
+          type: string
+        signUpAndLoyaltyExpiryBannerBackgroundColor:
+          type: string
+        signUpAndLoyaltyExpiryBannerInfoIconColor:
+          type: string
+        signUpAndLoyaltyExpiryBannerDismissIconColor:
+          type: string
+        userLoyaltyPointsExpiringSoonTitle:
+          type: string
+        userLoyaltyPointsExpiringSoonMessage:
+          type: string
+        signUpNotificationBannerMessageText:
+          type: string
+        shouldUsePrimaryFontOnSignUpAndLoyaltyExpiryBanner:
+          type: boolean
+    DefaultOrderType_2:
+      type: object
+      properties:
+        active:
+          type: boolean
+        orderType:
+          type: string
+          enum:
+          - CATERING
+          - DELIVERY
+          - PICKUP
+    ToastApplePay_2:
+      type: object
+      properties:
+        id:
+          type: string
+        integrationIdentifier:
+          type: string
+    ClientConfig:
+      type: object
+      properties:
+        dateCreated:
+          type: string
+          format: date-time
+        dateUpdated:
+          type: string
+          format: date-time
+        apnSetting:
+          $ref: '#/components/schemas/APNSetting_2'
+        giftCard:
+          $ref: '#/components/schemas/GiftCard'
+        guestCheckoutVerification:
+          $ref: '#/components/schemas/GuestCheckoutVerification_2'
+        guestJourney:
+          $ref: '#/components/schemas/GuestJourney_2'
+        loyaltyNumberStrategy:
+          $ref: '#/components/schemas/LoyaltyNumberStrategy'
+        loyaltyProvider:
+          $ref: '#/components/schemas/LoyaltyProvider_2'
+        mobileAppVersion:
+          $ref: '#/components/schemas/MobileAppVersion'
+        passwordlessAuthentication:
+          $ref: '#/components/schemas/PasswordlessAuthentication_2'
+        recaptcha:
+          type: boolean
+        silverwareExtLoyaltyIdStrategy:
+          $ref: '#/components/schemas/SilverwareExtLoyaltyIdStrategy_2'
+        sms:
+          $ref: '#/components/schemas/Sms_2'
+        socialSignIn:
+          $ref: '#/components/schemas/SocialSignIn'
+        toastApplePay:
+          $ref: '#/components/schemas/ToastApplePay_2'
+        userAccountVerification:
+          $ref: '#/components/schemas/UserAccountVerification_2'
+        workspaces:
+          $ref: '#/components/schemas/Workspace'
+        clientId:
+          type: string
+        downloadCustomerListEnabled:
+          type: boolean
+        emailSetting:
+          $ref: '#/components/schemas/EmailSetting'
+        enableFulFillText:
+          type: boolean
+        guestCheckOutEnabled:
+          type: boolean
+        incentivioPayments:
+          $ref: '#/components/schemas/IncentivioPayments'
+        scanToPay:
+          $ref: '#/components/schemas/ScanToPay'
+        viewOnlyLocationEnabled:
+          type: boolean
+        webhook:
+          $ref: '#/components/schemas/Webhook'
+        upsellRecommendation:
+          $ref: '#/components/schemas/UpsellRecommendation'
+        domainInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainInfo'
+        apiKeyInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiKeyInfo'
+    RecommendedMobileAppVersion_2:
+      type: object
+      properties:
+        androidVersion:
+          type: object
+          additionalProperties:
+            type: boolean
+        iosVersion:
+          type: object
+          additionalProperties:
+            type: boolean
+    IpPoolsResDto:
+      type: object
+      properties:
+        ip:
+          type: string
+        poolNames:
+          type: array
+          items:
+            type: string
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

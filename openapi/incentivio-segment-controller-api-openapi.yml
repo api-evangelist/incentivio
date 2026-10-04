@@ -211,117 +211,41 @@ paths:
       description: Generated server url
 components:
   schemas:
-    FindSegmentsResponseDTO:
+    RuleDescriptor:
       type: object
       properties:
-        paging:
-          $ref: '#/components/schemas/ResultsPagingDTO'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentResponseDTO'
-    RelationalOperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    SubCategoryEnum:
-      type: string
-      enum:
-      - LIFETIME
-      - LAST_NO_OF_DAYS
-      - NO_OF_ORDERS
-    CreateSegmentResponseDTO:
-      type: object
-      properties:
-        segmentId:
+        ruleType:
+          $ref: '#/components/schemas/RuleTypeEnum'
+        operator:
+          $ref: '#/components/schemas/OperatorEnum'
+        expressionValue:
           type: string
-        segmentName:
+        expressionValueNew:
+          $ref: '#/components/schemas/ExpressionValueNew'
+        expressionName:
           type: string
-    OperatorEnum:
-      type: string
-      enum:
-      - EQ
-      - LT
-      - GT
-      - LT_EQ
-      - GT_EQ
-      - NOT
-      - WITHIN
-      - NOTEXISTS
-    SegmentResponseDTO:
-      type: object
-      properties:
-        segmentId:
+        expressoinFormat:
           type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        merchantName:
-          type: string
-        segmentName:
-          type: string
-        segmentDescription:
-          type: string
-        segmentTag:
-          type: string
-        segmentType:
-          $ref: '#/components/schemas/SegmentTypeEnum'
-        segmentIcon:
-          type: string
-        visibleToCustomer:
-          type: boolean
-        segmentRules:
-          $ref: '#/components/schemas/RuleDescriptor'
-        adminId:
-          type: string
-        adminEmail:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        createdDate:
-          type: string
-          format: date-time
-        updateDate:
-          type: string
-          format: date-time
-        lastProcessedDate:
-          type: string
-          format: date-time
-        expiredStatus:
-          type: boolean
-        displaySegmentStatus:
-          type: string
-        deletedStatus:
-          type: boolean
-        segmentDistribution:
-          type: string
-        customerCount:
-          type: integer
-          format: int32
-        calculationInProgressStatus:
-          type: boolean
-    ProductDTO:
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        externalId:
-          type: string
-        displayInfoTitlesList:
-          type: array
-          items:
+        extendedAttributes:
+          type: object
+          additionalProperties:
             type: string
+        logicType:
+          $ref: '#/components/schemas/LogicTypeEnum'
+        childNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleDescriptor'
+    SegmentTypeEnum:
+      type: string
+      enum:
+      - LOYALTY
+      - NORMAL
+    RuleTypeEnum:
+      type: string
+      enum:
+      - EXPRESSION
+      - LOGIC
     SegmentRequestDTO:
       type: object
       properties:
@@ -376,47 +300,19 @@ components:
       - segmentType
       - startDate
       - timeZone
-    ResultsPagingDTO:
+    ProductDTO:
       type: object
       properties:
-        total:
-          type: integer
-          format: int64
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int64
-        currentPage:
-          type: integer
-          format: int32
-    RuleTypeEnum:
-      type: string
-      enum:
-      - EXPRESSION
-      - LOGIC
-    SegmentTypeEnum:
-      type: string
-      enum:
-      - LOYALTY
-      - NORMAL
-    DaysOfWeekEnum:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
-    LogicTypeEnum:
-      type: string
-      enum:
-      - AND
-      - OR
-      - NOT
+        type:
+          type: string
+        id:
+          type: string
+        externalId:
+          type: string
+        displayInfoTitlesList:
+          type: array
+          items:
+            type: string
     ExpressionValueNew:
       type: object
       properties:
@@ -452,17 +348,158 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DaysOfWeekEnum'
-    RuleDescriptor:
+    RelationalOperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    LogicTypeEnum:
+      type: string
+      enum:
+      - AND
+      - OR
+      - NOT
+    DaysOfWeekEnum:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    SubCategoryEnum:
+      type: string
+      enum:
+      - LIFETIME
+      - LAST_NO_OF_DAYS
+      - NO_OF_ORDERS
+    FindSegmentsResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/ResultsPagingDTO'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentResponseDTO'
+    SegmentResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        merchantName:
+          type: string
+        segmentName:
+          type: string
+        segmentDescription:
+          type: string
+        segmentTag:
+          type: string
+        segmentType:
+          $ref: '#/components/schemas/SegmentTypeEnum'
+        segmentIcon:
+          type: string
+        visibleToCustomer:
+          type: boolean
+        segmentRules:
+          $ref: '#/components/schemas/RuleDescriptor'
+        adminId:
+          type: string
+        adminEmail:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+        updateDate:
+          type: string
+          format: date-time
+        lastProcessedDate:
+          type: string
+          format: date-time
+        expiredStatus:
+          type: boolean
+        displaySegmentStatus:
+          type: string
+        deletedStatus:
+          type: boolean
+        segmentDistribution:
+          type: string
+        customerCount:
+          type: integer
+          format: int32
+        calculationInProgressStatus:
+          type: boolean
+    OperatorEnum:
+      type: string
+      enum:
+      - EQ
+      - LT
+      - GT
+      - LT_EQ
+      - GT_EQ
+      - NOT
+      - WITHIN
+      - NOTEXISTS
+    CreateSegmentResponseDTO:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        segmentName:
+          type: string
+    ResultsPagingDTO:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+    RuleDescriptor_2:
       type: object
       properties:
         ruleType:
-          $ref: '#/components/schemas/RuleTypeEnum'
+          type: string
+          enum:
+          - EXPRESSION
+          - LOGIC
         operator:
-          $ref: '#/components/schemas/OperatorEnum'
+          type: string
+          enum:
+          - EQ
+          - LT
+          - GT
+          - LT_EQ
+          - GT_EQ
+          - NOT
+          - WITHIN
+          - NOTEXISTS
         expressionValue:
           type: string
         expressionValueNew:
-          $ref: '#/components/schemas/ExpressionValueNew'
+          $ref: '#/components/schemas/ExpressionValueNew_2'
         expressionName:
           type: string
         expressoinFormat:
@@ -472,26 +509,15 @@ components:
           additionalProperties:
             type: string
         logicType:
-          $ref: '#/components/schemas/LogicTypeEnum'
+          type: string
+          enum:
+          - AND
+          - OR
+          - NOT
         childNodes:
           type: array
           items:
-            $ref: '#/components/schemas/RuleDescriptor'
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
+            $ref: '#/components/schemas/RuleDescriptor_2'
     SegmentLightResponseDTO:
       type: object
       properties:
@@ -564,47 +590,6 @@ components:
             - FRIDAY
             - SATURDAY
             - SUNDAY
-    RuleDescriptor_2:
-      type: object
-      properties:
-        ruleType:
-          type: string
-          enum:
-          - EXPRESSION
-          - LOGIC
-        operator:
-          type: string
-          enum:
-          - EQ
-          - LT
-          - GT
-          - LT_EQ
-          - GT_EQ
-          - NOT
-          - WITHIN
-          - NOTEXISTS
-        expressionValue:
-          type: string
-        expressionValueNew:
-          $ref: '#/components/schemas/ExpressionValueNew_2'
-        expressionName:
-          type: string
-        expressoinFormat:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        logicType:
-          type: string
-          enum:
-          - AND
-          - OR
-          - NOT
-        childNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleDescriptor_2'
     FindCustomerSegmentsResponseDTO:
       type: object
       properties:
@@ -618,6 +603,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SegmentLightResponseDTO'
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
 x-refined-from:
 - incentivio-admin-api-openapi.json
 - incentivio-mobile-api-openapi.json

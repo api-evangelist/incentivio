@@ -151,17 +151,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GiftCardPoolSummaryReportDTO:
-      type: object
-      properties:
-        amountByPoolAccount:
-          $ref: '#/components/schemas/AmountByPoolAccountDTO'
-        amountByBonusAccount:
-          $ref: '#/components/schemas/AmountByBonusAccountDTO'
-        amountByLocationList:
-          type: array
-          items:
-            $ref: '#/components/schemas/AmountByLocationDTO'
     AmountByLocationDTO:
       type: object
       properties:
@@ -190,3 +179,14 @@ components:
         noOfRecords:
           type: integer
           format: int32
+    GiftCardPoolSummaryReportDTO:
+      type: object
+      properties:
+        amountByPoolAccount:
+          $ref: '#/components/schemas/AmountByPoolAccountDTO'
+        amountByBonusAccount:
+          $ref: '#/components/schemas/AmountByBonusAccountDTO'
+        amountByLocationList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AmountByLocationDTO'

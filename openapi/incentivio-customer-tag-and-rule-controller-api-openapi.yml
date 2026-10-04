@@ -149,30 +149,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CustomerTagAndRulesWithPagingForAdminDTO:
-      type: object
-      properties:
-        tagAndRuleDTOS:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagAndRuleDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
-    PagingDTO:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
     Source:
       type: string
       enum:
@@ -188,13 +164,26 @@ components:
       - DATE
       - COLLECTION
       - GEO
-    TagsAndRulesResponseDTO:
+    TagType:
+      type: string
+      enum:
+      - CUSTOM
+      - SYSTEM
+    PagingDTO:
       type: object
       properties:
-        tagAndRuleDTOS:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagAndRuleDTO'
+        total:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
     CustomerTagRequestDTO:
       type: object
       properties:
@@ -219,11 +208,6 @@ components:
       - attributeType
       - key
       - title
-    TagType:
-      type: string
-      enum:
-      - CUSTOM
-      - SYSTEM
     TagAndRuleDTO:
       type: object
       properties:
@@ -263,3 +247,19 @@ components:
           type: array
           items:
             type: string
+    TagsAndRulesResponseDTO:
+      type: object
+      properties:
+        tagAndRuleDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAndRuleDTO'
+    CustomerTagAndRulesWithPagingForAdminDTO:
+      type: object
+      properties:
+        tagAndRuleDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAndRuleDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'

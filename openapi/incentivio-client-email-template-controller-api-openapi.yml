@@ -222,6 +222,36 @@ components:
       - LOYALTY_OFFER
       - MESSAGE
       - EVENT
+    UpdateClientTemplateRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        jsonTemplate:
+          type: string
+        htmlTemplate:
+          type: string
+        fromAddress:
+          type: string
+        bcc:
+          type: string
+        subject:
+          type: string
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        emailTemplateType:
+          $ref: '#/components/schemas/ClientEmailTemplateType'
+        reusable:
+          type: boolean
+    ClientTemplatesResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientTemplate'
     ClientTemplate:
       type: object
       properties:
@@ -252,6 +282,21 @@ components:
           $ref: '#/components/schemas/ClientEmailTemplateType'
         reusable:
           type: boolean
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
     CreateClientTemplateRequestDTO:
       type: object
       properties:
@@ -314,49 +359,4 @@ components:
         required:
           type: boolean
         specialLink:
-          type: boolean
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-    ClientTemplatesResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientTemplate'
-    UpdateClientTemplateRequestDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        jsonTemplate:
-          type: string
-        htmlTemplate:
-          type: string
-        fromAddress:
-          type: string
-        bcc:
-          type: string
-        subject:
-          type: string
-        eventType:
-          $ref: '#/components/schemas/EventType'
-        emailTemplateType:
-          $ref: '#/components/schemas/ClientEmailTemplateType'
-        reusable:
           type: boolean

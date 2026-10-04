@@ -135,6 +135,125 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AppMessageDTO:
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        merchantId:
+          type: string
+        messageId:
+          type: string
+        languageCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: string
+        mediumImage:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+        distributedDate:
+          type: string
+        updatedDate:
+          type: string
+        messageType:
+          type: string
+        surveyId:
+          type: string
+        distributedEndDate:
+          type: string
+    MessageDTO:
+      type: object
+      properties:
+        merchantId:
+          type: string
+        programId:
+          type: string
+        campaignId:
+          type: string
+        messageId:
+          type: string
+        title:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+        noDistributed:
+          type: integer
+          format: int64
+        messageDisplayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageDisplayInfoDTO'
+        surveyId:
+          type: string
+        deleted:
+          type: boolean
+    GetActivityMessagesRequestDTO:
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+        languageCode:
+          type: string
+        merchantId:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        events:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    UpdateMessageDistributionStatusRequestDTO:
+      required:
+      - distributedMessageId
+      - status
+      type: object
+      properties:
+        distributedMessageId:
+          type: string
+        status:
+          type: string
+          enum:
+          - NEW
+          - READ
+          - EXPIRED
+          - DELETED
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
     ActivityMessageDTO:
       type: object
       properties:
@@ -178,34 +297,37 @@ components:
           type: string
         distributedEndDate:
           type: string
-    MessageDTO:
+    ActivityMessageListDTO:
       type: object
       properties:
-        merchantId:
-          type: string
-        programId:
-          type: string
-        campaignId:
-          type: string
-        messageId:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityMessageDTO'
+    AppMessageListDTO:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppMessageDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+    MessageDisplayInfoDTO:
+      type: object
+      properties:
+        languageCode:
           type: string
         title:
           type: string
-        createdDate:
+        shortDescription:
           type: string
-        updatedDate:
+        longDescription:
           type: string
-        noDistributed:
-          type: integer
-          format: int64
-        messageDisplayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessageDisplayInfoDTO'
-        surveyId:
+        smallImage:
           type: string
-        deleted:
-          type: boolean
+        mediumImage:
+          type: string
     DistributedMessageDTO:
       type: object
       properties:
@@ -252,126 +374,4 @@ components:
         distributedDate:
           type: string
         updatedDate:
-          type: string
-    MessageDisplayInfoDTO:
-      type: object
-      properties:
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-    ActivityMessageListDTO:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActivityMessageDTO'
-    AppMessageListDTO:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppMessageDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-    PagingDto:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-    UpdateMessageDistributionStatusRequestDTO:
-      required:
-      - distributedMessageId
-      - status
-      type: object
-      properties:
-        distributedMessageId:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - READ
-          - EXPIRED
-          - DELETED
-    GetActivityMessagesRequestDTO:
-      required:
-      - userId
-      type: object
-      properties:
-        userId:
-          type: string
-        languageCode:
-          type: string
-        merchantId:
-          type: string
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        events:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    AppMessageDTO:
-      type: object
-      properties:
-        distributedMessageId:
-          type: string
-        merchantId:
-          type: string
-        messageId:
-          type: string
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
-        status:
-          type: string
-          enum:
-          - NEW
-          - READ
-          - EXPIRED
-          - DELETED
-        distributedDate:
-          type: string
-        updatedDate:
-          type: string
-        messageType:
-          type: string
-        surveyId:
-          type: string
-        distributedEndDate:
           type: string

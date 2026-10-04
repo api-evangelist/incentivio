@@ -87,6 +87,15 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ListDeliveryAddressResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        deliveryAddressList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressDTO'
     AddressDTO:
       required:
       - city
@@ -120,15 +129,6 @@ components:
           format: double
         aptSuite:
           type: string
-    ListDeliveryAddressResponseDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        deliveryAddressList:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressDTO'
     CreateDeliveryAddressRequestDTO:
       required:
       - clientId

@@ -96,6 +96,71 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AddValueRequestDTO:
+      required:
+      - amount
+      - cardIdentifier
+      - paymentType
+      - sourceType
+      type: object
+      properties:
+        clientId:
+          type: string
+        userId:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        cardIdentifier:
+          type: string
+        locationId:
+          type: string
+        sourceType:
+          type: string
+        paymentType:
+          type: string
+          enum:
+          - CARD_NOT_PRESENT
+          - CARD_PRESENT
+          - CASH
+          - THIRD_PARTY
+          - APPLE_PAY
+          - ANDROID_PAY
+          - SAMSUNG_PAY
+          - NO_PAYMENT
+          - GOOGLE_PAY
+          - ONE_TIME_TOKEN
+          - PERMANENT_TOKEN
+          - GIFT_CARD
+          - PAYMENT_SKIPPED
+        paymentMode:
+          type: string
+          enum:
+          - PAYMENT_MANDATORY
+          - PAYMENT_OPTIONAL
+          - NO_PAYMENT
+        paymentToken:
+          type: string
+        cardType:
+          type: string
+        paymentMethodType:
+          type: string
+        zipCode:
+          type: string
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        isOneTimeTransaction:
+          type: boolean
+        expirationYear:
+          type: integer
+          format: int32
+        expirationMonth:
+          type: integer
+          format: int32
+        oneTimeTransaction:
+          type: boolean
     PurchaseECardRequestDTO:
       required:
       - amount
@@ -241,71 +306,13 @@ components:
           type: string
         adminId:
           type: string
-    AddValueRequestDTO:
-      required:
-      - amount
-      - cardIdentifier
-      - paymentType
-      - sourceType
+    PreparePaymentResponseDTO:
       type: object
       properties:
-        clientId:
-          type: string
-        userId:
-          type: string
-        amount:
-          type: integer
-          format: int32
-        cardIdentifier:
-          type: string
-        locationId:
-          type: string
-        sourceType:
-          type: string
-        paymentType:
-          type: string
-          enum:
-          - CARD_NOT_PRESENT
-          - CARD_PRESENT
-          - CASH
-          - THIRD_PARTY
-          - APPLE_PAY
-          - ANDROID_PAY
-          - SAMSUNG_PAY
-          - NO_PAYMENT
-          - GOOGLE_PAY
-          - ONE_TIME_TOKEN
-          - PERMANENT_TOKEN
-          - GIFT_CARD
-          - PAYMENT_SKIPPED
-        paymentMode:
-          type: string
-          enum:
-          - PAYMENT_MANDATORY
-          - PAYMENT_OPTIONAL
-          - NO_PAYMENT
-        paymentToken:
-          type: string
-        cardType:
-          type: string
-        paymentMethodType:
-          type: string
-        zipCode:
-          type: string
-        additionalAttributes:
+        attributes:
           type: object
           additionalProperties:
             type: string
-        isOneTimeTransaction:
-          type: boolean
-        expirationYear:
-          type: integer
-          format: int32
-        expirationMonth:
-          type: integer
-          format: int32
-        oneTimeTransaction:
-          type: boolean
     GiftCardTransactionResponseDTO:
       type: object
       properties:
@@ -347,10 +354,3 @@ components:
           type: string
         message:
           type: string
-    PreparePaymentResponseDTO:
-      type: object
-      properties:
-        attributes:
-          type: object
-          additionalProperties:
-            type: string

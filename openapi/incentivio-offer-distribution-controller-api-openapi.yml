@@ -61,24 +61,23 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ActivityOfferListRequestDTO:
+    RedeemStatus:
+      type: string
+      enum:
+      - NEW
+      - SAVED
+      - READ
+      - EXPIRED
+      - DELETED
+      - SYSTEM_REDEEMED
+      - USER_REDEEMED
+    ActivityOfferListDTO:
       type: object
       properties:
-        userId:
-          type: string
-          minLength: 1
-        languageCode:
-          type: string
-        offerIds:
+        offers:
           type: array
           items:
-            type: string
-        localDateTime:
-          type: string
-          minLength: 1
-      required:
-      - localDateTime
-      - userId
+            $ref: '#/components/schemas/ActivityOfferDTO'
     ActivityOfferDTO:
       type: object
       properties:
@@ -114,20 +113,21 @@ components:
           type: string
         updatedDate:
           type: string
-    ActivityOfferListDTO:
+    ActivityOfferListRequestDTO:
       type: object
       properties:
-        offers:
+        userId:
+          type: string
+          minLength: 1
+        languageCode:
+          type: string
+        offerIds:
           type: array
           items:
-            $ref: '#/components/schemas/ActivityOfferDTO'
-    RedeemStatus:
-      type: string
-      enum:
-      - NEW
-      - SAVED
-      - READ
-      - EXPIRED
-      - DELETED
-      - SYSTEM_REDEEMED
-      - USER_REDEEMED
+            type: string
+        localDateTime:
+          type: string
+          minLength: 1
+      required:
+      - localDateTime
+      - userId

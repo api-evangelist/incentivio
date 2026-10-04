@@ -120,21 +120,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    StoreDisplayInfo:
-      type: object
-      properties:
-        languageCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: string
-        mediumImage:
-          type: string
     AddressDTO:
       required:
       - city
@@ -177,21 +162,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StoreDTO'
-    PagingDto:
+    Address:
       type: object
       properties:
-        count:
-          type: integer
-          format: int32
-        currentPage:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        aptSuite:
+          type: string
     FindClientResponseDTO:
       type: object
       properties:
@@ -213,6 +200,21 @@ components:
         medLogo:
           type: string
           format: byte
+    PagingDto:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
     StoreDTO:
       type: object
       properties:
@@ -253,20 +255,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StoreDisplayInfo'
-    Address:
+    StoreDisplayInfo:
       type: object
       properties:
-        streetAddress1:
+        languageCode:
           type: string
-        streetAddress2:
+        title:
           type: string
-        city:
+        shortDescription:
           type: string
-        postalCode:
+        longDescription:
           type: string
-        region:
+        smallImage:
           type: string
-        country:
-          type: string
-        aptSuite:
+        mediumImage:
           type: string

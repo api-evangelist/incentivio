@@ -88,90 +88,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DisplayInfo:
-      type: object
-      properties:
-        langCode:
-          type: string
-        title:
-          type: string
-        shortDescription:
-          type: string
-        longDescription:
-          type: string
-        smallImage:
-          type: array
-          items:
-            type: string
-        mediumImage:
-          type: array
-          items:
-            type: string
-    CreateSubItemResponseDTO:
-      type: object
-      properties:
-        subItemId:
-          type: string
-        label:
-          type: string
-    ViewSubItemResponseAdminDTO:
-      type: object
-      properties:
-        subItemId:
-          type: string
-        extSubItemId:
-          type: string
-        merchantId:
-          type: string
-        clientId:
-          type: string
-        name:
-          type: string
-        price:
-          type: integer
-          format: int32
-        uom:
-          type: string
-        sku:
-          type: string
-        upc:
-          type: string
-        brandId:
-          type: string
-        categoryId:
-          type: string
-        startDate:
-          type: string
-        endDate:
-          type: string
-        extendedAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        privateAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        externalId:
-          type: string
-        displayRank:
-          type: integer
-          format: int32
-        displayInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
-          uniqueItems: true
-        status:
-          type: string
-        title:
-          type: string
-        label:
-          type: string
-        createdDate:
-          type: string
-        updatedDate:
-          type: string
     CreateSubItemRequestDTO:
       type: object
       properties:
@@ -232,6 +148,90 @@ components:
       - clientId
       - merchantId
     ListSubItemResponseAdminDTO:
+      type: object
+      properties:
+        subItemId:
+          type: string
+        extSubItemId:
+          type: string
+        merchantId:
+          type: string
+        clientId:
+          type: string
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        uom:
+          type: string
+        sku:
+          type: string
+        upc:
+          type: string
+        brandId:
+          type: string
+        categoryId:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        extendedAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        privateAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        externalId:
+          type: string
+        displayRank:
+          type: integer
+          format: int32
+        displayInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisplayInfo'
+          uniqueItems: true
+        status:
+          type: string
+        title:
+          type: string
+        label:
+          type: string
+        createdDate:
+          type: string
+        updatedDate:
+          type: string
+    DisplayInfo:
+      type: object
+      properties:
+        langCode:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        smallImage:
+          type: array
+          items:
+            type: string
+        mediumImage:
+          type: array
+          items:
+            type: string
+    CreateSubItemResponseDTO:
+      type: object
+      properties:
+        subItemId:
+          type: string
+        label:
+          type: string
+    ViewSubItemResponseAdminDTO:
       type: object
       properties:
         subItemId:

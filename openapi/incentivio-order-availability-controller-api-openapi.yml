@@ -206,26 +206,6 @@ components:
         maxOrderingDate:
           type: string
           format: date
-    ValidatedTimeSlot:
-      type: object
-      properties:
-        time:
-          type: string
-        valid:
-          type: boolean
-    CalculateAsapDurationRequestDTO:
-      type: object
-      properties:
-        orderId:
-          type: string
-        orderType:
-          type: string
-          enum:
-          - DELIVERY
-          - PICKUP
-          - DINEIN
-        address:
-          $ref: '#/components/schemas/Address'
     CalculateAsapDurationResponseDTO:
       type: object
       properties:
@@ -240,18 +220,6 @@ components:
         asapDuration:
           type: integer
           format: int32
-    OrderAvailabilityRequestDTO:
-      type: object
-      properties:
-        presetOrderId:
-          type: string
-        orderId:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
-        selectedDay:
-          type: string
-          format: date
     Address:
       type: object
       properties:
@@ -269,3 +237,35 @@ components:
           type: string
         aptSuite:
           type: string
+    ValidatedTimeSlot:
+      type: object
+      properties:
+        time:
+          type: string
+        valid:
+          type: boolean
+    OrderAvailabilityRequestDTO:
+      type: object
+      properties:
+        presetOrderId:
+          type: string
+        orderId:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        selectedDay:
+          type: string
+          format: date
+    CalculateAsapDurationRequestDTO:
+      type: object
+      properties:
+        orderId:
+          type: string
+        orderType:
+          type: string
+          enum:
+          - DELIVERY
+          - PICKUP
+          - DINEIN
+        address:
+          $ref: '#/components/schemas/Address'

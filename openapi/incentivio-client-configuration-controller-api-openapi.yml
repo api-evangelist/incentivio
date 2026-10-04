@@ -83,41 +83,11 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DomainBasicInfoResponseDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        externalId:
-          type: string
-        subdomain:
-          type: string
-        domain:
-          type: string
-        username:
-          type: string
-        valid:
-          type: boolean
-        clientSpecific:
-          type: boolean
-        dns:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DomainAuthenticateDnsResDto'
-        active:
-          type: boolean
     EmailHandler:
       type: string
       enum:
       - AWS
       - SENDGRID
-    DomainValidateDnsResDto:
-      type: object
-      properties:
-        valid:
-          type: string
-        reason:
-          type: string
     DomainValidateResDto:
       type: object
       properties:
@@ -129,23 +99,17 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/DomainValidateDnsResDto'
-    EmailSettingsCreateRequestDTO:
+    DomainAuthenticateDnsResDto:
       type: object
       properties:
-        emailHandler:
-          $ref: '#/components/schemas/EmailHandler'
-        externalDomainId:
+        valid:
           type: string
-        fromEmail:
+        type:
           type: string
-        fromEmailedName:
+        host:
           type: string
-        replyTo:
+        data:
           type: string
-        replyToName:
-          type: string
-      required:
-      - emailHandler
     EmailSettingBasicInfoResponseDTO:
       type: object
       properties:
@@ -175,14 +139,50 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DomainBasicInfoResponseDTO'
-    DomainAuthenticateDnsResDto:
+    DomainBasicInfoResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        subdomain:
+          type: string
+        domain:
+          type: string
+        username:
+          type: string
+        valid:
+          type: boolean
+        clientSpecific:
+          type: boolean
+        dns:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DomainAuthenticateDnsResDto'
+        active:
+          type: boolean
+    EmailSettingsCreateRequestDTO:
+      type: object
+      properties:
+        emailHandler:
+          $ref: '#/components/schemas/EmailHandler'
+        externalDomainId:
+          type: string
+        fromEmail:
+          type: string
+        fromEmailedName:
+          type: string
+        replyTo:
+          type: string
+        replyToName:
+          type: string
+      required:
+      - emailHandler
+    DomainValidateDnsResDto:
       type: object
       properties:
         valid:
           type: string
-        type:
-          type: string
-        host:
-          type: string
-        data:
+        reason:
           type: string

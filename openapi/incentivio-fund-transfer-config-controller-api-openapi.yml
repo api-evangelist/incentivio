@@ -64,6 +64,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    UpdatePoolAccountFundTransferConfigRequest:
+      type: object
+      properties:
+        active:
+          type: boolean
+    FundTransferLocationConfig:
+      type: object
+      properties:
+        locationId:
+          type: string
+        active:
+          type: boolean
     FundTransferConfigResponse:
       type: object
       properties:
@@ -83,19 +95,7 @@ components:
           format: date-time
         active:
           type: boolean
-    UpdatePoolAccountFundTransferConfigRequest:
-      type: object
-      properties:
-        active:
-          type: boolean
     UpdateLocationFundTransferConfigRequest:
-      type: object
-      properties:
-        locationId:
-          type: string
-        active:
-          type: boolean
-    FundTransferLocationConfig:
       type: object
       properties:
         locationId:

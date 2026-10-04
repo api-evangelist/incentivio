@@ -415,6 +415,62 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    StatusEnum:
+      type: string
+      enum:
+      - INPROGRESS
+      - SUCCESS
+      - FAILED
+      - EMAILED
+      - RETRYING
+      - DOWNLOADED
+      - NODATA
+    RetrieveBeneficalOwnersResponse:
+      type: object
+      properties:
+        beneficialOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHBeneficialOwner'
+    UserDetailRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
+    ACHFundingAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        externalURL:
+          type: string
+        bankAccountType:
+          $ref: '#/components/schemas/BankAccountTypeEnum'
+        accountNickName:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        deleted:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        fingerprint:
+          type: string
+    BankAccountTypeEnum:
+      type: string
+      enum:
+      - CHECKING
+      - SAVINGS
     ACHBeneficialOwner:
       type: object
       properties:
@@ -437,11 +493,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ACHDocument'
-    RetrieveIAVTokenResponse:
+    VerifyMicroDepositsRequest:
       type: object
       properties:
-        token:
+        amount1:
           type: string
+        amount2:
+          type: string
+    RetrieveAchLocationListResponse:
+      type: object
+      properties:
+        locationList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ACHLocationDTO'
+    TypeEnum:
+      type: string
+      enum:
+      - PASSPORT
+      - LICENSE
+      - ID_CARD
+      - OTHER
+    VerificationStatusEnum:
+      type: string
+      enum:
+      - UNVERIFIED
+      - DOCUMENT
+      - VERIFIED
+      - INCOMPLETE
     LocationDetailRequest:
       type: object
       properties:
@@ -453,61 +532,11 @@ components:
           $ref: '#/components/schemas/AdminPortalMetaDataRequest'
         locationEnabled:
           type: boolean
-    StatusEnum:
-      type: string
-      enum:
-      - INPROGRESS
-      - SUCCESS
-      - FAILED
-      - EMAILED
-      - RETRYING
-      - DOWNLOADED
-      - NODATA
-    RetryCustomerVerificationRequest:
+    RetrieveClientTokenResponse:
       type: object
       properties:
-        dateOfBirth:
+        token:
           type: string
-        fullSSN:
-          type: string
-        ein:
-          type: string
-    UpdateLocationRequest:
-      type: object
-      properties:
-        clientId:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationDetailRequest'
-    ACHDocument:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        type:
-          $ref: '#/components/schemas/TypeEnum'
-        created:
-          type: string
-          format: date-time
-        failureReason:
-          type: string
-        allFailureReasons:
-          type: array
-          items:
-            type: object
-            additionalProperties:
-              type: string
-    VerificationStatusEnum:
-      type: string
-      enum:
-      - UNVERIFIED
-      - DOCUMENT
-      - VERIFIED
-      - INCOMPLETE
     BusinessController:
       type: object
       properties:
@@ -521,36 +550,52 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/Address'
-    UserDetailRequest:
+    RetryCustomerVerificationRequest:
       type: object
       properties:
-        userId:
+        dateOfBirth:
           type: string
-        userName:
+        fullSSN:
           type: string
-        email:
+        ein:
           type: string
-    UpdateLocationStatusRequest:
+    Address:
       type: object
       properties:
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-    DeviceDetailRequest:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+        aptSuite:
+          type: string
+    UpdateLocationRequest:
       type: object
       properties:
-        deviceIpAddress:
+        clientId:
           type: string
-        deviceType:
-          type: string
-        browserType:
-          type: string
-    AdminPortalMetaDataRequest:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailRequest'
+    RetrieveIAVTokenResponse:
       type: object
       properties:
-        deviceDetail:
-          $ref: '#/components/schemas/DeviceDetailRequest'
-        userDetail:
-          $ref: '#/components/schemas/UserDetailRequest'
+        token:
+          type: string
     CopyCustomerAndAccountRequest:
       type: object
       properties:
@@ -561,39 +606,18 @@ components:
           items:
             type: string
           uniqueItems: true
-    RetrieveClientTokenResponse:
+    UpdateLocationStatusRequest:
       type: object
       properties:
-        token:
-          type: string
-    RetrieveBeneficalOwnersResponse:
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+    AdminPortalMetaDataRequest:
       type: object
       properties:
-        beneficialOwners:
-          type: array
-          items:
-            $ref: '#/components/schemas/ACHBeneficialOwner'
-    TypeEnum:
-      type: string
-      enum:
-      - PASSPORT
-      - LICENSE
-      - ID_CARD
-      - OTHER
-    RetrieveAchLocationListResponse:
-      type: object
-      properties:
-        locationList:
-          type: array
-          items:
-            $ref: '#/components/schemas/ACHLocationDTO'
-    VerifyMicroDepositsRequest:
-      type: object
-      properties:
-        amount1:
-          type: string
-        amount2:
-          type: string
+        deviceDetail:
+          $ref: '#/components/schemas/DeviceDetailRequest'
+        userDetail:
+          $ref: '#/components/schemas/UserDetailRequest'
     ACHLocationDTO:
       type: object
       properties:
@@ -663,59 +687,26 @@ components:
           type: boolean
         overallStatus:
           type: string
-    ACHFundingAccount:
+    ACHDocument:
       type: object
       properties:
         id:
           type: string
-        externalId:
-          type: string
-        externalURL:
-          type: string
-        bankAccountType:
-          $ref: '#/components/schemas/BankAccountTypeEnum'
-        accountNickName:
-          type: string
         status:
           $ref: '#/components/schemas/StatusEnum'
-        deleted:
-          type: boolean
-        createdDate:
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        created:
           type: string
           format: date-time
-        modifiedDate:
+        failureReason:
           type: string
-          format: date-time
-        fingerprint:
-          type: string
-    BankAccountTypeEnum:
-      type: string
-      enum:
-      - CHECKING
-      - SAVINGS
-    Address:
-      type: object
-      properties:
-        street1:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        lat:
-          type: number
-          format: double
-        lon:
-          type: number
-          format: double
-        aptSuite:
-          type: string
+        allFailureReasons:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
     UpdateFundingAccountRequest:
       type: object
       properties:
@@ -724,4 +715,13 @@ components:
         externalId:
           type: string
         externalUrl:
+          type: string
+    DeviceDetailRequest:
+      type: object
+      properties:
+        deviceIpAddress:
+          type: string
+        deviceType:
+          type: string
+        browserType:
           type: string

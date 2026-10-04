@@ -69,35 +69,42 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AppliedDiscount:
+    Total:
       type: object
       properties:
-        additionalAttribs:
-          type: object
-          additionalProperties:
-            type: string
-        appliedDiscount:
+        dicountTotal:
           type: integer
           format: int32
-        appliedQuantity:
+        due:
           type: integer
           format: int32
-        discountType:
-          type: string
-        distributedOfferId:
-          type: string
-        extOfferId:
-          type: string
-        incentivioDistributedOfferId:
-          type: string
-        name:
-          type: string
-        offerCode:
-          type: string
-        offerId:
-          type: string
-        voided:
-          type: boolean
+        gratuity:
+          type: integer
+          format: int32
+        itemTotal:
+          type: integer
+          format: int32
+        nonTaxedChargeTotal:
+          type: integer
+          format: int32
+        paid:
+          type: integer
+          format: int32
+        processingFee:
+          type: integer
+          format: int32
+        subTotal:
+          type: integer
+          format: int32
+        tax:
+          type: integer
+          format: int32
+        taxedChargeTotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
     TransactionDTO:
       type: object
       properties:
@@ -224,32 +231,78 @@ components:
           $ref: '#/components/schemas/VoidInfo'
         reImport:
           type: boolean
-    VoidInfo:
+    AppliedDiscount:
       type: object
       properties:
-        voidBusinessDate:
+        additionalAttribs:
+          type: object
+          additionalProperties:
+            type: string
+        appliedDiscount:
+          type: integer
+          format: int32
+        appliedQuantity:
+          type: integer
+          format: int32
+        discountType:
           type: string
-          format: date
-        voidDate:
+        distributedOfferId:
           type: string
-          format: date-time
-        voidReason:
+        extOfferId:
           type: string
-    Refund:
+        incentivioDistributedOfferId:
+          type: string
+        name:
+          type: string
+        offerCode:
+          type: string
+        offerId:
+          type: string
+        voided:
+          type: boolean
+    FindTransactionsResponseDTO:
       type: object
       properties:
-        refundAmount:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionDTO'
+        paging:
+          $ref: '#/components/schemas/PagingDTO'
+    Customer:
+      type: object
+      properties:
+        customerId:
+          type: string
+        extCustomerId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    Check:
+      type: object
+      properties:
+        checkId:
+          type: string
+        extCheckId:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        amount:
           type: integer
           format: int32
-        refundBusinessDate:
-          type: string
-          format: date
-        refundDate:
-          type: string
-          format: date-time
-        tipRefundAmount:
+        gratuity:
           type: integer
           format: int32
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
     PagingDTO:
       type: object
       properties:
@@ -265,51 +318,32 @@ components:
         currentPage:
           type: integer
           format: int32
-    Total:
+    Refund:
       type: object
       properties:
-        dicountTotal:
+        refundAmount:
           type: integer
           format: int32
-        due:
+        refundBusinessDate:
+          type: string
+          format: date
+        refundDate:
+          type: string
+          format: date-time
+        tipRefundAmount:
           type: integer
           format: int32
-        gratuity:
-          type: integer
-          format: int32
-        itemTotal:
-          type: integer
-          format: int32
-        nonTaxedChargeTotal:
-          type: integer
-          format: int32
-        paid:
-          type: integer
-          format: int32
-        processingFee:
-          type: integer
-          format: int32
-        subTotal:
-          type: integer
-          format: int32
-        tax:
-          type: integer
-          format: int32
-        taxedChargeTotal:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
-    FindTransactionsResponseDTO:
+    VoidInfo:
       type: object
       properties:
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionDTO'
-        paging:
-          $ref: '#/components/schemas/PagingDTO'
+        voidBusinessDate:
+          type: string
+          format: date
+        voidDate:
+          type: string
+          format: date-time
+        voidReason:
+          type: string
     Payment:
       type: object
       properties:
@@ -348,37 +382,3 @@ components:
         amountTendered:
           type: integer
           format: int32
-    Check:
-      type: object
-      properties:
-        checkId:
-          type: string
-        extCheckId:
-          type: string
-        customer:
-          $ref: '#/components/schemas/Customer'
-        amount:
-          type: integer
-          format: int32
-        gratuity:
-          type: integer
-          format: int32
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payment'
-    Customer:
-      type: object
-      properties:
-        customerId:
-          type: string
-        extCustomerId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string

@@ -465,104 +465,11 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Direction:
-      type: string
-      enum:
-      - ASC
-      - DESC
-    RoleDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        role:
-          type: string
-        description:
-          type: string
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleDTO'
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-    SecureAdminResponseDTO:
-      type: object
-      properties:
-        adminAccountAuthorization:
-          $ref: '#/components/schemas/AdminAccountAuthorization'
-        adminId:
-          type: string
-        clientId:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-        reach:
-          type: string
-        status:
-          $ref: '#/components/schemas/Status'
-        storeIds:
-          type: array
-          items:
-            type: string
-        deleted:
-          type: boolean
-    FindAdminUserResponseDTO:
-      type: object
-      properties:
-        adminAccountAuthorization:
-          $ref: '#/components/schemas/AdminAccountAuthorization'
-        adminId:
-          type: string
-        email:
-          type: string
-        clientID:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        merchantId:
-          type: string
-        role:
-          $ref: '#/components/schemas/RoleDTO'
-        status:
-          type: string
-        deleted:
-          type: boolean
-        storeIds:
-          type: array
-          items:
-            type: string
-        reach:
-          type: string
-        hasEntireClientReach:
-          type: boolean
     AdminUserType:
       type: string
       enum:
       - MARKETING
       - OPERATIONS
-    ClientAuthorization:
-      type: object
-      properties:
-        all:
-          type: boolean
-        id:
-          type: string
-        merchants:
-          type: array
-          items:
-            $ref: '#/components/schemas/MerchantAuthorization'
-          uniqueItems: true
-      required:
-      - all
-      - id
-      - merchants
     PagingDto:
       type: object
       properties:
@@ -578,125 +485,6 @@ components:
         totalPages:
           type: integer
           format: int64
-    AdminLoginRequestDTO:
-      type: object
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-        rememberme:
-          type: boolean
-      required:
-      - password
-      - username
-    MerchantAuthorization:
-      type: object
-      properties:
-        all:
-          type: boolean
-        id:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationAuthorization'
-          uniqueItems: true
-      required:
-      - all
-      - id
-      - locations
-    AdminDTO:
-      type: object
-      properties:
-        adminId:
-          type: string
-        clientID:
-          type: string
-        deleted:
-          type: boolean
-        email:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        merchantId:
-          type: string
-        reach:
-          type: string
-        role:
-          $ref: '#/components/schemas/RoleDTO'
-        status:
-          type: string
-        storeIds:
-          type: array
-          items:
-            type: string
-    AdminLoginResponseDTO:
-      type: object
-      properties:
-        accountId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        createdDate:
-          type: string
-        clientId:
-          type: string
-        merchantId:
-          type: string
-        role:
-          $ref: '#/components/schemas/RoleDTO'
-    ModuleDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        description:
-          type: string
-        order:
-          type: integer
-          format: int32
-        roleModulePermissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionDTO'
-        allPermissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionDTO'
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-    Status:
-      type: string
-      enum:
-      - ACTIVE
-      - INACTIVE
-    GlobalResetPasswordRequestDTO:
-      type: object
-      properties:
-        email:
-          type: string
-        password:
-          type: string
-    UpdatePasswordRequestDTO:
-      type: object
-      properties:
-        oldPassword:
-          type: string
-        newPassword:
-          type: string
-      required:
-      - newPassword
-      - oldPassword
     AdminAccountAuthorization:
       type: object
       properties:
@@ -732,6 +520,39 @@ components:
       - dateUpdated
       - email
       - locationIdClientIds
+    FindAdminResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingDto'
+        admins:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminDTO'
+    AdminLoginResponseDTO:
+      type: object
+      properties:
+        accountId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        createdDate:
+          type: string
+        clientId:
+          type: string
+        merchantId:
+          type: string
+        role:
+          $ref: '#/components/schemas/RoleDTO'
+    LocationAuthorization:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
     CreateAdminUserResponseDTO:
       type: object
       properties:
@@ -745,16 +566,146 @@ components:
           type: string
         lastName:
           type: string
+    RoleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        role:
+          type: string
+        description:
+          type: string
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDTO'
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+    AdminLoginRequestDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        rememberme:
+          type: boolean
+      required:
+      - password
+      - username
+    Direction:
+      type: string
+      enum:
+      - ASC
+      - DESC
+    PermissionDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        permission:
+          type: string
+        description:
+          type: string
+        moduleID:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        deleted:
+          type: boolean
     RequestPasswordResetRequestDTO:
       type: object
       properties:
         email:
           type: string
-    ResetAdminPasswordRequestDTO:
+    AdminDTO:
       type: object
       properties:
+        adminId:
+          type: string
+        clientID:
+          type: string
+        deleted:
+          type: boolean
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        merchantId:
+          type: string
+        reach:
+          type: string
+        role:
+          $ref: '#/components/schemas/RoleDTO'
+        status:
+          type: string
+        storeIds:
+          type: array
+          items:
+            type: string
+    SecureAdminResponseDTO:
+      type: object
+      properties:
+        adminAccountAuthorization:
+          $ref: '#/components/schemas/AdminAccountAuthorization'
+        adminId:
+          type: string
+        clientId:
+          type: string
+        email:
+          type: string
         password:
           type: string
+        reach:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status'
+        storeIds:
+          type: array
+          items:
+            type: string
+        deleted:
+          type: boolean
+    AdminsByIdsResponseDTO:
+      type: object
+      properties:
+        adminsMap:
+          type: object
+          additionalProperties:
+            type: string
+    ClientAuthorization:
+      type: object
+      properties:
+        all:
+          type: boolean
+        id:
+          type: string
+        merchants:
+          type: array
+          items:
+            $ref: '#/components/schemas/MerchantAuthorization'
+          uniqueItems: true
+      required:
+      - all
+      - id
+      - merchants
+    UpdatePasswordRequestDTO:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+      required:
+      - newPassword
+      - oldPassword
     SaveAdminUserRequestDto:
       type: object
       properties:
@@ -784,43 +735,92 @@ components:
           type: string
       required:
       - email
-    LocationAuthorization:
+    MerchantAuthorization:
       type: object
       properties:
+        all:
+          type: boolean
         id:
           type: string
-      required:
-      - id
-    AdminsByIdsResponseDTO:
-      type: object
-      properties:
-        adminsMap:
-          type: object
-          additionalProperties:
-            type: string
-    FindAdminResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingDto'
-        admins:
+        locations:
           type: array
           items:
-            $ref: '#/components/schemas/AdminDTO'
-    PermissionDTO:
+            $ref: '#/components/schemas/LocationAuthorization'
+          uniqueItems: true
+      required:
+      - all
+      - id
+      - locations
+    GlobalResetPasswordRequestDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    ResetAdminPasswordRequestDTO:
+      type: object
+      properties:
+        password:
+          type: string
+    FindAdminUserResponseDTO:
+      type: object
+      properties:
+        adminAccountAuthorization:
+          $ref: '#/components/schemas/AdminAccountAuthorization'
+        adminId:
+          type: string
+        email:
+          type: string
+        clientID:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        merchantId:
+          type: string
+        role:
+          $ref: '#/components/schemas/RoleDTO'
+        status:
+          type: string
+        deleted:
+          type: boolean
+        storeIds:
+          type: array
+          items:
+            type: string
+        reach:
+          type: string
+        hasEntireClientReach:
+          type: boolean
+    ModuleDTO:
       type: object
       properties:
         id:
           type: integer
           format: int64
-        permission:
+        name:
           type: string
         description:
           type: string
-        moduleID:
+        order:
           type: integer
-          format: int64
+          format: int32
+        roleModulePermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionDTO'
+        allPermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionDTO'
         active:
           type: boolean
         deleted:
           type: boolean
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE

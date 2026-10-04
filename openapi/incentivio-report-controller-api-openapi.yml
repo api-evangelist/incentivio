@@ -1362,6 +1362,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    MessagePerformanceReportDTO:
+      type: object
+      properties:
+        messagePerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessagePerformanceDTO'
     CustomersByAverageBasketValueReportDTO:
       type: object
       properties:
@@ -1369,7 +1376,222 @@ components:
           type: string
         customers:
           type: number
-    MostPopularItemsReportDTO:
+    CustomersByAverageBasketValuePercentileReportDTO:
+      type: object
+      properties:
+        averageBasketValuePercentile:
+          type: integer
+          format: int32
+        averageBasketValue:
+          type: number
+          format: double
+    SalesByChannelReportDTO:
+      type: object
+      properties:
+        totalSales:
+          type: number
+        salesByChannelList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByChannelDTO'
+    OrdersByChannelReportDTO:
+      type: object
+      properties:
+        totalOrders:
+          type: number
+        ordersByChannelList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersByChannelDTO'
+    SalesByHourDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        sales:
+          type: number
+          format: double
+    OfferRedemptionByHourDistributedDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        offerRedemption:
+          type: number
+    SalesByChannelDTO:
+      type: object
+      properties:
+        channelType:
+          type: string
+        sales:
+          type: number
+          format: double
+    SalesByDateDTO:
+      type: object
+      properties:
+        storeDate:
+          type: string
+          format: date-time
+        sales:
+          type: number
+          format: double
+    OfferRedemptionByTimeOfTheDayDistributedReportDTO:
+      type: object
+      properties:
+        offerName:
+          type: string
+        offersByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferRedemptionByHourDistributedDTO'
+    FrequentlyBoughtTogetherReportDTO:
+      type: object
+      properties:
+        firstItem:
+          type: string
+        secondItem:
+          type: string
+        firstItemUrl:
+          type: string
+        secondItemUrl:
+          type: string
+        percentage:
+          type: number
+          format: double
+    SalesByOrderTypeReportDTO:
+      type: object
+      properties:
+        totalSales:
+          type: number
+        salesByOrderTypeList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByOrderTypeDTO'
+    OfferRedemptionByTimeOfTheDayReportDTO:
+      type: object
+      properties:
+        offerName:
+          type: string
+        offersByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferRedemptionByHourDTO'
+    CustomersByGenderDTO:
+      type: object
+      properties:
+        gender:
+          type: string
+        customers:
+          type: number
+    CustomersByGenderReportDTO:
+      type: object
+      properties:
+        totalCustomers:
+          type: number
+        customersByGenderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomersByGenderDTO'
+    CustomersByAverageOrdersReportDTO:
+      type: object
+      properties:
+        averageOrders:
+          type: string
+        customers:
+          type: integer
+          format: int32
+    CustomersByAgeReportDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        customers:
+          type: number
+    OrdersBySignInStatusReportDTO:
+      type: object
+      properties:
+        totalOrders:
+          type: number
+        ordersBySignInStatusList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersBySignInStatusDTO'
+    LoyaltyOfferRedemptionByTimeOfTheDayDistributedReportDTO:
+      type: object
+      properties:
+        loyaltyOfferName:
+          type: string
+        loyaltyOffersByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyOfferRedemptionByHourDistributedDTO'
+    LoyaltyOfferRedemptionByHourDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        loyaltyOfferRedemption:
+          type: number
+    OrdersByChannelDTO:
+      type: object
+      properties:
+        channelType:
+          type: string
+        orders:
+          type: number
+          format: double
+    OrdersByChannelOverTimeDTO:
+      type: object
+      properties:
+        channelType:
+          type: string
+        ordersByDateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersByDateDTO'
+    OfferPerformanceDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        value:
+          type: integer
+          format: int32
+    LoyaltyOfferPerformanceReportDTO:
+      type: object
+      properties:
+        loyaltyOfferPerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoyaltyOfferPerformanceDTO'
+    SalesByOrderTypeDTO:
+      type: object
+      properties:
+        orderType:
+          type: string
+        sales:
+          type: number
+    MessageViewsByHourDistributedDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        messageViews:
+          type: number
+    SalesByChannelOverTimeDTO:
+      type: object
+      properties:
+        channelType:
+          type: string
+        salesByDateList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesByDateDTO'
+    LeastPopularItemsReportDTO:
       type: object
       properties:
         itemName:
@@ -1379,12 +1601,79 @@ components:
         noOfItems:
           type: integer
           format: int32
-    AverageOrderSizeDTO:
+    MessageViewsByTimeOfTheDayDistributedReportDTO:
       type: object
       properties:
-        user:
+        messageName:
+          type: string
+        messagesByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageViewsByHourDistributedDTO'
+    OrdersByOrderTypeReportDTO:
+      type: object
+      properties:
+        totalOrders:
+          type: number
+        ordersByOrderTypeList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersByOrderTypeDTO'
+    MessageViewsByTimeOfTheDayReportDTO:
+      type: object
+      properties:
+        messageName:
+          type: string
+        messagesByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageViewsByHourDTO'
+    CustomersByLoyaltyBalanceReportDTO:
+      type: object
+      properties:
+        customerName:
+          type: string
+        loyaltyBalance:
+          type: number
+        profileUrl:
+          type: string
+    OrdersBySignInStatusDTO:
+      type: object
+      properties:
+        signInStatus:
           type: string
         orders:
+          type: number
+    OfferRedemptionByHourDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        offerRedemption:
+          type: number
+    AverageOrderSizeReportDTO:
+      type: object
+      properties:
+        averageOrderSizeList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AverageOrderSizeDTO'
+    OrdersByLocationAndTimeReportDTO:
+      type: object
+      properties:
+        storeName:
+          type: string
+        ordersByHourList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdersByHourDTO'
+    MessagePerformanceDTO:
+      type: object
+      properties:
+        attribute:
+          type: string
+        value:
           type: number
     SalesByLocationAndTimeReportDTO:
       type: object
@@ -1395,6 +1684,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SalesByHourDTO'
+    MessageViewsByHourDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        messageViews:
+          type: number
     CustomersByDaysSinceLastPurchaseReportDTO:
       type: object
       properties:
@@ -1411,101 +1708,6 @@ components:
           type: number
         profileUrl:
           type: string
-    SalesByDateDTO:
-      type: object
-      properties:
-        storeDate:
-          type: string
-          format: date-time
-        sales:
-          type: number
-          format: double
-    LoyaltyOfferRedemptionByTimeOfTheDayDistributedReportDTO:
-      type: object
-      properties:
-        loyaltyOfferName:
-          type: string
-        loyaltyOffersByHourList:
-          type: array
-          items:
-            $ref: '#/components/schemas/LoyaltyOfferRedemptionByHourDistributedDTO'
-    OfferRedemptionByHourDistributedDTO:
-      type: object
-      properties:
-        storeHour:
-          type: integer
-          format: int32
-        offerRedemption:
-          type: number
-    SalesByOrderTypeDTO:
-      type: object
-      properties:
-        orderType:
-          type: string
-        sales:
-          type: number
-    SalesByOrderTypeReportDTO:
-      type: object
-      properties:
-        totalSales:
-          type: number
-        salesByOrderTypeList:
-          type: array
-          items:
-            $ref: '#/components/schemas/SalesByOrderTypeDTO'
-    OrdersByChannelDTO:
-      type: object
-      properties:
-        channelType:
-          type: string
-        orders:
-          type: number
-          format: double
-    CustomersByAverageOrdersReportDTO:
-      type: object
-      properties:
-        averageOrders:
-          type: string
-        customers:
-          type: integer
-          format: int32
-    MessagePerformanceReportDTO:
-      type: object
-      properties:
-        messagePerformanceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessagePerformanceDTO'
-    FrequentlyBoughtTogetherReportDTO:
-      type: object
-      properties:
-        firstItem:
-          type: string
-        secondItem:
-          type: string
-        firstItemUrl:
-          type: string
-        secondItemUrl:
-          type: string
-        percentage:
-          type: number
-          format: double
-    OfferPerformanceReportDTO:
-      type: object
-      properties:
-        offerPerformanceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OfferPerformanceDTO'
-    OrdersByChannelReportDTO:
-      type: object
-      properties:
-        totalOrders:
-          type: number
-        ordersByChannelList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrdersByChannelDTO'
     CustomersByOrdersReportDTO:
       type: object
       properties:
@@ -1513,236 +1715,12 @@ components:
           type: string
         customers:
           type: number
-    LoyaltyOfferRedemptionByTimeOfTheDayReportDTO:
+    AverageOrderSizeDTO:
       type: object
       properties:
-        loyaltyOfferName:
-          type: string
-        loyaltyOffersByHourList:
-          type: array
-          items:
-            $ref: '#/components/schemas/LoyaltyOfferRedemptionByHourDTO'
-    SalesByChannelOverTimeDTO:
-      type: object
-      properties:
-        channelType:
-          type: string
-        salesByDateList:
-          type: array
-          items:
-            $ref: '#/components/schemas/SalesByDateDTO'
-    OfferPerformanceDTO:
-      type: object
-      properties:
-        attribute:
-          type: string
-        value:
-          type: integer
-          format: int32
-    LoyaltyOfferRedemptionByHourDistributedDTO:
-      type: object
-      properties:
-        storeHour:
-          type: integer
-          format: int32
-        loyaltyOfferRedemption:
-          type: number
-    OfferRedemptionByHourDTO:
-      type: object
-      properties:
-        storeHour:
-          type: integer
-          format: int32
-        offerRedemption:
-          type: number
-    SalesByChannelDTO:
-      type: object
-      properties:
-        channelType:
-          type: string
-        sales:
-          type: number
-          format: double
-    CustomersByHighestAverageOrderSizeReportDTO:
-      type: object
-      properties:
-        customerName:
-          type: string
-        averageOrderSize:
-          type: number
-          format: double
-        profileUrl:
-          type: string
-    OrdersByOrderTypeDTO:
-      type: object
-      properties:
-        orderType:
+        user:
           type: string
         orders:
-          type: number
-    LoyaltyOfferPerformanceReportDTO:
-      type: object
-      properties:
-        loyaltyOfferPerformanceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/LoyaltyOfferPerformanceDTO'
-    LoyaltyOfferPerformanceDTO:
-      type: object
-      properties:
-        attribute:
-          type: string
-        value:
-          type: integer
-          format: int32
-    OrdersByHourDTO:
-      type: object
-      properties:
-        storeHour:
-          type: integer
-          format: int32
-        orders:
-          type: number
-    AverageOrderSizeReportDTO:
-      type: object
-      properties:
-        averageOrderSizeList:
-          type: array
-          items:
-            $ref: '#/components/schemas/AverageOrderSizeDTO'
-    CustomersByAverageBasketValuePercentileReportDTO:
-      type: object
-      properties:
-        averageBasketValuePercentile:
-          type: integer
-          format: int32
-        averageBasketValue:
-          type: number
-          format: double
-    CustomersByAgeReportDTO:
-      type: object
-      properties:
-        attribute:
-          type: string
-        customers:
-          type: number
-    OrdersByChannelOverTimeDTO:
-      type: object
-      properties:
-        channelType:
-          type: string
-        ordersByDateList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrdersByDateDTO'
-    LoyaltyOfferRedemptionByHourDTO:
-      type: object
-      properties:
-        storeHour:
-          type: integer
-          format: int32
-        loyaltyOfferRedemption:
-          type: number
-    SalesByHourDTO:
-      type: object
-      properties:
-        storeHour:
-          type: integer
-          format: int32
-        sales:
-          type: number
-          format: double
-    LeastPopularItemsReportDTO:
-      type: object
-      properties:
-        itemName:
-          type: string
-        itemUrl:
-          type: string
-        noOfItems:
-          type: integer
-          format: int32
-    OrdersBySignInStatusDTO:
-      type: object
-      properties:
-        signInStatus:
-          type: string
-        orders:
-          type: number
-    MessageViewsByHourDistributedDTO:
-      type: object
-      properties:
-        storeHour:
-          type: integer
-          format: int32
-        messageViews:
-          type: number
-    SalesByChannelReportDTO:
-      type: object
-      properties:
-        totalSales:
-          type: number
-        salesByChannelList:
-          type: array
-          items:
-            $ref: '#/components/schemas/SalesByChannelDTO'
-    CustomersByGenderReportDTO:
-      type: object
-      properties:
-        totalCustomers:
-          type: number
-        customersByGenderList:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomersByGenderDTO'
-    MessageViewsByHourDTO:
-      type: object
-      properties:
-        storeHour:
-          type: integer
-          format: int32
-        messageViews:
-          type: number
-    OfferRedemptionByTimeOfTheDayDistributedReportDTO:
-      type: object
-      properties:
-        offerName:
-          type: string
-        offersByHourList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OfferRedemptionByHourDistributedDTO'
-    OrdersBySignInStatusReportDTO:
-      type: object
-      properties:
-        totalOrders:
-          type: number
-        ordersBySignInStatusList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrdersBySignInStatusDTO'
-    CustomersByLoyaltyBalanceReportDTO:
-      type: object
-      properties:
-        customerName:
-          type: string
-        loyaltyBalance:
-          type: number
-        profileUrl:
-          type: string
-    CustomersByGenderDTO:
-      type: object
-      properties:
-        gender:
-          type: string
-        customers:
-          type: number
-    MessagePerformanceDTO:
-      type: object
-      properties:
-        attribute:
-          type: string
-        value:
           type: number
     CustomersByDaysSinceLastPurchasePercentileReportDTO:
       type: object
@@ -1753,42 +1731,21 @@ components:
         averageNoOfDays:
           type: number
           format: double
-    MessageViewsByTimeOfTheDayReportDTO:
+    OrdersByOrderTypeDTO:
       type: object
       properties:
-        messageName:
+        orderType:
           type: string
-        messagesByHourList:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessageViewsByHourDTO'
-    MessageViewsByTimeOfTheDayDistributedReportDTO:
+        orders:
+          type: number
+    LoyaltyOfferPerformanceDTO:
       type: object
       properties:
-        messageName:
+        attribute:
           type: string
-        messagesByHourList:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessageViewsByHourDistributedDTO'
-    OrdersByLocationAndTimeReportDTO:
-      type: object
-      properties:
-        storeName:
-          type: string
-        ordersByHourList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrdersByHourDTO'
-    OfferRedemptionByTimeOfTheDayReportDTO:
-      type: object
-      properties:
-        offerName:
-          type: string
-        offersByHourList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OfferRedemptionByHourDTO'
+        value:
+          type: integer
+          format: int32
     OrdersByDateDTO:
       type: object
       properties:
@@ -1798,12 +1755,55 @@ components:
         orders:
           type: number
           format: double
-    OrdersByOrderTypeReportDTO:
+    OrdersByHourDTO:
       type: object
       properties:
-        totalOrders:
+        storeHour:
+          type: integer
+          format: int32
+        orders:
           type: number
-        ordersByOrderTypeList:
+    LoyaltyOfferRedemptionByTimeOfTheDayReportDTO:
+      type: object
+      properties:
+        loyaltyOfferName:
+          type: string
+        loyaltyOffersByHourList:
           type: array
           items:
-            $ref: '#/components/schemas/OrdersByOrderTypeDTO'
+            $ref: '#/components/schemas/LoyaltyOfferRedemptionByHourDTO'
+    LoyaltyOfferRedemptionByHourDistributedDTO:
+      type: object
+      properties:
+        storeHour:
+          type: integer
+          format: int32
+        loyaltyOfferRedemption:
+          type: number
+    OfferPerformanceReportDTO:
+      type: object
+      properties:
+        offerPerformanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferPerformanceDTO'
+    MostPopularItemsReportDTO:
+      type: object
+      properties:
+        itemName:
+          type: string
+        itemUrl:
+          type: string
+        noOfItems:
+          type: integer
+          format: int32
+    CustomersByHighestAverageOrderSizeReportDTO:
+      type: object
+      properties:
+        customerName:
+          type: string
+        averageOrderSize:
+          type: number
+          format: double
+        profileUrl:
+          type: string
