@@ -11,6 +11,16 @@ checked:
 - https://n8n.io/integrations/incentivio/
 - https://zapier.com/apps/incentivio/integrations
 - toast/integrations/toast-integration-edges.yml
+- https://apps.dfi.wi.gov/apps/FranchiseSearch/MainSearch.aspx
+- https://cards.web.commerce.state.mn.us/franchise-registrations
+- https://dfpi.ca.gov/regulated-industries/regulated-entities-list/
+- https://docqnet.dfpi.ca.gov/
+- https://pos.toasttab.com/franchise
+- https://squareup.com/us/en/franchises
+- https://www.franchise.org/franchise-opportunities/
+- https://www.franchise.org/suppliers/
+- https://www.franchise.org/wp-json/wp/v2/member
+- https://www.servicetitan.com/market/franchise-management-software
 summary: null
 marketplace_apps: []
 edges:
@@ -31,4 +41,21 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: Loyalty
+- partner_name: Square franchise partners
+  partner: square
+  partner_match: mirror
+  mirror_match: register-name
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://squareup.com/us/en/franchises
+  mirror_of: square/integrations/square-integration-edges.yml
+  apps:
+  - Incentivio
+  detected: '2026-10-21'
+  detected_by: sweep-franchise-registries.py
+  identity_source: register-name
+  identity_note: register-name 'incentivio' = incentivio; no wikidata P856
 templates: []
