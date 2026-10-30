@@ -1,4 +1,4 @@
-# Incentivio (incentivio)
+# Incentivio
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,110 +64,216 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Incentivio is a Boston-based digital guest engagement platform for multi-unit restaurant brands, unifying online ordering, loyalty, marketing automation, and guest analytics into a single system. Its Incentivio Connect product is an AI-powered, API-first restaurant data platform that ingests data from POS, loyalty, mobile apps, web, and marketplaces, resolves it into a single persistent Guest ID, and scores guests for lifetime value, churn risk, visit frequency, journey stage, propensity-to-purchase, and offer sensitivity. The platform is BigQuery-native with a Star Schema data model, SOC 2 aligned with encryption at rest and in transit and RBAC, and pairs an API-first surface with reverse ETL to sync unified guest records back to existing CRM and ad platforms. Incentivio is built on modern APIs and offers deep partner integrations with POS, payments, delivery, and marketing systems such as Toast, Oracle Simphony, Square, SpotOn, and PAR Brink. Public, self-service developer API documentation does not appear to be available; integration and API access are handled through partnerships and enterprise onboarding (the Connect Enterprise tier markets dedicated API SLAs).
+Incentivio is a Boston-based digital guest engagement platform for multi-unit restaurant brands, unifying online ordering, loyalty, marketing automation, and guest analytics into a single system. Its Incentivio Connect product is an AI-powered, API-first restaurant data platform that ingests data from POS, loyalty, mobile apps, web, and marketplaces, resolves it into a single persistent Guest ID, and scores guests for lifetime value, churn risk, visit frequency, journey stage, propensity-to-purchase, and offer sensitivity. The platform is BigQuery-native with a Star Schema data model, SOC 2 aligned with encryption at rest and in transit and RBAC, and pairs an API-first surface with reverse ETL to sync unified guest records back to existing CRM and ad platforms. Incentivio is built on modern APIs and offers deep partner integrations with POS, payments, delivery, and marketing systems such as Toast, Oracle Simphony, Square, SpotOn, and PAR Brink. Incentivio runs a Theneo-hosted developer portal at apidocs.incentivio.com that publishes no public projects, but two production Spring Boot services expose live, unauthenticated springdoc OpenAPI definitions on Incentivio's own hosts: the guest-facing Mobile & Ordering API (125 operations) and the operator-facing Admin API (421 operations), both fronted by an OAuth 2.0 authorization server advertised via RFC 8414 metadata. Narrative documentation, pricing, and self-service onboarding remain gated behind partnership and enterprise onboarding (the Connect Enterprise tier markets dedicated API SLAs).
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/incentivio/refs/heads/main/apis.yml)
+**Areas:** Restaurant · Guest Engagement · Online Ordering · Loyalty · Customer Data Platform · Marketing Automation · Analytics · Reverse ETL · Restaurant Technology · Point-of-Sale · Gift Cards · Mobile Ordering
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Incentivio on APIs.io
 
-## Tags:
+Everything profiled for Incentivio is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/incentivio/](https://apis.io/providers/incentivio/)** — or go straight to one of the APIs or properties below.
 
- - Restaurant, Guest Engagement, Online Ordering, Loyalty, Customer Data Platform, Marketing Automation, Analytics, Reverse ETL
+### APIs (87)
 
-## Timestamps
+- [Incentivio Connect Platform API](https://apis.io/apis/incentivio/rest-api/) — Incentivio describes an API-first, composable data platform that unifies guest data across POS, loyalty, app, web, and marketplace channels into a single…
+- [Incentivio Admin Controller API](https://apis.io/apis/incentivio/incentivio-admin-controller-api/) — The admin-controller API from Incentivio — 10 operation(s) for admin-controller.
+- [Incentivio App Configuration Controller API](https://apis.io/apis/incentivio/incentivio-app-configuration-controller-api/) — The app-configuration-controller API from Incentivio — 1 operation(s) for app-configuration-controller.
+- [Incentivio App Content Controller API](https://apis.io/apis/incentivio/incentivio-app-content-controller-api/) — The app-content-controller API from Incentivio — 1 operation(s) for app-content-controller.
+- [Incentivio App Home Config Controller API](https://apis.io/apis/incentivio/incentivio-app-home-config-controller-api/) — The app-home-config-controller API from Incentivio — 11 operation(s) for app-home-config-controller.
+- [Incentivio Bulk Image Upload Controller API](https://apis.io/apis/incentivio/incentivio-bulk-image-upload-controller-api/) — The bulk-image-upload-controller API from Incentivio — 3 operation(s) for bulk-image-upload-controller.
+- [Incentivio Campaign Controller API](https://apis.io/apis/incentivio/incentivio-campaign-controller-api/) — The campaign-controller API from Incentivio — 1 operation(s) for campaign-controller.
+- [Incentivio Catalog Controller API](https://apis.io/apis/incentivio/incentivio-catalog-controller-api/) — The catalog-controller API from Incentivio — 7 operation(s) for catalog-controller.
+- [Incentivio Client Admin Controller API](https://apis.io/apis/incentivio/incentivio-client-admin-controller-api/) — The client-admin-controller API from Incentivio — 13 operation(s) for client-admin-controller.
+- [Incentivio Client Config Controller API](https://apis.io/apis/incentivio/incentivio-client-config-controller-api/) — The client-config-controller API from Incentivio — 1 operation(s) for client-config-controller.
+- [Incentivio Client Configuration Controller API](https://apis.io/apis/incentivio/incentivio-client-configuration-controller-api/) — The client-configuration-controller API from Incentivio — 3 operation(s) for client-configuration-controller.
+- [Incentivio Client Controller API](https://apis.io/apis/incentivio/incentivio-client-controller-api/) — The client-controller API from Incentivio — 3 operation(s) for client-controller.
+- [Incentivio Client Domain Controller API](https://apis.io/apis/incentivio/incentivio-client-domain-controller-api/) — The client-domain-controller API from Incentivio — 1 operation(s) for client-domain-controller.
+- [Incentivio Client Email Template Controller API](https://apis.io/apis/incentivio/incentivio-client-email-template-controller-api/) — The client-email-template-controller API from Incentivio — 6 operation(s) for client-email-template-controller.
+- [Incentivio Client Merchant Controller API](https://apis.io/apis/incentivio/incentivio-client-merchant-controller-api/) — The client-merchant-controller API from Incentivio — 6 operation(s) for client-merchant-controller.
+- [Incentivio Customer Report Controller API](https://apis.io/apis/incentivio/incentivio-customer-report-controller-api/) — The customer-report-controller API from Incentivio — 5 operation(s) for customer-report-controller.
+- [Incentivio Customer Segment Tag Controller API](https://apis.io/apis/incentivio/incentivio-customer-segment-tag-controller-api/) — The customer-segment-tag-controller API from Incentivio — 1 operation(s) for customer-segment-tag-controller.
+- [Incentivio Customer Tag And Rule Controller API](https://apis.io/apis/incentivio/incentivio-customer-tag-and-rule-controller-api/) — The customer-tag-and-rule-controller API from Incentivio — 4 operation(s) for customer-tag-and-rule-controller.
+- [Incentivio Deliveries By Location Report Controller API](https://apis.io/apis/incentivio/incentivio-deliveries-by-location-report-controller-api/) — The deliveries-by-location-report-controller API from Incentivio — 1 operation(s) for deliveries-by-location-report-controller.
+- [Incentivio Delivery Address Controller API](https://apis.io/apis/incentivio/incentivio-delivery-address-controller-api/) — The delivery-address-controller API from Incentivio — 3 operation(s) for delivery-address-controller.
+- [Incentivio Dynamic Env Controller API](https://apis.io/apis/incentivio/incentivio-dynamic-env-controller-api/) — The dynamic-env-controller API from Incentivio — 1 operation(s) for dynamic-env-controller.
+- [Incentivio Email Pulse Controller API](https://apis.io/apis/incentivio/incentivio-email-pulse-controller-api/) — The email-pulse-controller API from Incentivio — 8 operation(s) for email-pulse-controller.
+- [Incentivio External Link Controller API](https://apis.io/apis/incentivio/incentivio-external-link-controller-api/) — The external-link-controller API from Incentivio — 1 operation(s) for external-link-controller.
+- [Incentivio File Controller API](https://apis.io/apis/incentivio/incentivio-file-controller-api/) — The file-controller API from Incentivio — 4 operation(s) for file-controller.
+- [Incentivio Fund Transfer Config Controller API](https://apis.io/apis/incentivio/incentivio-fund-transfer-config-controller-api/) — The fund-transfer-config-controller API from Incentivio — 3 operation(s) for fund-transfer-config-controller.
+- [Incentivio Fund Transfer Controller API](https://apis.io/apis/incentivio/incentivio-fund-transfer-controller-api/) — The fund-transfer-controller API from Incentivio — 3 operation(s) for fund-transfer-controller.
+- [Incentivio Gift Card Ach Controller API](https://apis.io/apis/incentivio/incentivio-gift-card-ach-controller-api/) — The gift-card-ach-controller API from Incentivio — 13 operation(s) for gift-card-ach-controller.
+- [Incentivio Gift Card Balance Report Controller API](https://apis.io/apis/incentivio/incentivio-gift-card-balance-report-controller-api/) — The gift-card-balance-report-controller API from Incentivio — 2 operation(s) for gift-card-balance-report-controller.
+- [Incentivio Gift Card Client Onboard Controller API](https://apis.io/apis/incentivio/incentivio-gift-card-client-onboard-controller-api/) — The gift-card-client-onboard-controller API from Incentivio — 6 operation(s) for gift-card-client-onboard-controller.
+- [Incentivio Gift Card Controller API](https://apis.io/apis/incentivio/incentivio-gift-card-controller-api/) — The gift-card-controller API from Incentivio — 25 operation(s) for gift-card-controller.
+- [Incentivio Gift Card Payment Controller API](https://apis.io/apis/incentivio/incentivio-gift-card-payment-controller-api/) — The gift-card-payment-controller API from Incentivio — 4 operation(s) for gift-card-payment-controller.
+- [Incentivio Gift Card Report Controller API](https://apis.io/apis/incentivio/incentivio-gift-card-report-controller-api/) — The gift-card-report-controller API from Incentivio — 3 operation(s) for gift-card-report-controller.
+- [Incentivio Group Controller API](https://apis.io/apis/incentivio/incentivio-group-controller-api/) — The group-controller API from Incentivio — 7 operation(s) for group-controller.
+- [Incentivio Guest Journey Controller API](https://apis.io/apis/incentivio/incentivio-guest-journey-controller-api/) — The guest-journey-controller API from Incentivio — 6 operation(s) for guest-journey-controller.
+- [Incentivio Guest Journey Report Controller API](https://apis.io/apis/incentivio/incentivio-guest-journey-report-controller-api/) — The guest-journey-report-controller API from Incentivio — 1 operation(s) for guest-journey-report-controller.
+- [Incentivio Guest Order Verification Controller API](https://apis.io/apis/incentivio/incentivio-guest-order-verification-controller-api/) — The guest-order-verification-controller API from Incentivio — 2 operation(s) for guest-order-verification-controller.
+- [Incentivio Home Controller API](https://apis.io/apis/incentivio/incentivio-home-controller-api/) — The home-controller API from Incentivio — 2 operation(s) for home-controller.
+- [Incentivio Im Here Controller API](https://apis.io/apis/incentivio/incentivio-im-here-controller-api/) — The im-here-controller API from Incentivio — 2 operation(s) for im-here-controller.
+- [Incentivio Item Controller API](https://apis.io/apis/incentivio/incentivio-item-controller-api/) — The item-controller API from Incentivio — 9 operation(s) for item-controller.
+- [Incentivio Job Status Controller API](https://apis.io/apis/incentivio/incentivio-job-status-controller-api/) — The job-status-controller API from Incentivio — 1 operation(s) for job-status-controller.
+- [Incentivio Location Controller API](https://apis.io/apis/incentivio/incentivio-location-controller-api/) — The location-controller API from Incentivio — 8 operation(s) for location-controller.
+- [Incentivio Loyalty Controller API](https://apis.io/apis/incentivio/incentivio-loyalty-controller-api/) — The loyalty-controller API from Incentivio — 7 operation(s) for loyalty-controller.
+- [Incentivio Loyalty Report Controller API](https://apis.io/apis/incentivio/incentivio-loyalty-report-controller-api/) — The loyalty-report-controller API from Incentivio — 18 operation(s) for loyalty-report-controller.
+- [Incentivio Media File Controller API](https://apis.io/apis/incentivio/incentivio-media-file-controller-api/) — The media-file-controller API from Incentivio — 1 operation(s) for media-file-controller.
+- [Incentivio Menu Import Controller API](https://apis.io/apis/incentivio/incentivio-menu-import-controller-api/) — The menu-import-controller API from Incentivio — 8 operation(s) for menu-import-controller.
+- [Incentivio Menu Intelligence Controller API](https://apis.io/apis/incentivio/incentivio-menu-intelligence-controller-api/) — The menu-intelligence-controller API from Incentivio — 4 operation(s) for menu-intelligence-controller.
+- [Incentivio Menu Search Pass Through Controller API](https://apis.io/apis/incentivio/incentivio-menu-search-pass-through-controller-api/) — The menu-search-pass-through-controller API from Incentivio — 2 operation(s) for menu-search-pass-through-controller.
+- [Incentivio Merchant Controller API](https://apis.io/apis/incentivio/incentivio-merchant-controller-api/) — The merchant-controller API from Incentivio — 2 operation(s) for merchant-controller.
+- [Incentivio Message Controller API](https://apis.io/apis/incentivio/incentivio-message-controller-api/) — The message-controller API from Incentivio — 5 operation(s) for message-controller.
+- [Incentivio Ml Controller API](https://apis.io/apis/incentivio/incentivio-ml-controller-api/) — The ml-controller API from Incentivio — 7 operation(s) for ml-controller.
+- [Incentivio Multilingual Message Controller API](https://apis.io/apis/incentivio/incentivio-multilingual-message-controller-api/) — The multilingual-message-controller API from Incentivio — 1 operation(s) for multilingual-message-controller.
+- [Incentivio Offer Distribution Controller API](https://apis.io/apis/incentivio/incentivio-offer-distribution-controller-api/) — The offer-distribution-controller API from Incentivio — 2 operation(s) for offer-distribution-controller.
+- [Incentivio Offers Controller API](https://apis.io/apis/incentivio/incentivio-offers-controller-api/) — The offers-controller API from Incentivio — 11 operation(s) for offers-controller.
+- [Incentivio Offers Report Controller API](https://apis.io/apis/incentivio/incentivio-offers-report-controller-api/) — The offers-report-controller API from Incentivio — 2 operation(s) for offers-report-controller.
+- [Incentivio Order Availability Controller API](https://apis.io/apis/incentivio/incentivio-order-availability-controller-api/) — The order-availability-controller API from Incentivio — 3 operation(s) for order-availability-controller.
+- [Incentivio Order Controller API](https://apis.io/apis/incentivio/incentivio-order-controller-api/) — The order-controller API from Incentivio — 26 operation(s) for order-controller.
+- [Incentivio Order Item Controller API](https://apis.io/apis/incentivio/incentivio-order-item-controller-api/) — The order-item-controller API from Incentivio — 5 operation(s) for order-item-controller.
+- [Incentivio Order Offers Controller API](https://apis.io/apis/incentivio/incentivio-order-offers-controller-api/) — The order-offers-controller API from Incentivio — 5 operation(s) for order-offers-controller.
+- [Incentivio Order Payment Controller API](https://apis.io/apis/incentivio/incentivio-order-payment-controller-api/) — The order-payment-controller API from Incentivio — 6 operation(s) for order-payment-controller.
+- [Incentivio Package Controller API](https://apis.io/apis/incentivio/incentivio-package-controller-api/) — The package-controller API from Incentivio — 2 operation(s) for package-controller.
+- [Incentivio Passwordless Auth Controller API](https://apis.io/apis/incentivio/incentivio-passwordless-auth-controller-api/) — The passwordless-auth-controller API from Incentivio — 2 operation(s) for passwordless-auth-controller.
+- [Incentivio Payments Controller API](https://apis.io/apis/incentivio/incentivio-payments-controller-api/) — The payments-controller API from Incentivio — 2 operation(s) for payments-controller.
+- [Incentivio Persona Controller API](https://apis.io/apis/incentivio/incentivio-persona-controller-api/) — The persona-controller API from Incentivio — 1 operation(s) for persona-controller.
+- [Incentivio Preset Order Controller API](https://apis.io/apis/incentivio/incentivio-preset-order-controller-api/) — The preset-order-controller API from Incentivio — 3 operation(s) for preset-order-controller.
+- [Incentivio Recaptcha Controller API](https://apis.io/apis/incentivio/incentivio-recaptcha-controller-api/) — The recaptcha-controller API from Incentivio — 1 operation(s) for recaptcha-controller.
+- [Incentivio Recommendation Report Controller API](https://apis.io/apis/incentivio/incentivio-recommendation-report-controller-api/) — The recommendation-report-controller API from Incentivio — 4 operation(s) for recommendation-report-controller.
+- [Incentivio Refunds Controller API](https://apis.io/apis/incentivio/incentivio-refunds-controller-api/) — The refunds-controller API from Incentivio — 2 operation(s) for refunds-controller.
+- [Incentivio Report Controller API](https://apis.io/apis/incentivio/incentivio-report-controller-api/) — The report-controller API from Incentivio — 36 operation(s) for report-controller.
+- [Incentivio Role Module Permission Controller API](https://apis.io/apis/incentivio/incentivio-role-module-permission-controller-api/) — The role-module-permission-controller API from Incentivio — 6 operation(s) for role-module-permission-controller.
+- [Incentivio Sales Report Controller API](https://apis.io/apis/incentivio/incentivio-sales-report-controller-api/) — The sales-report-controller API from Incentivio — 4 operation(s) for sales-report-controller.
+- [Incentivio Secure Signature Controller API](https://apis.io/apis/incentivio/incentivio-secure-signature-controller-api/) — The secure-signature-controller API from Incentivio — 1 operation(s) for secure-signature-controller.
+- [Incentivio Segment Controller API](https://apis.io/apis/incentivio/incentivio-segment-controller-api/) — The segment-controller API from Incentivio — 5 operation(s) for segment-controller.
+- [Incentivio Sms Reports Controller API](https://apis.io/apis/incentivio/incentivio-sms-reports-controller-api/) — The sms-reports-controller API from Incentivio — 4 operation(s) for sms-reports-controller.
+- [Incentivio Spreedly Connector Controller API](https://apis.io/apis/incentivio/incentivio-spreedly-connector-controller-api/) — The spreedly-connector-controller API from Incentivio — 2 operation(s) for spreedly-connector-controller.
+- [Incentivio Spreedly Payment Gateway Controller API](https://apis.io/apis/incentivio/incentivio-spreedly-payment-gateway-controller-api/) — The spreedly-payment-gateway-controller API from Incentivio — 2 operation(s) for spreedly-payment-gateway-controller.
+- [Incentivio Store Controller API](https://apis.io/apis/incentivio/incentivio-store-controller-api/) — The store-controller API from Incentivio — 13 operation(s) for store-controller.
+- [Incentivio Sub Item Controller API](https://apis.io/apis/incentivio/incentivio-sub-item-controller-api/) — The sub-item-controller API from Incentivio — 4 operation(s) for sub-item-controller.
+- [Incentivio Survey Answer Controller API](https://apis.io/apis/incentivio/incentivio-survey-answer-controller-api/) — The survey-answer-controller API from Incentivio — 2 operation(s) for survey-answer-controller.
+- [Incentivio Survey Controller API](https://apis.io/apis/incentivio/incentivio-survey-controller-api/) — The survey-controller API from Incentivio — 1 operation(s) for survey-controller.
+- [Incentivio Tablet App Compatibility Controller API](https://apis.io/apis/incentivio/incentivio-tablet-app-compatibility-controller-api/) — The tablet-app-compatibility-controller API from Incentivio — 1 operation(s) for tablet-app-compatibility-controller.
+- [Incentivio Total Controller API](https://apis.io/apis/incentivio/incentivio-total-controller-api/) — The total-controller API from Incentivio — 2 operation(s) for total-controller.
+- [Incentivio Transaction Controller API](https://apis.io/apis/incentivio/incentivio-transaction-controller-api/) — The transaction-controller API from Incentivio — 2 operation(s) for transaction-controller.
+- [Incentivio Transactions Controller API](https://apis.io/apis/incentivio/incentivio-transactions-controller-api/) — The transactions-controller API from Incentivio — 1 operation(s) for transactions-controller.
+- [Incentivio User Controller API](https://apis.io/apis/incentivio/incentivio-user-controller-api/) — The user-controller API from Incentivio — 22 operation(s) for user-controller.
+- [Incentivio Wallet Controller API](https://apis.io/apis/incentivio/incentivio-wallet-controller-api/) — The wallet-controller API from Incentivio — 3 operation(s) for wallet-controller.
+- [Incentivio Web App Config Controller API](https://apis.io/apis/incentivio/incentivio-web-app-config-controller-api/) — The web-app-config-controller API from Incentivio — 1 operation(s) for web-app-config-controller.
+- [Incentivio o auth 2 controller API](https://apis.io/apis/incentivio/incentivio-o-auth-2-controller-api/) — The o auth 2 controller API from Incentivio — 1 operation(s) for o auth 2 controller.
 
-- **Created:** 2026-06-02
-- **Modified:** 2026-06-02
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Incentivio Connect Platform API
+#### AsyncAPI (1)
 
-Incentivio describes an API-first, composable data platform that unifies guest data across POS, loyalty, app, web, and marketplace channels into a single persistent Guest ID, with reverse ETL to sync to existing CRM and ad platforms. Real-time streaming and structured batch ETL process loyalty and digital events alongside structured POS data for guest scoring and segmentation. The platform is BigQuery-native with a Star Schema data model. Public API reference, base URL, and authentication details are not published; access is provided through partner and enterprise integration programs, with API SLAs offered on the Connect Enterprise tier.
+Event-driven and webhook contracts.
 
-**Human URL:** [https://incentivio.com/feature/incentivio-connect/](https://incentivio.com/feature/incentivio-connect/)
+- [Incentivio Webhooks](https://apis.io/asyncapis/incentivio/incentivio-webhooks/)
 
-#### Tags:
+#### MCP servers (1)
 
- - Guest Data, Integrations, Reverse ETL
+Model Context Protocol servers that expose the API to agents.
 
-#### Properties
+- [Incentivio MCP server (candidate)](https://apis.io/servers/incentivio/incentivio-mcp-server-candidate/)
 
-- [Documentation](https://incentivio.com/feature/incentivio-connect/)
+#### Collections (2)
 
-## Common Properties
+Postman and Open Collection request collections.
+
+- [OpenAPI definition](https://apis.io/collections/incentivio/open-incentivio-admin-api/)
+- [OpenAPI definition](https://apis.io/collections/incentivio/open-incentivio-mobile-api/)
+
+#### Overlays (2)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Incentivio Admin Api Overlay](https://apis.io/overlays/incentivio/incentivio-admin-api-overlay/)
+- [Incentivio Mobile Api Overlay](https://apis.io/overlays/incentivio/incentivio-mobile-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Incentivio Authentication](https://apis.io/security/incentivio/incentivio-authentication/)
+- [Incentivio Domain Security](https://apis.io/security/incentivio/incentivio-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Incentivio Plans Pricing](https://apis.io/plans/incentivio/incentivio-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Incentivio Rate Limits](https://apis.io/rate-limits/incentivio/incentivio-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://incentivio.com/)
 - [Documentation](https://www.incentivio.com/integrations)
 - [Pricing](https://incentivio.com/demo/)
 - [Support](https://incentivio.com/contact/)
 - [Blog](https://incentivio.com/blog/)
-- [SignUp](https://admin.incentivio.com/)
-- [LinkedIn](https://www.linkedin.com/company/incentivio)
-- [X](https://x.com/incentivio)
+- [Terms of service](https://incentivio.com/terms-of-use/)
+- [Privacy policy](https://incentivio.com/privacy/)
 
-## Features
+## API Evangelist rating
 
-| Name | Description |
-|------|-------------|
-| Online Ordering | Branded web and native iOS/Android mobile ordering with menu, modifier, upsell recommendations, and gift card support. |
-| Loyalty | Configurable points, punch, or tier loyalty programs unified with ordering, marketing, and guest analytics. |
-| Marketing Automation | Email and SMS marketing automation driven by unified guest data and AI-derived segments. |
-| AI Guest Scoring | Continuous per-guest scoring for lifetime value, churn risk, visit frequency, journey stage, propensity-to-purchase, and offer sensitivity. |
-| Unified Guest Identity | One persistent Guest ID resolved across POS, app, web, and loyalty channels for a single guest record. |
-| Reverse ETL | Syncs unified guest records and scores back to existing CRM and ad platforms to fit the brand's existing stack. |
-| BigQuery-Native Data Warehouse | BigQuery-native platform with a Star Schema data model and direct warehouse access, optimized for enterprise-scale performance. |
-| Closed-Loop ROI Measurement | Executive and operator dashboards that tie AI capability to same-store sales growth with closed-loop measurement. |
+**Kin Score 41.9** — developing · rubric 0.25.0 · scored 2026-10-23
 
-## Use Cases
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 50.9 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 39.9 |
+| Access clarity | 39.5 |
 
-| Name | Description |
-|------|-------------|
-| Multi-Unit Restaurant Brands | Multi-unit and franchise restaurant brands consolidating ordering, loyalty, marketing, and analytics on a single platform. |
-| Guest Lifetime Value Growth | Identifying high-LTV and at-risk guests to target retention, frequency, and average-order-value campaigns. |
-| POS and Channel Data Unification | Unifying POS, loyalty, app, web, and marketplace data into a single guest record for analytics and personalization. |
+**Agent readiness 24.3** — agent-aware
 
-## Integrations
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | mostly |
 
-| Name | Description |
-|------|-------------|
-| Toast | POS integration with direct API access auto-syncing menus, modifiers, and rules. |
-| Square | POS integration for menu, order, and payment management. |
-| Clover | POS integration. |
-| Lightspeed | POS integration. |
-| Oracle MICROS Simphony | Enterprise POS integration. |
-| PAR Brink POS | POS integration. |
-| Qu POS | POS integration. |
-| Revel | POS integration automating menu imports. |
-| Silverware POS | POS integration. |
-| SpotOn | POS and engagement platform integration with automatic menu syncing. |
-| NCC | POS integration. |
-| Stripe | Payment processing integration. |
-| Braintree | Payment processing integration. |
-| Authorize.net | Payment processing integration. |
-| Heartland Payment Systems | Payment processing integration. |
-| Moneris | Payment processing integration. |
-| Spreedly | Payments orchestration integration. |
-| WorldPay | Payment processing integration. |
-| DoorDash Drive | Delivery dispatch integration. |
-| Uber | Delivery integration. |
-| dlivrd | Delivery dispatch integration. |
-| Shipday | Delivery dispatch integration. |
-| Otter | Delivery/marketplace aggregator integration. |
-| EatOkra | Discovery/marketplace aggregator integration. |
-| Ovation | Guest feedback integration. |
-| Tattle | Guest feedback and experience improvement integration. |
+**Regulatory alignment 26.8** — Payments
 
-## Solutions
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/incentivio/](https://apis.io/providers/incentivio/).
 
-| Name | Description |
-|------|-------------|
-| Connect Core | Unified data warehouse with executive dashboards and direct warehouse access. |
-| Connect Intelligence | Adds the full AI scoring suite (LTV, churn, propensity, offer sensitivity) and closed-loop measurement on top of Core. |
-| Connect Enterprise | Dedicated instance with custom data models, API SLAs, and white-glove implementation. |
+## How this profile is made
 
-## Maintainers
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-**FN:** Kin Lane
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Incentivio: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-**Email:** kin@apievangelist.com
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/incentivio/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
